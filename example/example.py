@@ -25,7 +25,7 @@ pp.__file__
 
 #%% example 1 - multiple object in one image
 
-in_dir = os.getcwd() + "\\phenopype\\example\\example1\\ex1_images"
+in_dir = "E:\\Python1\\phenopype\\example\\example1\\ex1_images"
 
 proj = pp.project()    
 proj.project_maker("example1", in_dir=in_dir)
