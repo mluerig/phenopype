@@ -17,7 +17,7 @@ import phenopype as pp
 
 import os
 import cv2
-os.chdir("E:\\python1\\phenopype")
+os.chdir("E:\\python1\\phenopype")cv2
 
 import phenopype as pp
 import importlib 
