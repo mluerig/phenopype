@@ -1,30 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-Last Update: 2018/10/07
-Version 0.4.5
+Last Update: 2018/11/28
+Version 0.4.7
 @author: Moritz Lürig
 """
 
-#%% 1) load modules
-
-import os
-import cv2
-import phenopype as pp
-
-
-
-#%% DEV_startup
-
-import os
-import cv2
-import numpy as np
-os.chdir("E:\\python1\\phenopype")
+#%% 1) load program
 
 import phenopype as pp
-import importlib 
-importlib.reload(pp)
-pp.__file__
-
 
 #%% 2) start project
 
@@ -118,7 +101,3 @@ for p, n in zip(proj.filepaths, proj.filenames):
     # save after every iteration
     of.save(image=of.drawn, df=of.df, save_to=proj.save_dir, overwrite=True)
     
-
-#%% debug
-
-cv2.destroyAllWindows()
