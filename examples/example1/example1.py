@@ -119,39 +119,6 @@ for p, n in zip(proj.filepaths, proj.filenames):
     of.save(image=of.drawn, df=of.df, save_to=proj.save_dir, overwrite=True)
     
 
-#%%
-    
-    
-img = proj.filepaths[0]
-
-scale = pp.scale_maker()
-scale.draw(image_path=img, length=10, unit="mm", mode="box")
-
-    
-
-
-
-
 #%% debug
-    
 
-cv2.namedWindow('window' ,cv2.WINDOW_NORMAL)
-cv2.imshow('window',  img2)
-cv2.waitKey(0)
 cv2.destroyAllWindows()
-
-target = cv2.imread(proj.filepaths[1])
-
-    
-    
-orb = cv2.ORB_create()
-kp1, des1 = orb.detectAndCompute(scale.image,scale.mask_det)
-kp2, des2 = orb.detectAndCompute(target,None)
-
-FLANN_INDEX_KDTREE = 0
-index_params = dict(algorithm = FLANN_INDEX_KDTREE, trees = 5)
-search_params = dict(checks = 50)
-flann = cv2.FlannBasedMatcher(index_params, search_params)
-des1 = np.asarray(des1, np.float32)
-des2 = np.asarray(des2, np.float32)
-matches = flann.knnMatch(des1,des2,k=2)
