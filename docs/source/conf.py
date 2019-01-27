@@ -19,8 +19,8 @@ sys.path.insert(0, os.path.abspath('../../'))
 # -- Project information -----------------------------------------------------
 
 project = 'phenopype'
-copyright = '2019, Moritz L'
-author = 'Moritz L'
+copyright = '2019, Moritz Lürig'
+author = 'Moritz Lürig'
 
 import phenopype
 
@@ -42,7 +42,6 @@ extensions = [
     'sphinx.ext.coverage',
 	'sphinx.ext.napoleon',
 	'sphinx.ext.githubpages'
-    
 ]
 
 # Add any paths that contain templates here, relative to this directory.
