@@ -33,6 +33,5 @@ goto end
 :end
 popd
 
-xcopy /s ./html .
-
+robocopy /move /e html %CD%
 
