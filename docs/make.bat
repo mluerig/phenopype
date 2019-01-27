@@ -9,7 +9,6 @@ if "%SPHINXBUILD%" == "" (
 )
 set SOURCEDIR=source
 set BUILDDIR=.
-
 if "%1" == "" goto help
 
 %SPHINXBUILD% >NUL 2>NUL
@@ -33,4 +32,7 @@ goto end
 
 :end
 popd
+
+xcopy /s ./html .
+
 
