@@ -126,11 +126,11 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>image</strong> (<em>array_like</em>) – image that contains your objects</li>
-<li><strong>mode</strong> (<em>str</em><em>(</em><em>&quot;single&quot;</em><em>, </em><em>&quot;multi&quot;</em><em>)</em>) – detection of single largest object or multiple</li>
 <li><strong>blur_kern</strong> (<em>int</em>) – kernel size, bigger kernels remove small structures (default: 99)</li>
 <li><strong>corr_factor</strong> (<em>int</em>) – factor (in px) to add to (positive int) or subtract from (negative int) object (default: 0)</li>
 <li><strong>gray_value_ref</strong> (<em>int</em><em> (</em><em>0-255</em><em>)</em>) – reference gray scale value to adjust the given picture’s histogram to</li>
+<li><strong>image</strong> (<em>array_like</em>) – image that contains your objects</li>
+<li><strong>mode</strong> (<em>str</em><em>(</em><em>&quot;single&quot;</em><em>, </em><em>&quot;multi&quot;</em><em>)</em>) – detection of single largest object or multiple</li>
 <li><strong>iterations</strong> (<em>int</em>) – needs to be specified if ‘adaptive’ thresholding is used (default: 3)</li>
 <li><strong>min_diam</strong> (<em>int</em>) – minimum diameter (longest distance in contour) in pixels for objects to be included (default: 0)</li>
 <li><strong>min_area</strong> (<em>int</em>) – minimum contour area in pixels for objects to be included (default: 0)</li>
@@ -171,43 +171,25 @@
 <code class="descname">draw</code><span class="sig-paren">(</span><em>image_path</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.polygon_maker.draw" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-<dl class="method">
-<dt id="phenopype.base.polygon_maker.on_mouse">
-<code class="descname">on_mouse</code><span class="sig-paren">(</span><em>event</em>, <em>x</em>, <em>y</em>, <em>buttons</em>, <em>user_param</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.polygon_maker.on_mouse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="class">
-<dt id="phenopype.base.project">
-<em class="property">class </em><code class="descclassname">phenopype.base.</code><code class="descname">project</code><a class="headerlink" href="#phenopype.base.project" title="Permalink to this definition">¶</a></dt>
+<dt id="phenopype.base.project_maker">
+<em class="property">class </em><code class="descclassname">phenopype.base.</code><code class="descname">project_maker</code><a class="headerlink" href="#phenopype.base.project_maker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Create project object where information from multiple image-analyses can be stored.
+Also creates project dataframe where information from single images can be stored.</p>
 <dl class="method">
-<dt id="phenopype.base.project.gray_scale_finder">
-<code class="descname">gray_scale_finder</code><span class="sig-paren">(</span><em>resize=0.25</em>, <em>write=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.project.gray_scale_finder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="phenopype.base.project.project_maker">
-<code class="descname">project_maker</code><span class="sig-paren">(</span><em>project_name</em>, <em>image_dir</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.project.project_maker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create project object where the results of the image analysis are saved.</p>
+<dt id="phenopype.base.project_maker.grayscale_finder">
+<code class="descname">grayscale_finder</code><span class="sig-paren">(</span><em>resize=0.25</em>, <em>write=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.project_maker.grayscale_finder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns median grayscale value from all images inside the project image directory.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>project_name</strong> – str
-name of your project</li>
-<li><strong>image_dir</strong> – str
-path to directory with images</li>
-<li><strong>exclude</strong> – list with str
-single or multiple string patterns to exclude certain files</li>
-<li><strong>mode</strong> – str (“tree”, “dir”)
-tree mode loops through all subdirectories of the tree, dir only takes valid files from upper directory</li>
-<li><strong>resize</strong> – int (&gt;0 - 1)
-global resizing of images to increase performance (1=original size)</li>
-<li><strong>save_dir</strong> – str
-path to directory where processed images and measurements are saved</li>
+<li><strong>resize</strong> (<em>in</em><em> (</em><em>0.1-1</em><em>)</em>) – resize image to increase speed</li>
+<li><strong>write</strong> (<em>bool</em><em>, </em><em>default False</em>) – write median grayscale to project dataframe</li>
 </ul>
 </td>
 </tr>
@@ -216,9 +198,44 @@ path to directory where processed images and measurements are saved</li>
 </dd></dl>
 
 <dl class="method">
-<dt id="phenopype.base.project.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.project.save" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="phenopype.base.project_maker.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>project_name='my_project'</em>, <em>image_dir='my_directory'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.project_maker.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize project maker.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>project_name</strong> (<em>str</em>) – name of your project</li>
+<li><strong>image_dir</strong> (<em>str</em>) – path to directory with images</li>
+<li><strong>include</strong> – single or multiple string patterns to target certain files to include - can be used together with exclude</li>
+<li><strong>exclude</strong> (<em>list with str</em>) – single or multiple string patterns to target certain files to include - can be used together with include</li>
+<li><strong>mode</strong> (<em>str</em><em> (</em><em>&quot;tree&quot;</em><em>, </em><em>&quot;dir&quot;</em><em>)</em>) – tree mode loops through all subdirectories of the tree, dir only takes valid files from upper directory</li>
+<li><strong>save_dir</strong> (<em>str</em>) – path to directory where processed images and measurements are saved</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.base.project_maker.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.project_maker.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save project dataframe as .txt to directory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>append</strong> (<em>str</em>) – append given project name with suffix</li>
+<li><strong>overwrite</strong> (<em>bool</em><em>, </em><em>default False</em>) – overwrite an existing .txt-file</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
 
 </dd></dl>
 
@@ -226,7 +243,7 @@ path to directory where processed images and measurements are saved</li>
 <dt id="phenopype.base.scale_maker">
 <em class="property">class </em><code class="descclassname">phenopype.base.</code><code class="descname">scale_maker</code><a class="headerlink" href="#phenopype.base.scale_maker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Makes the scale</p>
+<p>Define and retrieve a colour or millimeter scale inside an image.</p>
 <dl class="method">
 <dt id="phenopype.base.scale_maker.detect">
 <code class="descname">detect</code><span class="sig-paren">(</span><em>image_path</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker.detect" title="Permalink to this definition">¶</a></dt>
@@ -235,17 +252,6 @@ path to directory where processed images and measurements are saved</li>
 <dl class="method">
 <dt id="phenopype.base.scale_maker.grab">
 <code class="descname">grab</code><span class="sig-paren">(</span><em>image_path</em>, <em>length</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker.grab" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="phenopype.base.scale_maker.on_mouse_step1">
-<code class="descname">on_mouse_step1</code><span class="sig-paren">(</span><em>event</em>, <em>x</em>, <em>y</em>, <em>buttons</em>, <em>user_param</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker.on_mouse_step1" title="Permalink to this definition">¶</a></dt>
-<dd><p>controls mouse events.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="phenopype.base.scale_maker.on_mouse_step2">
-<code class="descname">on_mouse_step2</code><span class="sig-paren">(</span><em>event</em>, <em>x</em>, <em>y</em>, <em>buttons</em>, <em>user_param</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker.on_mouse_step2" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

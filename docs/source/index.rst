@@ -1,16 +1,48 @@
-*phenopype - a phenotyping pipeline for python*
-=======================================================
+phenopype - API reference
+======================================================
 
-UNDER CONSTRUCTION
-=======================================================
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
 
-.. toctree::
-   :maxdepth: 1
 
-   base
+
+project_maker
+------------------------------------------------------
+
+.. autoclass:: phenopype.base.project_maker
+    :members: 
+    :undoc-members:
+  
+  
+  
+scale_maker
+------------------------------------------------------
+
+.. autoclass:: phenopype.base.scale_maker
+    :members: 
+    :undoc-members:
+
+
+
+polygon_maker
+------------------------------------------------------
+
+.. autoclass:: phenopype.base.polygon_maker
+    :members: 
+    :undoc-members:  
+    
+    
+    
+object_finder
+------------------------------------------------------
+
+.. autoclass:: phenopype.base.object_finder
+    :members: 
+    :undoc-members:
+
+
+
 
 
 
