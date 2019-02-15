@@ -1,6 +1,8 @@
 phenopype - API reference
 ======================================================
 
+So far I have only managed to put together an API reference list for the basic functions. What is still missing are the tracking and landmarking methods. Will follow soon. 
+
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
@@ -40,6 +42,18 @@ object_finder
 .. autoclass:: phenopype.base.object_finder
     :members: 
     :undoc-members:
+
+	
+save_csv
+------------------------------------------------------
+
+.. autofunction:: phenopype.utils.save_csv
+
+
+save_img
+------------------------------------------------------
+
+.. autofunction:: phenopype.utils.save_img
 
 
 
