@@ -1,7 +1,7 @@
 phenopype - API reference
 ======================================================
 
-So far I have only managed to put together an API reference list for the basic functions. What is still missing are the tracking and landmarking methods. Will follow soon. 
+So far I have only managed to put together an API reference list for the basic functions. What is still missing are the tracking methods, and all utility function. Will follow soon. 
 
 * :ref:`genindex`
 * :ref:`modindex`
@@ -31,6 +31,13 @@ polygon_maker
 ------------------------------------------------------
 
 .. autoclass:: phenopype.base.polygon_maker
+    :members: 
+    :undoc-members:  
+    
+landmark_maker
+------------------------------------------------------
+
+.. autoclass:: phenopype.landmarks.landmark_maker
     :members: 
     :undoc-members:  
     

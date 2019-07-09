@@ -34,6 +34,13 @@ polygon_maker
     :members: 
     :undoc-members:  
     
+landmark_maker
+------------------------------------------------------
+
+.. autoclass:: phenopype.landmarks.landmark_maker
+    :members: 
+    :undoc-members:  
+    
     
     
 object_finder
