@@ -2,9 +2,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>phenopype - API reference &#8212; phenopype 0.7.2 documentation</title>
+    <meta charset="utf-8" />
+    <title>phenopype - API reference &#8212; phenopype 0.8.0 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -12,16 +11,16 @@
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/language_data.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="_static/js/jquery-fix.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="_static/bootstrap-sphinx.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
 <meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
 
   </head><body>
 
@@ -36,7 +35,7 @@
         </button>
         <a class="navbar-brand" href="#">
           phenopype</a>
-        <span class="navbar-text navbar-version pull-left"><b>0.7.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>0.8.0</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -68,9 +67,11 @@
 <li><a class="reference internal" href="#">phenopype - API reference</a><ul>
 <li><a class="reference internal" href="#project-maker">project_maker</a></li>
 <li><a class="reference internal" href="#scale-maker">scale_maker</a></li>
-<li><a class="reference internal" href="#polygon-maker">polygon_maker</a></li>
-<li><a class="reference internal" href="#landmark-maker">landmark_maker</a></li>
+<li><a class="reference internal" href="#mask-maker">mask_maker</a></li>
 <li><a class="reference internal" href="#object-finder">object_finder</a></li>
+<li><a class="reference internal" href="#landmark-maker">landmark_maker</a></li>
+<li><a class="reference internal" href="#motion-tracker">motion_tracker</a></li>
+<li><a class="reference internal" href="#tracking-method">tracking_method</a></li>
 <li><a class="reference internal" href="#save-csv">save_csv</a></li>
 <li><a class="reference internal" href="#save-img">save_img</a></li>
 </ul>
@@ -112,38 +113,45 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-12 content">
+    <div class="body col-md-12 content" role="main">
       
   <div class="section" id="phenopype-api-reference">
 <h1>phenopype - API reference<a class="headerlink" href="#phenopype-api-reference" title="Permalink to this headline">¶</a></h1>
 <p>So far I have only managed to put together an API reference list for the basic functions. What is still missing are the tracking methods, and all utility function. Will follow soon.</p>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 <div class="section" id="project-maker">
 <h2>project_maker<a class="headerlink" href="#project-maker" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="phenopype.base.project_maker">
-<em class="property">class </em><code class="descclassname">phenopype.base.</code><code class="descname">project_maker</code><span class="sig-paren">(</span><em>image_dir</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.project_maker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create project object where lists of filenames and filepaths are stored.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image_dir</strong> (<em>str</em>) – path to directory with images</li>
-<li><strong>project_name</strong> (<em>str</em><em> (</em><em>&quot;My project</em><em>, </em><em>-current date-&quot;</em><em>)</em>) – name of your project</li>
-<li><strong>mode</strong> (<em>str</em><em> (</em><em>&quot;dir&quot;</em><em>)</em>) – “dir” searches current directory for valid files; “tree” walks through all subdirectories</li>
-<li><strong>filetypes</strong> (<em>list</em>) – single or multiple string patterns to target files with certain endings</li>
-<li><strong>include</strong> (<em>list</em>) – single or multiple string patterns to target certain files to include - can be used together with exclude</li>
-<li><strong>exclude</strong> (<em>list</em>) – single or multiple string patterns to target certain files to include - can be used together with include</li>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.base.</code><code class="sig-name descname">project_maker</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.project_maker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize a phenopype project with a name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em><em> (</em><em>default: &quot;My project</em><em>, </em><em>-current date-&quot;</em><em>)</em>) – name of your project</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="phenopype.base.project_maker.add_files">
+<code class="sig-name descname">add_files</code><span class="sig-paren">(</span><em class="sig-param">image_dir</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.project_maker.add_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add files to your project from a directory, can look recursively.
+Optional: specify a search string for filenames or file extensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_dir</strong> (<em>str</em>) – path to directory with images</p></li>
+<li><p><strong>search_mode</strong> (<em>str</em><em> (</em><em>default: &quot;dir&quot;</em><em>)</em>) – “dir” searches current directory for valid files; “recursive” walks through all subdirectories</p></li>
+<li><p><strong>filetypes</strong> (<em>list</em>) – single or multiple string patterns to target files with certain endings</p></li>
+<li><p><strong>include</strong> (<em>list</em>) – single or multiple string patterns to target certain files to include - can be used together with exclude</p></li>
+<li><p><strong>exclude</strong> (<em>list</em>) – single or multiple string patterns to target certain files to include - can be used together with include</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -151,75 +159,143 @@
 <h2>scale_maker<a class="headerlink" href="#scale-maker" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="phenopype.base.scale_maker">
-<em class="property">class </em><code class="descclassname">phenopype.base.</code><code class="descname">scale_maker</code><span class="sig-paren">(</span><em>image</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Scale maker class, measures the pixel-mm ratio of an image, creates objects and stores relevant information there that can be inherited to the “detect” method.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of image containing the template</li>
-<li><strong>value</strong> (<em>int</em><em> (</em><em>default: 10</em><em>)</em>) – distance to measure between two points</li>
-<li><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;rectangle&quot;</em><em>)</em>) – grab the scale with a polygon or a box</li>
-<li><strong>zoom</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – zoom into the scale after drawin it for higher accuracy</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.base.</code><code class="sig-name descname">scale_maker</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initiate scale maker with an image containing a size-reference card. Make_scale measures
+the pixel-mm ratio of a reference card, detect_scale can attempt to find the specified card
+in other images.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of image containing the reference card</p>
+</dd>
+</dl>
 <dl class="method">
-<dt id="phenopype.base.scale_maker.detect">
-<code class="descname">detect</code><span class="sig-paren">(</span><em>image</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker.detect" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find scale from a defined template inside an image and update pixel ratio. Feature detection is run by the AKAZE algorithm (<a class="reference external" href="http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf">http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf</a>).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of image containing the scale</li>
-<li><strong>show</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – show result of scale detection procedure on current image</li>
-<li><strong>resize</strong> (<em>num</em><em> (</em><em>optional</em><em>, </em><em>default: 1</em><em>)</em>) – resize image to speed up detection process (WARNING: too low values may result in poor detection results or even crashes)</li>
+<dt id="phenopype.base.scale_maker.measure_scale">
+<code class="sig-name descname">measure_scale</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker.measure_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure the pixel-to-mm-ratio of a reference card inside an image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>zoom_factor</strong> (<em>int &gt; 0</em><em> (</em><em>default: 5</em><em>)</em>) – factor by which to magnify on scrollwheel use</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.base.scale_maker.make_scale_template">
+<code class="sig-name descname">make_scale_template</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker.make_scale_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make a template of a reference card inside an image for automatic detection and colour-correction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>zoom_factor</strong> (<em>int &gt; 0</em><em> (</em><em>default: 5</em><em>)</em>) – factor by which to magnify on scrollwheel use</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;rectangle&quot;</em><em>)</em>) – options: “rectangle” or “polygon”; draw the template with a bounding-polygon or a bounding-rectangle</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – show the resulting template with an overlay</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.base.scale_maker.detect_scale">
+<code class="sig-name descname">detect_scale</code><span class="sig-paren">(</span><em class="sig-param">target_image</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.scale_maker.detect_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find scale from a defined template inside an image and update pixel ratio. Image registration is run by the “AKAZE” algorithm
+(<a class="reference external" href="http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf">http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf</a>). Future implementations will include more algorithms to select from.
+Prior to running detect_scale, measure_scale and make_scale_template have to be run once to pass on reference scale size and template of
+scale reference card (gets passed on internally by calling detect_scale from the same instance of scale_maker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>target_image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of targeted image that contains the scale reference card</p></li>
+<li><p><strong>resize</strong> (<em>num</em><em> (</em><em>optional</em><em>, </em><em>default: 1</em><em> or </em><em>0.5 for images with diameter &gt; 5000px</em><em>)</em>) – resize image to speed up detection process (WARNING: too low values may result in poor detection results or even crashes)</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – show result of scale detection procedure on current image</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
 
 </div>
-<div class="section" id="polygon-maker">
-<h2>polygon_maker<a class="headerlink" href="#polygon-maker" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="mask-maker">
+<h2>mask_maker<a class="headerlink" href="#mask-maker" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="phenopype.base.polygon_maker">
-<em class="property">class </em><code class="descclassname">phenopype.base.</code><code class="descname">polygon_maker</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.polygon_maker" title="Permalink to this definition">¶</a></dt>
-<dd><p>Intialize polygon maker, loads image.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of image</td>
-</tr>
-</tbody>
-</table>
+<dt id="phenopype.base.mask_maker">
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.base.</code><code class="sig-name descname">mask_maker</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.mask_maker" title="Permalink to this definition">¶</a></dt>
+<dd><p>Intialize mask maker, loads image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of image</p>
+</dd>
+</dl>
 <dl class="method">
-<dt id="phenopype.base.polygon_maker.draw">
-<code class="descname">draw</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.polygon_maker.draw" title="Permalink to this definition">¶</a></dt>
-<dd><p>Polygon maker method to draw rectangle or polygon mask onto image.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>include</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – determine whether resulting mask is to include or exclude objects within</li>
-<li><strong>label</strong> (<em>str</em><em> (</em><em>default: &quot;area1&quot;</em><em>)</em>) – passes a label to the mask</li>
-<li><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;rectangle&quot;</em><em>)</em>) – zoom into the scale with “rectangle” or “polygon”.</li>
+<dt id="phenopype.base.mask_maker.draw_mask">
+<code class="sig-name descname">draw_mask</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.mask_maker.draw_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – determine whether resulting mask is to include or exclude objects within</p></li>
+<li><p><strong>label</strong> (<em>str</em><em> (</em><em>default: &quot;area1&quot;</em><em>)</em>) – passes a label to the mask</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;rectangle&quot;</em><em>)</em>) – zoom into the scale with “rectangle” or “polygon”.</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="object-finder">
+<h2>object_finder<a class="headerlink" href="#object-finder" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="phenopype.base.object_finder">
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.base.</code><code class="sig-name descname">object_finder</code><span class="sig-paren">(</span><em class="sig-param">image</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.object_finder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize object finder class, loads image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of image containing the objects</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="phenopype.base.object_finder.find_objects">
+<code class="sig-name descname">find_objects</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.object_finder.find_objects" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method in object finder class: find objects in colour or grayscale images using thresholding</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>method</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;otsu&quot;</em><em>]</em><em>)</em>) – <dl class="simple">
+<dt>determines the type of thresholding:</dt><dd><ul>
+<li><p>”binary” needs an interger for the threshold value (default: 127),</p></li>
+<li><p>”adaptive” needs odd integer for blocksize (default: 99) and constant to be subtracted (default 1)</p></li>
+<li><p>for more info see <a class="reference external" href="https://docs.opencv.org/3.4.4/d7/d4d/tutorial_py_thresholding.html">https://docs.opencv.org/3.4.4/d7/d4d/tutorial_py_thresholding.html</a></p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>operations</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;diameter&quot;</em><em>, </em><em>&quot;area&quot;</em><em>]</em><em>)</em>) – <dl class="simple">
+<dt>determines the type of operations to be performed on the detected objects:</dt><dd><ul>
+<li><p>”diameter” of the bounding circle of our object</p></li>
+<li><p>”area” within the contour of our object</p></li>
+<li><p>”grayscale” mean and standard deviation of grayscale pixel values inside the object contours</p></li>
+<li><p>”bgr” mean and standard deviation of blue, green and red pixel values inside the object contours</p></li>
+<li><p>”skeletonize” attempts to transform object into a skeleton form using the technique of Zhang-Suen. WARNING: can be slow for large objects</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>scale</strong> (<em>num</em><em> (</em><em>1</em><em>)</em>) – pixel to mm-ratio</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;multiple&quot;</em><em>)</em>) – detect all, or only [“single”] largest object or multiple</p></li>
+<li><p><strong>mask</strong> (<em>list</em>) – phenoype mask-objects (lists of boolean mask, label, and include-argument) to include or exclude an area from the procedure</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – display the detection results</p></li>
+<li><p><strong>blur1</strong> (<em>int</em>) – first pass blurring kernel size (before thresholding)</p></li>
+<li><p><strong>blur2</strong> (<em>list</em>) – second pass blurring kernel size (after thresholding) and binary thresholding value (default 127)</p></li>
+<li><p><strong>min_diam</strong> (<em>int</em>) – minimum diameter (longest distance in contour) in pixels for objects to be included (default: 0)</p></li>
+<li><p><strong>min_area</strong> (<em>int</em>) – minimum contour area in pixels for objects to be included (default: 0)</p></li>
+<li><p><strong>corr_factor</strong> (<em>int</em>) – factor (in px) to add to (positive int) or subtract from (negative int) object (default: 0)</p></li>
+<li><p><strong>resize</strong> (<em>in</em><em> (</em><em>0.1-1</em><em>)</em>) – resize image to speed up detection process - usually not recommended</p></li>
+<li><p><strong>gray_value_ref</strong> (<em>int</em><em> (</em><em>0-255</em><em>)</em>) – reference gray scale value to adjust the given picture’s histogram to</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>
@@ -229,105 +305,137 @@
 <h2>landmark_maker<a class="headerlink" href="#landmark-maker" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
 <dt id="phenopype.landmarks.landmark_maker">
-<em class="property">class </em><code class="descclassname">phenopype.landmarks.</code><code class="descname">landmark_maker</code><span class="sig-paren">(</span><em>image</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.landmarks.landmark_maker" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.landmarks.</code><code class="sig-name descname">landmark_maker</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.landmarks.landmark_maker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Intialize landmarks_maker, loads image.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of image</li>
-<li><strong>scale</strong> (<em>num</em><em> (</em><em>1</em><em>)</em>) – pixel to mm-ratio</li>
-<li><strong>ID</strong> (<em>str</em><em> (</em><em>NA</em><em>)</em>) – specimen ID; “query” is special flag for user entry</li>
-<li><strong>point_size</strong> (<em>num</em><em> (</em><em>1/300 of image diameter</em><em>)</em>) – size of the landmarks on the image in pixels</li>
-<li><strong>point_col</strong> (<em>value</em><em> (</em><em>red</em><em>)</em>) – colour of landmark (red, green, blue, black, white)</li>
-<li><strong>label_size</strong> (<em>num</em><em> (</em><em>1/1500 of image diamter</em><em>)</em>) – size of the numeric landmark label in pixels</li>
-<li><strong>label_col</strong> (<em>value</em><em> (</em><em>black</em><em>)</em>) – colour of label (red, green, blue, black, white)</li>
-<li><strong>draw_line</strong> (<em>bool</em><em> (</em><em>False</em><em>)</em>) – flag to draw arc and measure it’s length</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of image</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="phenopype.landmarks.landmark_maker.set_landmarks">
+<code class="sig-name descname">set_landmarks</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.landmarks.landmark_maker.set_landmarks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set landmarks, with option to measure length and enter specimen ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>scale</strong> (<em>num</em><em> (</em><em>default: 1</em><em>)</em>) – pixel to mm-ratio</p></li>
+<li><p><strong>ID</strong> (<em>str</em><em> (</em><em>default: NA</em><em>)</em>) – specimen ID; “query” is special flag for user entry</p></li>
+<li><p><strong>draw_line</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – flag to draw arc and measure it’s length</p></li>
+<li><p><strong>zoom_factor</strong> (<em>int</em><em> (</em><em>default 5</em><em>)</em>) – magnification factor on mousewheel use</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – display the set landmarks</p></li>
+<li><p><strong>point_size</strong> (<em>num</em><em> (</em><em>default: 1/300 of image diameter</em><em>)</em>) – size of the landmarks on the image in pixels</p></li>
+<li><p><strong>point_col</strong> (<em>value</em><em> (</em><em>default: red</em><em>)</em>) – colour of landmark (red, green, blue, black, white)</p></li>
+<li><p><strong>label_size</strong> (<em>num</em><em> (</em><em>1/1500 of image diamter</em><em>)</em>) – size of the numeric landmark label in pixels</p></li>
+<li><p><strong>label_col</strong> (<em>value</em><em> (</em><em>default: black</em><em>)</em>) – colour of label (red, green, blue, black, white)</p></li>
 </ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last"><ul class="simple">
-<li><em>.df = pandas data frame with landmarks (and arc-length, if selected)</em></li>
-<li><em>.drawn = image array with drawn landmarks (and lines)</em></li>
-<li><em>.ID = provided specimen ID</em></li>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>.df = pandas data frame with landmarks (and arc-length, if selected)</em></p></li>
+<li><p><em>.drawn = image array with drawn landmarks (and lines)</em></p></li>
+<li><p><em>.ID = provided specimen ID</em></p></li>
 </ul>
 </p>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="phenopype.landmarks.landmark_maker.draw">
-<code class="descname">draw</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.landmarks.landmark_maker.draw" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
 </div>
-<div class="section" id="object-finder">
-<h2>object_finder<a class="headerlink" href="#object-finder" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="motion-tracker">
+<h2>motion_tracker<a class="headerlink" href="#motion-tracker" title="Permalink to this headline">¶</a></h2>
 <dl class="class">
-<dt id="phenopype.base.object_finder">
-<em class="property">class </em><code class="descclassname">phenopype.base.</code><code class="descname">object_finder</code><span class="sig-paren">(</span><em>image</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.object_finder" title="Permalink to this definition">¶</a></dt>
-<dd><p>Initialize object finder class, loads image.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>image</strong> (<em>str</em><em> or </em><em>array</em>) – absolute or relative path to OR numpy array of image containing the objects</td>
-</tr>
-</tbody>
-</table>
-<dl class="method">
-<dt id="phenopype.base.object_finder.find_objects">
-<code class="descname">find_objects</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.base.object_finder.find_objects" title="Permalink to this definition">¶</a></dt>
-<dd><p>Method in object finder class: find objects in colour or grayscale images using thresholding</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>thresholding</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;otsu&quot;</em><em>]</em><em>)</em>) – <dl class="docutils">
-<dt>determines the type of thresholding:</dt>
-<dd><ul class="first last">
-<li>”binary” needs an interger for the threshold value (default: 127),</li>
-<li>”adaptive” needs odd integer for blocksize (default: 99) and constant to be subtracted (default 1)</li>
-<li>for more info see <a class="reference external" href="https://docs.opencv.org/3.4.4/d7/d4d/tutorial_py_thresholding.html">https://docs.opencv.org/3.4.4/d7/d4d/tutorial_py_thresholding.html</a></li>
+<dt id="phenopype.tracking.motion_tracker">
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">motion_tracker</code><span class="sig-paren">(</span><em class="sig-param">video_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="phenopype.tracking.motion_tracker.video_output">
+<code class="sig-name descname">video_output</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker.video_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties of output video file. Most settings can be left at their default value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>video_format</strong> (<em>str</em><em> (</em><em>default: &quot;DIVX&quot;</em><em>)</em>) – format of the output video file. needs to be a “fourcc”-string: <a class="reference external" href="https://www.fourcc.org/codecs.php">https://www.fourcc.org/codecs.php</a></p></li>
+<li><p><strong>name</strong> (<em>str</em><em> (</em><em>defaut: input filename + &quot;_out&quot; + input extension</em><em>)</em>) – name for the output video file</p></li>
+<li><p><strong>save_dir</strong> (<em>str</em><em> (</em><em>default: directory of input file</em><em>)</em>) – save directory for the output video file. will be created if not existing</p></li>
+<li><p><strong>fps</strong> (<em>int</em><em> (</em><em>default: input fps</em><em>)</em>) – frames per second of the output video file</p></li>
+<li><p><strong>dimensions</strong> (<em>tuple</em><em> (</em><em>default: input dimensions</em><em>)</em>) – dimensions (width, length) of the output video file</p></li>
+<li><p><strong>resize</strong> (<em>int</em><em> (</em><em>default: 1</em><em> [</em><em>no resize</em><em>]</em><em>)</em>) – factor by which to resize the output video dimensions</p></li>
+<li><p><strong>save_colour</strong> (<em>bool</em><em> (</em><em>default: reads input file</em><em>)</em>) – should the saved video frames be in colour</p></li>
+<li><p><strong>save_video</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – should an output video file be saved</p></li>
 </ul>
 </dd>
 </dl>
-</li>
-<li><strong>operations</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;diameter&quot;</em><em>, </em><em>&quot;area&quot;</em><em>]</em><em>)</em>) – <dl class="docutils">
-<dt>determines the type of operations to be performed on the detected objects:</dt>
-<dd><ul class="first last">
-<li>”diameter” of the bounding circle of our object</li>
-<li>”area” within the contour of our object</li>
-<li>”grayscale” mean and standard deviation of grayscale pixel values inside the object contours</li>
-<li>”bgr” mean and standard deviation of blue, green and red pixel values inside the object contours</li>
-<li>”skeletonize” attempts to transform object into a skeleton form using the technique of Zhang-Suen. WARNING: can be slow for large objects</li>
-</ul>
-</dd>
-</dl>
-</li>
-<li><strong>scale</strong> (<em>num</em><em> (</em><em>1</em><em>)</em>) – pixel to mm-ratio</li>
-<li><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;multiple&quot;</em><em>)</em>) – detect all, or only [“single”] largest object or multiple</li>
-<li><strong>mask</strong> (<em>list</em>) – phenoype mask-objects (lists of boolean mask, label, and include-argument) to include or exclude an area from the procedure</li>
-<li><strong>show</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – display the detection results</li>
-<li><strong>blur1</strong> (<em>int</em>) – first pass blurring kernel size (before thresholding)</li>
-<li><strong>blur2</strong> (<em>list</em>) – second pass blurring kernel size (after thresholding) and binary thresholding value (default 127)</li>
-<li><strong>min_diam</strong> (<em>int</em>) – minimum diameter (longest distance in contour) in pixels for objects to be included (default: 0)</li>
-<li><strong>min_area</strong> (<em>int</em>) – minimum contour area in pixels for objects to be included (default: 0)</li>
-<li><strong>corr_factor</strong> (<em>int</em>) – factor (in px) to add to (positive int) or subtract from (negative int) object (default: 0)</li>
-<li><strong>resize</strong> (<em>in</em><em> (</em><em>0.1-1</em><em>)</em>) – resize image to speed up detection process - usually not recommended</li>
-<li><strong>gray_value_ref</strong> (<em>int</em><em> (</em><em>0-255</em><em>)</em>) – reference gray scale value to adjust the given picture’s histogram to</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 </dd></dl>
 
+<dl class="method">
+<dt id="phenopype.tracking.motion_tracker.motion_detection">
+<code class="sig-name descname">motion_detection</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker.motion_detection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties of output video file. Most settings can be left at their default value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>skip</strong> (<em>int</em><em> (</em><em>default: 5</em><em>)</em>) – how many frames to skip between each capture</p></li>
+<li><p><strong>start</strong> (<em>int</em><em> (</em><em>default: 0</em><em>)</em>) – start after X seconds</p></li>
+<li><p><strong>finish</strong> (<em>int</em><em> (</em><em>default: &quot;video-length&quot;</em><em>)</em>) – finish after X seconds</p></li>
+<li><p><strong>history</strong> (<em>int</em><em> (</em><em>default: 60</em><em>)</em>) – how many frames to use for fg-bg subtraction algorithm</p></li>
+<li><p><strong>backgr_thresh</strong> (<em>int</em><em> (</em><em>default: 10</em><em>)</em>) – sensitivity-level for fg-bg subtraction algorithm (lower = more sensitive)</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;MOG&quot;</em><em>)</em>) – type of fg-bg subtraction algorithm (“MOG” or “KNN”)</p></li>
+<li><p><strong>methods</strong> (<em>list</em>) – list with tracking_method objects</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.tracking.motion_tracker.run_tracking">
+<code class="sig-name descname">run_tracking</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker.run_tracking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start motion tracking procedure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>show</strong> (<em>str</em><em> (</em><em>default: overlay</em><em>)</em>) – show output of tracking as “overlay”, binary forground mask “fgmask”, or frame by frame</p></li>
+<li><p><strong>weight</strong> (<em>float</em><em> (</em><em>default: 0.5</em><em>)</em>) – how transparent the overlay should be</p></li>
+<li><p><strong>return_df</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – should the output dataframe be returned or inherited to motion_tracker object</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="tracking-method">
+<h2>tracking_method<a class="headerlink" href="#tracking-method" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="phenopype.tracking.tracking_method">
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">tracking_method</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.tracking_method" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a tracking method that can be supplied to the tracker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;multiple&quot;</em><em>)</em>) – how many objects to track: “multiple”, or “single” (biggest by diameter) objects</p></li>
+<li><p><strong>operations</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;diameter&quot;</em><em>, </em><em>&quot;area&quot;</em><em>]</em><em>)</em>) – <dl class="simple">
+<dt>determines the type of operations to be performed on the detected objects:</dt><dd><ul>
+<li><p>”diameter” of the bounding circle of our object</p></li>
+<li><p>”area” within the contour of our object</p></li>
+<li><p>”grayscale” mean and standard deviation of grayscale pixel values inside the object contours</p></li>
+<li><p>”grayscale_background” background within boundingbox of contour</p></li>
+<li><p>”bgr” mean and standard deviation of blue, green and red pixel values inside the object contours</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>blur</strong> (<em>tuple</em>) – blurring of fgbg-mask (kernel size, threshold [1-255])</p></li>
+<li><p><strong>min_length</strong> (<em>int</em><em> (</em><em>default: 1</em><em>)</em>) – minimum length in pixels for objects to be included</p></li>
+<li><p><strong>remove_shadows</strong> (<em>bool</em>) – remove shadows if shadow-detection is actived in MOG-algorithm</p></li>
+<li><p><strong>mask</strong> (<em>list</em>) – phenoype mask-objects (lists of boolean mask, label, and include-argument) to include or exclude an area from the procedure</p></li>
+<li><p><strong>overlay_colour</strong> (<em>phenopype colour object</em><em> (</em><em>default: red</em><em> [</em><em>red</em><em>, </em><em>green</em><em>, </em><em>blue</em><em>, </em><em>black</em><em>, </em><em>white</em><em>]</em><em>)</em>) – which colour should tracked objects have</p></li>
+<li><p><strong>exclude</strong> (<em>?</em><em> (</em><em>forgot what this does</em><em>)</em>) – </p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -335,23 +443,19 @@
 <h2>save_csv<a class="headerlink" href="#save-csv" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="phenopype.utils.save_csv">
-<code class="descclassname">phenopype.utils.</code><code class="descname">save_csv</code><span class="sig-paren">(</span><em>df</em>, <em>name</em>, <em>save_dir</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.save_csv" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">save_csv</code><span class="sig-paren">(</span><em class="sig-param">df</em>, <em class="sig-param">name</em>, <em class="sig-param">save_dir</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.save_csv" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a pandas dataframe to csv.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>df</strong> (<em>df</em>) – object_finder outpur (pandas data frame) to save</li>
-<li><strong>name</strong> (<em>str</em>) – name for saved df</li>
-<li><strong>save_dir</strong> (<em>str</em>) – location to save df</li>
-<li><strong>append</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – append df name with string to prevent overwriting</li>
-<li><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite df if name exists</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>df</em>) – object_finder outpur (pandas data frame) to save</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – name for saved df</p></li>
+<li><p><strong>save_dir</strong> (<em>str</em>) – location to save df</p></li>
+<li><p><strong>append</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – append df name with string to prevent overwriting</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite df if name exists</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -359,24 +463,20 @@
 <h2>save_img<a class="headerlink" href="#save-img" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="phenopype.utils.save_img">
-<code class="descclassname">phenopype.utils.</code><code class="descname">save_img</code><span class="sig-paren">(</span><em>image</em>, <em>name</em>, <em>save_dir</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.save_img" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">save_img</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">name</em>, <em class="sig-param">save_dir</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.save_img" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save an image (array) to jpg.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>image</strong> (<em>array</em>) – image to save</li>
-<li><strong>name</strong> (<em>str</em>) – name for saved image</li>
-<li><strong>save_dir</strong> (<em>str</em>) – location to save image</li>
-<li><strong>append</strong> (<em>str</em><em> (</em><em>&quot;&quot;</em><em>)</em>) – append image name with string to prevent overwriting</li>
-<li><strong>extension</strong> (<em>str</em><em> (</em><em>&quot;&quot;</em><em>)</em>) – file extension to save image with</li>
-<li><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite images if name exists</li>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>array</em>) – image to save</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – name for saved image</p></li>
+<li><p><strong>save_dir</strong> (<em>str</em>) – location to save image</p></li>
+<li><p><strong>append</strong> (<em>str</em><em> (</em><em>&quot;&quot;</em><em>)</em>) – append image name with string to prevent overwriting</p></li>
+<li><p><strong>extension</strong> (<em>str</em><em> (</em><em>&quot;&quot;</em><em>)</em>) – file extension to save image with</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite images if name exists</p></li>
 </ul>
-</td>
-</tr>
-</tbody>
-</table>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
@@ -395,7 +495,7 @@
     </p>
     <p>
         &copy; Copyright 2019, Moritz Lürig.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.8.3.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.2.0.<br/>
     </p>
   </div>
 </footer>

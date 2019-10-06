@@ -17,7 +17,6 @@ project_maker
     :undoc-members:
   
   
-  
 scale_maker
 ------------------------------------------------------
 
@@ -26,21 +25,12 @@ scale_maker
     :undoc-members:
 
 
-
-polygon_maker
+mask_maker
 ------------------------------------------------------
 
-.. autoclass:: phenopype.base.polygon_maker
+.. autoclass:: phenopype.base.mask_maker
     :members: 
     :undoc-members:  
-    
-landmark_maker
-------------------------------------------------------
-
-.. autoclass:: phenopype.landmarks.landmark_maker
-    :members: 
-    :undoc-members:  
-    
     
     
 object_finder
@@ -49,6 +39,30 @@ object_finder
 .. autoclass:: phenopype.base.object_finder
     :members: 
     :undoc-members:
+	
+	    
+landmark_maker
+------------------------------------------------------
+
+.. autoclass:: phenopype.landmarks.landmark_maker
+    :members: 
+    :undoc-members:  
+	
+	
+motion_tracker
+------------------------------------------------------
+
+.. autoclass:: phenopype.tracking.motion_tracker
+    :members: 
+    :undoc-members:  
+	
+	
+tracking_method
+------------------------------------------------------
+
+.. autoclass:: phenopype.tracking.tracking_method
+    :members: 
+    :undoc-members:  
 
 	
 save_csv
