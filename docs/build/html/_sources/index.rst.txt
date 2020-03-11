@@ -1,86 +1,32 @@
-phenopype - API reference
-======================================================
+phenopype: a phenotyping pipeline for python
+============================================
 
-So far I have only managed to put together an API reference list for the basic functions. More details will follow soon. 
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-In alphabetical order:
+phenopype is a phenotyping pipeline for python. It is designed to extract phenotypic data from digital images or video material with minimal user input in a semi, or fully automated fashion. At the moment it is set up to be run from a python integrated development environment (IDE), like spyder. Some python knowledge is necessary, but most of the heavy lifting is done in the background. penopype can be installed from the Python Package Index (PYPI) using pip install phenopype. For a quick start clone the github-repo and run the tutorials with jupyter notebook.
 
 
-landmark_maker
-------------------------------------------------------
+.. raw:: html
 
-.. autoclass:: phenopype.landmarks.landmark_maker
-    :members: 
-    :undoc-members:  
-	
-	
-mask
-------------------------------------------------------
+   <div class="container-fluid">
+   <div class="row">
+   <div class="col-md-6">
+   <h2>Documentation</h2>
 
-.. autoclass:: phenopype.base.mask
-    :members: 
-    :undoc-members:  
-    
-	
-motion_tracker
-------------------------------------------------------
+.. toctree::
+   :maxdepth: 2
+   
+   api
+   installation
+   modules
+   phenopype
+   
+.. raw:: html
 
-.. autoclass:: phenopype.tracking.motion_tracker
-    :members: 
-    :undoc-members:  
-	
-	
-object_finder
-------------------------------------------------------
+   </div>
+   <div class="col-md-6">
+   <h2>Tutorials</h2>
 
-.. autoclass:: phenopype.base.object_finder
-    :members: 
-    :undoc-members:
-	
-	
-project_maker
-------------------------------------------------------
+.. toctree::
+   :maxdepth: 1
+   
+   tut1
 
-.. autoclass:: phenopype.base.project_maker
-    :members: 
-    :undoc-members:
-  
-  
-	
-save_csv
-------------------------------------------------------
-
-.. autofunction:: phenopype.utils.save_csv
-
-
-save_img
-------------------------------------------------------
-
-.. autofunction:: phenopype.utils.save_img
-
-
-
-show_img
-------------------------------------------------------
-
-.. autofunction:: phenopype.utils.show_img
-
-
-scale
-------------------------------------------------------
-
-.. autoclass:: phenopype.base.scale
-    :members: 
-    :undoc-members:
-
-
-tracking_method
-------------------------------------------------------
-
-.. autoclass:: phenopype.tracking.tracking_method
-    :members: 
-    :undoc-members:  

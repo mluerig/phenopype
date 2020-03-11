@@ -1,0 +1,62 @@
+phenopype package
+=================
+
+Submodules
+----------
+
+phenopype.main module
+---------------------
+
+.. automodule:: phenopype.main
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+phenopype.presets module
+------------------------
+
+.. automodule:: phenopype.presets
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+phenopype.settings module
+-------------------------
+
+.. automodule:: phenopype.settings
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+phenopype.tracking module
+-------------------------
+
+.. automodule:: phenopype.tracking
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+phenopype.utils module
+----------------------
+
+.. automodule:: phenopype.utils
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+phenopype.utils\_lowlevel module
+--------------------------------
+
+.. automodule:: phenopype.utils_lowlevel
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: phenopype
+   :members:
+   :undoc-members:
+   :show-inheritance:
