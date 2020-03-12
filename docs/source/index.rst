@@ -28,5 +28,7 @@ phenopype is a phenotyping pipeline for python. It is designed to extract phenot
 .. toctree::
    :maxdepth: 1
    
+   Python_intro
+   Tutorial_1
+   Tutorial_2
    tut1
-
