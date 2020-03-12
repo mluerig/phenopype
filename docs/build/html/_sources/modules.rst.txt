@@ -1,7 +1,0 @@
-phenopype
-=========
-
-.. toctree::
-   :maxdepth: 4
-
-   phenopype
