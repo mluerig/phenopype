@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Tutorial 1: Object detection, setting a scale, image masking &#8212; phenopype 1.0.0 documentation</title>
+    <title>Tutorial 2: loading phenopype, analyzing single images &#8212; phenopype 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,6 +14,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial 3: making a project, configuring pype" href="tutorial_3.html" />
+    <link rel="prev" title="Tutorial 1: A (very) brief python introduction" href="tutorial_1.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -54,12 +56,12 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 </ul>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1.html">Tutorial 1: A (very) brief python introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_2.html">Tutorial 2: loading phenopype, analyzing single images</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 2: loading phenopype, analyzing single images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3.html">Tutorial 3: making a project, configuring pype</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3.html#Set-up-project">Set up project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4.html">Tutorial 4: setting a (global) size and colour reference</a></li>
@@ -83,7 +85,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Tutorial 1: Object detection, setting a scale, image masking</a><ul>
+<li><a class="reference internal" href="#">Tutorial 2: loading phenopype, analyzing single images</a><ul>
 <li><a class="reference internal" href="#Add-images-to-project">Add images to project</a></li>
 <li><a class="reference internal" href="#Setting-a-scale">Setting a scale</a></li>
 <li><a class="reference internal" href="#Detecting-objects">Detecting objects</a></li>
@@ -101,6 +103,14 @@
             
               
                 
+  <li>
+    <a href="tutorial_1.html" title="Previous Chapter: Tutorial 1: A (very) brief python introduction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tutorial 1: A...</span>
+    </a>
+  </li>
+  <li>
+    <a href="tutorial_3.html" title="Next Chapter: Tutorial 3: making a project, configuring pype"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tutorial 3: m... &raquo;</span>
+    </a>
+  </li>
               
             
             
@@ -108,7 +118,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="_sources/tut1.ipynb.txt"
+  <a href="_sources/tutorial_2.ipynb.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -352,8 +362,8 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="Tutorial-1:-Object-detection,-setting-a-scale,-image-masking">
-<h1>Tutorial 1: Object detection, setting a scale, image masking<a class="headerlink" href="#Tutorial-1:-Object-detection,-setting-a-scale,-image-masking" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Tutorial-2:-loading-phenopype,-analyzing-single-images">
+<h1>Tutorial 2: loading phenopype, analyzing single images<a class="headerlink" href="#Tutorial-2:-loading-phenopype,-analyzing-single-images" title="Permalink to this headline">¶</a></h1>
 <p>This example demonstrates core <em>phenopype</em> functionality by showing how multiple objects can be found and extracted from images by applying different <strong>thresholding algorithms</strong>. Furthermore it is shown how a scale is set, i.e. information from <strong>size reference cards</strong> is digitized, and how parts of images are masked to <strong>exclude unwanted objects</strong> from the object detection procedure.</p>
 <p>The images used for this tutorial contain isopods sitting inside a white tray underneath a camera stand, photopgraphed with a 50 mm lens on a Canon 750D. ** <a class="reference external" href="#add">Add images to project</a> * <a class="reference external" href="#scale">Setting a scale</a> * <a class="reference external" href="#objectfinder">Detecting objects</a> * <a class="reference external" href="#mask">Masking images</a> * <a class="reference external" href="#object2">Detecting many objects</a> * <a class="reference external" href="#object3">Detecting many objects in many files</a> * <a class="reference external" href="#object4">Detecting objects on variable background</a></p>
 <div class="nbinput nblast docutils container">
@@ -408,7 +418,7 @@ Search returned following files:
 [&#39;bug1.jpg&#39;]
 </pre></div></div>
 </div>
-<p>Let’s have a quick look at the image using the collected absolute filepaths (accessible from the <code class="docutils literal notranslate"><span class="pre">my_proj</span></code> object) and the <em>phenopye</em> function <code class="docutils literal notranslate"><span class="pre">show_img</span></code> (contains all the <code class="docutils literal notranslate"><span class="pre">opencv</span></code> GUI controls explained in —. Close the image by hitting enter or closing the window:</p>
+<p>Let’s have a quick look at the image using the collected absolute filepaths (accessible from the <code class="docutils literal notranslate"><span class="pre">my_proj</span></code> object) and the <em>phenopye</em> function <code class="docutils literal notranslate"><span class="pre">show_img</span></code> (contains all the <code class="docutils literal notranslate"><span class="pre">opencv</span></code> GUI controls explained in <a class="reference external" href="0_python_intro.ipynb#images">the python intro</a>. Close the image by hitting enter or closing the window:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
@@ -424,6 +434,28 @@ Search returned following files:
 <h2>Setting a scale<a class="headerlink" href="#Setting-a-scale" title="Permalink to this headline">¶</a></h2>
 <p>Our image contains an organism, as well as a reference card for colour and size. To make our measurements meaningful, we need to know the the pixel-to-mm-ratio. To do so we we load the image into the <code class="docutils literal notranslate"><span class="pre">scale_maker</span></code>, <code class="docutils literal notranslate"><span class="pre">zoom</span></code> into the scale area for better visibility, and mark the distance we specifiy - in this case 10 mm.</p>
 <p><strong>HINT:</strong> The default mode for marking the scale is by dragging a box/rectangle around the object. However, you can also specify points to draw a polygon.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><ul class="simple">
+<li></li>
+</ul>
+</th>
+<th class="head"><ul class="simple">
+<li></li>
+</ul>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><img alt="image0" src="../assets/tutorials/make_scale.gif" /></p></td>
+<td><p><img alt="image1" src="../assets/tutorials/scale.png" /></p></td>
+</tr>
+</tbody>
+</table>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
