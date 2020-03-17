@@ -2,12 +2,31 @@
 API reference
 =============
 
-.. toctree::
-   :maxdepth: 2
+Projects and pype
+-----------------
    
-   high_throughput
-   segmentation
+.. automodule:: phenopype.main
+   :members:
+   :undoc-members:
+   :show-inheritance:   
    
    
+   
+Preprocessing
+------------
+
+.. automodule:: phenopype.core.preprocessing
+   :members:
+   :undoc-members:
+   :show-inheritance:   
+ 
+   
+Segmentation
+------------   
+   
+.. automodule:: phenopype.core.segmentation
+   :members:
+   :undoc-members:
+   :show-inheritance:   
 
    

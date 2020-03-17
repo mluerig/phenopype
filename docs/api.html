@@ -14,8 +14,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Projects and pypes" href="high_throughput.html" />
-    <link rel="prev" title="phenopype: a phenotyping pipeline for python" href="index.html" />
+    <link rel="next" title="Python" href="more.html" />
+    <link rel="prev" title="Installation" href="installation.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -56,8 +56,10 @@
   <ul class="dropdown-menu globaltoc"
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html#opencv">OpenCV</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1.html">Tutorial 1: A (very) brief python introduction</a></li>
@@ -85,7 +87,12 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">API reference</a></li>
+<li><a class="reference internal" href="#">API reference</a><ul>
+<li><a class="reference internal" href="#module-phenopype.main">Projects and pype</a></li>
+<li><a class="reference internal" href="#preprocessing">Preprocessing</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.segmentation">Segmentation</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -95,11 +102,11 @@
               
                 
   <li>
-    <a href="index.html" title="Previous Chapter: phenopype: a phenotyping pipeline for python"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; phenopype: a ...</span>
+    <a href="installation.html" title="Previous Chapter: Installation"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Installation</span>
     </a>
   </li>
   <li>
-    <a href="high_throughput.html" title="Next Chapter: Projects and pypes"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Projects and pypes &raquo;</span>
+    <a href="more.html" title="Next Chapter: Python"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Python &raquo;</span>
     </a>
   </li>
               
@@ -135,15 +142,418 @@
       
   <div class="section" id="api-reference">
 <h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="high_throughput.html">Projects and pypes</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="high_throughput.html#phenopype-project">Phenopype project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="high_throughput.html#pype-routine">Pype routine</a></li>
+<div class="section" id="module-phenopype.main">
+<span id="projects-and-pype"></span><h2>Projects and pype<a class="headerlink" href="#module-phenopype.main" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="phenopype.main.project">
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.main.</code><code class="sig-name descname">project</code><span class="sig-paren">(</span><em class="sig-param">root_dir</em>, <em class="sig-param">overwrite=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Initialize a phenopype project with a root directory path. Phenopype
+will create the project folder at the provided location.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rootdir</strong> (<em>str</em>) – path to root directory of the project where folder gets created</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite option, if a given root directory already exist
+(WARNING: also removes all folders inside)</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="segmentation.html">Segmentation</a></li>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+<dl class="method">
+<dt id="phenopype.main.project.add_files">
+<code class="sig-name descname">add_files</code><span class="sig-paren">(</span><em class="sig-param">image_dir, filetypes=['jpg', 'tif', 'png'], include=[], exclude=[], raw_mode='copy', search_mode='dir', unique_mode='path', overwrite=False, resize=1, **kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.add_files" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add files to your project from a directory, can look recursively.
+Specify in- or exclude arguments, filetypes, duplicate-action and copy
+or link raw files to save memory on the harddrive.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_dir</strong> (<em>str</em>) – path to directory with images</p></li>
+<li><p><strong>filetypes</strong> (<em>list</em><em> or </em><em>str</em><em>, </em><em>optional</em>) – single or multiple string patterns to target files with certain endings</p></li>
+<li><p><strong>include</strong> (<em>list</em><em> or </em><em>str</em><em>, </em><em>optional</em>) – single or multiple string patterns to target certain files to include</p></li>
+<li><p><strong>exclude</strong> (<em>list</em><em> or </em><em>str</em><em>, </em><em>optional</em>) – single or multiple string patterns to target certain files to exclude -
+can overrule “include”</p></li>
+<li><p><strong>raw_mode</strong> (<em>{&quot;copy&quot;</em><em>, </em><em>&quot;link&quot;} str</em><em>, </em><em>optional</em>) – how should the raw files be passed on to the phenopype directory tree:
+“copy” will make a copy of the original file, “link” will only send the
+link to the original raw file to attributes, but not copy the actual
+file (useful for big files)</p></li>
+<li><p><strong>search_mode</strong> (<em>{&quot;dir&quot;</em><em>, </em><em>&quot;recursive&quot;}</em><em>, </em><em>str</em><em>, </em><em>optional</em>) – “dir” searches current directory for valid files; “recursive” walks
+through all subdirectories</p></li>
+<li><p><strong>unique_mode</strong> (<em>{&quot;filepath&quot;</em><em>, </em><em>&quot;filename&quot;}</em><em>, </em><em>str</em><em>, </em><em>optional:</em>) – how to deal with image duplicates - “filepath” is useful if identically
+named files exist in different subfolders (folder structure will be
+collapsed and goes into the filename), whereas filename will ignore
+all similar named files after their first occurrence.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.main.project.add_config">
+<code class="sig-name descname">add_config</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">preset='preset1'</em>, <em class="sig-param">interactive=False</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.add_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add pype configuration presets to all project directories, either by using
+the templates included in the presets folder, or by adding your own templates
+by providing a path to a yaml file. Can be tested and modified using the
+interactive flag before distributing the config files.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of config-file. this gets appended to all files and serves as and
+identifier of a specific analysis pipeline</p></li>
+<li><p><strong>preset</strong> (<em>str</em><em>, </em><em>optional</em>) – can be either a string denoting a template name (e.g. preset1, preset2,
+landamarking1, … - in “phenopype/settings/presets.py”) or a path to a
+compatible yaml file</p></li>
+<li><p><strong>interactive</strong> (<em>bool</em><em>, </em><em>optional</em>) – start a pype and modify preset before saving it to phenopype directories</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite option, if a given pype config-file already exist</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.main.project.add_scale">
+<code class="sig-name descname">add_scale</code><span class="sig-paren">(</span><em class="sig-param">template_image</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.add_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Add pype configuration presets to all project directories.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>template_image</strong> (<em>str</em>) – name of template image, either project directory or file link. template
+image gets stored in root directory, and information appended to all
+attributes files in the project directories</p></li>
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>overwrite</em>) – overwrite option, if a given pype config-file already exist</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="phenopype.main.pype">
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.main.</code><code class="sig-name descname">pype</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">name</em>, <em class="sig-param">config='preset1'</em>, <em class="sig-param">interactive=False</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.pype" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The pype is phenopype’s core method that allows running all functions
+that are available in the program’s library in sequence. Executing the pype routine
+will trigger two actions: it will open a yaml configuration file
+containing instructions for image processing using the default OS text viewer,
+and a phenopype-window showing the image that was passed on to the pype
+function as an array, or a character string containing the path to an
+image on the harddrive (or a directory). Phenopype will parse all functions
+contained in the config-file in sequence and attempt to apply them to the image
+(exceptions will be passed, but exceptions returned for diagnostics).
+The user immediately sees the result and can decide to make changes directly to
+the opened config-file (e.g. either change function parameters or add new functions),
+and run the pype again, or to terminate the pype and save all results.
+The user can store the processed image, any extracted phenotypic information,
+as well as the modified config-file inside the image directory.
+By providing unique names, users can store different pype configurations and
+the associated results side by side.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>array</em><em> or </em><em>str</em>) – can be either a numpy array or a string that provides the path to source image file
+or path to a valid phenopype directory</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – name of pype-config - will be prepended to all results files</p></li>
+<li><p><strong>config</strong> (<em>str</em><em>, </em><em>optional</em>) – chose from given presets in phenopype/settings/pype_presets.py
+(e.g. preset1, preset2, …)</p></li>
+<li><p><strong>interactive</strong> (<em>bool</em><em>, </em><em>optional</em>) – start a pype, modify loaded preset before saving it to phenopype directories</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite option, if a given pype config-file already exist</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.main.save_project">
+<code class="sig-prename descclassname">phenopype.main.</code><code class="sig-name descname">save_project</code><span class="sig-paren">(</span><em class="sig-param">project</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.save_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save project to root directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>project</strong> (<a class="reference internal" href="high_throughput.html#phenopype.main.project" title="phenopype.main.project"><em>phenopype.main.project</em></a>) – save project file to root dir of project (saves ONLY the python object needed to call file-lists, NOT collected data),
+which needs to be saved separately with the appropriate functions (e.g. “save_csv” and “save_img”)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.main.load_project">
+<code class="sig-prename descclassname">phenopype.main.</code><code class="sig-name descname">load_project</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.load_project" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load phenoype project.data file to python namespace</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>path to project.data</em>) – load project file saved to root dir of project</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="preprocessing">
+<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
+<span class="target" id="module-phenopype.core.preprocessing"></span><dl class="function">
+<dt id="phenopype.core.preprocessing.create_mask">
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>tool</em>) – determine whether resulting mask is to include or exclude objects within</p></li>
+<li><p><strong>label</strong><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>str</em><em> (</em><em>default: &quot;mask1&quot;</em><em>)</em>) – passes a label to the mask</p></li>
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> – maximum dimension of the window along any axis in pixel</p></li>
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> – if working using a container, or from a phenopype project directory, should
+existing masks with the same label be overwritten</p></li>
+<li><p><strong>(</strong><strong>otpional</strong><strong>)</strong> (<em>show</em>) – should the drawn mask be shown as an overlay on the image</p></li>
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> – draw mask by draging a rectangle (option: “rectangle”) or by settings
+points for a polygon (option: “polygon”).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.preprocessing.create_scale">
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>tool</em>) – determine whether resulting mask is to include or exclude objects within</p></li>
+<li><p><strong>label</strong><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>str</em><em> (</em><em>default: &quot;mask1&quot;</em><em>)</em>) – passes a label to the mask</p></li>
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> – maximum dimension of the window along any axis in pixel</p></li>
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> – if working using a container, or from a phenopype project directory, should
+existing masks with the same label be overwritten</p></li>
+<li><p><strong>(</strong><strong>otpional</strong><strong>)</strong> (<em>show</em>) – should the drawn mask be shown as an overlay on the image</p></li>
+<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> – draw mask by draging a rectangle (option: “rectangle”) or by settings
+points for a polygon (option: “polygon”).</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.preprocessing.find_scale">
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">find_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.find_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find scale from a defined template inside an image and update pixel
+ratio. Image registration is run by the “AKAZE” algorithm
+(<a class="reference external" href="http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf">http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf</a>).
+Future implementations will include more algorithms to select from.
+Prior to running detect_scale, measure_scale and make_scale_template
+have to be run once to pass on reference scale size and template of
+scale reference card (gets passed on internally by calling detect_scale
+from the same instance of scale_maker.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><em>phenopype-container</em>) – input for processing</p></li>
+<li><p><strong>resize</strong> (<em>num</em><em> (</em><em>optional</em><em>, </em><em>default: 1</em><em> or </em><em>0.5 for images with diameter &gt; 5000px</em><em>)</em>) – resize image to speed up detection process (WARNING: too low values may result in poor detection results or even crashes)</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – show result of scale detection procedure on current image</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.preprocessing.enter_data">
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">enter_data</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.enter_data" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.preprocessing.invert_image">
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">invert_image</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.invert_image" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.preprocessing.resize_image">
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">resize_image</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.resize_image" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-phenopype.core.segmentation">
+<span id="segmentation"></span><h2>Segmentation<a class="headerlink" href="#module-phenopype.core.segmentation" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="phenopype.core.segmentation.blur">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">blur</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.blur" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.segmentation.draw">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.draw" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.segmentation.find_contours">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">find_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.find_contours" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DESCRIPTION.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.segmentation.morphology">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">morphology</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.morphology" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.segmentation.skeletonize">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">skeletonize</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.skeletonize" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>TYPE</em>) – DESCRIPTION.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>skeleton</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>iters</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.segmentation.threshold">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">threshold</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.threshold" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the input array was single channel, the threshold method can only use the
+grayscale space to, but if multiple channels were provided, then one can either chose
+to coerce the color image to grayscale or use one of the color channels directly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.segmentation.watershed">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">watershed</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.watershed" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the input array was single channel, the threshold method can only use the
+grayscale space to, but if multiple channels were provided, then one can either chose
+to coerce the color image to grayscale or use one of the color channels directly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 </div>
 

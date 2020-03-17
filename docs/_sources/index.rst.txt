@@ -12,6 +12,7 @@ Documentation
    
    installation
    api
+   more
    
 Tutorials
 ---------  
@@ -35,8 +36,7 @@ Examples
    example_2
    example_3
 
-Python and OpenCV
------------------ 
+
 
 Mehr info hier:
 
