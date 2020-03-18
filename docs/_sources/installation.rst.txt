@@ -1,15 +1,8 @@
-
 Installation
 =============
 
-
-Installing Trackpy
-------------------
-
-For Python Novices
-^^^^^^^^^^^^^^^^^^
-
-Installation is simple on Windows, OSX, and Linux, even for Python novices.
+Installing python
+-----------------
 
 1. Get Scientific Python
 """"""""""""""""""""""""
@@ -18,8 +11,11 @@ To get started with Python on any platform, download and install
 `Anaconda <https://www.anaconda.com/distribution/>`_. It comes with the
 common scientific Python packages built in.
 
-2. Install trackpy
-""""""""""""""""""
+
+
+
+Installing phenopype
+--------------------
 
 Open a command prompt. On Windows, you can use the "Anaconda Command Prompt"
 installed by Anaconda or Start > Applications > Command Prompt. On a Mac, look

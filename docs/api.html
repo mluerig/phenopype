@@ -89,8 +89,9 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">API reference</a><ul>
 <li><a class="reference internal" href="#module-phenopype.main">Projects and pype</a></li>
-<li><a class="reference internal" href="#preprocessing">Preprocessing</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.preprocessing">Preprocessing</a></li>
 <li><a class="reference internal" href="#module-phenopype.core.segmentation">Segmentation</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.measurement">Measurement</a></li>
 </ul>
 </li>
 </ul>
@@ -293,9 +294,9 @@ which needs to be saved separately with the appropriate functions (e.g. “save_
 </dd></dl>
 
 </div>
-<div class="section" id="preprocessing">
-<h2>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h2>
-<span class="target" id="module-phenopype.core.preprocessing"></span><dl class="function">
+<div class="section" id="module-phenopype.core.preprocessing">
+<span id="preprocessing"></span><h2>Preprocessing<a class="headerlink" href="#module-phenopype.core.preprocessing" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
 <dt id="phenopype.core.preprocessing.create_mask">
 <code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
@@ -550,6 +551,63 @@ to coerce the color image to grayscale or use one of the color channels directly
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-phenopype.core.measurement">
+<span id="measurement"></span><h2>Measurement<a class="headerlink" href="#module-phenopype.core.measurement" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="phenopype.core.measurement.landmarks">
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.landmarks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set landmarks, with option to measure length and enter specimen ID.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>scale</strong> (<em>num</em><em> (</em><em>default: 1</em><em>)</em>) – pixel to mm-ratio</p></li>
+<li><p><strong>ID</strong> (<em>str</em><em> (</em><em>default: NA</em><em>)</em>) – specimen ID; “query” is special flag for user entry</p></li>
+<li><p><strong>draw_line</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – flag to draw arc and measure it’s length</p></li>
+<li><p><strong>zoom_factor</strong> (<em>int</em><em> (</em><em>default 5</em><em>)</em>) – magnification factor on mousewheel use</p></li>
+<li><p><strong>show</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – display the set landmarks</p></li>
+<li><p><strong>point_size</strong> (<em>num</em><em> (</em><em>default: 1/300 of image diameter</em><em>)</em>) – size of the landmarks on the image in pixels</p></li>
+<li><p><strong>point_col</strong> (<em>value</em><em> (</em><em>default: red</em><em>)</em>) – colour of landmark (red, green, blue, black, white)</p></li>
+<li><p><strong>label_size</strong> (<em>num</em><em> (</em><em>default: 1/1500 of image diameter</em><em>)</em>) – size of the numeric landmark label in pixels</p></li>
+<li><p><strong>label_col</strong> (<em>value</em><em> (</em><em>default: black</em><em>)</em>) – colour of label (red, green, blue, black, white)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>.df = pandas data frame with landmarks (and arc-length, if selected)</em></p></li>
+<li><p><em>.drawn = image array with drawn landmarks (and lines)</em></p></li>
+<li><p><em>.ID = provided specimen ID</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.measurement.colour_intensity">
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">colour_intensity</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.colour_intensity" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.measurement.polylines">
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.polylines" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>

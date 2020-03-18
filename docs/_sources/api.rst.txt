@@ -13,7 +13,7 @@ Projects and pype
    
    
 Preprocessing
-------------
+-------------
 
 .. automodule:: phenopype.core.preprocessing
    :members:
@@ -25,6 +25,14 @@ Segmentation
 ------------   
    
 .. automodule:: phenopype.core.segmentation
+   :members:
+   :undoc-members:
+   :show-inheritance:   
+   
+Measurement
+-----------
+   
+.. automodule:: phenopype.core.measurement
    :members:
    :undoc-members:
    :show-inheritance:   
