@@ -10,4 +10,4 @@ OpenCV
 
 Mehr info hier:
 
-`https://docs.opencv.org/3.4.5/ <https://docs.opencv.org/3.4.5/>`
+`https://docs.opencv.org/3.4.5/ <https://docs.opencv.org/3.4.5/>`_

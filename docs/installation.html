@@ -88,11 +88,8 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
-<li><a class="reference internal" href="#installing-python">Installing python</a><ul>
-<li><a class="reference internal" href="#get-scientific-python">1. Get Scientific Python</a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#installing-phenopype">Installing phenopype</a></li>
+<li><a class="reference internal" href="#install-python">1. Install Python</a></li>
+<li><a class="reference internal" href="#install-phenopype">2. Install phenopype</a></li>
 </ul>
 </li>
 </ul>
@@ -144,28 +141,52 @@
       
   <div class="section" id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="installing-python">
-<h2>Installing python<a class="headerlink" href="#installing-python" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="get-scientific-python">
-<h3>1. Get Scientific Python<a class="headerlink" href="#get-scientific-python" title="Permalink to this headline">¶</a></h3>
-<p>To get started with Python on any platform, download and install
-<a class="reference external" href="https://www.anaconda.com/distribution/">Anaconda</a>. It comes with the
-common scientific Python packages built in.</p>
-</div>
-</div>
-<div class="section" id="installing-phenopype">
-<h2>Installing phenopype<a class="headerlink" href="#installing-phenopype" title="Permalink to this headline">¶</a></h2>
-<p>Open a command prompt. On Windows, you can use the “Anaconda Command Prompt”
-installed by Anaconda or Start &gt; Applications &gt; Command Prompt. On a Mac, look
-for Applications &gt; Utilities &gt; Terminal. Type these commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda update conda
-conda install -c conda-forge trackpy
-conda install -c conda-forge pims
+<div class="section" id="install-python">
+<h2>1. Install Python<a class="headerlink" href="#install-python" title="Permalink to this headline">¶</a></h2>
+<p>To get started, download and install <a class="reference external" href="https://www.anaconda.com/distribution/">Anaconda</a>
+with Python 3. Anaconda is a scientific python distribution which comes with the most common
+scientific Python packages already built in.</p>
+<p>You can test if the installation was successfull by opening a terminal and typing this command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda --version
 </pre></div>
 </div>
-<p>The above installs trackpy and all its requirements, plus the recommended
-<a class="reference external" href="http://soft-matter.github.io/pims/">PIMS</a> package that simplifies image-reading,
-and that is used in the trackpy tutorials.</p>
+<p>If <code class="code docutils literal notranslate"><span class="pre">conda</span></code> is not recognized, use the anaconda prompt (e.g. through the <a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/getting-started/">Anaconda Navigator</a> OR add the path to your Anaconda
+installation directory (e.g. <code class="code docutils literal notranslate"><span class="pre">C:\Anaconda3\Library\bin</span></code>) to your environmental variables. Further
+help can be found <a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/troubleshooting/">here</a>, <a class="reference external" href="https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found">here</a>, <a class="reference external" href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">here</a>, and <a class="reference external" href="https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97">here</a>.</p>
+</div>
+<div class="section" id="install-phenopype">
+<h2>2. Install phenopype<a class="headerlink" href="#install-phenopype" title="Permalink to this headline">¶</a></h2>
+<p>First, use <code class="code docutils literal notranslate"><span class="pre">conda</span></code> create a virtual environment to have fuller control over your python packages. If you
+prefer an “Rstudio-like” feel, install the Spyder IDE (Integrated Development Environment). An slightly outdated
+overview of other popular Python IDEs can be found <a class="reference external" href="https://wiki.python.org/moin/IntegratedDevelopmentEnvironments">here</a>.
+However, phenopype can of course also be run from the command line using <code class="code docutils literal notranslate"><span class="pre">python</span></code>.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n <span class="s2">&quot;pp&quot;</span> <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7
+conda install spyder
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Any modifications to the python environments or <cite>Spyder</cite>, should only be done using <code class="code docutils literal notranslate"><span class="pre">conda</span></code>.</p>
+</div>
+<p>Then activate the virtual environment and install phenopype using <cite>pip</cite> in your terminal or command line:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate pp
+pip install phenopype
+</pre></div>
+</div>
+<p>To install the latest development version of <cite>phenopype</cite>, which can be found on
+<a class="reference external" href="https://github.com/mluerig/phenopype/tree/development">github</a>, create a different environment
+and install <cite>phenopype</cite> with <code class="code docutils literal notranslate"><span class="pre">git</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n <span class="s2">&quot;pp_dev&quot;</span> <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7 spyder
+conda activate pp_dev
+pip install git
+pip install git+https://github.com/mluerig/phenopype@development
+</pre></div>
+</div>
+<p>Run phenopype by typing <code class="code docutils literal notranslate"><span class="pre">spyder</span></code> or <code class="code docutils literal notranslate"><span class="pre">python</span></code> into the command line. If you are unsure to proceed, consult the tutorials.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Any modifications to <cite>phenopype</cite>, its dependencies or other python packages should only be done using <code class="code docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+</div>
 </div>
 </div>
 
@@ -181,8 +202,8 @@ and that is used in the trackpy tutorials.</p>
       
     </p>
     <p>
-        &copy; Copyright 2019, Moritz Lürig.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.<br/>
+        &copy; Copyright 2020, Moritz Lürig.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.<br/>
     </p>
   </div>
 </footer>

@@ -222,6 +222,29 @@ attributes files in the project directories</p></li>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="phenopype.main.project.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save project to root directory</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>project</strong> (<a class="reference internal" href="#phenopype.main.project" title="phenopype.main.project"><em>phenopype.main.project</em></a>) – save project file to root dir of project (saves ONLY the python object needed to call file-lists, NOT collected data),
+which needs to be saved separately with the appropriate functions (e.g. “save_csv” and “save_img”)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.main.project.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load phenoype project.data file to python namespace</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>path to project.data</em>) – load project file saved to root dir of project</p>
+</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 </div>
@@ -277,8 +300,8 @@ or path to a valid phenopype directory</p></li>
       
     </p>
     <p>
-        &copy; Copyright 2019, Moritz Lürig.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.<br/>
+        &copy; Copyright 2020, Moritz Lürig.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.<br/>
     </p>
   </div>
 </footer>

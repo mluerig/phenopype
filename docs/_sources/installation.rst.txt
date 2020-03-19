@@ -1,32 +1,64 @@
 Installation
 =============
 
-Installing python
------------------
+1. Install Python 
+------------------
 
-1. Get Scientific Python
-""""""""""""""""""""""""
+To get started, download and install `Anaconda <https://www.anaconda.com/distribution/>`_ 
+with Python 3. Anaconda is a scientific python distribution which comes with the most common 
+scientific Python packages already built in.
 
-To get started with Python on any platform, download and install
-`Anaconda <https://www.anaconda.com/distribution/>`_. It comes with the
-common scientific Python packages built in.
-
-
-
-
-Installing phenopype
---------------------
-
-Open a command prompt. On Windows, you can use the "Anaconda Command Prompt"
-installed by Anaconda or Start > Applications > Command Prompt. On a Mac, look
-for Applications > Utilities > Terminal. Type these commands:
+You can test if the installation was successfull by opening a terminal and typing this command:
 
 .. code-block:: bash
 
-   conda update conda
-   conda install -c conda-forge trackpy
-   conda install -c conda-forge pims
+	conda --version
 
-The above installs trackpy and all its requirements, plus the recommended
-`PIMS <http://soft-matter.github.io/pims/>`_ package that simplifies image-reading,
-and that is used in the trackpy tutorials.
+If :code:`conda` is not recognized, use the anaconda prompt (e.g. through the `Anaconda Navigator 
+<https://docs.anaconda.com/anaconda/user-guide/getting-started/>`_ OR add the path to your Anaconda 
+installation directory (e.g. :code:`C:\Anaconda3\Library\bin`) to your environmental variables. Further
+help can be found `here <https://docs.anaconda.com/anaconda/user-guide/troubleshooting/>`_, `here <https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found>`_, `here <https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10>`_, and `here <https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97>`_.
+
+
+2. Install phenopype
+-----------------------
+
+First, use :code:`conda` create a virtual environment to have fuller control over your python packages. If you 
+prefer an "Rstudio-like" feel, install the Spyder IDE (Integrated Development Environment). An slightly outdated 
+overview of other popular Python IDEs can be found `here <https://wiki.python.org/moin/IntegratedDevelopmentEnvironments>`_. 
+However, phenopype can of course also be run from the command line using :code:`python`.
+
+.. code-block:: bash
+
+	conda create -n "pp" python=3.7
+	conda install spyder
+
+.. important::
+
+	Any modifications to the python environments or `Spyder`, should only be done using :code:`conda`. 
+
+Then activate the virtual environment and install phenopype using `pip` in your terminal or command line:
+
+.. code-block:: bash
+
+	conda activate pp
+	pip install phenopype
+
+To install the latest development version of `phenopype`, which can be found on 
+`github <https://github.com/mluerig/phenopype/tree/development>`_, create a different environment 
+and install `phenopype` with :code:`git`:
+
+.. code-block:: bash
+
+	conda create -n "pp_dev" python=3.7 spyder
+	conda activate pp_dev
+	pip install git
+	pip install git+https://github.com/mluerig/phenopype@development
+
+
+Run phenopype by typing :code:`spyder` or :code:`python` into the command line. If you are unsure to proceed, consult the tutorials.
+
+
+.. important::
+
+	Any modifications to `phenopype`, its dependencies or other python packages should only be done using :code:`pip`. 
