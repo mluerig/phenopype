@@ -38,6 +38,7 @@ Pype presets
 Utility functions
 """""""""""""""""
 Load imagets etc
+
 .. automodule:: phenopype.utils
 	:members:
 	:undoc-members:
@@ -47,6 +48,7 @@ Load imagets etc
 Default settings
 """""""""""""""""
 Load imagets etc
+
 .. automodule:: phenopype.settings
 	:members:
 	:undoc-members:

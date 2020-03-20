@@ -263,7 +263,7 @@ attributes files in the project directories</p></li>
 <dd><p>Save project to root directory</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>project</strong> (<a class="reference internal" href="#phenopype.main.project" title="phenopype.main.project"><em>phenopype.main.project</em></a>) – save project file to root dir of project (saves ONLY the python object needed to call file-lists, NOT collected data),
+<dd class="field-odd"><p><strong>project</strong> (<a class="reference internal" href="high_throughput.html#phenopype.main.project" title="phenopype.main.project"><em>phenopype.main.project</em></a>) – save project file to root dir of project (saves ONLY the python object needed to call file-lists, NOT collected data),
 which needs to be saved separately with the appropriate functions (e.g. “save_csv” and “save_img”)</p>
 </dd>
 </dl>
@@ -327,34 +327,223 @@ or path to a valid phenopype directory</p></li>
 </div>
 <div class="section" id="utility-functions">
 <h3>Utility functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h3>
-<p>Load imagets etc
-.. automodule:: phenopype.utils</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">members</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">undoc-members</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">show-inheritance</dt>
-<dd class="field-odd"><p></p></dd>
+<p>Load imagets etc</p>
+<span class="target" id="module-phenopype.utils"></span><dl class="function">
+<dt id="phenopype.utils.custom_formatwarning">
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">custom_formatwarning</code><span class="sig-paren">(</span><em class="sig-param">msg</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.custom_formatwarning" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="phenopype.utils.container">
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">container</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">df_image_data</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="phenopype.utils.container.load">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.load" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>components</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is [].</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
 </dl>
-</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.utils.container.reset">
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.reset" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>components</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is [].</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.utils.container.save">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.save" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>components</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is [].</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>None.</em></p></li>
+<li><p><em>cfg = “pype_config_v1.yaml”</em></p></li>
+<li><p><strong>cfg[cfg.rindex(‘_’)+1</strong> (<em>cfg.rindex(‘.’)]</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.utils.container.show">
+<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.show" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>components</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is [].</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>None.</em></p></li>
+<li><p><em>cfg = “pype_config_v1.yaml”</em></p></li>
+<li><p><strong>cfg[cfg.rindex(‘_’)+1</strong> (<em>cfg.rindex(‘.’)]</em>)</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.utils.load_directory">
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_directory</code><span class="sig-paren">(</span><em class="sig-param">directory_path</em>, <em class="sig-param">cont=True</em>, <em class="sig-param">df=True</em>, <em class="sig-param">meta=True</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_directory" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>directory_path</strong> (<em>str</em><em> or </em><em>ndarray</em>) – path to a phenopype project directory containing raw image, attributes
+file, masks files, results df, etc.</p></li>
+<li><p><strong>cont</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the loaded image (and DataFrame) be returned as a phenopype
+container</p></li>
+<li><p><strong>df</strong> (<em>bool</em><em>, </em><em>optional</em>) – should a DataFrame containing image information (e.g. dimensions)
+be returned.</p></li>
+<li><p><strong>meta</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the DataFrame encompass image meta data (e.g. from exif-data).
+This works only when obj_input is a path string to the original file.</p></li>
+<li><p><strong>resize</strong> (<em>float</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+original size).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A phenopype container is a Python class where loaded images,
+dataframes, detected contours, intermediate output, etc. are stored
+so that they are available for inspection or storage at the end of
+the analysis.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.utils.load_image">
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_image</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">cont=False</em>, <em class="sig-param">df=False</em>, <em class="sig-param">meta=False</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create ndarray from image path or return or resize exising array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>str</em><em> or </em><em>ndarray</em>) – can be a path to an image stored on the harddrive OR an array already
+loaded to Python.</p></li>
+<li><p><strong>cont</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the loaded image (and DataFrame) be returned as a phenopype
+container</p></li>
+<li><p><strong>df</strong> (<em>bool</em><em>, </em><em>optional</em>) – should a DataFrame containing image information (e.g. dimensions) be
+returned.</p></li>
+<li><p><strong>meta</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the DataFrame encompass image meta data (e.g. from exif-data).
+This works only when obj_input is a path string to the original file.</p></li>
+<li><p><strong>resize</strong> (<em>float</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+original size).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>ct</strong> (<em>container</em>) – A phenopype container is a Python class where loaded images,
+dataframes, detected contours, intermediate output, etc. are stored
+so that they are available for inspection or storage at the end of
+the analysis.</p></li>
+<li><p><strong>image</strong> (<em>ndarray</em>) – original image (resized, if selected)</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em>) – contains image data (+meta data), if selected</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.utils.load_image_data">
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_image_data</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">resize=1</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_image_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a DataFreame with image information (e.g. dimensions).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>str</em><em> or </em><em>ndarray</em>) – can be a path to an image stored on the harddrive OR an array already
+loaded to Python.</p></li>
+<li><p><strong>resize</strong> (<em>float</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+original size). gets stored to a DataFrame column</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image_data</strong> – contains image data (+meta data, if selected)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.utils.load_meta_data">
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_meta_data</code><span class="sig-paren">(</span><em class="sig-param">image_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_meta_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts metadata (mostly Exif) from original image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image_path</strong> (<em>str path to image on harddrive</em>) – DESCRIPTION.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>DESCRIPTION.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.utils.show_image">
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">show_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">max_dim=1200</em>, <em class="sig-param">pos_offset=25</em>, <em class="sig-param">pos_reset=True</em>, <em class="sig-param">window_aspect='free'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.show_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show one or multiple images by providing path string or array or list of
+either.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>str</em><em>, </em><em>array</em><em>, or </em><em>list</em>) – the image or list of images to be displayed. can be path to image
+(string), array-type, or list of strings or arrays</p></li>
+<li><p><strong>window_aspect</strong> (<em>str</em><em> (</em><em>default: &quot;fixed&quot;</em><em>)</em>) – “fixed” or “free” aspect ratio</p></li>
+<li><p><strong>position_reset</strong> (<em>bool</em>) – flag whether image positions should be reset when reopening list of
+images</p></li>
+<li><p><strong>position_offset</strong> (<em>int</em>) – if image is list, the distance in pixels betweeen the positions of
+each newly opened window (only works in conjunction with
+“position_reset”)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="default-settings">
 <h3>Default settings<a class="headerlink" href="#default-settings" title="Permalink to this headline">¶</a></h3>
-<p>Load imagets etc
-.. automodule:: phenopype.settings</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">members</dt>
-<dd class="field-odd"><p></p></dd>
-<dt class="field-even">undoc-members</dt>
-<dd class="field-even"><p></p></dd>
-<dt class="field-odd">show-inheritance</dt>
-<dd class="field-odd"><p></p></dd>
-</dl>
-</div></blockquote>
-</div>
+<p>Load imagets etc</p>
+<span class="target" id="module-phenopype.settings"></span></div>
 </div>
 <div class="section" id="image-analysis-core-modules">
 <h2>Image analysis (core modules)<a class="headerlink" href="#image-analysis-core-modules" title="Permalink to this headline">¶</a></h2>
