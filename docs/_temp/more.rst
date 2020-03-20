@@ -1,1 +1,0 @@
-E:/git_repos/phenopype/docs_source/more.rst
