@@ -15,7 +15,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Tutorial 2: loading phenopype, analyzing single images" href="tutorial_2.html" />
-    <link rel="prev" title="Python" href="more.html" />
+    <link rel="prev" title="How to run the tutorials" href="tutorial_0.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -62,12 +62,11 @@
 <li class="toctree-l1"><a class="reference internal" href="more.html#opencv">OpenCV</a></li>
 </ul>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 1: A (very) brief python introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_2.html">Tutorial 2: loading phenopype, analyzing single images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3.html">Tutorial 3: making a project, configuring pype</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_3.html#Set-up-project">Set up project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4.html">Tutorial 4: setting a (global) size and colour reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_4.html#Set-up-project">Set up project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_5.html">Tutorial 5: motion tracking from videos</a></li>
 </ul>
 <ul>
@@ -102,7 +101,7 @@
               
                 
   <li>
-    <a href="more.html" title="Previous Chapter: Python"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Python</span>
+    <a href="tutorial_0.html" title="Previous Chapter: How to run the tutorials"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; How to run th...</span>
     </a>
   </li>
   <li>
@@ -927,7 +926,7 @@ of files within it. The joining operation is done with <code class="docutils lit
 </div>
 </div>
 <p>Just really briefly about digital images: <code class="docutils literal notranslate"><span class="pre">cv2.imread</span></code> converts a digital image file to an array, a stack of three matrices containing pixel wise information on the red, green and blue channel of an image, which - taken together - creates the colour image. Read more about images and arrays here <a class="reference external" href="https://mmeysenburg.github.io/image-processing/03-opencv-images/">https://mmeysenburg.github.io/image-processing/03-opencv-images/</a> and here <a class="reference external" href="http://scikit-image.org/docs/dev/user_guide/numpy_images.html">http://scikit-image.org/docs/dev/user_guide/numpy_images.html</a></p>
-<p><img alt="image0" src="../assets/tutorials/bgr_image.png" /></p>
+<p><img alt="image0" src="_images/bgr_image.png" /></p>
 <p>Lets examine our image. It is not informative neither possible to look at the whole matrix of pixel values inside the console, but sometimes it is useful to look at specific features of your image, which we can acess directly from the image-object. For example, the dimensions, using <code class="docutils literal notranslate"><span class="pre">shape</span></code>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:

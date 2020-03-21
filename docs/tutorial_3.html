@@ -62,12 +62,11 @@
 <li class="toctree-l1"><a class="reference internal" href="more.html#opencv">OpenCV</a></li>
 </ul>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1.html">Tutorial 1: A (very) brief python introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_2.html">Tutorial 2: loading phenopype, analyzing single images</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 3: making a project, configuring pype</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#Set-up-project">Set up project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4.html">Tutorial 4: setting a (global) size and colour reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_4.html#Set-up-project">Set up project</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_5.html">Tutorial 5: motion tracking from videos</a></li>
 </ul>
 <ul>
@@ -87,8 +86,8 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Tutorial 3: making a project, configuring pype</a></li>
-<li><a class="reference internal" href="#Set-up-project">Set up project</a><ul>
+<li><a class="reference internal" href="#">Tutorial 3: making a project, configuring pype</a><ul>
+<li><a class="reference internal" href="#Set-up-project">Set up project</a></li>
 <li><a class="reference internal" href="#Provide-a-scale">Provide a scale</a></li>
 <li><a class="reference internal" href="#Placing-landmarks">Placing landmarks</a></li>
 <li><a class="reference internal" href="#Measure-specimen-length">Measure specimen length</a></li>
@@ -371,9 +370,8 @@ div.rendered_html tbody tr:hover {
 <li><p><a class="reference external" href="#landmarks">Placing landmarks</a></p></li>
 <li><p><a class="reference external" href="#length">Measure specimen length</a></p></li>
 </ul>
-</div>
 <div class="section" id="Set-up-project">
-<h1>Set up project<a class="headerlink" href="#Set-up-project" title="Permalink to this headline">¶</a></h1>
+<h2>Set up project<a class="headerlink" href="#Set-up-project" title="Permalink to this headline">¶</a></h2>
 <p>First we load the program and initate a project object where we indicate the images that contain the specimens that we want to landmark - in this case images of stickleback (using the <code class="docutils literal notranslate"><span class="pre">include</span></code> argument).</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
@@ -412,6 +410,7 @@ Exclude: []
 Search returned following files:
 [&#39;stickle1.jpg&#39;, &#39;stickle2.jpg&#39;, &#39;stickle3.jpg&#39;]
 </pre></div></div>
+</div>
 </div>
 <div class="section" id="Provide-a-scale">
 <h2>Provide a scale<a class="headerlink" href="#Provide-a-scale" title="Permalink to this headline">¶</a></h2>

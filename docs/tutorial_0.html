@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Python &#8212; phenopype 1.0.0 documentation</title>
+    <title>How to run the tutorials &#8212; phenopype 1.0.0 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -14,8 +14,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="How to run the tutorials" href="tutorial_0.html" />
-    <link rel="prev" title="API reference" href="api.html" />
+    <link rel="next" title="Tutorial 1: A (very) brief python introduction" href="tutorial_1.html" />
+    <link rel="prev" title="Python" href="more.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -55,14 +55,14 @@
      href="index.html">Site <b class="caret"></b></a>
   <ul class="dropdown-menu globaltoc"
       role="menu"
-      aria-labelledby="dLabelGlobalToc"><ul class="current">
+      aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#opencv">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html#opencv">OpenCV</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to run the tutorials</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1.html">Tutorial 1: A (very) brief python introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_2.html">Tutorial 2: loading phenopype, analyzing single images</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3.html">Tutorial 3: making a project, configuring pype</a></li>
@@ -86,8 +86,7 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Python</a></li>
-<li><a class="reference internal" href="#opencv">OpenCV</a></li>
+<li><a class="reference internal" href="#">How to run the tutorials</a></li>
 </ul>
 </ul>
 </li>
@@ -97,11 +96,11 @@
               
                 
   <li>
-    <a href="api.html" title="Previous Chapter: API reference"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; API reference</span>
+    <a href="more.html" title="Previous Chapter: Python"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Python</span>
     </a>
   </li>
   <li>
-    <a href="tutorial_0.html" title="Next Chapter: How to run the tutorials"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">How to run th... &raquo;</span>
+    <a href="tutorial_1.html" title="Next Chapter: Tutorial 1: A (very) brief python introduction"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tutorial 1: A... &raquo;</span>
     </a>
   </li>
               
@@ -111,7 +110,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="_sources/more.rst.txt"
+  <a href="_sources/tutorial_0.rst.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -135,15 +134,16 @@
   <div class="row">
     <div class="body col-md-12 content" role="main">
       
-  <div class="section" id="python">
-<h1>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
-<p>Mehr info hier:</p>
-<p><cite>https://docs.opencv.org/3.4.5/ &lt;https://docs.opencv.org/3.4.5/&gt;</cite></p>
+  <div class="section" id="how-to-run-the-tutorials">
+<h1>How to run the tutorials<a class="headerlink" href="#how-to-run-the-tutorials" title="Permalink to this headline">¶</a></h1>
+<p>The tutorials are written as <cite>Jupyter notebooks</cite>, interactive web-apps to run, document, and visualize code: <a class="reference external" href="https://jupyter.org/">https://jupyter.org/</a>. If you installed Python using Anaconda, it is possible that <code class="code docutils literal notranslate"><span class="pre">jupyter</span></code> is already installed - check py typing <code class="code docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">--version</span></code> into the console. Otherwise you can install it with pip</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install jupyter notebook
+</pre></div>
 </div>
-<div class="section" id="opencv">
-<h1>OpenCV<a class="headerlink" href="#opencv" title="Permalink to this headline">¶</a></h1>
-<p>Mehr info hier:</p>
-<p><a class="reference external" href="https://docs.opencv.org/3.4.5/">https://docs.opencv.org/3.4.5/</a></p>
+<p>After installing phenopype, download and unpack the phenopype repository from <a class="reference external" href="https://github.com/mluerig/phenopype">github</a>. Go to the tutorial folder, open a terminal and run the notebooks:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>jupyter notebook
+</pre></div>
+</div>
 </div>
 
 
