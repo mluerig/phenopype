@@ -1,8 +1,10 @@
 Installation
 =============
 
-1. Install Python 
-------------------
+
+
+1. Install Python
+-----------------
 
 To get started, download and install `Anaconda <https://www.anaconda.com/distribution/>`_ 
 with Python 3. Anaconda is a scientific python distribution which comes with the most common 
@@ -17,25 +19,30 @@ You can test if the installation was successfull by opening a terminal and typin
 If :code:`conda` is not recognized, use the anaconda prompt (e.g. through the `Anaconda Navigator 
 <https://docs.anaconda.com/anaconda/user-guide/getting-started/>`_ OR add the path to your Anaconda 
 installation directory (e.g. :code:`C:\Anaconda3\Library\bin`) to your environmental variables. Further
-help can be found `here <https://docs.anaconda.com/anaconda/user-guide/troubleshooting/>`_, `here <https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found>`_, `here <https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10>`_, and `here <https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97>`_.
+help can be found `here <https://docs.anaconda.com/anaconda/user-guide/troubleshooting/>`_, 
+`here <https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found>`_, `here <https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10>`_, and `here <https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97>`_.
+
 
 
 2. Install phenopype
------------------------
+--------------------
 
 First, use :code:`conda` create a virtual environment to have fuller control over your python packages. If you 
-prefer an "Rstudio-like" feel, install the Spyder IDE (Integrated Development Environment). An slightly outdated 
-overview of other popular Python IDEs can be found `here <https://wiki.python.org/moin/IntegratedDevelopmentEnvironments>`_. 
-However, phenopype can of course also be run from the command line using :code:`python`.
+prefer an "Rstudio-like" environment, you can use phenpype from an IDE (Integrated Development Environment). My favorite IDE
+is Spyder (https://www.spyder-ide.org/); a slightly outdated overview of other popular Python IDEs can be found 
+`here <https://wiki.python.org/moin/IntegratedDevelopmentEnvironments>`_. Phenopype can of course also be run from the 
+command line using :code:`python`.
 
 .. code-block:: bash
 
 	conda create -n "pp" python=3.7
 	conda install spyder
-
+	
 .. important::
 
-	Any modifications to the python environments or `Spyder`, should only be done using :code:`conda`. 
+	If your are using `Spyder`, make sure you install it to the new environment you have just created, otherwise `Spyder` will be loaded
+	from conda base environment, where phenopype is not installed. 
+
 
 Then activate the virtual environment and install phenopype using `pip` in your terminal or command line:
 
@@ -44,21 +51,26 @@ Then activate the virtual environment and install phenopype using `pip` in your 
 	conda activate pp
 	pip install phenopype
 
-To install the latest development version of `phenopype`, which can be found on 
-`github <https://github.com/mluerig/phenopype/tree/development>`_, create a different environment 
-and install `phenopype` with :code:`git`:
+You can now phenopype by typing :code:`spyder` or :code:`python` into the command line. If you are unsure to proceed, consult the tutorials.
+
+To update to the latest unreleased version of `phenopype`, which can be found on 
+`github <https://github.com/mluerig/phenopype/tree/development>`_, use 'pip' with :code:`git`:
 
 .. code-block:: bash
 
-	conda create -n "pp_dev" python=3.7 spyder
-	conda activate pp_dev
-	pip install git
-	pip install git+https://github.com/mluerig/phenopype@development
-
-
-Run phenopype by typing :code:`spyder` or :code:`python` into the command line. If you are unsure to proceed, consult the tutorials.
-
-
+	pip install git+https://github.com/mluerig/phenopype@development - U
 .. important::
 
-	Any modifications to `phenopype`, its dependencies or other python packages should only be done using :code:`pip`. 
+	Any modifications to the python environments or `Spyder`, should only be done using :code:`conda`, but modifications to `phenopype`, 
+	its dependencies or other python packages should only be done using :code:`pip`. Mixing the two installers may break your python enviroment.
+
+
+
+
+
+
+3. Choose a text editor
+-----------------------
+
+The high throughout method in phenopype currently requires a text editor to be installed that **does not lock the file** - `read about file locking here <https://superuser.com/questions/853420/why-is-windows-not-warning-about-file-in-use-for-certain-programs>`_. For Windows, I recommend `Notepad++`, which supports 
+syntax highlighting and has many other useful features, for Linux `Vim` or `Nano`, and for MacOS `brackets` could work (http://brackets.io/).

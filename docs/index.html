@@ -56,22 +56,21 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more.html">Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more.html#opencv">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ref.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_1.html">Tutorial 1: A (very) brief python introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_2.html">Tutorial 2: loading phenopype, analyzing single images</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_3.html">Tutorial 3: making a project, configuring pype</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_4.html">Tutorial 4: setting a (global) size and colour reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_5.html">Tutorial 5: motion tracking from videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects.html">Tutorial 3: Managing phenopype projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_setting_global_scale.html">Tutorial 4: setting a (global) size and colour reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_video_analysis.html">Tutorial 5: motion tracking from videos</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="example_1.html">Example 1: detecting objects, measuring shape and colour</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_2.html">Example 2: setting masks and drawing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_3.html">Example 3: setting landmarks and poly-lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_1_detect_objects.html">Example 1: detecting objects, measuring shape and colour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_2_basic_gui_interactions.html">Example 2: setting masks and drawing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_3_landmarks.html">Example 3: setting landmarks and drawing lines</a></li>
 </ul>
 </ul>
 </li>
@@ -144,37 +143,40 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#install-python">1. Install Python</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#install-phenopype">2. Install phenopype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#choose-a-text-editor">3. Choose a text editor</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api.html#main-functions">Main functions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#project">Project</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#pype">Pype</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-phenopype.presets">Pype presets</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#utility-functions">Utility functions</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#default-settings">Default settings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ref.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api_ref.html#main-package-functions">Main package functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#project-management">Project management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#pype-method">Pype method</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#utility-functions">Utility functions</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#image-analysis-core-modules">Image analysis (core modules)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#preprocessing">Preprocessing</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#segmentation">Segmentation</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#measurement">Measurement</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_ref.html#image-analysis-core-modules">Image analysis (core modules)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#preprocessing">Preprocessing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#segmentation">Segmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#measurement">Measurement</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#image-analysis-support-modules">Image analysis (support modules)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-phenopype.core.visualization">Visualization</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#module-phenopype.core.export">Export</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_ref.html#image-analysis-support-modules">Image analysis (support modules)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#module-phenopype.core.visualization">Visualization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#module-phenopype.core.export">Export</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="api.html#video-analysis">Video analysis</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="api.html#motion-tracking-core-module">Motion tracking (core module)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="api.html#tracking-method-customizable-method">Tracking method (customizable method)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api_ref.html#video-analysis">Video analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#motion-tracking-core-module">Motion tracking (core module)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api_ref.html#tracking-method-customizable-method">Tracking method (customizable method)</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="more.html">Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more.html#opencv">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#opencv">OpenCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#computer-vision">Computer vision</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -183,37 +185,27 @@
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_1.html">Tutorial 1: A (very) brief python introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#python-modules">python modules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#paths-and-directories">paths and directories</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_1.html#images-in-python">images in python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_1_python_intro.html#Python-modules">Python modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_1_python_intro.html#paths-and-directories">paths and directories</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_1_python_intro.html#images-in-python">images in python</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_2.html">Tutorial 2: loading phenopype, analyzing single images</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#Add-images-to-project">Add images to project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#Setting-a-scale">Setting a scale</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#Detecting-objects">Detecting objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#Masking-images">Masking images</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#Detecting-many-objects">Detecting many objects</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#Detecting-many-objects-in-many-files">Detecting many objects in many files</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_2.html#Detect-objects-on-variable-background">Detect objects on variable background</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_2_phenopype_workflow.html#1.-Prototyping-worflow">1. Prototyping worflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_2_phenopype_workflow.html#2.-Low-throughput-worflow">2. Low throughput worflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_2_phenopype_workflow.html#3.-High-throughput-worflow">3. High throughput worflow</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_3.html">Tutorial 3: making a project, configuring pype</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_3.html#Set-up-project">Set up project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_3.html#Provide-a-scale">Provide a scale</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_3.html#Placing-landmarks">Placing landmarks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_3.html#Measure-specimen-length">Measure specimen length</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects.html">Tutorial 3: Managing phenopype projects</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3_managing_projects.html#Set-up-project">Set up project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3_managing_projects.html#Provide-a-scale">Provide a scale</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3_managing_projects.html#Placing-landmarks">Placing landmarks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial_3_managing_projects.html#Measure-specimen-length">Measure specimen length</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_4.html">Tutorial 4: setting a (global) size and colour reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4.html#Set-up-project">Set up project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4.html#Provide-a-scale">Provide a scale</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4.html#Placing-landmarks">Placing landmarks</a></li>
-<li class="toctree-l2"><a class="reference internal" href="tutorial_4.html#Measure-specimen-length">Measure specimen length</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_5.html">Tutorial 5: motion tracking from videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_setting_global_scale.html">Tutorial 4: setting a (global) size and colour reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_video_analysis.html">Tutorial 5: motion tracking from videos</a></li>
 </ul>
 </div>
 </div>
@@ -221,9 +213,12 @@
 <h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="example_1.html">Example 1: detecting objects, measuring shape and colour</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_2.html">Example 2: setting masks and drawing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_3.html">Example 3: setting landmarks and poly-lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_1_detect_objects.html">Example 1: detecting objects, measuring shape and colour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_2_basic_gui_interactions.html">Example 2: setting masks and drawing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_3_landmarks.html">Example 3: setting landmarks and drawing lines</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="example_3_landmarks.html#1.-Default-workflow">1. Default workflow</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>

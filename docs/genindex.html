@@ -56,22 +56,21 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more.html">Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="more.html#opencv">OpenCV</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ref.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_1.html">Tutorial 1: A (very) brief python introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_2.html">Tutorial 2: loading phenopype, analyzing single images</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_3.html">Tutorial 3: making a project, configuring pype</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_4.html">Tutorial 4: setting a (global) size and colour reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_5.html">Tutorial 5: motion tracking from videos</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects.html">Tutorial 3: Managing phenopype projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_setting_global_scale.html">Tutorial 4: setting a (global) size and colour reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_video_analysis.html">Tutorial 5: motion tracking from videos</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="example_1.html">Example 1: detecting objects, measuring shape and colour</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_2.html">Example 2: setting masks and drawing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_3.html">Example 3: setting landmarks and poly-lines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_1_detect_objects.html">Example 1: detecting objects, measuring shape and colour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_2_basic_gui_interactions.html">Example 2: setting masks and drawing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_3_landmarks.html">Example 3: setting landmarks and drawing lines</a></li>
 </ul>
 </ul>
 </li>
@@ -116,7 +115,11 @@
 
 <div class="container">
   <div class="row">
-    <div class="body col-md-12 content" role="main">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary">
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
       
 
 <h1 id="index">Index</h1>
@@ -142,13 +145,13 @@
 <h2 id="A">A</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.main.project.add_config">add_config() (phenopype.main.project method)</a>, <a href="high_throughput.html#phenopype.main.project.add_config">[1]</a>
+      <li><a href="api_ref.html#phenopype.main.project.add_config">add_config() (phenopype.main.project method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.main.project.add_files">add_files() (phenopype.main.project method)</a>, <a href="high_throughput.html#phenopype.main.project.add_files">[1]</a>
+      <li><a href="api_ref.html#phenopype.main.project.add_files">add_files() (phenopype.main.project method)</a>
 </li>
-      <li><a href="api.html#phenopype.main.project.add_scale">add_scale() (phenopype.main.project method)</a>, <a href="high_throughput.html#phenopype.main.project.add_scale">[1]</a>
+      <li><a href="api_ref.html#phenopype.main.project.add_scale">add_scale() (phenopype.main.project method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -156,7 +159,7 @@
 <h2 id="B">B</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.segmentation.blur">blur() (in module phenopype.core.segmentation)</a>, <a href="segmentation.html#phenopype.core.segmentation.blur">[1]</a>
+      <li><a href="api_ref.html#phenopype.core.segmentation.blur">blur() (in module phenopype.core.segmentation)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -164,17 +167,17 @@
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.measurement.colour_intensity">colour_intensity() (in module phenopype.core.measurement)</a>
+      <li><a href="api_ref.html#phenopype.core.measurement.colour_intensity">colour_intensity() (in module phenopype.core.measurement)</a>
 </li>
-      <li><a href="api.html#phenopype.utils.container">container (class in phenopype.utils)</a>
+      <li><a href="api_ref.html#phenopype.utils.container">container (class in phenopype.utils)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.preprocessing.create_mask">create_mask() (in module phenopype.core.preprocessing)</a>
+      <li><a href="api_ref.html#phenopype.core.preprocessing.create_mask">create_mask() (in module phenopype.core.preprocessing)</a>
 </li>
-      <li><a href="api.html#phenopype.core.preprocessing.create_scale">create_scale() (in module phenopype.core.preprocessing)</a>
+      <li><a href="api_ref.html#phenopype.core.preprocessing.create_scale">create_scale() (in module phenopype.core.preprocessing)</a>
 </li>
-      <li><a href="api.html#phenopype.utils.custom_formatwarning">custom_formatwarning() (in module phenopype.utils)</a>
+      <li><a href="api_ref.html#phenopype.utils.custom_formatwarning">custom_formatwarning() (in module phenopype.utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -182,7 +185,7 @@
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.segmentation.draw">draw() (in module phenopype.core.segmentation)</a>, <a href="segmentation.html#phenopype.core.segmentation.draw">[1]</a>
+      <li><a href="api_ref.html#phenopype.core.segmentation.draw">draw() (in module phenopype.core.segmentation)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -190,7 +193,7 @@
 <h2 id="E">E</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.preprocessing.enter_data">enter_data() (in module phenopype.core.preprocessing)</a>
+      <li><a href="api_ref.html#phenopype.core.preprocessing.enter_data">enter_data() (in module phenopype.core.preprocessing)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -198,11 +201,11 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.segmentation.find_contours">find_contours() (in module phenopype.core.segmentation)</a>, <a href="segmentation.html#phenopype.core.segmentation.find_contours">[1]</a>
+      <li><a href="api_ref.html#phenopype.core.segmentation.find_contours">find_contours() (in module phenopype.core.segmentation)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.preprocessing.find_scale">find_scale() (in module phenopype.core.preprocessing)</a>
+      <li><a href="api_ref.html#phenopype.core.preprocessing.find_scale">find_scale() (in module phenopype.core.preprocessing)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -210,7 +213,7 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.preprocessing.invert_image">invert_image() (in module phenopype.core.preprocessing)</a>
+      <li><a href="api_ref.html#phenopype.core.preprocessing.invert_image">invert_image() (in module phenopype.core.preprocessing)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -218,23 +221,23 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.measurement.landmarks">landmarks() (in module phenopype.core.measurement)</a>
+      <li><a href="api_ref.html#phenopype.core.measurement.landmarks">landmarks() (in module phenopype.core.measurement)</a>
 </li>
-      <li><a href="api.html#phenopype.main.project.load">load() (phenopype.main.project method)</a>, <a href="high_throughput.html#phenopype.main.project.load">[1]</a>
+      <li><a href="api_ref.html#phenopype.main.project.load">load() (phenopype.main.project method)</a>
 
       <ul>
-        <li><a href="api.html#phenopype.utils.container.load">(phenopype.utils.container method)</a>
+        <li><a href="api_ref.html#phenopype.utils.container.load">(phenopype.utils.container method)</a>
 </li>
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.utils.load_directory">load_directory() (in module phenopype.utils)</a>
+      <li><a href="api_ref.html#phenopype.utils.load_directory">load_directory() (in module phenopype.utils)</a>
 </li>
-      <li><a href="api.html#phenopype.utils.load_image">load_image() (in module phenopype.utils)</a>
+      <li><a href="api_ref.html#phenopype.utils.load_image">load_image() (in module phenopype.utils)</a>
 </li>
-      <li><a href="api.html#phenopype.utils.load_image_data">load_image_data() (in module phenopype.utils)</a>
+      <li><a href="api_ref.html#phenopype.utils.load_image_data">load_image_data() (in module phenopype.utils)</a>
 </li>
-      <li><a href="api.html#phenopype.utils.load_meta_data">load_meta_data() (in module phenopype.utils)</a>
+      <li><a href="api_ref.html#phenopype.utils.load_meta_data">load_meta_data() (in module phenopype.utils)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -242,13 +245,13 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.segmentation.morphology">morphology() (in module phenopype.core.segmentation)</a>, <a href="segmentation.html#phenopype.core.segmentation.morphology">[1]</a>
+      <li><a href="api_ref.html#phenopype.core.segmentation.morphology">morphology() (in module phenopype.core.segmentation)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.tracking.motion_tracker.motion_detection">motion_detection() (phenopype.tracking.motion_tracker method)</a>
+      <li><a href="api_ref.html#phenopype.tracking.motion_tracker.motion_detection">motion_detection() (phenopype.tracking.motion_tracker method)</a>
 </li>
-      <li><a href="api.html#phenopype.tracking.motion_tracker">motion_tracker (class in phenopype.tracking)</a>
+      <li><a href="api_ref.html#phenopype.tracking.motion_tracker">motion_tracker (class in phenopype.tracking)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -256,29 +259,25 @@
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#module-phenopype.core.export">phenopype.core.export (module)</a>
+      <li><a href="api_ref.html#module-phenopype.core.export">phenopype.core.export (module)</a>
 </li>
-      <li><a href="api.html#module-phenopype.core.measurement">phenopype.core.measurement (module)</a>
+      <li><a href="api_ref.html#module-phenopype.core.measurement">phenopype.core.measurement (module)</a>
 </li>
-      <li><a href="api.html#module-phenopype.core.preprocessing">phenopype.core.preprocessing (module)</a>
+      <li><a href="api_ref.html#module-phenopype.core.preprocessing">phenopype.core.preprocessing (module)</a>
 </li>
-      <li><a href="api.html#module-phenopype.core.segmentation">phenopype.core.segmentation (module)</a>, <a href="segmentation.html#module-phenopype.core.segmentation">[1]</a>
-</li>
-      <li><a href="api.html#module-phenopype.core.visualization">phenopype.core.visualization (module)</a>
+      <li><a href="api_ref.html#module-phenopype.core.segmentation">phenopype.core.segmentation (module)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#module-phenopype.presets">phenopype.presets (module)</a>
+      <li><a href="api_ref.html#module-phenopype.core.visualization">phenopype.core.visualization (module)</a>
 </li>
-      <li><a href="api.html#module-phenopype.settings">phenopype.settings (module)</a>
+      <li><a href="api_ref.html#module-phenopype.utils">phenopype.utils (module)</a>
 </li>
-      <li><a href="api.html#module-phenopype.utils">phenopype.utils (module)</a>
+      <li><a href="api_ref.html#phenopype.core.measurement.polylines">polylines() (in module phenopype.core.measurement)</a>
 </li>
-      <li><a href="api.html#phenopype.core.measurement.polylines">polylines() (in module phenopype.core.measurement)</a>
+      <li><a href="api_ref.html#phenopype.main.project">project (class in phenopype.main)</a>
 </li>
-      <li><a href="api.html#phenopype.main.project">project (class in phenopype.main)</a>, <a href="high_throughput.html#phenopype.main.project">[1]</a>
-</li>
-      <li><a href="api.html#phenopype.main.pype">pype (class in phenopype.main)</a>, <a href="high_throughput.html#phenopype.main.pype">[1]</a>
+      <li><a href="api_ref.html#phenopype.main.pype">pype (class in phenopype.main)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -286,13 +285,13 @@
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.utils.container.reset">reset() (phenopype.utils.container method)</a>
+      <li><a href="api_ref.html#phenopype.utils.container.reset">reset() (phenopype.utils.container method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.preprocessing.resize_image">resize_image() (in module phenopype.core.preprocessing)</a>
+      <li><a href="api_ref.html#phenopype.core.preprocessing.resize_image">resize_image() (in module phenopype.core.preprocessing)</a>
 </li>
-      <li><a href="api.html#phenopype.tracking.motion_tracker.run_tracking">run_tracking() (phenopype.tracking.motion_tracker method)</a>
+      <li><a href="api_ref.html#phenopype.tracking.motion_tracker.run_tracking">run_tracking() (phenopype.tracking.motion_tracker method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -300,47 +299,49 @@
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.main.project.save">save() (phenopype.main.project method)</a>, <a href="high_throughput.html#phenopype.main.project.save">[1]</a>
+      <li><a href="api_ref.html#phenopype.main.project.save">save() (phenopype.main.project method)</a>
 
       <ul>
-        <li><a href="api.html#phenopype.utils.container.save">(phenopype.utils.container method)</a>
+        <li><a href="api_ref.html#phenopype.utils.container.save">(phenopype.utils.container method)</a>
 </li>
       </ul></li>
-      <li><a href="api.html#phenopype.core.export.save_canvas">save_canvas() (in module phenopype.core.export)</a>
+      <li><a href="api_ref.html#phenopype.core.export.save_canvas">save_canvas() (in module phenopype.core.export)</a>
 </li>
-      <li><a href="api.html#phenopype.core.export.save_colours">save_colours() (in module phenopype.core.export)</a>
+      <li><a href="api_ref.html#phenopype.core.export.save_colours">save_colours() (in module phenopype.core.export)</a>
 </li>
-      <li><a href="api.html#phenopype.core.export.save_contours">save_contours() (in module phenopype.core.export)</a>
+      <li><a href="api_ref.html#phenopype.core.export.save_contours">save_contours() (in module phenopype.core.export)</a>
 </li>
-      <li><a href="api.html#phenopype.core.export.save_data_entry">save_data_entry() (in module phenopype.core.export)</a>
+      <li><a href="api_ref.html#phenopype.core.export.save_data_entry">save_data_entry() (in module phenopype.core.export)</a>
 </li>
-      <li><a href="api.html#phenopype.core.export.save_drawing">save_drawing() (in module phenopype.core.export)</a>
+      <li><a href="api_ref.html#phenopype.core.export.save_drawing">save_drawing() (in module phenopype.core.export)</a>
 </li>
-      <li><a href="api.html#phenopype.core.export.save_landmarks">save_landmarks() (in module phenopype.core.export)</a>
+      <li><a href="api_ref.html#phenopype.utils.save_image">save_image() (in module phenopype.utils)</a>
 </li>
-      <li><a href="api.html#phenopype.core.export.save_masks">save_masks() (in module phenopype.core.export)</a>
+      <li><a href="api_ref.html#phenopype.core.export.save_landmarks">save_landmarks() (in module phenopype.core.export)</a>
+</li>
+      <li><a href="api_ref.html#phenopype.core.export.save_masks">save_masks() (in module phenopype.core.export)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.export.save_polylines">save_polylines() (in module phenopype.core.export)</a>
+      <li><a href="api_ref.html#phenopype.core.export.save_polylines">save_polylines() (in module phenopype.core.export)</a>
 </li>
-      <li><a href="api.html#phenopype.core.export.save_scale">save_scale() (in module phenopype.core.export)</a>
+      <li><a href="api_ref.html#phenopype.core.export.save_scale">save_scale() (in module phenopype.core.export)</a>
 </li>
-      <li><a href="api.html#phenopype.core.visualization.select_canvas">select_canvas() (in module phenopype.core.visualization)</a>
+      <li><a href="api_ref.html#phenopype.core.visualization.select_canvas">select_canvas() (in module phenopype.core.visualization)</a>
 </li>
-      <li><a href="api.html#phenopype.utils.container.show">show() (phenopype.utils.container method)</a>
+      <li><a href="api_ref.html#phenopype.utils.container.show">show() (phenopype.utils.container method)</a>
 </li>
-      <li><a href="api.html#phenopype.core.visualization.show_contours">show_contours() (in module phenopype.core.visualization)</a>
+      <li><a href="api_ref.html#phenopype.core.visualization.show_contours">show_contours() (in module phenopype.core.visualization)</a>
 </li>
-      <li><a href="api.html#phenopype.utils.show_image">show_image() (in module phenopype.utils)</a>
+      <li><a href="api_ref.html#phenopype.utils.show_image">show_image() (in module phenopype.utils)</a>
 </li>
-      <li><a href="api.html#phenopype.core.visualization.show_landmarks">show_landmarks() (in module phenopype.core.visualization)</a>
+      <li><a href="api_ref.html#phenopype.core.visualization.show_landmarks">show_landmarks() (in module phenopype.core.visualization)</a>
 </li>
-      <li><a href="api.html#phenopype.core.visualization.show_masks">show_masks() (in module phenopype.core.visualization)</a>
+      <li><a href="api_ref.html#phenopype.core.visualization.show_masks">show_masks() (in module phenopype.core.visualization)</a>
 </li>
-      <li><a href="api.html#phenopype.core.visualization.show_polylines">show_polylines() (in module phenopype.core.visualization)</a>
+      <li><a href="api_ref.html#phenopype.core.visualization.show_polylines">show_polylines() (in module phenopype.core.visualization)</a>
 </li>
-      <li><a href="api.html#phenopype.core.segmentation.skeletonize">skeletonize() (in module phenopype.core.segmentation)</a>, <a href="segmentation.html#phenopype.core.segmentation.skeletonize">[1]</a>
+      <li><a href="api_ref.html#phenopype.core.segmentation.skeletonize">skeletonize() (in module phenopype.core.segmentation)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -348,11 +349,11 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.segmentation.threshold">threshold() (in module phenopype.core.segmentation)</a>, <a href="segmentation.html#phenopype.core.segmentation.threshold">[1]</a>
+      <li><a href="api_ref.html#phenopype.core.segmentation.threshold">threshold() (in module phenopype.core.segmentation)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.tracking.tracking_method">tracking_method (class in phenopype.tracking)</a>
+      <li><a href="api_ref.html#phenopype.tracking.tracking_method">tracking_method (class in phenopype.tracking)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -360,7 +361,7 @@
 <h2 id="V">V</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.tracking.motion_tracker.video_output">video_output() (phenopype.tracking.motion_tracker method)</a>
+      <li><a href="api_ref.html#phenopype.tracking.motion_tracker.video_output">video_output() (phenopype.tracking.motion_tracker method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -368,7 +369,7 @@
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="api.html#phenopype.core.segmentation.watershed">watershed() (in module phenopype.core.segmentation)</a>, <a href="segmentation.html#phenopype.core.segmentation.watershed">[1]</a>
+      <li><a href="api_ref.html#phenopype.core.segmentation.watershed">watershed() (in module phenopype.core.segmentation)</a>
 </li>
   </ul></td>
 </tr></table>

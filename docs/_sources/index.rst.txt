@@ -12,8 +12,8 @@ Documentation
 	:maxdepth: 3
 
 	installation
-	api
-	more
+	api_ref
+	resources
 
 Tutorials
 ---------
@@ -22,11 +22,11 @@ Tutorials
 	:maxdepth: 2
 
 	tutorial_0
-	tutorial_1
-	tutorial_2
-	tutorial_3
-	tutorial_4
-	tutorial_5
+	tutorial_1_python_intro
+	tutorial_2_phenopype_workflow
+	tutorial_3_managing_projects
+	tutorial_4_setting_global_scale
+	tutorial_5_video_analysis
 
 Examples
 --------
@@ -34,7 +34,7 @@ Examples
 .. toctree::
 	:maxdepth: 2
 
-	example_1
-	example_2
-	example_3
+	example_1_detect_objects
+	example_2_basic_gui_interactions
+	example_3_landmarks
 

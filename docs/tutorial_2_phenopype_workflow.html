@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tutorial 2: Working with phenopype &#8212; phenopype 1.0.0 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial 3: Managing phenopype projects" href="tutorial_3_managing_projects.html" />
+    <link rel="prev" title="Tutorial 1: A (very) brief python introduction" href="tutorial_1_python_intro.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          phenopype</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.0</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/mluerig/phenopype">back to github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_ref.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 2: Working with phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects.html">Tutorial 3: Managing phenopype projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_setting_global_scale.html">Tutorial 4: setting a (global) size and colour reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_video_analysis.html">Tutorial 5: motion tracking from videos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="example_1_detect_objects.html">Example 1: detecting objects, measuring shape and colour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_2_basic_gui_interactions.html">Example 2: setting masks and drawing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_3_landmarks.html">Example 3: setting landmarks and drawing lines</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Tutorial 2: Working with phenopype</a><ul>
+<li><a class="reference internal" href="#1.-Prototyping-worflow">1. Prototyping worflow</a></li>
+<li><a class="reference internal" href="#2.-Low-throughput-worflow">2. Low throughput worflow</a></li>
+<li><a class="reference internal" href="#3.-High-throughput-worflow">3. High throughput worflow</a><ul>
+<li><a class="reference internal" href="#3.1-yaml-syntax">3.1 yaml-syntax</a></li>
+<li><a class="reference internal" href="#3.2.-pype-behavior">3.2. <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="tutorial_1_python_intro.html" title="Previous Chapter: Tutorial 1: A (very) brief python introduction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tutorial 1: A...</span>
+    </a>
+  </li>
+  <li>
+    <a href="tutorial_3_managing_projects.html" title="Next Chapter: Tutorial 3: Managing phenopype projects"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tutorial 3: M... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/tutorial_2_phenopype_workflow.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Tutorial 2: Working with phenopype</a><ul>
+<li><a class="reference internal" href="#1.-Prototyping-worflow">1. Prototyping worflow</a></li>
+<li><a class="reference internal" href="#2.-Low-throughput-worflow">2. Low throughput worflow</a></li>
+<li><a class="reference internal" href="#3.-High-throughput-worflow">3. High throughput worflow</a><ul>
+<li><a class="reference internal" href="#3.1-yaml-syntax">3.1 yaml-syntax</a></li>
+<li><a class="reference internal" href="#3.2.-pype-behavior">3.2. <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    min-width: 5.5ex;
+    padding-top: 0.3rem;
+    padding-right: 0.3rem;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 0.3rem;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Tutorial-2:-Working-with-phenopype">
+<h1>Tutorial 2: Working with phenopype<a class="headerlink" href="#Tutorial-2:-Working-with-phenopype" title="Permalink to this headline">¶</a></h1>
+<p>Analysis of scientific images can be an iterative process that may require frequent user input to preprocess images, adjust settings and evaluate the obtained results. In phenopype, users can start this process by identifying the appropriate functions and settings to analyse a series of images (i.e. which segmentation algorithms is to be used). For the actual analysis, users then can switch to a workflow that has higher throughput and is more reproducible. Phenopype offers three different types
+of workflows that are explained here:</p>
+<ol class="arabic simple">
+<li><p><a class="reference external" href="#proto">Prototyping</a> - images are loaded as arrays and functions are applied one by one (low throughput, low reproducibility - for workflow-prototyping and evaluation).</p></li>
+<li><p><a class="reference external" href="#low">Low throughput</a> - images are loaded into phenopype containers, which are then supplied to a function stack (medium throughput, low reproducibility - for single pictures and very small datasets).</p></li>
+<li><p><a class="reference external" href="#high">High throughput</a> - images are loaded from a phenopype project directory tree, and analyzed with the pype method (high throughput, high reproducibility - standard workflow for medium and large datasets).</p></li>
+</ol>
+<p>For the first two workflow types, users write a phenopype function stack in python code to assemble a CV workflow from five core modules (preprocessing, segmentation, measurement, export, visualization - for a full list check the API reference). This is recommended for users who wish to familiarize themselves with the basic principles of computer vision and to explore the phenopype function library. Output from all intermediate steps is returned from the functions and can be evaluated, which
+makes these routines are also appropriate for prototyping and testing. For medium and large datasets users should work from a python directory structure in conjunction with the pype-method; phenopype’s high througput workflow.</p>
+<p>In the following, all three workflows a demonstrated by analyzing an image of a threespine stickleback (<em>Gasterosteus aculeatus</em>) stained with alizarin red. Traits of interest are bone-plate area and shape, and, within the detected plates, pixel intensities that denote bone-density.</p>
+<center><div style="width:600px; text-align: left"></div><p><img alt="Phenopype workflow example" src="../assets/figures/workflow_example_case.png" /></p>
+<p>Fig. 1: Workflow demonstration using a stained stickleback. The computer vision functions used to extract the trait of interest (bone-plate area, shape and pixel density) are the same in all cases, but workflows differ in the amount of code necessary and in reproducibility.</p>
+</div></center><div class="section" id="1.-Prototyping-worflow">
+<h2>1. Prototyping worflow<a class="headerlink" href="#1.-Prototyping-worflow" title="Permalink to this headline">¶</a></h2>
+<p>The low throughput workflow starts with the path to an image that is stored on the hard drive. <code class="docutils literal notranslate"><span class="pre">load_image</span></code> imports the file as a three-channel [1] numpy array (<em>ndarray</em>), together with image meta data (file name, exposure, dimensions, etc.) as a pandas <em>DataFrame</em>. The array gets passed on to the <code class="docutils literal notranslate"><span class="pre">threshold</span></code> function, which will return a binary array of the same dimensions. This array needs to be passed on to the <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> function, which will return a dictionary with the detected
+contours. This dictionary, together with the original array, can then be passed to the <code class="docutils literal notranslate"><span class="pre">colour_intensity</span></code> function. This function will collect the average color value from within the perimeter coordinates for each contour and return a pandas dataframe containing those values. Finally, the dataframe can be exported as a csv file with <code class="docutils literal notranslate"><span class="pre">save_colour</span></code>. By passing on the initially created meta-data, the function will automatically expand the provided columns of meta-info into the exported csv.</p>
+<p>[1] to learn more about the basic of Computer Vision check the resources section of the phenopype documentation.</p>
+<p><img alt="Phenopype prototyping workflow" src="../assets/figures/workflow_proto.png" /></p>
+<p>Fig. 2: Schematic of Phenopype’s prototyping workflow</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../assets/images/stickleback_side.jpg&quot;</span>
+
+<span class="c1">## load image as array, supply image_data (DataFrame containing meta data)</span>
+<span class="n">image</span><span class="p">,</span> <span class="n">image_data</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="c1">## draw mask</span>
+<span class="n">image_masked</span><span class="p">,</span> <span class="n">mask</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="s2">&quot;polygon&quot;</span><span class="p">)</span>
+<span class="c1">## thresholding converts multichannel to binary image</span>
+<span class="n">image_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span>
+                                      <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">blocksize</span><span class="o">=</span><span class="mi">199</span><span class="p">,</span>
+                                      <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">masks</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+<span class="c1">## perform morphology operations on binarized image</span>
+<span class="n">image_morph</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">morphology</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;close&quot;</span><span class="p">,</span>
+                                         <span class="n">shape</span><span class="o">=</span><span class="s2">&quot;ellipse&quot;</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                         <span class="n">iterations</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1">## detect contours ony binary image</span>
+<span class="n">contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_morph</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">image_data</span><span class="p">,</span>
+                                         <span class="n">retrieval</span><span class="o">=</span><span class="s2">&quot;ext&quot;</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="c1">## draw detected contours onto canvas</span>
+<span class="n">image_drawn</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">contours</span><span class="o">=</span><span class="n">contours</span><span class="p">,</span>
+                                             <span class="n">df</span><span class="o">=</span><span class="n">image_data</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">contours</span><span class="p">)</span>
+<span class="c1">## export contours to csv</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">contours</span><span class="p">,</span> <span class="n">dirpath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span class="c1">## show convas</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">image_drawn</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="2.-Low-throughput-worflow">
+<h2>2. Low throughput worflow<a class="headerlink" href="#2.-Low-throughput-worflow" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">load_image</span></code> function can also load an image into a phenopype container, which is a python class that incorporates loaded images, dataframes, detected contours, intermediate output, etc. so that they are available for inspection or storage at the end of the analysis. The advantage of using containers is that they don’t litter the global environment and namespace, while still containing all intermediate steps (e.g. binary masks or contour DataFrames). Containers can be used manually to
+analyze images, but typically they are used automatically within the pype-routine that is part of phenoype’s high throughput workflow (see below).</p>
+<p><img alt="Phenopype low throughput workflow" src="../assets/figures/workflow_low.png" /></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../assets/images/stickleback_side.jpg&quot;</span>
+
+<span class="c1">## load image as a phenopype container which will include all images, dataframes,</span>
+<span class="c1">## detected contours and intermediate output</span>
+<span class="n">container</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">cont</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">## afterwards, same as in the prototyping workflow, functions are applied</span>
+<span class="c1">## directly to the container</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="s2">&quot;polygon&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+                          <span class="n">blocksize</span><span class="o">=</span><span class="mi">199</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># 3/4</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">morphology</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;close&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
+                           <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># 5</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">retrieval</span><span class="o">=</span><span class="s2">&quot;ext&quot;</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span> <span class="c1"># 6</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">container</span><span class="p">)</span> <span class="c1"># 6</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">dirpath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="3.-High-throughput-worflow">
+<h2>3. High throughput worflow<a class="headerlink" href="#3.-High-throughput-worflow" title="Permalink to this headline">¶</a></h2>
+<p>The pype routine is phenopype’s standard method to analyse medium and large image datasets, where a function stack is constructed with the human readable yaml syntax (serialization language - for more information see the resources section of the phenopype documentation). Users can execute the pype method on a filepath, an array, or a phenopype directory, which always will trigger three actions: phenpype will i) open the contained yaml configuration with the default OS text editor, ii) parse the
+contained functions and execute them in the sequence, and iii) open a Python-window showing the processed image. After one parsing iteration, users can evaluate the results and decide to modify the opened configuration file (e.g. either change function parameters or add new functions), and run the pype again, or to terminate the pype and save all results (iv)). The processed image, any extracted phenotypic information, as well as the modified config-file is stored inside the image directory.
+Together with the raw images, which may be either stored separately or within the directory tree, users can thereby provide the full image analysis pipeline to anyone who wishes to reproduce the obtained results.</p>
+<p><strong>For more detailed information on ``pype`` and it’s default behavior, see below.</strong></p>
+<p><strong>For more information on how to use the ``pype`` in conjunction with phenopype projects please refer to the</strong><a class="reference external" href="tutorial_2_projects">Phenopype project tutorial</a><strong>.</strong></p>
+<p><img alt="Phenopype high throughput workflow" src="../assets/figures/workflow_high.png" /></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../assets/images/stickleback_side.jpg&quot;</span>
+
+<span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">filepath</span><span class="p">,</span> <span class="c1"># input - can be also an array or a phenopype directory</span>
+        <span class="n">dirpath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">,</span> <span class="c1">## where output is stored</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;demo&quot;</span><span class="p">,</span> <span class="c1"># name of the  pype routine, appended to all results-files</span>
+        <span class="n">preset</span><span class="o">=</span><span class="s2">&quot;demo1&quot;</span> <span class="c1"># template for the analysis - you can create your own!</span>
+        <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+
+------------+++ new pype iteration 2020:03:23 20:28:28 +++--------------
+
+
+AUTOLOAD
+- masks_demo.csv
+PREPROCESSING
+create_mask
+- mask with label mask1 already created (overwrite=False)
+SEGMENTATION
+blur
+threshold
+- applying mask: mask1
+morphology
+find_contours
+VISUALIZATION
+select_canvas
+show_contours
+show_masks
+ - show mask: mask1.
+EXPORT
+save_contours
+- contours saved under ../_temp/output\contours_demo.csv (overwritten).
+save_canvas
+- canvas saved under ../_temp/output\canvas_demo.jpg (overwritten).
+AUTOSAVE
+save_masks
+- masks not saved - file already exists (overwrite=False).
+
+
+TERMINATE
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;phenopype.main.pype at 0x251ca39f108&gt;
+</pre></div></div>
+</div>
+<div class="section" id="3.1-yaml-syntax">
+<h3>3.1 yaml-syntax<a class="headerlink" href="#3.1-yaml-syntax" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="3.2.-pype-behavior">
+<h3>3.2. <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior<a class="headerlink" href="#3.2.-pype-behavior" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, Moritz Lürig.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
