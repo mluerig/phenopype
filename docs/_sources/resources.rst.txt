@@ -5,7 +5,7 @@ Additional resources
 Python
 ------
 
- Python intro 
+Python intro 
 
 https://docs.python-guide.org/
 
