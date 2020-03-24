@@ -14,8 +14,6 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Tutorial 2: Working with phenopype" href="tutorial_2_phenopype_workflow.html" />
-    <link rel="prev" title="How to run the tutorials" href="tutorial_0.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -57,21 +55,21 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api_ref.html">API reference</a></li>
-<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
-</ul>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 1: A (very) brief python introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 5: Video analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html">Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="more.html#opencv">OpenCV</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="example_1_detect_objects_isopods.html">Example 1: Measuring shape, size and colour of isopods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_2_landmarks_stickleback.html">Example 2: Stickleback morphometrics - landmarks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_3_shape_stickleback.html">Example 3: Stickleback morphometrics - body and armor-plate shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3.html">Tutorial 3: making a project, configuring pype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3.html#Set-up-project">Set up project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4.html">Tutorial 4: setting a (global) size and colour reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4.html#Set-up-project">Set up project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5.html">Tutorial 5: motion tracking from videos</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="example_1.html">Example 1: detecting objects, measuring shape and colour</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_2.html">Example 2: setting masks and drawing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_3.html">Example 3: setting landmarks and poly-lines</a></li>
 </ul>
 </ul>
 </li>
@@ -86,9 +84,9 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Tutorial 1: A (very) brief python introduction</a><ul>
-<li><a class="reference internal" href="#Python-modules">Python modules</a></li>
-<li><a class="reference internal" href="#Paths-and-directories">Paths and directories</a></li>
-<li><a class="reference internal" href="#Images-in-python">Images in python</a></li>
+<li><a class="reference internal" href="#python-modules">python modules</a></li>
+<li><a class="reference internal" href="#paths-and-directories">paths and directories</a></li>
+<li><a class="reference internal" href="#images-in-python">images in python</a></li>
 </ul>
 </li>
 </ul>
@@ -99,14 +97,6 @@
             
               
                 
-  <li>
-    <a href="tutorial_0.html" title="Previous Chapter: How to run the tutorials"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; How to run th...</span>
-    </a>
-  </li>
-  <li>
-    <a href="tutorial_2_phenopype_workflow.html" title="Next Chapter: Tutorial 2: Working with phenopype"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tutorial 2: W... &raquo;</span>
-    </a>
-  </li>
               
             
             
@@ -114,7 +104,7 @@
             
               <li class="hidden-sm">
 <div id="sourcelink">
-  <a href="_sources/tutorial_1_python_intro.ipynb.txt"
+  <a href="_sources/Tutorial_1.ipynb.txt"
      rel="nofollow">Source</a>
 </div></li>
             
@@ -136,19 +126,7 @@
 
 <div class="container">
   <div class="row">
-      <div class="col-md-3">
-        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Tutorial 1: A (very) brief python introduction</a><ul>
-<li><a class="reference internal" href="#Python-modules">Python modules</a></li>
-<li><a class="reference internal" href="#Paths-and-directories">Paths and directories</a></li>
-<li><a class="reference internal" href="#Images-in-python">Images in python</a></li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
-    <div class="body col-md-9 content" role="main">
+    <div class="body col-md-12 content" role="main">
       
   
 <style>
@@ -372,14 +350,19 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Tutorial-1:-A-(very)-brief-python-introduction">
 <h1>Tutorial 1: A (very) brief python introduction<a class="headerlink" href="#Tutorial-1:-A-(very)-brief-python-introduction" title="Permalink to this headline">¶</a></h1>
-<p>This notebook is meant to provide a very short overview of the basic python syntax needed for basic phenopype operability. This is useful if you have never used python before, but would like to be able to explore phenopype functionality on your own.</p>
+<p>This notebook is meant to provide a very short overview of the basic python syntax needed for basic phenopype workflow. This is useful if you have never used python before, but would like to be able to explore phenopype functionality on your own.</p>
 <p>Additionally, if you are new to programming alltogether, you could have a look at this tutorial <a class="reference external" href="https://www.learnpython.org/">https://www.learnpython.org/</a> or find this reference useful <a class="reference external" href="https://docs.python.org/3/tutorial/">https://docs.python.org/3/tutorial/</a>.</p>
-<p>If you are familiar with python, you probably want to skip ahead to <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">Tutorial 2: Working with phenopype</span></a>.</p>
-<div class="section" id="Python-modules">
-<h2>Python modules<a class="headerlink" href="#Python-modules" title="Permalink to this headline">¶</a></h2>
+<p>If you are familiar with python, you probably want to skip ahead to <a class="reference internal" href="#"><span class="doc">Tutorial 1: Object detection, setting a scale, image masking</span></a>.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#modules">Python modules</a></p></li>
+<li><p><a class="reference external" href="#paths">Paths and directories</a></p></li>
+<li><p><a class="reference external" href="#images">Images in python</a></p></li>
+</ul>
+<div class="section" id="python-modules">
+<h2>python modules<a class="headerlink" href="#python-modules" title="Permalink to this headline">¶</a></h2>
 <p>At the beginning of our skript we import the python modules that we want to work with using <code class="docutils literal notranslate"><span class="pre">import</span></code>. When we import the module, we can call its methods and functions using what comes after <code class="docutils literal notranslate"><span class="pre">import</span></code>. In this case, these “bindings” are simply <code class="docutils literal notranslate"><span class="pre">os</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[46]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -387,13 +370,13 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
-<p>We can inspect all the components of this module (i.e., its “namespace”) by using <code class="docutils literal notranslate"><span class="pre">dir()</span></code>: <a class="reference external" href="https://docs.python.org/3/library/functions.html?highlight=dir#dir">https://docs.python.org/3/library/functions.html?highlight=dir#dir</a>). We can see that <code class="docutils literal notranslate"><span class="pre">os</span></code> is a comprehensive package with a lots of classes and functions:</p>
+<p>If you are ever unsure about what a package does, but don’t want to consult online resources, simply call <code class="docutils literal notranslate"><span class="pre">help(packagename)</span></code> to get some basic information. This also works with methods/classes and functions (read more about methods and functions here: <a class="reference external" href="https://stackoverflow.com/questions/20981789/difference-between-methods-and-functions-in-python-compared-to-c">https://stackoverflow.com/questions/20981789/difference-between-methods-and-functions-in-python-compared-to-c</a>)</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">os</span><span class="p">))</span>
+<span></span><span class="n">help</span><span class="p">(</span><span class="n">os</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -402,58 +385,319 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;DirEntry&#39;, &#39;F_OK&#39;, &#39;MutableMapping&#39;, &#39;O_APPEND&#39;, &#39;O_BINARY&#39;, &#39;O_CREAT&#39;, &#39;O_EXCL&#39;, &#39;O_NOINHERIT&#39;, &#39;O_RANDOM&#39;, &#39;O_RDONLY&#39;, &#39;O_RDWR&#39;, &#39;O_SEQUENTIAL&#39;, &#39;O_SHORT_LIVED&#39;, &#39;O_TEMPORARY&#39;, &#39;O_TEXT&#39;, &#39;O_TRUNC&#39;, &#39;O_WRONLY&#39;, &#39;P_DETACH&#39;, &#39;P_NOWAIT&#39;, &#39;P_NOWAITO&#39;, &#39;P_OVERLAY&#39;, &#39;P_WAIT&#39;, &#39;PathLike&#39;, &#39;R_OK&#39;, &#39;SEEK_CUR&#39;, &#39;SEEK_END&#39;, &#39;SEEK_SET&#39;, &#39;TMP_MAX&#39;, &#39;W_OK&#39;, &#39;X_OK&#39;, &#39;_Environ&#39;, &#39;__all__&#39;, &#39;__builtins__&#39;, &#39;__cached__&#39;, &#39;__doc__&#39;, &#39;__file__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;_execvpe&#39;, &#39;_exists&#39;, &#39;_exit&#39;, &#39;_fspath&#39;, &#39;_get_exports_list&#39;, &#39;_putenv&#39;, &#39;_unsetenv&#39;, &#39;_wrap_close&#39;, &#39;abc&#39;, &#39;abort&#39;, &#39;access&#39;, &#39;altsep&#39;, &#39;chdir&#39;, &#39;chmod&#39;, &#39;close&#39;, &#39;closerange&#39;, &#39;cpu_count&#39;, &#39;curdir&#39;, &#39;defpath&#39;, &#39;device_encoding&#39;, &#39;devnull&#39;, &#39;dup&#39;, &#39;dup2&#39;, &#39;environ&#39;, &#39;error&#39;, &#39;execl&#39;, &#39;execle&#39;, &#39;execlp&#39;, &#39;execlpe&#39;, &#39;execv&#39;, &#39;execve&#39;, &#39;execvp&#39;, &#39;execvpe&#39;, &#39;extsep&#39;, &#39;fdopen&#39;, &#39;fsdecode&#39;, &#39;fsencode&#39;, &#39;fspath&#39;, &#39;fstat&#39;, &#39;fsync&#39;, &#39;ftruncate&#39;, &#39;get_exec_path&#39;, &#39;get_handle_inheritable&#39;, &#39;get_inheritable&#39;, &#39;get_terminal_size&#39;, &#39;getcwd&#39;, &#39;getcwdb&#39;, &#39;getenv&#39;, &#39;getlogin&#39;, &#39;getpid&#39;, &#39;getppid&#39;, &#39;isatty&#39;, &#39;kill&#39;, &#39;linesep&#39;, &#39;link&#39;, &#39;listdir&#39;, &#39;lseek&#39;, &#39;lstat&#39;, &#39;makedirs&#39;, &#39;mkdir&#39;, &#39;name&#39;, &#39;open&#39;, &#39;pardir&#39;, &#39;path&#39;, &#39;pathsep&#39;, &#39;pipe&#39;, &#39;popen&#39;, &#39;putenv&#39;, &#39;read&#39;, &#39;readlink&#39;, &#39;remove&#39;, &#39;removedirs&#39;, &#39;rename&#39;, &#39;renames&#39;, &#39;replace&#39;, &#39;rmdir&#39;, &#39;scandir&#39;, &#39;sep&#39;, &#39;set_handle_inheritable&#39;, &#39;set_inheritable&#39;, &#39;spawnl&#39;, &#39;spawnle&#39;, &#39;spawnv&#39;, &#39;spawnve&#39;, &#39;st&#39;, &#39;startfile&#39;, &#39;stat&#39;, &#39;stat_result&#39;, &#39;statvfs_result&#39;, &#39;strerror&#39;, &#39;supports_bytes_environ&#39;, &#39;supports_dir_fd&#39;, &#39;supports_effective_ids&#39;, &#39;supports_fd&#39;, &#39;supports_follow_symlinks&#39;, &#39;symlink&#39;, &#39;sys&#39;, &#39;system&#39;, &#39;terminal_size&#39;, &#39;times&#39;, &#39;times_result&#39;, &#39;truncate&#39;, &#39;umask&#39;, &#39;uname_result&#39;, &#39;unlink&#39;, &#39;urandom&#39;, &#39;utime&#39;, &#39;waitpid&#39;, &#39;walk&#39;, &#39;write&#39;]
+Hello World!
 </pre></div></div>
 </div>
-<p>The double underscores (“dunders”) before and after the numeric string indicate that these are “special” names reserved for the python namespace (<a class="reference external" href="https://dbader.org/blog/meaning-of-underscores-in-python">https://dbader.org/blog/meaning-of-underscores-in-python</a>). We cannot tell what type of object is behind each name, e.g., whether it’s a function (like <code class="docutils literal notranslate"><span class="pre">open</span></code>) or a submodule, with a set of functions (like <code class="docutils literal notranslate"><span class="pre">path</span></code>). Higher level functions are accessed from the package namespace by joining the module name <code class="docutils literal notranslate"><span class="pre">os</span></code> with the function <code class="docutils literal notranslate"><span class="pre">open</span></code>, connected
-by a dot.</p>
-<p>If you are ever unsure about what a package does, simply call <code class="docutils literal notranslate"><span class="pre">help(os)</span></code> (or any other package) to get some basic information. This also works for its methods and functions, e.g. for the <code class="docutils literal notranslate"><span class="pre">open</span></code> method:</p>
+<p>We can inspect all the classes and functions associated with this module (i.e., its “namespace”) by using <code class="docutils literal notranslate"><span class="pre">dir()</span></code>: <a class="reference external" href="https://docs.python.org/3/library/functions.html?highlight=dir#dir">https://docs.python.org/3/library/functions.html?highlight=dir#dir</a>).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[58]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">help</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">)</span>
+<span></span><span class="nb">dir</span><span class="p">(</span><span class="n">os</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Help on built-in function open in module nt:
-
-open(path, flags, mode=511, *, dir_fd=None)
-    Open a file for low level IO.  Returns a file descriptor (integer).
-
-    If dir_fd is not None, it should be a file descriptor open to a directory,
-      and path should be relative; path will then be relative to that directory.
-    dir_fd may not be implemented on your platform.
-      If it is unavailable, using it will raise a NotImplementedError.
-
+[&#39;DirEntry&#39;,
+ &#39;F_OK&#39;,
+ &#39;MutableMapping&#39;,
+ &#39;O_APPEND&#39;,
+ &#39;O_BINARY&#39;,
+ &#39;O_CREAT&#39;,
+ &#39;O_EXCL&#39;,
+ &#39;O_NOINHERIT&#39;,
+ &#39;O_RANDOM&#39;,
+ &#39;O_RDONLY&#39;,
+ &#39;O_RDWR&#39;,
+ &#39;O_SEQUENTIAL&#39;,
+ &#39;O_SHORT_LIVED&#39;,
+ &#39;O_TEMPORARY&#39;,
+ &#39;O_TEXT&#39;,
+ &#39;O_TRUNC&#39;,
+ &#39;O_WRONLY&#39;,
+ &#39;P_DETACH&#39;,
+ &#39;P_NOWAIT&#39;,
+ &#39;P_NOWAITO&#39;,
+ &#39;P_OVERLAY&#39;,
+ &#39;P_WAIT&#39;,
+ &#39;PathLike&#39;,
+ &#39;R_OK&#39;,
+ &#39;SEEK_CUR&#39;,
+ &#39;SEEK_END&#39;,
+ &#39;SEEK_SET&#39;,
+ &#39;TMP_MAX&#39;,
+ &#39;W_OK&#39;,
+ &#39;X_OK&#39;,
+ &#39;_Environ&#39;,
+ &#39;__all__&#39;,
+ &#39;__builtins__&#39;,
+ &#39;__cached__&#39;,
+ &#39;__doc__&#39;,
+ &#39;__file__&#39;,
+ &#39;__loader__&#39;,
+ &#39;__name__&#39;,
+ &#39;__package__&#39;,
+ &#39;__spec__&#39;,
+ &#39;_execvpe&#39;,
+ &#39;_exists&#39;,
+ &#39;_exit&#39;,
+ &#39;_fspath&#39;,
+ &#39;_get_exports_list&#39;,
+ &#39;_putenv&#39;,
+ &#39;_unsetenv&#39;,
+ &#39;_wrap_close&#39;,
+ &#39;abc&#39;,
+ &#39;abort&#39;,
+ &#39;access&#39;,
+ &#39;altsep&#39;,
+ &#39;chdir&#39;,
+ &#39;chmod&#39;,
+ &#39;close&#39;,
+ &#39;closerange&#39;,
+ &#39;cpu_count&#39;,
+ &#39;curdir&#39;,
+ &#39;defpath&#39;,
+ &#39;device_encoding&#39;,
+ &#39;devnull&#39;,
+ &#39;dup&#39;,
+ &#39;dup2&#39;,
+ &#39;environ&#39;,
+ &#39;error&#39;,
+ &#39;execl&#39;,
+ &#39;execle&#39;,
+ &#39;execlp&#39;,
+ &#39;execlpe&#39;,
+ &#39;execv&#39;,
+ &#39;execve&#39;,
+ &#39;execvp&#39;,
+ &#39;execvpe&#39;,
+ &#39;extsep&#39;,
+ &#39;fdopen&#39;,
+ &#39;fsdecode&#39;,
+ &#39;fsencode&#39;,
+ &#39;fspath&#39;,
+ &#39;fstat&#39;,
+ &#39;fsync&#39;,
+ &#39;ftruncate&#39;,
+ &#39;get_exec_path&#39;,
+ &#39;get_handle_inheritable&#39;,
+ &#39;get_inheritable&#39;,
+ &#39;get_terminal_size&#39;,
+ &#39;getcwd&#39;,
+ &#39;getcwdb&#39;,
+ &#39;getenv&#39;,
+ &#39;getlogin&#39;,
+ &#39;getpid&#39;,
+ &#39;getppid&#39;,
+ &#39;isatty&#39;,
+ &#39;kill&#39;,
+ &#39;linesep&#39;,
+ &#39;link&#39;,
+ &#39;listdir&#39;,
+ &#39;lseek&#39;,
+ &#39;lstat&#39;,
+ &#39;makedirs&#39;,
+ &#39;mkdir&#39;,
+ &#39;name&#39;,
+ &#39;open&#39;,
+ &#39;pardir&#39;,
+ &#39;path&#39;,
+ &#39;pathsep&#39;,
+ &#39;pipe&#39;,
+ &#39;popen&#39;,
+ &#39;putenv&#39;,
+ &#39;read&#39;,
+ &#39;readlink&#39;,
+ &#39;remove&#39;,
+ &#39;removedirs&#39;,
+ &#39;rename&#39;,
+ &#39;renames&#39;,
+ &#39;replace&#39;,
+ &#39;rmdir&#39;,
+ &#39;scandir&#39;,
+ &#39;sep&#39;,
+ &#39;set_handle_inheritable&#39;,
+ &#39;set_inheritable&#39;,
+ &#39;spawnl&#39;,
+ &#39;spawnle&#39;,
+ &#39;spawnv&#39;,
+ &#39;spawnve&#39;,
+ &#39;st&#39;,
+ &#39;startfile&#39;,
+ &#39;stat&#39;,
+ &#39;stat_result&#39;,
+ &#39;statvfs_result&#39;,
+ &#39;strerror&#39;,
+ &#39;supports_bytes_environ&#39;,
+ &#39;supports_dir_fd&#39;,
+ &#39;supports_effective_ids&#39;,
+ &#39;supports_fd&#39;,
+ &#39;supports_follow_symlinks&#39;,
+ &#39;symlink&#39;,
+ &#39;sys&#39;,
+ &#39;system&#39;,
+ &#39;terminal_size&#39;,
+ &#39;times&#39;,
+ &#39;times_result&#39;,
+ &#39;truncate&#39;,
+ &#39;umask&#39;,
+ &#39;uname_result&#39;,
+ &#39;unlink&#39;,
+ &#39;urandom&#39;,
+ &#39;utime&#39;,
+ &#39;waitpid&#39;,
+ &#39;walk&#39;,
+ &#39;write&#39;]
 </pre></div></div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">path</span></code> on the other hand is a submodule: here we see some functions we can use (they don’t have dunders), for example <code class="docutils literal notranslate"><span class="pre">join</span></code>, which can join separate character strings to a python-readable path string.</p>
+<p>However, we cannot tell what type of object is behind each name, e.g., whether it’s a function (like <code class="docutils literal notranslate"><span class="pre">open</span></code>) or a submodule, with a set of functions (like <code class="docutils literal notranslate"><span class="pre">path</span></code>). Higher level functions are accessed from the package namespace by joining the module name <code class="docutils literal notranslate"><span class="pre">os</span></code> with the function <code class="docutils literal notranslate"><span class="pre">open</span></code>, connected by a dot.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[59]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="p">))</span>
+<span></span><span class="nb">dir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">open</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;__all__&#39;, &#39;__builtins__&#39;, &#39;__cached__&#39;, &#39;__doc__&#39;, &#39;__file__&#39;, &#39;__loader__&#39;, &#39;__name__&#39;, &#39;__package__&#39;, &#39;__spec__&#39;, &#39;_abspath_fallback&#39;, &#39;_get_bothseps&#39;, &#39;_getfinalpathname&#39;, &#39;_getfullpathname&#39;, &#39;_getvolumepathname&#39;, &#39;abspath&#39;, &#39;altsep&#39;, &#39;basename&#39;, &#39;commonpath&#39;, &#39;commonprefix&#39;, &#39;curdir&#39;, &#39;defpath&#39;, &#39;devnull&#39;, &#39;dirname&#39;, &#39;exists&#39;, &#39;expanduser&#39;, &#39;expandvars&#39;, &#39;extsep&#39;, &#39;genericpath&#39;, &#39;getatime&#39;, &#39;getctime&#39;, &#39;getmtime&#39;, &#39;getsize&#39;, &#39;isabs&#39;, &#39;isdir&#39;, &#39;isfile&#39;, &#39;islink&#39;, &#39;ismount&#39;, &#39;join&#39;, &#39;lexists&#39;, &#39;normcase&#39;, &#39;normpath&#39;, &#39;os&#39;, &#39;pardir&#39;, &#39;pathsep&#39;, &#39;realpath&#39;, &#39;relpath&#39;, &#39;samefile&#39;, &#39;sameopenfile&#39;, &#39;samestat&#39;, &#39;sep&#39;, &#39;split&#39;, &#39;splitdrive&#39;, &#39;splitext&#39;, &#39;stat&#39;, &#39;supports_unicode_filenames&#39;, &#39;sys&#39;]
+[&#39;__call__&#39;,
+ &#39;__class__&#39;,
+ &#39;__delattr__&#39;,
+ &#39;__dir__&#39;,
+ &#39;__doc__&#39;,
+ &#39;__eq__&#39;,
+ &#39;__format__&#39;,
+ &#39;__ge__&#39;,
+ &#39;__getattribute__&#39;,
+ &#39;__gt__&#39;,
+ &#39;__hash__&#39;,
+ &#39;__init__&#39;,
+ &#39;__init_subclass__&#39;,
+ &#39;__le__&#39;,
+ &#39;__lt__&#39;,
+ &#39;__module__&#39;,
+ &#39;__name__&#39;,
+ &#39;__ne__&#39;,
+ &#39;__new__&#39;,
+ &#39;__qualname__&#39;,
+ &#39;__reduce__&#39;,
+ &#39;__reduce_ex__&#39;,
+ &#39;__repr__&#39;,
+ &#39;__self__&#39;,
+ &#39;__setattr__&#39;,
+ &#39;__sizeof__&#39;,
+ &#39;__str__&#39;,
+ &#39;__subclasshook__&#39;,
+ &#39;__text_signature__&#39;]
+</pre></div></div>
+</div>
+<p>The double underscores (“dunders”) before and after the numeric string indicate that these are “special” names reserved for the python namespace (<a class="reference external" href="https://dbader.org/blog/meaning-of-underscores-in-python">https://dbader.org/blog/meaning-of-underscores-in-python</a>). Other than that there are no actual functions in this namespace - that’s because <code class="docutils literal notranslate"><span class="pre">open</span></code> is a function itself:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">os</span><span class="o">.</span><span class="n">open</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;function nt.open(path, flags, mode=511, *, dir_fd=None)&gt;
+</pre></div></div>
+</div>
+<p>This is different for the <code class="docutils literal notranslate"><span class="pre">path</span></code> submodule: here we see some functions we can use (they don’t have dunders), for example <code class="docutils literal notranslate"><span class="pre">join</span></code>, which can join separate character strings to a python-readable path string.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">dir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;__all__&#39;,
+ &#39;__builtins__&#39;,
+ &#39;__cached__&#39;,
+ &#39;__doc__&#39;,
+ &#39;__file__&#39;,
+ &#39;__loader__&#39;,
+ &#39;__name__&#39;,
+ &#39;__package__&#39;,
+ &#39;__spec__&#39;,
+ &#39;_abspath_fallback&#39;,
+ &#39;_get_bothseps&#39;,
+ &#39;_getfinalpathname&#39;,
+ &#39;_getfullpathname&#39;,
+ &#39;_getvolumepathname&#39;,
+ &#39;abspath&#39;,
+ &#39;altsep&#39;,
+ &#39;basename&#39;,
+ &#39;commonpath&#39;,
+ &#39;commonprefix&#39;,
+ &#39;curdir&#39;,
+ &#39;defpath&#39;,
+ &#39;devnull&#39;,
+ &#39;dirname&#39;,
+ &#39;exists&#39;,
+ &#39;expanduser&#39;,
+ &#39;expandvars&#39;,
+ &#39;extsep&#39;,
+ &#39;genericpath&#39;,
+ &#39;getatime&#39;,
+ &#39;getctime&#39;,
+ &#39;getmtime&#39;,
+ &#39;getsize&#39;,
+ &#39;isabs&#39;,
+ &#39;isdir&#39;,
+ &#39;isfile&#39;,
+ &#39;islink&#39;,
+ &#39;ismount&#39;,
+ &#39;join&#39;,
+ &#39;lexists&#39;,
+ &#39;normcase&#39;,
+ &#39;normpath&#39;,
+ &#39;os&#39;,
+ &#39;pardir&#39;,
+ &#39;pathsep&#39;,
+ &#39;realpath&#39;,
+ &#39;relpath&#39;,
+ &#39;samefile&#39;,
+ &#39;sameopenfile&#39;,
+ &#39;samestat&#39;,
+ &#39;sep&#39;,
+ &#39;split&#39;,
+ &#39;splitdrive&#39;,
+ &#39;splitext&#39;,
+ &#39;stat&#39;,
+ &#39;supports_unicode_filenames&#39;,
+ &#39;sys&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[60]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -474,11 +718,11 @@ join(path, *paths)
 </pre></div></div>
 </div>
 </div>
-<div class="section" id="Paths-and-directories">
-<h2>Paths and directories<a class="headerlink" href="#Paths-and-directories" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="paths-and-directories">
+<h2>paths and directories<a class="headerlink" href="#paths-and-directories" title="Permalink to this headline">¶</a></h2>
 <p>Time to actually do something with a function. A useful function from the <code class="docutils literal notranslate"><span class="pre">os</span></code> module is <code class="docutils literal notranslate"><span class="pre">listdir</span></code>, which will list all files in a specified directory. If you don’t specify any directory, it will use the current directory</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -487,50 +731,50 @@ join(path, *paths)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;.ipynb_checkpoints&#39;,
- &#39;example_1_detect_objects.ipynb&#39;,
- &#39;example_2_basic_gui_interactions.ipynb&#39;,
- &#39;example_3_landmarks.ipynb&#39;,
- &#39;example_4_shape_measurement.ipynb&#39;,
- &#39;tutorial_0.rst&#39;,
- &#39;tutorial_1_python_intro.ipynb&#39;,
- &#39;tutorial_2_phenopype_workflow.ipynb&#39;,
- &#39;tutorial_3_managing_projects.ipynb&#39;,
- &#39;tutorial_4_setting_global_scale.ipynb&#39;,
- &#39;tutorial_5_video_analysis.ipynb&#39;]
+[&#39;.ipynb&#39;,
+ &#39;.ipynb_checkpoints&#39;,
+ &#39;2_landmarking.ipynb&#39;,
+ &#39;images&#39;,
+ &#39;images_out&#39;,
+ &#39;Python_intro.ipynb&#39;,
+ &#39;tutorials&#39;,
+ &#39;Tutorial_1.ipynb&#39;,
+ &#39;videos&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;../assets/images&quot;</span><span class="p">)</span>
+<span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;./images&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;isopods.jpg&#39;,
- &#39;phytoplankton.jpg&#39;,
- &#39;snail.jpg&#39;,
- &#39;stickleback_side.jpg&#39;,
- &#39;stickleback_side_plates.jpg&#39;,
- &#39;stickleback_top.jpg&#39;]
+[&#39;bug1.jpg&#39;,
+ &#39;bug2.jpg&#39;,
+ &#39;isopods1.jpg&#39;,
+ &#39;isopods2.jpg&#39;,
+ &#39;isopods3.jpg&#39;,
+ &#39;stickle1.jpg&#39;,
+ &#39;stickle2.jpg&#39;,
+ &#39;stickle3.jpg&#39;]
 </pre></div></div>
 </div>
 <p>Note that I used the relative path here - full paths of course are also possible. To check where you are, you can use <code class="docutils literal notranslate"><span class="pre">getcwd</span></code> (getCurrentWorkingDirectory):</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -539,7 +783,7 @@ join(path, *paths)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -551,75 +795,75 @@ join(path, *paths)
 <p><strong>IMPORTANT:</strong></p>
 <p>In python, referencing starts with <code class="docutils literal notranslate"><span class="pre">0</span></code> and not with <code class="docutils literal notranslate"><span class="pre">1</span></code>, as in R for example.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">image_dir</span> <span class="o">=</span> <span class="s2">&quot;../assets/images&quot;</span>
-<span class="n">image_list</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">image_dir</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">image_list</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">image_list</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span></span><span class="n">my_list</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="n">my_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;isopods.jpg&#39;, &#39;phytoplankton.jpg&#39;, &#39;snail.jpg&#39;, &#39;stickleback_side.jpg&#39;, &#39;stickleback_side_plates.jpg&#39;, &#39;stickleback_top.jpg&#39;]
-isopods.jpg
+&#39;.ipynb&#39;
 </pre></div></div>
 </div>
-<p>So far we have only returned name-strings of our files, but unless our current working directory is the same as the target directory (or we have added it to the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>), we need the full or relative path of our files. We can get it using the <code class="docutils literal notranslate"><span class="pre">path</span></code> submodule. Getting the absolute path of a file is usually a two-part coding step: joining the directory path and the names of files within it. The joining operation is done with <code class="docutils literal notranslate"><span class="pre">join</span></code>:</p>
+<p>A typical workflow is to retrieve files inside a directory, using the <code class="docutils literal notranslate"><span class="pre">os</span></code> module and then doing something with it. So far we have only returned name-strings of our files, but unless our current working directory is the same as the target directory (or we have added it to the <code class="docutils literal notranslate"><span class="pre">PYTHONPATH</span></code>), we need the full or relative path of our files. We can get it using the <code class="docutils literal notranslate"><span class="pre">path</span></code> submodule. Getting the absolute path of a file is usually a two-part coding step: joining the directory path and the names
+of files within it. The joining operation is done with <code class="docutils literal notranslate"><span class="pre">join</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;images&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&#39;E:\\git_repos\\phenopype\\tutorials\\images&#39;
+</pre></div></div>
+</div>
 <p>Although you can join path strings by simply adding them, this sometimes leads to unexpected results, so better try to avoid it:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">image_dir</span> <span class="o">+</span> <span class="n">image_list</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># doesn&#39;t work</span>
+<span></span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;images&quot;</span> <span class="c1"># not working - does not put slashes in between</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&#39;../assets/imagesisopods.jpg&#39;
-</pre></div></div>
-</div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="s2">&quot;images&quot;</span><span class="p">)</span> <span class="c1"># works</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
-</pre></div>
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-&#39;../assets/images\\images&#39;
+&#39;E:\\git_repos\\phenopype\\tutorialsimages&#39;
 </pre></div></div>
 </div>
 <p>Putting it all together, let’s try to get the path of all the images in our directory. For this, we need a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, and an empty list we can populate:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">filepaths</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># square-brakets make an empty list</span>
-<span class="n">names</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">image_dir</span><span class="p">)</span> <span class="c1"># making a list of all the files names inside a directory</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;images&quot;</span><span class="p">)</span>
+<span class="n">names</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">(),</span> <span class="s2">&quot;images&quot;</span><span class="p">))</span> <span class="c1"># making a list of all the files names inside a directory</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span> <span class="c1"># looping along our list of names</span>
-    <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="c1"># joining name and path strings</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="c1"># joining name and path strings</span>
     <span class="n">filepaths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="c1"># appending the joint string to the list</span>
 
 <span class="n">filepaths</span> <span class="c1"># showing the list content</span>
@@ -628,34 +872,50 @@ isopods.jpg
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[32]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;../assets/images\\isopods.jpg&#39;,
- &#39;../assets/images\\phytoplankton.jpg&#39;,
- &#39;../assets/images\\snail.jpg&#39;,
- &#39;../assets/images\\stickleback_side.jpg&#39;,
- &#39;../assets/images\\stickleback_side_plates.jpg&#39;,
- &#39;../assets/images\\stickleback_top.jpg&#39;]
+[&#39;E:\\git_repos\\phenopype\\tutorials\\images\\bug1.jpg&#39;,
+ &#39;E:\\git_repos\\phenopype\\tutorials\\images\\bug2.jpg&#39;,
+ &#39;E:\\git_repos\\phenopype\\tutorials\\images\\isopods1.jpg&#39;,
+ &#39;E:\\git_repos\\phenopype\\tutorials\\images\\isopods2.jpg&#39;,
+ &#39;E:\\git_repos\\phenopype\\tutorials\\images\\isopods3.jpg&#39;,
+ &#39;E:\\git_repos\\phenopype\\tutorials\\images\\stickle1.jpg&#39;,
+ &#39;E:\\git_repos\\phenopype\\tutorials\\images\\stickle2.jpg&#39;,
+ &#39;E:\\git_repos\\phenopype\\tutorials\\images\\stickle3.jpg&#39;]
 </pre></div></div>
 </div>
 </div>
-<div class="section" id="Images-in-python">
-<h2>Images in python<a class="headerlink" href="#Images-in-python" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="images-in-python">
+<h2>images in python<a class="headerlink" href="#images-in-python" title="Permalink to this headline">¶</a></h2>
 <p>Let’s import another module. In fact <em>the</em> module that phenopype is built around: <code class="docutils literal notranslate"><span class="pre">opencv</span></code> (<a class="reference external" href="https://opencv.org/">https://opencv.org/</a>). Note: sometimes the modules are called differently than their bindings in python, e.g., for opencv, we have to call <code class="docutils literal notranslate"><span class="pre">cv2</span></code>. Once imported, we then can use a basic opencv function: importing an image as an array using <code class="docutils literal notranslate"><span class="pre">imread</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[44]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[33]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">cv2</span>
-<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">filepaths</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">img</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">filepaths</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
-<p>About digital images: <code class="docutils literal notranslate"><span class="pre">cv2.imread</span></code> converts a digital image file to an array, a stack of three matrices containing pixel wise information on the red, green and blue channel of an image, which - taken together - creates the colour image. To learn more about images and computer vision, check the</p>
+<p>We can look at the picture with <code class="docutils literal notranslate"><span class="pre">imshow</span></code>. However, because many <code class="docutils literal notranslate"><span class="pre">opencv</span></code> functions are GUI based, we need to add some more controller functions so we can control it (read more about GUIs in <code class="docutils literal notranslate"><span class="pre">opencv</span></code> here: <a class="reference external" href="https://docs.opencv.org/3.4/dc/d2e/tutorial_py_image_display.html">https://docs.opencv.org/3.4/dc/d2e/tutorial_py_image_display.html</a>).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[34]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">cv2</span><span class="o">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">WINDOW_NORMAL</span><span class="p">)</span> <span class="c1"># open a resizable window</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span> <span class="c1"># show the image in that window</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># do nothing until a keystroke ...</span>
+<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span> <span class="c1"># ... and then close all open windows</span>
+</pre></div>
+</div>
+</div>
+<p>Just really briefly about digital images: <code class="docutils literal notranslate"><span class="pre">cv2.imread</span></code> converts a digital image file to an array, a stack of three matrices containing pixel wise information on the red, green and blue channel of an image, which - taken together - creates the colour image. Read more about images and arrays here <a class="reference external" href="https://mmeysenburg.github.io/image-processing/03-opencv-images/">https://mmeysenburg.github.io/image-processing/03-opencv-images/</a> and here <a class="reference external" href="http://scikit-image.org/docs/dev/user_guide/numpy_images.html">http://scikit-image.org/docs/dev/user_guide/numpy_images.html</a></p>
+<p><img alt="image0" src="../assets/tutorials/bgr_image.png" /></p>
 <p>Lets examine our image. It is not informative neither possible to look at the whole matrix of pixel values inside the console, but sometimes it is useful to look at specific features of your image, which we can acess directly from the image-object. For example, the dimensions, using <code class="docutils literal notranslate"><span class="pre">shape</span></code>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[35]:
@@ -672,12 +932,12 @@ isopods.jpg
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-(1421, 2090, 3)
+(1000, 1500, 3)
 </pre></div></div>
 </div>
 <p>Or the mean pixel intensity:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -686,36 +946,35 @@ isopods.jpg
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[61]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[36]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-160.3892609608672
+215.95539755555555
 </pre></div></div>
 </div>
-<p>We can look at the picture with <code class="docutils literal notranslate"><span class="pre">imshow</span></code>. However, because many <code class="docutils literal notranslate"><span class="pre">opencv</span></code> functions are GUI based, we need to add some more controller functions so we can control it (read more about GUIs in <code class="docutils literal notranslate"><span class="pre">opencv</span></code> here: <a class="reference external" href="https://docs.opencv.org/3.4/dc/d2e/tutorial_py_image_display.html">https://docs.opencv.org/3.4/dc/d2e/tutorial_py_image_display.html</a>).</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[62]:
+<p>We can also resize our image, using <code class="docutils literal notranslate"><span class="pre">opencv</span></code>s builtin functions:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">cv2</span><span class="o">.</span><span class="n">namedWindow</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span> <span class="n">cv2</span><span class="o">.</span><span class="n">WINDOW_NORMAL</span><span class="p">)</span> <span class="c1"># open a resizable window</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="s1">&#39;image&#39;</span><span class="p">,</span><span class="n">img</span><span class="p">)</span> <span class="c1"># show the image in that window</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">waitKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># do nothing until a keystroke ...</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">destroyAllWindows</span><span class="p">()</span> <span class="c1"># ... and then close all open windows</span>
+<span></span><span class="n">img_r</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">fx</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">fy</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">img_r</span><span class="o">.</span><span class="n">shape</span>
 </pre></div>
 </div>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[37]:
 </pre></div>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+(500, 750, 3)
+</pre></div></div>
 </div>
-</div>
+<p>END of the python intro - move on to <a class="reference internal" href="#"><span class="doc">Tutorial 1 - Object detection</span></a></p>
 </div>
 </div>
 
