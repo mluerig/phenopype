@@ -51,26 +51,41 @@ Then activate the virtual environment and install phenopype using `pip` in your 
 	conda activate pp
 	pip install phenopype
 
-You can now phenopype by typing :code:`spyder` or :code:`python` into the command line. If you are unsure to proceed, consult the tutorials.
+You can now use phenopype by typing :code:`spyder` or :code:`python` into the command line. If you are unsure to proceed, consult the tutorials.
+
+2.1 Update phenopype
+""""""""""""""""""""""""""
+.. code-block:: bash
+
+	pip install phenopype - U
+
+
+2.2 Install latest version
+""""""""""""""""""""""""""
 
 To update to the latest unreleased version of `phenopype`, which can be found on 
-`github <https://github.com/mluerig/phenopype/tree/development>`_, use 'pip' with :code:`git`:
+`github <https://github.com/mluerig/phenopype/tree/nightly>`_, use 'pip' with :code:`git`:
 
 .. code-block:: bash
 
-	pip install git+https://github.com/mluerig/phenopype@development - U
+	pip install git+https://github.com/mluerig/phenopype@nightly
+	
+	# or to update 
+	
+	pip install git+https://github.com/mluerig/phenopype@nightly - U
+
 .. important::
 
 	Any modifications to the python environments or `Spyder`, should only be done using :code:`conda`, but modifications to `phenopype`, 
 	its dependencies or other python packages should only be done using :code:`pip`. Mixing the two installers may break your python enviroment.
-
-
-
-
-
+	
 
 3. Choose a text editor
 -----------------------
 
 The high throughout method in phenopype currently requires a text editor to be installed that **does not lock the file** - `read about file locking here <https://superuser.com/questions/853420/why-is-windows-not-warning-about-file-in-use-for-certain-programs>`_. For Windows, I recommend `Notepad++`, which supports 
 syntax highlighting and has many other useful features, for Linux `Vim` or `Nano`, and for MacOS `brackets` could work (http://brackets.io/).
+
+Moreover, it is important that your OS knows how to handle `.yaml` files. Make sure that the default app to open these files is set as one of the edtiors that you selected.
+
+[More information about this will follow]

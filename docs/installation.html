@@ -72,7 +72,6 @@
 <li class="toctree-l1"><a class="reference internal" href="example_1_detect_objects_isopods.html">Example 1: Measuring shape, size and colour of isopods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_2_landmarks_stickleback.html">Example 2: Stickleback morphometrics - landmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_3_shape_stickleback.html">Example 3: Stickleback morphometrics - body and armor-plate shape</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_4_video_analysis_stickleback.html">Example 4: Video analysis - predator prey interactions</a></li>
 </ul>
 </ul>
 </li>
@@ -88,7 +87,11 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#install-python">1. Install Python</a></li>
-<li><a class="reference internal" href="#install-phenopype">2. Install phenopype</a></li>
+<li><a class="reference internal" href="#install-phenopype">2. Install phenopype</a><ul>
+<li><a class="reference internal" href="#update-phenopype">2.1 Update phenopype</a></li>
+<li><a class="reference internal" href="#install-latest-version">2.2 Install latest version</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#choose-a-text-editor">3. Choose a text editor</a></li>
 </ul>
 </li>
@@ -141,7 +144,11 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#install-python">1. Install Python</a></li>
-<li><a class="reference internal" href="#install-phenopype">2. Install phenopype</a></li>
+<li><a class="reference internal" href="#install-phenopype">2. Install phenopype</a><ul>
+<li><a class="reference internal" href="#update-phenopype">2.1 Update phenopype</a></li>
+<li><a class="reference internal" href="#install-latest-version">2.2 Install latest version</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#choose-a-text-editor">3. Choose a text editor</a></li>
 </ul>
 </li>
@@ -188,10 +195,22 @@ from conda base environment, where phenopype is not installed.</p>
 pip install phenopype
 </pre></div>
 </div>
-<p>You can now phenopype by typing <code class="code docutils literal notranslate"><span class="pre">spyder</span></code> or <code class="code docutils literal notranslate"><span class="pre">python</span></code> into the command line. If you are unsure to proceed, consult the tutorials.</p>
+<p>You can now use phenopype by typing <code class="code docutils literal notranslate"><span class="pre">spyder</span></code> or <code class="code docutils literal notranslate"><span class="pre">python</span></code> into the command line. If you are unsure to proceed, consult the tutorials.</p>
+<div class="section" id="update-phenopype">
+<h3>2.1 Update phenopype<a class="headerlink" href="#update-phenopype" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install phenopype - U
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-latest-version">
+<h3>2.2 Install latest version<a class="headerlink" href="#install-latest-version" title="Permalink to this headline">¶</a></h3>
 <p>To update to the latest unreleased version of <cite>phenopype</cite>, which can be found on
-<a class="reference external" href="https://github.com/mluerig/phenopype/tree/development">github</a>, use ‘pip’ with <code class="code docutils literal notranslate"><span class="pre">git</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/mluerig/phenopype@development - U
+<a class="reference external" href="https://github.com/mluerig/phenopype/tree/nightly">github</a>, use ‘pip’ with <code class="code docutils literal notranslate"><span class="pre">git</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/mluerig/phenopype@nightly
+
+<span class="c1"># or to update</span>
+
+pip install git+https://github.com/mluerig/phenopype@nightly - U
 </pre></div>
 </div>
 <div class="admonition important">
@@ -200,10 +219,13 @@ pip install phenopype
 its dependencies or other python packages should only be done using <code class="code docutils literal notranslate"><span class="pre">pip</span></code>. Mixing the two installers may break your python enviroment.</p>
 </div>
 </div>
+</div>
 <div class="section" id="choose-a-text-editor">
 <h2>3. Choose a text editor<a class="headerlink" href="#choose-a-text-editor" title="Permalink to this headline">¶</a></h2>
 <p>The high throughout method in phenopype currently requires a text editor to be installed that <strong>does not lock the file</strong> - <a class="reference external" href="https://superuser.com/questions/853420/why-is-windows-not-warning-about-file-in-use-for-certain-programs">read about file locking here</a>. For Windows, I recommend <cite>Notepad++</cite>, which supports
 syntax highlighting and has many other useful features, for Linux <cite>Vim</cite> or <cite>Nano</cite>, and for MacOS <cite>brackets</cite> could work (<a class="reference external" href="http://brackets.io/">http://brackets.io/</a>).</p>
+<p>Moreover, it is important that your OS knows how to handle <cite>.yaml</cite> files. Make sure that the default app to open these files is set as one of the edtiors that you selected.</p>
+<p>[More information about this will follow]</p>
 </div>
 </div>
 
