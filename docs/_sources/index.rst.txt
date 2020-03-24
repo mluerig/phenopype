@@ -1,6 +1,8 @@
 phenopype: a phenotyping pipeline for python
 ============================================
 
+.. figure:: ../assets/figures/header.png
+
 phenopype is a phenotyping pipeline for python. It is designed to extract phenotypic data from digital images or video material with minimal user input in a semi, or fully automated fashion. At the moment it is set up to be run from a python integrated development environment (IDE), like spyder. Some python knowledge is necessary, but most of the heavy lifting is done in the background. penopype can be installed from the Python Package Index (PYPI) using pip install phenopype. For a quick start clone the github-repo and run the tutorials with jupyter notebook.
 
 .. raw:: html
@@ -31,7 +33,7 @@ phenopype is a phenotyping pipeline for python. It is designed to extract phenot
 	tutorial_2_phenopype_workflow
 	tutorial_3_managing_projects_1
 	tutorial_4_managing_projects_2
-	tutorial_5_basic_gui_interactions
+	tutorial_5_gui_interactions
 	tutorial_6_video_analysis
 
 .. raw:: html
@@ -44,7 +46,8 @@ phenopype is a phenotyping pipeline for python. It is designed to extract phenot
 	example_1_detect_objects_isopods
 	example_2_landmarks_stickleback
 	example_3_shape_stickleback
-	
+	example_4_video_analysis_stickleback
+
 .. raw:: html
 
 	</div>

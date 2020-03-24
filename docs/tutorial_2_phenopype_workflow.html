@@ -66,12 +66,14 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 2: Working with phenopype</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions and behavior</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 5: Video analysis</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="example_1_detect_objects_isopods.html">Example 1: Measuring shape, size and colour of isopods</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_2_landmarks_stickleback.html">Example 2: Stickleback morphometrics - landmarks</a></li>
 <li class="toctree-l1"><a class="reference internal" href="example_3_shape_stickleback.html">Example 3: Stickleback morphometrics - body and armor-plate shape</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example_4_video_analysis_stickleback.html">Example 4: Video analysis - predator prey interactions</a></li>
 </ul>
 </ul>
 </li>
@@ -390,8 +392,8 @@ of workflows that are explained here:</p>
 <p>For the first two workflow types, users write a phenopype function stack in python code to assemble a CV workflow from five core modules (preprocessing, segmentation, measurement, export, visualization - for a full list check the API reference). This is recommended for users who wish to familiarize themselves with the basic principles of computer vision and to explore the phenopype function library. Output from all intermediate steps is returned from the functions and can be evaluated, which
 makes these routines are also appropriate for prototyping and testing. For medium and large datasets users should work from a python directory structure in conjunction with the pype-method; phenopype’s high througput workflow.</p>
 <p>In the following, all three workflows a demonstrated by analyzing an image of a threespine stickleback (<em>Gasterosteus aculeatus</em>) stained with alizarin red. Traits of interest are bone-plate area and shape, and, within the detected plates, pixel intensities that denote bone-density.</p>
-<center><div style="width:600px; text-align: left"></div><p><img alt="Phenopype workflow example" src="../assets/figures/workflow_example_case.png" /></p>
-<p>Fig. 1: Workflow demonstration using a stained stickleback. The computer vision functions used to extract the trait of interest (bone-plate area, shape and pixel density) are the same in all cases, but workflows differ in the amount of code necessary and in reproducibility.</p>
+<center><div style="width:600px; text-align: left"><p><img alt="Phenopype workflow example" src="../assets/figures/workflow_example_case.png" /></p>
+<p><strong>Fig. 1:</strong> Workflow demonstration using a stained stickleback. The computer vision functions used to extract the trait of interest (bone-plate area, shape and pixel density) are the same in all cases, but workflows differ in the amount of code necessary and in reproducibility.</p>
 </div></center><div class="section" id="1.-Prototyping-worflow">
 <h2>1. Prototyping worflow<a class="headerlink" href="#1.-Prototyping-worflow" title="Permalink to this headline">¶</a></h2>
 <p>The low throughput workflow starts with the path to an image that is stored on the hard drive. <code class="docutils literal notranslate"><span class="pre">load_image</span></code> imports the file as a three-channel [1] numpy array (<em>ndarray</em>), together with image meta data (file name, exposure, dimensions, etc.) as a pandas <em>DataFrame</em>. The array gets passed on to the <code class="docutils literal notranslate"><span class="pre">threshold</span></code> function, which will return a binary array of the same dimensions. This array needs to be passed on to the <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> function, which will return a dictionary with the detected
@@ -439,7 +441,7 @@ contours. This dictionary, together with the original array, can then be passed 
 <p>The <code class="docutils literal notranslate"><span class="pre">load_image</span></code> function can also load an image into a phenopype container, which is a python class that incorporates loaded images, dataframes, detected contours, intermediate output, etc. so that they are available for inspection or storage at the end of the analysis. The advantage of using containers is that they don’t litter the global environment and namespace, while still containing all intermediate steps (e.g. binary masks or contour DataFrames). Containers can be used manually to
 analyze images, but typically they are used automatically within the pype-routine that is part of phenoype’s high throughput workflow (see below).</p>
 <p><img alt="Phenopype low throughput workflow" src="../assets/figures/workflow_low.png" /></p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
@@ -466,14 +468,24 @@ analyze images, but typically they are used automatically within the pype-routin
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- create mask
+</pre></div></div>
+</div>
 </div>
 <div class="section" id="3.-High-throughput-worflow">
 <h2>3. High throughput worflow<a class="headerlink" href="#3.-High-throughput-worflow" title="Permalink to this headline">¶</a></h2>
 <p>The pype routine is phenopype’s standard method to analyse medium and large image datasets, where a function stack is constructed with the human readable yaml syntax (serialization language - for more information see the resources section of the phenopype documentation). Users can execute the pype method on a filepath, an array, or a phenopype directory, which always will trigger three actions: phenpype will i) open the contained yaml configuration with the default OS text editor, ii) parse the
 contained functions and execute them in the sequence, and iii) open a Python-window showing the processed image. After one parsing iteration, users can evaluate the results and decide to modify the opened configuration file (e.g. either change function parameters or add new functions), and run the pype again, or to terminate the pype and save all results (iv)). The processed image, any extracted phenotypic information, as well as the modified config-file is stored inside the image directory.
 Together with the raw images, which may be either stored separately or within the directory tree, users can thereby provide the full image analysis pipeline to anyone who wishes to reproduce the obtained results.</p>
-<p><strong>For more detailed information on ``pype`` and it’s default behavior, see below.</strong></p>
-<p><strong>For more information on how to use the ``pype`` in conjunction with phenopype projects please refer to the</strong><a class="reference external" href="tutorial_2_projects">Phenopype project tutorial</a><strong>.</strong></p>
+<p><strong>Further information</strong></p>
+<p>For more detailed information on <code class="docutils literal notranslate"><span class="pre">pype</span></code> and it’s default behavior, see below.</p>
+<p>For more information on how to use the <code class="docutils literal notranslate"><span class="pre">pype</span></code> in conjunction with phenopype projects please refer to the <a class="reference internal" href="tutorial_3_managing_projects_1.html"><span class="doc">Phenopype project tutorial</span></a>.</p>
+<p>Check the examples, which include both low and highthroughput code.</p>
 <p><img alt="Phenopype high throughput workflow" src="../assets/figures/workflow_high.png" /></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:

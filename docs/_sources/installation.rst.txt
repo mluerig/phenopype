@@ -19,8 +19,12 @@ You can test if the installation was successfull by opening a terminal and typin
 If :code:`conda` is not recognized, use the anaconda prompt (e.g. through the `Anaconda Navigator 
 <https://docs.anaconda.com/anaconda/user-guide/getting-started/>`_ OR add the path to your Anaconda 
 installation directory (e.g. :code:`C:\Anaconda3\Library\bin`) to your environmental variables. Further
-help can be found `here <https://docs.anaconda.com/anaconda/user-guide/troubleshooting/>`_, 
-`here <https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found>`_, `here <https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10>`_, and `here <https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97>`_.
+help can be found here:
+
+https://docs.anaconda.com/anaconda/user-guide/troubleshooting/
+https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found
+https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10
+https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97
 
 
 
