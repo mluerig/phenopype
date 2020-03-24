@@ -89,7 +89,8 @@
 <li><a class="reference internal" href="#install-python">1. Install Python</a></li>
 <li><a class="reference internal" href="#install-phenopype">2. Install phenopype</a><ul>
 <li><a class="reference internal" href="#update-phenopype">2.1 Update phenopype</a></li>
-<li><a class="reference internal" href="#install-latest-version">2.2 Install latest version</a></li>
+<li><a class="reference internal" href="#install-hotfixes">2.2 Install hotfixes</a></li>
+<li><a class="reference internal" href="#install-nightly">2.3 Install nightly</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#choose-a-text-editor">3. Choose a text editor</a></li>
@@ -146,7 +147,8 @@
 <li><a class="reference internal" href="#install-python">1. Install Python</a></li>
 <li><a class="reference internal" href="#install-phenopype">2. Install phenopype</a><ul>
 <li><a class="reference internal" href="#update-phenopype">2.1 Update phenopype</a></li>
-<li><a class="reference internal" href="#install-latest-version">2.2 Install latest version</a></li>
+<li><a class="reference internal" href="#install-hotfixes">2.2 Install hotfixes</a></li>
+<li><a class="reference internal" href="#install-nightly">2.3 Install nightly</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#choose-a-text-editor">3. Choose a text editor</a></li>
@@ -198,19 +200,23 @@ pip install phenopype
 <p>You can now use phenopype by typing <code class="code docutils literal notranslate"><span class="pre">spyder</span></code> or <code class="code docutils literal notranslate"><span class="pre">python</span></code> into the command line. If you are unsure to proceed, consult the tutorials.</p>
 <div class="section" id="update-phenopype">
 <h3>2.1 Update phenopype<a class="headerlink" href="#update-phenopype" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install phenopype - U
+<p>For regular major and minor releases do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install phenopype -U
 </pre></div>
 </div>
 </div>
-<div class="section" id="install-latest-version">
-<h3>2.2 Install latest version<a class="headerlink" href="#install-latest-version" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="install-hotfixes">
+<h3>2.2 Install hotfixes<a class="headerlink" href="#install-hotfixes" title="Permalink to this headline">¶</a></h3>
+<p>To install bugfixes for a current installation do:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/mluerig/phenopype@fix -U
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-nightly">
+<h3>2.3 Install nightly<a class="headerlink" href="#install-nightly" title="Permalink to this headline">¶</a></h3>
 <p>To update to the latest unreleased version of <cite>phenopype</cite>, which can be found on
 <a class="reference external" href="https://github.com/mluerig/phenopype/tree/nightly">github</a>, use ‘pip’ with <code class="code docutils literal notranslate"><span class="pre">git</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/mluerig/phenopype@nightly
-
-<span class="c1"># or to update</span>
-
-pip install git+https://github.com/mluerig/phenopype@nightly - U
 </pre></div>
 </div>
 <div class="admonition important">

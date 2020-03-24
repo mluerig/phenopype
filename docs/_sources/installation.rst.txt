@@ -54,14 +54,25 @@ Then activate the virtual environment and install phenopype using `pip` in your 
 You can now use phenopype by typing :code:`spyder` or :code:`python` into the command line. If you are unsure to proceed, consult the tutorials.
 
 2.1 Update phenopype
-""""""""""""""""""""""""""
+""""""""""""""""""""
+
+For regular major and minor releases do:
+
 .. code-block:: bash
 
-	pip install phenopype - U
+	pip install phenopype -U
 
+2.2 Install hotfixes
+""""""""""""""""""""
 
-2.2 Install latest version
-""""""""""""""""""""""""""
+To install bugfixes for a current installation do:
+
+.. code-block:: bash
+
+	pip install git+https://github.com/mluerig/phenopype@fix -U
+
+2.3 Install nightly
+"""""""""""""""""""
 
 To update to the latest unreleased version of `phenopype`, which can be found on 
 `github <https://github.com/mluerig/phenopype/tree/nightly>`_, use 'pip' with :code:`git`:
@@ -69,10 +80,7 @@ To update to the latest unreleased version of `phenopype`, which can be found on
 .. code-block:: bash
 
 	pip install git+https://github.com/mluerig/phenopype@nightly
-	
-	# or to update 
-	
-	pip install git+https://github.com/mluerig/phenopype@nightly - U
+
 
 .. important::
 
