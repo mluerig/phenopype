@@ -14,8 +14,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API reference" href="api_ref.html" />
-    <link rel="prev" title="phenopype: a phenotyping pipeline for python" href="index.html" />
+    <link rel="next" title="API reference" href="api.html" />
+    <link rel="prev" title="Phenopype: a phenotyping pipeline for Python" href="index.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -44,7 +44,7 @@
         <div class="collapse navbar-collapse nav-collapse">
           <ul class="nav navbar-nav">
             
-                <li><a href="https://github.com/mluerig/phenopype">back to github</a></li>
+                <li><a href="https://github.com/mluerig/phenopype">Phenopype on Github</a></li>
             
             
               <li class="dropdown globaltoc-container">
@@ -57,7 +57,7 @@
       role="menu"
       aria-labelledby="dLabelGlobalToc"><ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api_ref.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
 </ul>
 <ul>
@@ -90,9 +90,9 @@
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#install-python">1. Install Python</a></li>
 <li><a class="reference internal" href="#install-phenopype">2. Install phenopype</a><ul>
-<li><a class="reference internal" href="#update-phenopype">2.1 Update phenopype</a></li>
+<li><a class="reference internal" href="#update-phenopype">2.1 Update Phenopype</a></li>
 <li><a class="reference internal" href="#install-hotfixes">2.2 Install hotfixes</a></li>
-<li><a class="reference internal" href="#install-nightly">2.3 Install nightly</a></li>
+<li><a class="reference internal" href="#install-developmental-version">2.3 Install developmental version</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#choose-a-text-editor">3. Choose a text editor</a></li>
@@ -107,11 +107,11 @@
               
                 
   <li>
-    <a href="index.html" title="Previous Chapter: phenopype: a phenotyping pipeline for python"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; phenopype: a ...</span>
+    <a href="index.html" title="Previous Chapter: Phenopype: a phenotyping pipeline for Python"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Phenopype: a ...</span>
     </a>
   </li>
   <li>
-    <a href="api_ref.html" title="Next Chapter: API reference"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">API reference &raquo;</span>
+    <a href="api.html" title="Next Chapter: API reference"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">API reference &raquo;</span>
     </a>
   </li>
               
@@ -148,9 +148,9 @@
 <li><a class="reference internal" href="#">Installation</a><ul>
 <li><a class="reference internal" href="#install-python">1. Install Python</a></li>
 <li><a class="reference internal" href="#install-phenopype">2. Install phenopype</a><ul>
-<li><a class="reference internal" href="#update-phenopype">2.1 Update phenopype</a></li>
+<li><a class="reference internal" href="#update-phenopype">2.1 Update Phenopype</a></li>
 <li><a class="reference internal" href="#install-hotfixes">2.2 Install hotfixes</a></li>
-<li><a class="reference internal" href="#install-nightly">2.3 Install nightly</a></li>
+<li><a class="reference internal" href="#install-developmental-version">2.3 Install developmental version</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#choose-a-text-editor">3. Choose a text editor</a></li>
@@ -176,10 +176,12 @@ scientific Python packages already built in.</p>
 <p>If <code class="code docutils literal notranslate"><span class="pre">conda</span></code> is not recognized, use the anaconda prompt (e.g. through the <a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/getting-started/">Anaconda Navigator</a> OR add the path to your Anaconda
 installation directory (e.g. <code class="code docutils literal notranslate"><span class="pre">C:\Anaconda3\Library\bin</span></code>) to your environmental variables. Further
 help can be found here:</p>
-<p><a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/troubleshooting/">https://docs.anaconda.com/anaconda/user-guide/troubleshooting/</a>
-<a class="reference external" href="https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found">https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found</a>
-<a class="reference external" href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10</a>
-<a class="reference external" href="https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97">https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97</a></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/troubleshooting/">https://docs.anaconda.com/anaconda/user-guide/troubleshooting/</a></p></li>
+<li><p><a class="reference external" href="https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found">https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10</a></p></li>
+<li><p><a class="reference external" href="https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97">https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97</a></p></li>
+</ul>
 </div>
 <div class="section" id="install-phenopype">
 <h2>2. Install phenopype<a class="headerlink" href="#install-phenopype" title="Permalink to this headline">¶</a></h2>
@@ -195,16 +197,16 @@ conda install spyder
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>If your are using <cite>Spyder</cite>, make sure you install it to the new environment you have just created, otherwise <cite>Spyder</cite> will be loaded
-from conda base environment, where phenopype is not installed.</p>
+from conda base environment, where Phenopype is not installed.</p>
 </div>
-<p>Then activate the virtual environment and install phenopype using <cite>pip</cite> in your terminal or command line:</p>
+<p>Then activate the virtual environment and install Phenopype using <cite>pip</cite> in your terminal or command line:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate pp
 pip install phenopype
 </pre></div>
 </div>
-<p>You can now use phenopype by typing <code class="code docutils literal notranslate"><span class="pre">spyder</span></code> or <code class="code docutils literal notranslate"><span class="pre">python</span></code> into the command line. If you are unsure to proceed, consult the tutorials.</p>
+<p>You can now use Phenopype by typing <code class="code docutils literal notranslate"><span class="pre">spyder</span></code> or <code class="code docutils literal notranslate"><span class="pre">python</span></code> into the command line. If you are unsure to proceed, consult the tutorials.</p>
 <div class="section" id="update-phenopype">
-<h3>2.1 Update phenopype<a class="headerlink" href="#update-phenopype" title="Permalink to this headline">¶</a></h3>
+<h3>2.1 Update Phenopype<a class="headerlink" href="#update-phenopype" title="Permalink to this headline">¶</a></h3>
 <p>For regular major and minor releases do:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install phenopype -U
 </pre></div>
@@ -212,16 +214,15 @@ pip install phenopype
 </div>
 <div class="section" id="install-hotfixes">
 <h3>2.2 Install hotfixes<a class="headerlink" href="#install-hotfixes" title="Permalink to this headline">¶</a></h3>
-<p>To install bugfixes for a current installation do:</p>
+<p>To install bugfixes for a current installation, pull the <cite>fix</cite> branch using <code class="code docutils literal notranslate"><span class="pre">pip</span></code> with <code class="code docutils literal notranslate"><span class="pre">git</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/mluerig/phenopype@fix -U
 </pre></div>
 </div>
 </div>
-<div class="section" id="install-nightly">
-<h3>2.3 Install nightly<a class="headerlink" href="#install-nightly" title="Permalink to this headline">¶</a></h3>
-<p>To update to the latest unreleased version of <cite>phenopype</cite>, which can be found on
-<a class="reference external" href="https://github.com/mluerig/phenopype/tree/nightly">github</a>, use ‘pip’ with <code class="code docutils literal notranslate"><span class="pre">git</span></code>:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/mluerig/phenopype@nightly
+<div class="section" id="install-developmental-version">
+<h3>2.3 Install developmental version<a class="headerlink" href="#install-developmental-version" title="Permalink to this headline">¶</a></h3>
+<p>To update to the latest unreleased version of Phenopype, which can be found on <a class="reference external" href="https://github.com/mluerig/phenopype/tree/development">github</a>, pull the <cite>development</cite> branch using <code class="code docutils literal notranslate"><span class="pre">pip</span></code> with <code class="code docutils literal notranslate"><span class="pre">git</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/mluerig/phenopype@development
 </pre></div>
 </div>
 <div class="admonition important">
@@ -233,10 +234,11 @@ its dependencies or other python packages should only be done using <code class=
 </div>
 <div class="section" id="choose-a-text-editor">
 <h2>3. Choose a text editor<a class="headerlink" href="#choose-a-text-editor" title="Permalink to this headline">¶</a></h2>
-<p>The high throughout method in phenopype currently requires a text editor to be installed that <strong>does not lock the file</strong> - <a class="reference external" href="https://superuser.com/questions/853420/why-is-windows-not-warning-about-file-in-use-for-certain-programs">read about file locking here</a>. For Windows, I recommend <cite>Notepad++</cite>, which supports
-syntax highlighting and has many other useful features, for Linux <cite>Vim</cite> or <cite>Nano</cite>, and for MacOS <cite>brackets</cite> could work (<a class="reference external" href="http://brackets.io/">http://brackets.io/</a>).</p>
+<p>The high throughout method in Phenopype currently requires a text editor to be installed that <strong>does not lock the file</strong> - <a class="reference external" href="https://superuser.com/a/855057/970488">read about file locking here</a>.</p>
+<p>For Windows, I recommend <cite>Notepad++</cite>, which supports syntax highlighting and has many other useful features: <a class="reference external" href="https://notepad-plus-plus.org/downloads/">https://notepad-plus-plus.org/downloads/</a></p>
+<p>For Linux <cite>Vim</cite> or <cite>Nano</cite> (are already installed on most Linux distributions), and for MacOS, <cite>Nano</cite> or <cite>brackets</cite> could work <a class="reference external" href="http://brackets.io/">http://brackets.io/</a>.</p>
 <p>Moreover, it is important that your OS knows how to handle <cite>.yaml</cite> files. Make sure that the default app to open these files is set as one of the edtiors that you selected.</p>
-<p>[More information about this will follow]</p>
+<p>[More information about this will follow soon]</p>
 </div>
 </div>
 
