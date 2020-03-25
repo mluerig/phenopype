@@ -5,7 +5,7 @@ Phenopype: a phenotyping pipeline for Python
 
 	<hr>
 
-	<img src="../assets/figures/header.png">
+	<img src="assets/figures/header.png">
 
 	<div align="justify">
 	<br>
