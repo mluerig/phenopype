@@ -101,8 +101,8 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#image-analysis-support-modules">Image analysis (support modules)</a><ul>
-<li><a class="reference internal" href="#module-phenopype.core.visualization">Visualization</a></li>
-<li><a class="reference internal" href="#module-phenopype.core.export">Export</a></li>
+<li><a class="reference internal" href="#visualization">Visualization</a></li>
+<li><a class="reference internal" href="#export">Export</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#video-analysis">Video analysis</a><ul>
@@ -173,8 +173,8 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#image-analysis-support-modules">Image analysis (support modules)</a><ul>
-<li><a class="reference internal" href="#module-phenopype.core.visualization">Visualization</a></li>
-<li><a class="reference internal" href="#module-phenopype.core.export">Export</a></li>
+<li><a class="reference internal" href="#visualization">Visualization</a></li>
+<li><a class="reference internal" href="#export">Export</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#video-analysis">Video analysis</a><ul>
@@ -194,10 +194,10 @@
 <h1>API reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="main-package-functions">
 <h2>Main package functions<a class="headerlink" href="#main-package-functions" title="Permalink to this headline">¶</a></h2>
-<p>These components are available on startup</p>
+<p>These components are available on startup.</p>
 <div class="section" id="project-management">
 <h3>Project management<a class="headerlink" href="#project-management" title="Permalink to this headline">¶</a></h3>
-<p>To manage projects</p>
+<p>[ADD TEXT]</p>
 <dl class="class">
 <dt id="phenopype.main.project">
 <em class="property">class </em><code class="sig-prename descclassname">phenopype.main.</code><code class="sig-name descname">project</code><span class="sig-paren">(</span><em class="sig-param">root_dir</em>, <em class="sig-param">overwrite=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project" title="Permalink to this definition">¶</a></dt>
@@ -228,11 +228,14 @@ or link raw files to save memory on the harddrive. For each found image,
 a folder will be created in the “data” folder within the projects root
 directory. If found images are in subfolders and search_mode is
 recursive, the respective phenopype directories will be created with
-flattened path as prefix. E.g., with “raw_files” as folder with the original
-image files and “phenopype_proj” as rootfolder:</p>
-<p>raw_files/file.jpg ==&gt; phenopype_proj/data/file.jpg
-raw_files/subdir1/file.jpg ==&gt; phenopype_proj/data/1__subdir1__file.jpg
-raw_files/subdir1/subdir2/file.jpg ==&gt; phenopype_proj/data/2__subdir1__subdir2__file.jpg</p>
+flattened path as prefix.</p>
+<p>E.g., with “raw_files” as folder with the original image files
+and “phenopype_proj” as rootfolder:</p>
+<ul class="simple">
+<li><p>raw_files/file.jpg ==&gt; phenopype_proj/data/file.jpg</p></li>
+<li><p>raw_files/subdir1/file.jpg ==&gt; phenopype_proj/data/1__subdir1__file.jpg</p></li>
+<li><p>raw_files/subdir1/subdir2/file.jpg ==&gt; phenopype_proj/data/2__subdir1__subdir2__file.jpg</p></li>
+</ul>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -322,27 +325,40 @@ which needs to be saved separately with the appropriate functions (e.g. “save_
 </div>
 <div class="section" id="pype-method">
 <h3>Pype method<a class="headerlink" href="#pype-method" title="Permalink to this headline">¶</a></h3>
-<p>High throughput</p>
-<dl class="class">
+Method used to process image datasets with high throughput and reproducibility. Users should use the pype method in
+conjunction with image organized in a phenopype directory structure. To get started with the high througput workflow, see
+<a href="tutorial_2_phenopype_workflow">Tutorial 2</a> and <a href="tutorial_3_managing_projects_1">Tutorial 3</a>.
+<br>
+
+<center>
+<div style="width:500px; text-align: left" >
+
+<img src="_images/pype.png">
+
+</div>
+</center>
+
+<hr><dl class="class">
 <dt id="phenopype.main.pype">
 <em class="property">class </em><code class="sig-prename descclassname">phenopype.main.</code><code class="sig-name descname">pype</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">name</em>, <em class="sig-param">config='preset1'</em>, <em class="sig-param">interactive=False</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.pype" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>The pype is phenopype’s core method that allows running all functions
-that are available in the program’s library in sequence. Executing the pype routine
-will trigger two actions: it will open a yaml configuration file
-containing instructions for image processing using the default OS text viewer,
-and a phenopype-window showing the image that was passed on to the pype
-function as an array, or a character string containing the path to an
-image on the harddrive (or a directory). Phenopype will parse all functions
-contained in the config-file in sequence and attempt to apply them to the image
-(exceptions will be passed, but exceptions returned for diagnostics).
-The user immediately sees the result and can decide to make changes directly to
-the opened config-file (e.g. either change function parameters or add new functions),
-and run the pype again, or to terminate the pype and save all results.
-The user can store the processed image, any extracted phenotypic information,
-as well as the modified config-file inside the image directory.
-By providing unique names, users can store different pype configurations and
-the associated results side by side.</p>
+that are available in the program’s library in sequence. Users can execute
+the pype method on a filepath, an array, or a phenopype directory, which
+always will trigger three actions:</p>
+<ol class="arabic simple">
+<li><p>open the contained yaml configuration with the default OS text editor</p></li>
+<li><p>parse the contained functions and execute them in the sequence (exceptions
+will be passed, but returned for diagnostics)</p></li>
+<li><p>open a Python-window showing the processed image.</p></li>
+</ol>
+<p>After one iteration of these steps, users can evaluate the results and decide
+to modify the opened configuration file (e.g. either change function parameters or
+add new functions), and run the pype again, or to terminate the pype and
+save all results. The processed image, any extracted phenotypic information,
+as well as the modified config-file is stored inside the image directory, or
+a user-specified directory. By providing unique names, users can store different
+pype configurations and the associated results side by side.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -361,7 +377,7 @@ or path to a valid phenopype directory</p></li>
 </div>
 <div class="section" id="utility-functions">
 <h3>Utility functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline">¶</a></h3>
-<p>Load imagets etc</p>
+<p>[ADD TEXT]</p>
 <span class="target" id="module-phenopype.utils"></span><dl class="function">
 <dt id="phenopype.utils.custom_formatwarning">
 <code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">custom_formatwarning</code><span class="sig-paren">(</span><em class="sig-param">msg</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.custom_formatwarning" title="Permalink to this definition">¶</a></dt>
@@ -371,6 +387,23 @@ or path to a valid phenopype directory</p></li>
 <dt id="phenopype.utils.container">
 <em class="property">class </em><code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">container</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">df_image_data</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A phenopype container is a Python class where loaded images, dataframes,
+detected contours, intermediate output, etc. are stored so that they are
+available for inspection or storage at the end of the analysis. The
+advantage of using containers is that they don’t litter the global environment
+and namespace, while still containing all intermediate steps (e.g. binary
+masks or contour DataFrames). Containers can be used manually to analyse images,
+but typically they are used automatically within the pype-routine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>image</strong> (<em>ndarray</em>) – single or multi-channel iamge as an array (can be created using load_image
+or load_directory).</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em>) – a dataframe that contains meta-data of the provided image to be passed on
+to all results-DataFrames</p></li>
+</ul>
+</dd>
+</dl>
 <dl class="method">
 <dt id="phenopype.utils.container.load">
 <code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.load" title="Permalink to this definition">¶</a></dt>
@@ -586,6 +619,8 @@ each newly opened window (only works in conjunction with
 <li><p><strong>append</strong> (<em>str</em><em>, </em><em>optional</em>) – append image name with string to prevent overwriting</p></li>
 <li><p><strong>extension</strong> (<em>str</em><em> (</em><em>&quot;&quot;</em><em>)</em>) – file extension to save image with</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite images if name exists</p></li>
+<li><p><strong>resize</strong> (<em>float</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+original size).</p></li>
 </ul>
 </dd>
 </dl>
@@ -597,7 +632,7 @@ each newly opened window (only works in conjunction with
 <h2>Image analysis (core modules)<a class="headerlink" href="#image-analysis-core-modules" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="preprocessing">
 <h3>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h3>
-<p>Draw masks, equalize histograms etc</p>
+<p>[ADD TEXT]</p>
 <span class="target" id="module-phenopype.core.preprocessing"></span><dl class="function">
 <dt id="phenopype.core.preprocessing.create_mask">
 <code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
@@ -720,7 +755,7 @@ from the same instance of scale_maker.</p>
 </div>
 <div class="section" id="segmentation">
 <h3>Segmentation<a class="headerlink" href="#segmentation" title="Permalink to this headline">¶</a></h3>
-<p>Segmentation into foreground and background</p>
+<p>[ADD TEXT]</p>
 <span class="target" id="module-phenopype.core.segmentation"></span><dl class="function">
 <dt id="phenopype.core.segmentation.blur">
 <code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">blur</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.blur" title="Permalink to this definition">¶</a></dt>
@@ -861,7 +896,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 </div>
 <div class="section" id="measurement">
 <h3>Measurement<a class="headerlink" href="#measurement" title="Permalink to this headline">¶</a></h3>
-<p>Extract pixel level information</p>
+<p>[ADD TEXT]</p>
 <span class="target" id="module-phenopype.core.measurement"></span><dl class="function">
 <dt id="phenopype.core.measurement.landmarks">
 <code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.landmarks" title="Permalink to this definition">¶</a></dt>
@@ -920,9 +955,10 @@ to coerce the color image to grayscale or use one of the color channels directly
 </div>
 <div class="section" id="image-analysis-support-modules">
 <h2>Image analysis (support modules)<a class="headerlink" href="#image-analysis-support-modules" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="module-phenopype.core.visualization">
-<span id="visualization"></span><h3>Visualization<a class="headerlink" href="#module-phenopype.core.visualization" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
+<div class="section" id="visualization">
+<h3>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h3>
+<p>[ADD TEXT]</p>
+<span class="target" id="module-phenopype.core.visualization"></span><dl class="function">
 <dt id="phenopype.core.visualization.select_canvas">
 <code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">select_canvas</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.select_canvas" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -978,29 +1014,39 @@ to coerce the color image to grayscale or use one of the color channels directly
 </dd></dl>
 
 </div>
-<div class="section" id="module-phenopype.core.export">
-<span id="export"></span><h3>Export<a class="headerlink" href="#module-phenopype.core.export" title="Permalink to this headline">¶</a></h3>
-<dl class="function">
+<div class="section" id="export">
+<h3>Export<a class="headerlink" href="#export" title="Permalink to this headline">¶</a></h3>
+<p>[ADD TEXT]</p>
+<span class="target" id="module-phenopype.core.export"></span><dl class="function">
 <dt id="phenopype.core.export.save_canvas">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_canvas</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_canvas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a pandas dataframe to csv.</p>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_canvas</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">name=''</em>, <em class="sig-param">resize=0.5</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_canvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a canvas (processed image). Less flexible than “save_image”, should
+only be used for low and high throughput worklow.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>df</strong> (<em>df</em>) – object_finder outpur (pandas data frame) to save</p></li>
-<li><p><strong>name</strong> (<em>str</em>) – name for saved df</p></li>
-<li><p><strong>save_dir</strong> (<em>str</em>) – location to save df</p></li>
-<li><p><strong>append</strong> (<em>str</em><em> (</em><em>optional</em><em>)</em>) – append df name with string to prevent overwriting</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite df if name exists</p></li>
-<li><p><strong>silent</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: True</em><em>)</em>) – do not print where file was saved</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite flag in case file exists</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – folder to save file in</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
+<li><p><strong>name</strong> (<em>str</em>) – custom name for file</p></li>
+<li><p><strong>resize</strong> (<em>float</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+original size).</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_colours">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_colours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_colours" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_colours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_colours" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a pandas dataframe to csv.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1024,8 +1070,8 @@ to coerce the color image to grayscale or use one of the color channels directly
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – object containing the contours</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite flag in case file exists</p></li>
-<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – folder to save csv in</p></li>
-<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename contours_XX.csv</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – folder to save file in</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
 <li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
 </ul>
 </dd>
@@ -1040,7 +1086,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 
 <dl class="function">
 <dt id="phenopype.core.export.save_drawing">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_drawing</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_drawing" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_drawing</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_drawing" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a pandas dataframe to csv.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1057,7 +1103,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 
 <dl class="function">
 <dt id="phenopype.core.export.save_data_entry">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_data_entry</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_data_entry" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_data_entry</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_data_entry" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a pandas dataframe to csv.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1074,7 +1120,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 
 <dl class="function">
 <dt id="phenopype.core.export.save_landmarks">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_landmarks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_landmarks" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1093,7 +1139,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 
 <dl class="function">
 <dt id="phenopype.core.export.save_masks">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_masks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_masks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_masks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_masks" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1112,7 +1158,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 
 <dl class="function">
 <dt id="phenopype.core.export.save_polylines">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_polylines" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_polylines" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1131,7 +1177,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 
 <dl class="function">
 <dt id="phenopype.core.export.save_scale">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_scale" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a pandas dataframe to csv.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1152,6 +1198,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 <h2>Video analysis<a class="headerlink" href="#video-analysis" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="motion-tracking-core-module">
 <h3>Motion tracking (core module)<a class="headerlink" href="#motion-tracking-core-module" title="Permalink to this headline">¶</a></h3>
+<p>[ADD TEXT]</p>
 <dl class="class">
 <dt id="phenopype.tracking.motion_tracker">
 <em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">motion_tracker</code><span class="sig-paren">(</span><em class="sig-param">video_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker" title="Permalink to this definition">¶</a></dt>
@@ -1215,6 +1262,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 </div>
 <div class="section" id="tracking-method-customizable-method">
 <h3>Tracking method (customizable method)<a class="headerlink" href="#tracking-method-customizable-method" title="Permalink to this headline">¶</a></h3>
+<p>[ADD TEXT]</p>
 <dl class="class">
 <dt id="phenopype.tracking.tracking_method">
 <em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">tracking_method</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.tracking_method" title="Permalink to this definition">¶</a></dt>

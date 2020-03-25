@@ -87,7 +87,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Example 2: Stickleback morphometrics - landmarks</a></li>
+<li><a class="reference internal" href="#">Example 2: Stickleback morphometrics - landmarks</a><ul>
+<li><a class="reference internal" href="#Low-throughput">Low throughput</a><ul>
+<li><a class="reference internal" href="#Adding-a-scale">Adding a scale</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -135,7 +141,13 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Example 2: Stickleback morphometrics - landmarks</a></li>
+<li><a class="reference internal" href="#">Example 2: Stickleback morphometrics - landmarks</a><ul>
+<li><a class="reference internal" href="#Low-throughput">Low throughput</a><ul>
+<li><a class="reference internal" href="#Adding-a-scale">Adding a scale</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -364,15 +376,180 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Example-2:-Stickleback-morphometrics---landmarks">
 <h1>Example 2: Stickleback morphometrics - landmarks<a class="headerlink" href="#Example-2:-Stickleback-morphometrics---landmarks" title="Permalink to this headline">¶</a></h1>
-<p>Functional morphology of organisms is often measured by placing landmarks at specific points that show structural, functional or developmental significance. In this example phenopype is used to place morphometric landmarks across the anterior half of a stickleback (G. aculeatus) stained with alizarin red.</p>
-<p>[ADD TEXT]</p>
+<p>Functional morphology of organisms is often measured by placing landmarks at specific points that show structural, functional or developmental significance. In this example phenopype is used to place morphometric landmarks across the anterior half of a stickleback (<em>Gasterosteus aculeatus</em>) stained with alizarin red.</p>
+<p>First we place landmarks in low throughput mode to learn how the landmark-function works, then we look at a high throughput landkmark example with a project directory and a global scale.</p>
+<center><div style="width:600px; text-align: left"><p><img alt="Phenopype workflow example" src="_images/stickleback_side.jpg" /></p>
+</div></center><div class="section" id="Low-throughput">
+<h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/stickle1.jpg&quot;</span>
+
+<span class="n">ct</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">cont</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">## load image as container</span>
 </pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## just place a few test-landmarks</span>
+
+<span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1">## sets landmarks. the landmarks get stored inside the container. if you have already placed landmarks</span>
+<span class="c1">## to the same container and set &quot;overwrite=False&quot;, you wont be able to place them again until you set</span>
+<span class="c1">## the overwrite flag to &quot;True&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- setting landmarks
+</pre></div></div>
+</div>
+<p>To create an control-image with the selected points, the <code class="docutils literal notranslate"><span class="pre">show_landmarks</span></code> has to be called explicitly. This is necessary when using the low throughput, but not the high throughput routine (see <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">Tutorial 2</span></a>); likewise the <code class="docutils literal notranslate"><span class="pre">save_landmarks</span></code> function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1">## draw landmarks on canvas. appearance needs to be specified here too</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span> <span class="c1">## save landmarks as csv to folder</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span> <span class="c1">## save landmarks as csv to folder</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- landmarks saved under ../_temp/output\landmarks.csv (overwritten).
+- canvas saved under ../_temp/output\canvas.jpg (overwritten).
+</pre></div></div>
+</div>
+<div class="section" id="Adding-a-scale">
+<h3>Adding a scale<a class="headerlink" href="#Adding-a-scale" title="Permalink to this headline">¶</a></h3>
+<p>Now we will do the same thing again, but this time we use a reference image to create a scale-template so we can adjust our landmark coordinate space. This is important if for example the distance between the camera and your sample changes.</p>
+<center><div style="width:400px; text-align: left"><p><img alt="Phenopype workflow example" src="_images/stickleback_side.jpg" /></p>
+</div></center><p>After loading the reference image, we measure the distance on the millimeter scale (click on two points inside the image), enter the distance (e.g. 10 mm), and then we create a template by dragging a rectangle around the whole (!) reference card. Finish each step with “enter”.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ref_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/stickleback_side.jpg&quot;</span>
+
+<span class="n">ref_image</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">ref_path</span><span class="p">)</span> <span class="c1">## load image as container</span>
+<span class="n">ref_px_mm_ratio</span><span class="p">,</span> <span class="n">template_img</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_scale</span><span class="p">(</span><span class="n">ref_image</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Scale set
+- add column length
+Template selected
+</pre></div></div>
+</div>
+<p>In the next step, we load the sample image again. Then we use a classic machine learning algorithm to find the scale inside our already processed image.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ct</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">cont</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">find_scale</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template_img</span><span class="p">,</span> <span class="n">px_mm_ratio</span><span class="o">=</span><span class="n">ref_px_mm_ratio</span><span class="p">,</span> <span class="n">equalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+---------------------------------------------------
+Reference card found with 249 keypoint matches:
+template image has 36 pixel per mm.
+current image has 34.9 pixel per mm.
+= 96.839 % of template image.
+---------------------------------------------------
+</pre></div></div>
+</div>
+<p>Now we draw the perimeter around the detected scale, and plot it.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ - show mask: scale.
+</pre></div></div>
+</div>
+<p>Now we place our landmarks again. The resulting csv now contains a column for the pixel-to-mm-ratio from the scale we detected.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- setting landmarks
+</pre></div></div>
+</div>
+<p>Finally, we look at the results and export them.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- landmarks saved under ../_temp/output\landmarks.csv (overwritten).
+- canvas saved under ../_temp/output\canvas.jpg (overwritten).
+</pre></div></div>
+</div>
 </div>
 </div>
 </div>

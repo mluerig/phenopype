@@ -88,9 +88,9 @@
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Tutorial 2: Working with phenopype</a><ul>
-<li><a class="reference internal" href="#1.-Prototyping-worflow">1. Prototyping worflow</a></li>
-<li><a class="reference internal" href="#2.-Low-throughput-worflow">2. Low throughput worflow</a></li>
-<li><a class="reference internal" href="#3.-High-throughput-worflow">3. High throughput worflow</a><ul>
+<li><a class="reference internal" href="#Prototyping-worflow">Prototyping worflow</a></li>
+<li><a class="reference internal" href="#Low-throughput-worflow">Low throughput worflow</a></li>
+<li><a class="reference internal" href="#High-throughput-worflow">High throughput worflow</a><ul>
 <li><a class="reference internal" href="#3.1-yaml-syntax">3.1 yaml-syntax</a></li>
 <li><a class="reference internal" href="#3.2.-pype-behavior">3.2. <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
 </ul>
@@ -145,9 +145,9 @@
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">Tutorial 2: Working with phenopype</a><ul>
-<li><a class="reference internal" href="#1.-Prototyping-worflow">1. Prototyping worflow</a></li>
-<li><a class="reference internal" href="#2.-Low-throughput-worflow">2. Low throughput worflow</a></li>
-<li><a class="reference internal" href="#3.-High-throughput-worflow">3. High throughput worflow</a><ul>
+<li><a class="reference internal" href="#Prototyping-worflow">Prototyping worflow</a></li>
+<li><a class="reference internal" href="#Low-throughput-worflow">Low throughput worflow</a></li>
+<li><a class="reference internal" href="#High-throughput-worflow">High throughput worflow</a><ul>
 <li><a class="reference internal" href="#3.1-yaml-syntax">3.1 yaml-syntax</a></li>
 <li><a class="reference internal" href="#3.2.-pype-behavior">3.2. <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
 </ul>
@@ -382,33 +382,68 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Tutorial-2:-Working-with-phenopype">
 <h1>Tutorial 2: Working with phenopype<a class="headerlink" href="#Tutorial-2:-Working-with-phenopype" title="Permalink to this headline">¶</a></h1>
-<p>Analysis of scientific images can be an iterative process that may require frequent user input to preprocess images, adjust settings and evaluate the obtained results. In phenopype, users can start this process by identifying the appropriate functions and settings to analyse a series of images (i.e. which segmentation algorithms is to be used). For the actual analysis, users then can switch to a workflow that has higher throughput and is more reproducible. Phenopype offers three different types
-of workflows that are explained here:</p>
-<ol class="arabic simple">
-<li><p><a class="reference external" href="#proto">Prototyping</a> - images are loaded as arrays and functions are applied one by one (low throughput, low reproducibility - for workflow-prototyping and evaluation).</p></li>
-<li><p><a class="reference external" href="#low">Low throughput</a> - images are loaded into phenopype containers, which are then supplied to a function stack (medium throughput, low reproducibility - for single pictures and very small datasets).</p></li>
-<li><p><a class="reference external" href="#high">High throughput</a> - images are loaded from a phenopype project directory tree, and analyzed with the pype method (high throughput, high reproducibility - standard workflow for medium and large datasets).</p></li>
-</ol>
-<p>For the first two workflow types, users write a phenopype function stack in python code to assemble a CV workflow from five core modules (preprocessing, segmentation, measurement, export, visualization - for a full list check the API reference). This is recommended for users who wish to familiarize themselves with the basic principles of computer vision and to explore the phenopype function library. Output from all intermediate steps is returned from the functions and can be evaluated, which
-makes these routines are also appropriate for prototyping and testing. For medium and large datasets users should work from a python directory structure in conjunction with the pype-method; phenopype’s high througput workflow.</p>
+<p>Analysis of scientific images can be an iterative process that may require frequent user input to preprocess images, adjust settings and evaluate the obtained results. In phenopype, users can start this process by identifying the appropriate functions and settings to analyse a series of images (i.e. which segmentation algorithms is to be used). For the actual analysis, users then can switch to a workflow that has higher throughput and is more reproducible. Phenopype offers workflows that are
+appropriate for all stages of the scientific process:</p>
+<hr class="docutils" />
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 11%" />
+<col style="width: 29%" />
+<col style="width: 37%" />
+<col style="width: 11%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Workflow</p></th>
+<th class="head"><p>Use case</p></th>
+<th class="head"><p>Principle of operation</p></th>
+<th class="head"><p>Explicitness</p></th>
+<th class="head"><p>Reproducibility</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="#proto">Prototyping</a></p></td>
+<td><p>analysis prototyping, self education and evaluation</p></td>
+<td><p>images are loaded as arrays and functions are applied one by one</p></td>
+<td><p>High</p></td>
+<td><p>Low</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="#low">Low throughput</a></p></td>
+<td><p>single pictures and very small datasets</p></td>
+<td><p>images are loaded into phenopype containers</p></td>
+<td><p>Medium</p></td>
+<td><p>low</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="#high">High throughput</a></p></td>
+<td><p>medium and large datasets - default analysis workflow</p></td>
+<td><p>images are loaded from a phenopype project directory tree, and analyzed with the <a class="reference external" href="api.html#pype-method">pype</a> method</p></td>
+<td><p>Low</p></td>
+<td><p>High</p></td>
+</tr>
+</tbody>
+</table>
+<hr class="docutils" />
+<p>For all three workflows, users assemble a stack of computer vision functions from phenopypes five core modules (preprocessing, segmentation, measurement, export, visualization - for an overview check the <a class="reference external" href="api">API reference</a>). However, the degree of user interaction, visual feedback and the mode by which these functions are applied to images differ, as well as reproducibility.</p>
+<p>In the prototyping and low throughput workflow, users write a phenopype function stack in directly in Python code. This is recommended for users who wish to familiarize themselves with the basic principles of computer vision and to explore the phenopype function library. Output from all intermediate steps is returned from the functions and can be evaluated, which makes these routines are also appropriate for prototyping and testing.</p>
+<p>To process image datasets in high throughput and reproducibility, users should work from a phenopype directory structure in conjunction with the pype-method. To get started with Phenopype’s high througput workflow, <a class="reference external" href="#high">see below</a>, check <a class="reference internal" href="tutorial_3_managing_projects_1.html"><span class="doc">Tutorial 3</span></a> and consult the <a class="reference external" href="api.html#pype-method">pype section in the API reference</a>.</p>
 <p>In the following, all three workflows a demonstrated by analyzing an image of a threespine stickleback (<em>Gasterosteus aculeatus</em>) stained with alizarin red. Traits of interest are bone-plate area and shape, and, within the detected plates, pixel intensities that denote bone-density.</p>
 <center><div style="width:600px; text-align: left"><p><img alt="Phenopype workflow example" src="_images/workflow_example_case.png" /></p>
 <p><strong>Fig. 1:</strong> Workflow demonstration using a stained stickleback. The computer vision functions used to extract the trait of interest (bone-plate area, shape and pixel density) are the same in all cases, but workflows differ in the amount of code necessary and in reproducibility.</p>
-</div></center><div class="section" id="1.-Prototyping-worflow">
-<h2>1. Prototyping worflow<a class="headerlink" href="#1.-Prototyping-worflow" title="Permalink to this headline">¶</a></h2>
+</div></center><div class="section" id="Prototyping-worflow">
+<h2>Prototyping worflow<a class="headerlink" href="#Prototyping-worflow" title="Permalink to this headline">¶</a></h2>
 <p>The low throughput workflow starts with the path to an image that is stored on the hard drive. <code class="docutils literal notranslate"><span class="pre">load_image</span></code> imports the file as a three-channel [1] numpy array (<em>ndarray</em>), together with image meta data (file name, exposure, dimensions, etc.) as a pandas <em>DataFrame</em>. The array gets passed on to the <code class="docutils literal notranslate"><span class="pre">threshold</span></code> function, which will return a binary array of the same dimensions. This array needs to be passed on to the <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> function, which will return a dictionary with the detected
 contours. This dictionary, together with the original array, can then be passed to the <code class="docutils literal notranslate"><span class="pre">colour_intensity</span></code> function. This function will collect the average color value from within the perimeter coordinates for each contour and return a pandas dataframe containing those values. Finally, the dataframe can be exported as a csv file with <code class="docutils literal notranslate"><span class="pre">save_colour</span></code>. By passing on the initially created meta-data, the function will automatically expand the provided columns of meta-info into the exported csv.</p>
 <p>[1] to learn more about the basic of Computer Vision check the resources section of the phenopype documentation.</p>
 <p><img alt="Phenopype prototyping workflow" src="_images/workflow_proto.png" /></p>
 <p>Fig. 2: Schematic of Phenopype’s prototyping workflow</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
 
-<span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;/images/stickleback_side.jpg&quot;</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/stickleback_side.jpg&quot;</span>
 
 <span class="c1">## load image as array, supply image_data (DataFrame containing meta data)</span>
 <span class="n">image</span><span class="p">,</span> <span class="n">image_data</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -435,39 +470,40 @@ contours. This dictionary, together with the original array, can then be passed 
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-An exception has occurred, use %tb to see the full traceback.
-
-<span class="ansi-red-intense-fg ansi-bold">SystemExit</span><span class="ansi-red-intense-fg ansi-bold">:</span> Invalid image path - cannot load image from str.
-
+- create mask
+- applying mask: mask1
+- contours saved under ../_temp/output\contours.csv (overwritten).
 </pre></div></div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<p>While analyzing the image, you can explore output from the different steps to see what is going on. For example, the binary image resulting from the thresholding:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
 </div>
-<div class="output_area stderr docutils container">
-<div class="highlight"><pre>
-WARNING: To exit: use &#39;exit&#39;, &#39;quit&#39;, or Ctrl-D.
-</pre></div></div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">image_bin</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
-<div class="section" id="2.-Low-throughput-worflow">
-<h2>2. Low throughput worflow<a class="headerlink" href="#2.-Low-throughput-worflow" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="Low-throughput-worflow">
+<h2>Low throughput worflow<a class="headerlink" href="#Low-throughput-worflow" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">load_image</span></code> function can also load an image into a phenopype container, which is a python class that incorporates loaded images, dataframes, detected contours, intermediate output, etc. so that they are available for inspection or storage at the end of the analysis. The advantage of using containers is that they don’t litter the global environment and namespace, while still containing all intermediate steps (e.g. binary masks or contour DataFrames). Containers can be used manually to
 analyze images, but typically they are used automatically within the pype-routine that is part of phenoype’s high throughput workflow (see below).</p>
 <p><img alt="Phenopype low throughput workflow" src="_images/workflow_low.png" /></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
 
-<span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../assets/images/stickleback_side.jpg&quot;</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/stickleback_side.jpg&quot;</span>
 
 <span class="c1">## load image as a phenopype container which will include all images, dataframes,</span>
 <span class="c1">## detected contours and intermediate output</span>
@@ -493,18 +529,53 @@ analyze images, but typically they are used automatically within the pype-routin
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 - create mask
+- applying mask: mask1
+- contours saved under images\contours.csv.
+</pre></div></div>
+</div>
+<p>Although the intermediate steps from the functions are not present as objects in the namespace, you can access and evaluate it from the container. Again, we will look at the binary image:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">image_bin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Use <code class="docutils literal notranslate"><span class="pre">dir</span></code> to inspect all the components of the container:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">container</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;canvas&#39;, &#39;df_contours&#39;, &#39;df_image_data&#39;, &#39;df_image_data_copy&#39;, &#39;df_masks&#39;, &#39;dirpath&#39;, &#39;image&#39;, &#39;image_bin&#39;, &#39;image_copy&#39;, &#39;image_data&#39;, &#39;image_gray&#39;, &#39;image_mod&#39;, &#39;load&#39;, &#39;reset&#39;, &#39;save&#39;, &#39;save_suffix&#39;, &#39;show&#39;]
 </pre></div></div>
 </div>
 </div>
-<div class="section" id="3.-High-throughput-worflow">
-<h2>3. High throughput worflow<a class="headerlink" href="#3.-High-throughput-worflow" title="Permalink to this headline">¶</a></h2>
-<p>The pype routine is phenopype’s standard method to analyse medium and large image datasets, where a function stack is constructed with the human readable yaml syntax (serialization language - for more information see the resources section of the phenopype documentation). Users can execute the pype method on a filepath, an array, or a phenopype directory, which always will trigger three actions: phenpype will i) open the contained yaml configuration with the default OS text editor, ii) parse the
-contained functions and execute them in the sequence, and iii) open a Python-window showing the processed image. After one parsing iteration, users can evaluate the results and decide to modify the opened configuration file (e.g. either change function parameters or add new functions), and run the pype again, or to terminate the pype and save all results (iv)). The processed image, any extracted phenotypic information, as well as the modified config-file is stored inside the image directory.
-Together with the raw images, which may be either stored separately or within the directory tree, users can thereby provide the full image analysis pipeline to anyone who wishes to reproduce the obtained results.</p>
+<div class="section" id="High-throughput-worflow">
+<h2>High throughput worflow<a class="headerlink" href="#High-throughput-worflow" title="Permalink to this headline">¶</a></h2>
+<p>The pype routine is phenopype’s standard method to analyse medium and large image datasets, where a function stack is constructed with the human readable <code class="docutils literal notranslate"><span class="pre">yaml</span></code> syntax (serialization language - for more information see the <a class="reference external" href="resources">resources section</a> of the phenopype documentation). Users can execute the pype method on a filepath, an array, or a phenopype directory, which always will trigger three actions:</p>
+<ol class="arabic simple">
+<li><p>open the contained yaml configuration with the default OS text editor</p></li>
+<li><p>parse the contained functions and execute them in the sequence</p></li>
+<li><p>open a Python-window showing the processed image.</p></li>
+</ol>
+<p>After one iteration of these steps, users can evaluate the results and decide to modify the opened configuration file (e.g. either change function parameters or add new functions), and run the pype again, or to terminate the pype and save all results. The processed image, any extracted phenotypic information, as well as the modified config-file is stored inside the image directory. Together with the raw images, which may be either stored separately or within the directory tree, users can thereby
+provide the full image analysis pipeline to anyone who wishes to reproduce the obtained results.</p>
 <p><strong>Further information</strong></p>
-<p>For more detailed information on <code class="docutils literal notranslate"><span class="pre">pype</span></code> and it’s default behavior, see below.</p>
+<p>For more detailed information on <code class="docutils literal notranslate"><span class="pre">pype</span></code> and it’s default behavior, see below, and the <a class="reference external" href="api.html#pype-method">pype section of the API reference</a></p>
 <p>For more information on how to use the <code class="docutils literal notranslate"><span class="pre">pype</span></code> in conjunction with phenopype projects please refer to the <a class="reference internal" href="tutorial_3_managing_projects_1.html"><span class="doc">Phenopype project tutorial</span></a>.</p>
-<p>Check the examples, which include both low and highthroughput code.</p>
+<p>Also be sure to check the examples, which include both low and high throughput code.</p>
 <p><img alt="Phenopype high throughput workflow" src="_images/workflow_high.png" /></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -571,11 +642,22 @@ TERMINATE
 &lt;phenopype.main.pype at 0x18b78889d48&gt;
 </pre></div></div>
 </div>
+<p>At the current stage of development, the pype method is prone to errors resulting from incorrect yaml syntax, e.g. missing spaces or wrong indentation. The pype will still try to run from bottom to top and pass exceptions, but may result in errors that cascade through the function stack. Therefore I am going over basic yaml syntax, and the specific structure of the pype_config files.</p>
+<p>Moreover, the pype will trigger specific behavior of some functions to facilitate user experience when working with large data sets. Fore example, some functions get called automatically (e.g. from the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> and <code class="docutils literal notranslate"><span class="pre">export</span></code> modules), but they don’t necessarily show default behavior as documented in the api (e.g. <code class="docutils literal notranslate"><span class="pre">visualization.save_canvas</span></code> will always have <code class="docutils literal notranslate"><span class="pre">overwrite=True</span></code> to save output canvas). To clarify I am explaining here the most important aspects of <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior.</p>
 <div class="section" id="3.1-yaml-syntax">
 <h3>3.1 yaml-syntax<a class="headerlink" href="#3.1-yaml-syntax" title="Permalink to this headline">¶</a></h3>
 </div>
 <div class="section" id="3.2.-pype-behavior">
 <h3>3.2. <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior<a class="headerlink" href="#3.2.-pype-behavior" title="Permalink to this headline">¶</a></h3>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>

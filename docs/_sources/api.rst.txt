@@ -5,11 +5,12 @@ API reference
 Main package functions 
 ----------------------
 
-These components are available on startup
+These components are available on startup.
 
 Project management
 """"""""""""""""""
-To manage projects 
+
+[ADD TEXT]
 
 .. autoclass:: phenopype.main.project
 	:members:
@@ -19,7 +20,24 @@ To manage projects
 
 Pype method
 """""""""""
-High throughput
+
+.. raw:: html
+
+	Method used to process image datasets with high throughput and reproducibility. Users should use the pype method in 
+	conjunction with image organized in a phenopype directory structure. To get started with the high througput workflow, see 
+	<a href="tutorial_2_phenopype_workflow">Tutorial 2</a> and <a href="tutorial_3_managing_projects_1">Tutorial 3</a>.
+	<br>
+
+	<center>
+	<div style="width:500px; text-align: left" >
+		
+	<img src="_images/pype.png">
+		
+	</div>
+	</center>
+	
+	<hr>
+
 
 .. autoclass:: phenopype.main.pype
 	:members:
@@ -29,7 +47,8 @@ High throughput
 
 Utility functions
 """""""""""""""""
-Load imagets etc
+
+[ADD TEXT]
 
 .. automodule:: phenopype.utils
 	:members:
@@ -42,7 +61,8 @@ Image analysis (core modules)
 
 Preprocessing
 """""""""""""
-Draw masks, equalize histograms etc
+
+[ADD TEXT]
 
 .. automodule:: phenopype.core.preprocessing
 	:members:
@@ -52,7 +72,8 @@ Draw masks, equalize histograms etc
 
 Segmentation
 """"""""""""
-Segmentation into foreground and background
+
+[ADD TEXT]
 
 .. automodule:: phenopype.core.segmentation
 	:members:
@@ -62,7 +83,8 @@ Segmentation into foreground and background
 
 Measurement
 """""""""""
-Extract pixel level information
+
+[ADD TEXT]
 
 .. automodule:: phenopype.core.measurement
 	:members:
@@ -76,6 +98,8 @@ Image analysis (support modules)
 Visualization
 """""""""""""
 
+[ADD TEXT]
+
 .. automodule:: phenopype.core.visualization
 	:members:
 	:undoc-members:
@@ -83,6 +107,8 @@ Visualization
 
 Export
 """"""
+
+[ADD TEXT]
 
 .. automodule:: phenopype.core.export
 	:members:
@@ -96,6 +122,8 @@ Video analysis
 Motion tracking (core module)
 """""""""""""""""""""""""""""
 
+[ADD TEXT]
+
 .. autoclass:: phenopype.tracking.motion_tracker
 	:members:
 	:undoc-members:
@@ -103,6 +131,8 @@ Motion tracking (core module)
 
 Tracking method (customizable method)
 """""""""""""""""""""""""""""""""""""
+
+[ADD TEXT]
 
 .. autoclass:: phenopype.tracking.tracking_method
 	:members:
