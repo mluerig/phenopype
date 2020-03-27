@@ -297,6 +297,7 @@ through all subdirectories</p></li>
 named files exist in different subfolders (folder structure will be
 collapsed and goes into the filename), whereas filename will ignore
 all similar named files after their first occurrence.</p></li>
+<li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
 </dd>
 </dl>
@@ -319,6 +320,7 @@ landamarking1, … - in “phenopype/settings/presets.py”) or a path to a
 compatible yaml file</p></li>
 <li><p><strong>interactive</strong> (<em>bool</em><em>, </em><em>optional</em>) – start a pype and modify preset before saving it to phenopype directories</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite option, if a given pype config-file already exist</p></li>
+<li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
 </dd>
 </dl>
@@ -354,7 +356,7 @@ measure its dimensions, and adjust pixel-to-mm-ratio and colour space</p></li>
 needed to call file-lists, NOT collected data), which needs to be saved
 separately with the appropriate export functions (e.g.
 <code class="xref py py-func docutils literal notranslate"><span class="pre">phenopype.export.save_contours()</span></code> or <code class="xref py py-func docutils literal notranslate"><span class="pre">phenopype.export.save_canvas()</span></code>)</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em>) – should existing project data be overwritten</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – should existing project data be overwritten</p></li>
 </ul>
 </dd>
 </dl>
@@ -421,8 +423,8 @@ source image file or path to a valid phenopype directory</p></li>
 <li><p><strong>config_location</strong> (<em>str</em><em>, </em><em>optional</em>) – custom path to a pype template (needs to adhere to yaml syntax and
 phenopype structure)</p></li>
 <li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – path to an existing directory where all output should be stored</p></li>
-<li><p><strong>skip</strong> (<em>bool</em>) – skip directories that already have “name” as a suffix in the filename</p></li>
-<li><p><strong>feedback</strong> (<em>bool</em>) – don’t open text editor or window, just apply functions and terminate</p></li>
+<li><p><strong>skip</strong> (<em>bool</em><em>, </em><em>optional</em>) – skip directories that already have “name” as a suffix in the filename</p></li>
+<li><p><strong>feedback</strong> (<em>bool</em><em>, </em><em>optional</em>) – don’t open text editor or window, just apply functions and terminate</p></li>
 <li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
 </dd>
@@ -450,7 +452,7 @@ Any of these functions can be called directly after loading  phenopype without t
 
 <dl class="py class">
 <dt id="phenopype.utils.container">
-<em class="property">class </em><code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">container</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">df_image_data</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">container</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">df_image_data</span></em>, <em class="sig-param"><span class="n">save_suffix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A phenopype container is a Python class where loaded images, dataframes,
 detected contours, intermediate output, etc. are stored so that they are
@@ -458,7 +460,7 @@ available for inspection or storage at the end of the analysis. The
 advantage of using containers is that they don’t litter the global environment
 and namespace, while still containing all intermediate steps (e.g. binary
 masks or contour DataFrames). Containers can be used manually to analyse images,
-but typically they are used automatically within the pype-routine.</p>
+but typically they are created dynamically within the pype-routine.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -466,21 +468,19 @@ but typically they are used automatically within the pype-routine.</p>
 or load_directory).</p></li>
 <li><p><strong>df_image_data</strong> (<em>DataFrame</em>) – a dataframe that contains meta-data of the provided image to be passed on
 to all results-DataFrames</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename of results files</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt id="phenopype.utils.container.load">
-<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.load" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">save_suffix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.load" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autoload function for container: loads results files with given save_suffix
+into the container. Can be used manually, but is typically used within the
+pype routine.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>components</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is [].</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to include when looking for files to load</p>
 </dd>
 </dl>
 </dd></dl>
@@ -488,57 +488,22 @@ to all results-DataFrames</p></li>
 <dl class="py method">
 <dt id="phenopype.utils.container.reset">
 <code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.reset" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>components</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is [].</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
-</dd>
-</dl>
+<dd><p>Resets modified images, canvas and df_image_data to original state. Can be used manually, but is typically used within the
+pype routine.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt id="phenopype.utils.container.save">
-<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.save" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">export_list</span><span class="o">=</span><span class="default_value">[]</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Autosave function for container.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>components</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is [].</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>export_list</strong> (<em>list</em><em>, </em><em>optional</em>) – used in pype rountine to check against already performed saving operations.
+running container.save() with an empty export_list will assumed that nothing
+has been saved so far, and will try</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – gloabl overwrite flag in case file exists</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None.</em></p></li>
-<li><p><em>cfg = “pype_config_v1.yaml”</em></p></li>
-<li><p><strong>cfg[cfg.rindex(‘_’)+1</strong> (<em>cfg.rindex(‘.’)]</em>)</p></li>
-</ul>
-</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt id="phenopype.utils.container.show">
-<code class="sig-name descname">show</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.show" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>components</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is [].</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>None.</em></p></li>
-<li><p><em>cfg = “pype_config_v1.yaml”</em></p></li>
-<li><p><strong>cfg[cfg.rindex(‘_’)+1</strong> (<em>cfg.rindex(‘.’)]</em>)</p></li>
-</ul>
-</p>
 </dd>
 </dl>
 </dd></dl>
@@ -559,8 +524,9 @@ container</p></li>
 be returned.</p></li>
 <li><p><strong>meta</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the DataFrame encompass image meta data (e.g. from exif-data).
 This works only when obj_input is a path string to the original file.</p></li>
-<li><p><strong>resize</strong> (<em>float</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+<li><p><strong>resize</strong> (<em>float</em><em>, </em><em>optional</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
 original size).</p></li>
+<li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -590,8 +556,9 @@ container</p></li>
 returned.</p></li>
 <li><p><strong>meta</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the DataFrame encompass image meta data (e.g. from exif-data).
 This works only when obj_input is a path string to the original file.</p></li>
-<li><p><strong>resize</strong> (<em>float</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+<li><p><strong>resize</strong> (<em>float</em><em>, </em><em>optional</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
 original size).</p></li>
+<li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -632,27 +599,29 @@ original size). gets stored to a DataFrame column</p></li>
 
 <dl class="py function">
 <dt id="phenopype.utils.load_meta_data">
-<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_meta_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_path</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_meta_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_meta_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image_path</span></em>, <em class="sig-param"><span class="n">show_fields</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">fields</span><span class="o">=</span><span class="default_value">['DateTimeOriginal', 'Model', 'LensModel', 'ExposureTime', 'ISOSpeedRatings', 'FNumber']</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_meta_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts metadata (mostly Exif) from original image</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>image_path</strong> (<em>str path to image on harddrive</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>image_path</strong> (<em>str</em>) – path to image on harddrive</p></li>
+<li><p><strong>show_fields</strong> (<em>bool</em><em>, </em><em>optional</em>) – show which exif data fields are available from given image</p></li>
+<li><p><strong>fields</strong> (<em>list</em><em> or </em><em>str</em>) – which exif data fields should be extracted. default fields can be
+modified in settings</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DESCRIPTION.</p>
+<dd class="field-even"><p><strong>exif_data</strong> – image meta data (exif)</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>TYPE</p>
+<dd class="field-odd"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="phenopype.utils.show_image">
-<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">show_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">max_dim</span><span class="o">=</span><span class="default_value">1200</span></em>, <em class="sig-param"><span class="n">pos_offset</span><span class="o">=</span><span class="default_value">25</span></em>, <em class="sig-param"><span class="n">pos_reset</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">window_aspect</span><span class="o">=</span><span class="default_value">'free'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.show_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">show_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">image</span></em>, <em class="sig-param"><span class="n">max_dim</span><span class="o">=</span><span class="default_value">1200</span></em>, <em class="sig-param"><span class="n">position_reset</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">position_offset</span><span class="o">=</span><span class="default_value">25</span></em>, <em class="sig-param"><span class="n">window_aspect</span><span class="o">=</span><span class="default_value">'free'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.show_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show one or multiple images by providing path string or array or list of
 either.</p>
 <dl class="field-list simple">
@@ -660,10 +629,11 @@ either.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>image</strong> (<em>str</em><em>, </em><em>array</em><em>, or </em><em>list</em>) – the image or list of images to be displayed. can be path to image
 (string), array-type, or list of strings or arrays</p></li>
-<li><p><strong>window_aspect</strong> (<em>str</em><em> (</em><em>default: &quot;fixed&quot;</em><em>)</em>) – “fixed” or “free” aspect ratio</p></li>
-<li><p><strong>position_reset</strong> (<em>bool</em>) – flag whether image positions should be reset when reopening list of
+<li><p><strong>max_dim</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum dimension on either acis</p></li>
+<li><p><strong>window_aspect</strong> (<em>{&quot;fixed&quot;</em><em>, </em><em>&quot;free&quot;} str</em><em>, </em><em>optional</em>) – type of opencv window (“free” is resizeable)</p></li>
+<li><p><strong>position_reset</strong> (<em>bool</em><em>, </em><em>optional</em>) – flag whether image positions should be reset when reopening list of
 images</p></li>
-<li><p><strong>position_offset</strong> (<em>int</em>) – if image is list, the distance in pixels betweeen the positions of
+<li><p><strong>position_offset</strong> (<em>int</em><em>, </em><em>optional</em>) – if image is list, the distance in pixels betweeen the positions of
 each newly opened window (only works in conjunction with
 “position_reset”)</p></li>
 </ul>
@@ -682,10 +652,11 @@ each newly opened window (only works in conjunction with
 <li><p><strong>name</strong> (<em>str</em>) – name for saved image</p></li>
 <li><p><strong>save_dir</strong> (<em>str</em><em>, </em><em>optional</em>) – directory to save image</p></li>
 <li><p><strong>append</strong> (<em>str</em><em>, </em><em>optional</em>) – append image name with string to prevent overwriting</p></li>
-<li><p><strong>extension</strong> (<em>str</em><em> (</em><em>&quot;&quot;</em><em>)</em>) – file extension to save image with</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite images if name exists</p></li>
-<li><p><strong>resize</strong> (<em>float</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+<li><p><strong>extension</strong> (<em>str</em><em>, </em><em>optional</em>) – file extension to save image as</p></li>
+<li><p><strong>overwrite</strong> (<em>boo</em><em>, </em><em>optional</em>) – overwrite images if name exists</p></li>
+<li><p><strong>resize</strong> (<em>float</em><em>, </em><em>optional</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
 original size).</p></li>
+<li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
 </dd>
 </dl>
@@ -701,21 +672,25 @@ original size).</p></li>
 <p>[ADD TEXT]</p>
 <span class="target" id="module-phenopype.core.preprocessing"></span><dl class="py function">
 <dt id="phenopype.core.preprocessing.create_mask">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">include</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">'mask1'</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">tool</span><span class="o">=</span><span class="default_value">'rectangle'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
-<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>tool</em>) – determine whether resulting mask is to include or exclude objects within</p></li>
-<li><p><strong>label</strong><strong>(</strong><strong>optional</strong><strong>)</strong> (<em>str</em><em> (</em><em>default: &quot;mask1&quot;</em><em>)</em>) – passes a label to the mask</p></li>
-<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> – maximum dimension of the window along any axis in pixel</p></li>
-<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> – if working using a container, or from a phenopype project directory, should
-existing masks with the same label be overwritten</p></li>
-<li><p><strong>(</strong><strong>otpional</strong><strong>)</strong> (<em>show</em>) – should the drawn mask be shown as an overlay on the image</p></li>
-<li><p><strong>(</strong><strong>optional</strong><strong>)</strong> – draw mask by draging a rectangle (option: “rectangle”) or by settings
-points for a polygon (option: “polygon”).</p></li>
+<li><p><strong>include</strong> (<em>bool</em><em>, </em><em>optional</em>) – determine whether resulting mask is to include or exclude objects within</p></li>
+<li><p><strong>label</strong> (<em>str</em><em>, </em><em>optinal</em>) – assigns a label to the mask</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if working using a container, or from a phenopype project directory,
+should existing masks with the same label be overwritten</p></li>
+<li><p><strong>tool</strong> (<em>{&quot;rectangle&quot;</em><em>, </em><em>&quot;polygon&quot;} str</em><em>, </em><em>optional</em>) – select tool by which mask is drawn</p></li>
+<li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df_masks</strong> – contains mask coordiantes</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -733,12 +708,44 @@ template, phenopype can try to find a reference card in a given image,
 measure its dimensions, and adjust pixel-to-mm-ratio and colour space</p></li>
 </ul>
 </dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>px_mm_ratio</strong> (<em>int or container</em>) – pixel to mm ratio</p></li>
+<li><p><strong>template</strong> (<em>array or container</em>) – template for reference card detection</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="phenopype.core.preprocessing.enter_data">
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">enter_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">df</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">columns</span><span class="o">=</span><span class="default_value">'ID'</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">fontsize</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">font_col</span><span class="o">=</span><span class="default_value">'red'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.enter_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Enter generic data that can be added as columns to an existing DataFrame.
+Useful for images containing labels, or other comments.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>df</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – DataFrame to add columns to (each row)</p></li>
+<li><p><strong>columns</strong> (<em>str</em><em> or </em><em>list</em>) – columns to be added to existing or generic data frame</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite existing columns in df</p></li>
+<li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional</em>) – fonsize for onscreen display.</p></li>
+<li><p><strong>font_col</strong> (<em>{&quot;red&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;blue&quot;</em><em>, </em><em>&quot;black&quot;</em><em>, </em><em>&quot;white&quot;} str</em><em>, </em><em>optional</em>) – font colour for onscreen display.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df_other_data</strong> – contains the entered data</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
+</dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
 <dt id="phenopype.core.preprocessing.find_scale">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">find_scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.find_scale" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">find_scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">equalize</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">min_matches</span><span class="o">=</span><span class="default_value">10</span></em>, <em class="sig-param"><span class="n">resize</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">px_mm_ratio_old</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">template</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.find_scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find scale from a defined template inside an image and update pixel
 ratio. Image registration is run by the “AKAZE” algorithm
 (<a class="reference external" href="http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf">http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf</a>).
@@ -750,30 +757,26 @@ from the same instance of scale_maker.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><em>phenopype-container</em>) – input for processing</p></li>
-<li><p><strong>resize</strong> (<em>num</em><em> (</em><em>optional</em><em>, </em><em>default: 1</em><em> or </em><em>0.5 for images with diameter &gt; 5000px</em><em>)</em>) – resize image to speed up detection process (WARNING: too low
-values may result in poor detection results or even crashes)</p></li>
-<li><p><strong>show</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – show result of scale detection procedure on current image</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="phenopype.core.preprocessing.enter_data">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">enter_data</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.enter_data" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input for processing</p></li>
+<li><p><strong>resize</strong> (<em>num. optional</em>) – resize image to speed up detection process. default: 0.5 for
+images with diameter &gt; 5000px (WARNING: too low values may
+result in poor detection performance or even crashes)</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite existing scale_current_px_mm_ratio in container</p></li>
+<li><p><strong>equalize</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the provided image be colour corrected to match the template
+images’ histogram</p></li>
+<li><p><strong>min_matches</strong> (<em>int</em><em>, </em><em>optional</em>) – minimum key point matches for image registration</p></li>
+<li><p><strong>px_mm_ratio_old</strong> (<em>int</em><em>, </em><em>optional</em>) – pixel-to-mm-ratio of the template image</p></li>
+<li><p><strong>template</strong> (<em>array</em><em>, </em><em>optional</em>) – reference image of scale</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>scale_current_px_mm_ratio</strong> (<em>int or container</em>) – pixel to mm ratio of current image</p></li>
+<li><p><strong>image</strong> (<em>array or container</em>) – if scale contains colour information, this is the corrected image</p></li>
+<li><p><strong>df_mask</strong> (<em>DataFrame or container</em>) – contains mask coordinates to mask reference card within image from
+segmentation algorithms</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
@@ -781,18 +784,16 @@ values may result in poor detection results or even crashes)</p></li>
 <dl class="py function">
 <dt id="phenopype.core.preprocessing.invert_image">
 <code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">invert_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.invert_image" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Invert all pixel intensities in image (e.g. 0 to 255 or 100 to 155)</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input for processing</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+<dd class="field-even"><p><strong>image</strong> – inverted image</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>TYPE</p>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -800,18 +801,20 @@ values may result in poor detection results or even crashes)</p></li>
 <dl class="py function">
 <dt id="phenopype.core.preprocessing.resize_image">
 <code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">resize_image</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">resize</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.resize_image" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Resize image by resize factor</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input for processing</p></li>
+<li><p><strong>resize</strong> (<em>float</em><em>, </em><em>optional</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+original size).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+<dd class="field-even"><p><strong>image</strong> – resized image</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>TYPE</p>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
