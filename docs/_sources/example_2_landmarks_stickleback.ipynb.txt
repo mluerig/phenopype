@@ -33,7 +33,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -46,7 +46,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -76,7 +76,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
@@ -92,7 +92,7 @@
     "pp.visualization.show_landmarks(ct, point_size=5, point_col=\"green\", label_size=1) \n",
     "## draw landmarks on canvas. appearance needs to be specified here too\n",
     "pp.export.save_landmarks(ct, dirpath=r\"../_temp/output\") ## save landmarks as csv to folder\n",
-    "pp.export.save_canvas(ct, dirpath=r\"../_temp/output\") ## save landmarks as csv to folder\n"
+    "pp.export.save_canvas(ct, dirpath=r\"../_temp/output\") ## also save canvas for quality control "
    ]
   },
   {

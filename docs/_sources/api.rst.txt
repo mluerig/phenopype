@@ -5,12 +5,58 @@ API reference
 Main package functions 
 ----------------------
 
-These components are available on startup.
+Basic package components include classes and functions to start a new project (:ref:`Project management`), to save and load projects, and to 
+run the high throughout routine (:ref:`Pype method`). This also includes utility functions, e.g. to load 
+and display images (:ref:`Utility functions`)..
+
+------------------------------------------------------------------------------------------------------------------------------------
 
 Project management
 """"""""""""""""""
 
-[ADD TEXT]
+Phenopype projects are composed of a directory tree in which each folder contains the copy or a link to a single raw image file. Each raw 
+should have only one folder, so that result or intermediate output from different iterations of processing and analysis are stored side 
+by side. The project root folder should be separate from the raw data, e.g. as a folder inside of your project folder:
+
+.. code-block:: python
+
+	import phenopype as pp
+
+	myproj = pp.project(root_dir="\my_project\phenopype")
+	myproj.add_files(image_dir="\my_project\data_raw")
+	myproj.add_config(name = "v1")
+	pp.project.save(myproj)
+
+	## after closing Python, the project can be accessed using the projects load function
+	myproj = pp.project.load("\my_project\phenopype\project.data")
+
+Above code creates a folder structure as follows:
+
+.. code-block:: bash
+
+	my_project\
+	 data_raw 
+	 phenopype\		# create phenopype project here with "pp.project"
+	  data\ 		# created automatically
+	   project.data	# created with "pp.project.save"
+	   file1\		# add files to project using "pp.project.add_files"
+	    raw.jpg			# created by "pp.project.add_files"
+	    attributes.yaml	# created by "pp.project.add_files"
+	    pype_config_v1.yaml	# added with "pp.project.add_config"
+	    results_v1.csv
+	   file2\
+	    ...
+	   ... 
+	 data
+	 scripts
+	 manuscript
+	 figures
+
+.. important::
+
+	Currently the only useful information contained in the project object (:code:`myproj`) is a list of all directories inside the
+	project's directory tree. It is important to save `both` the project AND all results in the data directories using the appropriate 
+	functions in (:ref:`Export`). Future release will expand the functionality of the project class and its associated methods. 
 
 .. autoclass:: phenopype.main.project
 	:members:
@@ -48,12 +94,28 @@ Pype method
 Utility functions
 """""""""""""""""
 
-[ADD TEXT]
+Utility functions, e.g. to load and display images ,e.g. :func:`pp.utils.load_image` and :func:`pp.utils.show_image`. 
+Any of these functions can be called directly after loading  phenopype without the need to add the :code:`utils` submodule:
+
+.. code-block:: python
+
+	import phenopype as pp
+	
+	image_path = "image_dir/my_image.jpg"
+	
+	image = pp.load_image(image_path) 	# instead of pp.utils.load_image
+	pp.show_image(image) 			# instead of pp.utils.show_image
+	dir(pp) 				# shows available classes and functions
 
 .. automodule:: phenopype.utils
 	:members:
 	:undoc-members:
 	:show-inheritance:
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 Image analysis (core modules)
@@ -92,6 +154,11 @@ Measurement
 	:show-inheritance:
 
 
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 Image analysis (support modules)
 ----------------------------------
 
@@ -114,6 +181,11 @@ Export
 	:members:
 	:undoc-members:
 	:show-inheritance:	
+
+
+
+------------------------------------------------------------------------------------------------------------------------------------
+
 
 
 Video analysis

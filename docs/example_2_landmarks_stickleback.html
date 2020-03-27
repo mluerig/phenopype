@@ -382,7 +382,7 @@ div.rendered_html tbody tr:hover {
 </div></center><div class="section" id="Low-throughput">
 <h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -395,7 +395,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -419,15 +419,14 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>To create an control-image with the selected points, the <code class="docutils literal notranslate"><span class="pre">show_landmarks</span></code> has to be called explicitly. This is necessary when using the low throughput, but not the high throughput routine (see <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">Tutorial 2</span></a>); likewise the <code class="docutils literal notranslate"><span class="pre">save_landmarks</span></code> function.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="c1">## draw landmarks on canvas. appearance needs to be specified here too</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span> <span class="c1">## save landmarks as csv to folder</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span> <span class="c1">## save landmarks as csv to folder</span>
-
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span> <span class="c1">## also save canvas for quality control</span>
 </pre></div>
 </div>
 </div>
@@ -567,7 +566,7 @@ current image has 34.9 pixel per mm.
     </p>
     <p>
         &copy; Copyright 2020, Moritz Lürig.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.0.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0b1.<br/>
     </p>
   </div>
 </footer>
