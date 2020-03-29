@@ -15,13 +15,21 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "<center>\n",
-    "<div style=\"width:600px; text-align: left\" >\n",
+    "<div class=\"row; text-align: left\">\n",
     "    \n",
-    "![Phenopype workflow example](images/stickle1.JPG)\n",
+    "<div class=\"col-md-6\">\n",
     "    \n",
+    "![Before](_assets/stickle1.jpg)\n",
+    "    \n",
+    "**Input** - Stained threespine stickleback, photographed in a glycerol bath from a camera stand\n",
     "</div>\n",
-    "</center>"
+    "<div class=\"col-md-6\">\n",
+    "\n",
+    "![After](_assets/stickle1_lm.jpg)\n",
+    "    \n",
+    "**Results** - 22 landmarks are placed using the `landmark` tool from the `phenopype.measurements` module\n",
+    "</div>\n",
+    "</div>\n"
    ]
   },
   {
@@ -33,7 +41,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 1,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -46,7 +54,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 3,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
@@ -76,6 +84,94 @@
   },
   {
    "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>filename</th>\n",
+       "      <th>width</th>\n",
+       "      <th>height</th>\n",
+       "      <th>size_ratio_original</th>\n",
+       "      <th>landmark</th>\n",
+       "      <th>x</th>\n",
+       "      <th>y</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>stickle1.jpg</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1034</td>\n",
+       "      <td>451</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>stickle1.jpg</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>1</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1202</td>\n",
+       "      <td>326</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>stickle1.jpg</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>1</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1348</td>\n",
+       "      <td>473</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       filename  width  height  size_ratio_original  landmark     x    y\n",
+       "0  stickle1.jpg   2400    1600                    1         1  1034  451\n",
+       "1  stickle1.jpg   2400    1600                    1         2  1202  326\n",
+       "2  stickle1.jpg   2400    1600                    1         3  1348  473"
+      ]
+     },
+     "execution_count": 3,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pp.visualization.show_landmarks(ct, point_size=5, point_col=\"green\", label_size=1) \n",
+    "pp.show_image(ct.canvas)\n",
+    "ct.df_landmarks"
+   ]
+  },
+  {
+   "cell_type": "code",
    "execution_count": 4,
    "metadata": {},
    "outputs": [
@@ -83,13 +179,12 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "- landmarks saved under ../_temp/output\\landmarks.csv (overwritten).\n",
-      "- canvas saved under ../_temp/output\\canvas.jpg (overwritten).\n"
+      "- landmarks saved under ../_temp/output\\landmarks.csv.\n",
+      "- canvas saved under ../_temp/output\\canvas.jpg.\n"
      ]
     }
    ],
    "source": [
-    "pp.visualization.show_landmarks(ct, point_size=5, point_col=\"green\", label_size=1) \n",
     "## draw landmarks on canvas. appearance needs to be specified here too\n",
     "pp.export.save_landmarks(ct, dirpath=r\"../_temp/output\") ## save landmarks as csv to folder\n",
     "pp.export.save_canvas(ct, dirpath=r\"../_temp/output\") ## also save canvas for quality control "
@@ -104,9 +199,9 @@
     "Now we will do the same thing again, but this time we use a reference image to create a scale-template so we can adjust our landmark coordinate space. This is important if for example the distance between the camera and your sample changes.  \n",
     "\n",
     "<center>\n",
-    "<div style=\"width:400px; text-align: left\" >\n",
+    "<div style=\"width:500px; text-align: left\">\n",
     "    \n",
-    "![Phenopype workflow example](images/stickleback_side.jpg)\n",
+    "![Adding a scale](../docs/_assets/set_scale.gif)\n",
     "    \n",
     "</div>\n",
     "</center>"
@@ -121,7 +216,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -135,10 +230,13 @@
     }
    ],
    "source": [
+    "import phenopype as pp\n",
+    "\n",
     "ref_path = r\"images/stickleback_side.jpg\"\n",
+    "filepath = r\"images/stickle1.jpg\"\n",
     "\n",
     "ref_image = pp.load_image(ref_path) ## load image as container\n",
-    "ref_px_mm_ratio, template_img = pp.preprocessing.create_scale(ref_image, template=True)"
+    "ref_ratio, template_img = pp.preprocessing.create_scale(ref_image, template=True)"
    ]
   },
   {
@@ -150,7 +248,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -158,29 +256,29 @@
      "output_type": "stream",
      "text": [
       "---------------------------------------------------\n",
-      "Reference card found with 249 keypoint matches:\n",
+      "Reference card found with 232 keypoint matches:\n",
       "template image has 36 pixel per mm.\n",
       "current image has 34.9 pixel per mm.\n",
-      "= 96.839 % of template image.\n",
+      "= 96.844 % of template image.\n",
       "---------------------------------------------------\n"
      ]
     }
    ],
    "source": [
     "ct = pp.load_image(filepath, cont=True) \n",
-    "pp.preprocessing.find_scale(ct, template=template_img, px_mm_ratio=ref_px_mm_ratio, equalize=False)"
+    "pp.preprocessing.find_scale(ct, template=template_img, px_mm_ratio_ref=ref_ratio, equalize=False)"
    ]
   },
   {
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Now we draw the perimeter around the detected scale, and plot it. "
+    "Now we draw the perimeter around the detected scale. Because the detected scale has coordinates like a mask we need the `show_masks` function to draw it. "
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 27,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [
     {
@@ -204,7 +302,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 28,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
@@ -216,7 +314,8 @@
     }
    ],
    "source": [
-    "pp.measurement.landmarks(ct, point_size=5, point_col=\"green\", label_size=1, overwrite=True) "
+    "pp.measurement.landmarks(ct, point_size=5, point_col=\"green\", label_size=1, overwrite=True) \n",
+    "pp.visualization.show_landmarks(ct, point_size=5, point_col=\"green\", label_size=1) "
    ]
   },
   {
@@ -228,7 +327,116 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 30,
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>filename</th>\n",
+       "      <th>width</th>\n",
+       "      <th>height</th>\n",
+       "      <th>size_ratio_original</th>\n",
+       "      <th>px_mm_ratio</th>\n",
+       "      <th>landmark</th>\n",
+       "      <th>x</th>\n",
+       "      <th>y</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>stickle1.jpg</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>1</td>\n",
+       "      <td>34.9</td>\n",
+       "      <td>1</td>\n",
+       "      <td>1058</td>\n",
+       "      <td>521</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>stickle1.jpg</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>1</td>\n",
+       "      <td>34.9</td>\n",
+       "      <td>2</td>\n",
+       "      <td>1132</td>\n",
+       "      <td>473</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>stickle1.jpg</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>1</td>\n",
+       "      <td>34.9</td>\n",
+       "      <td>3</td>\n",
+       "      <td>1305</td>\n",
+       "      <td>456</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>stickle1.jpg</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>1</td>\n",
+       "      <td>34.9</td>\n",
+       "      <td>4</td>\n",
+       "      <td>1512</td>\n",
+       "      <td>384</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "       filename  width  height  size_ratio_original  px_mm_ratio  landmark  \\\n",
+       "0  stickle1.jpg   2400    1600                    1         34.9         1   \n",
+       "1  stickle1.jpg   2400    1600                    1         34.9         2   \n",
+       "2  stickle1.jpg   2400    1600                    1         34.9         3   \n",
+       "3  stickle1.jpg   2400    1600                    1         34.9         4   \n",
+       "\n",
+       "      x    y  \n",
+       "0  1058  521  \n",
+       "1  1132  473  \n",
+       "2  1305  456  \n",
+       "3  1512  384  "
+      ]
+     },
+     "execution_count": 9,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pp.show_image(ct.canvas)\n",
+    "ct.df_landmarks"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
@@ -241,12 +449,314 @@
     }
    ],
    "source": [
-    "pp.visualization.show_landmarks(ct, point_size=5, point_col=\"green\", label_size=1) \n",
-    "pp.show_image(ct.canvas)\n",
-    "\n",
     "pp.export.save_landmarks(ct, dirpath=r\"../_temp/output\") \n",
     "pp.export.save_canvas(ct, dirpath=r\"../_temp/output\")"
    ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## High throughput"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we will use the `pype` method to place landmarks - first on a single file, and then from within a Phenopype project.  \n",
+    "\n",
+    "<center>\n",
+    "<div style=\"text-align: left\">\n",
+    "    \n",
+    "![Landmarks in high throughput](../docs/_assets/landmarks_high_throughput.gif)\n",
+    "\n",
+    "</div>\n",
+    "</center>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import phenopype as pp"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The `pype` can be used outside of a penopype project, supplying arrays or paths to images:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2020:03:29 18:58:32 +++--------------\n",
+      "\n",
+      "\n",
+      "AUTOLOAD\n",
+      "- landmarks_lm1.csv\n",
+      "MEASUREMENT\n",
+      "landmarks\n",
+      "- setting landmarks (overwriting)\n",
+      "VISUALIZATION\n",
+      "show_landmarks\n",
+      "EXPORT\n",
+      "save_landmarks\n",
+      "- landmarks saved under ../_temp/output\\landmarks_lm1.csv (overwritten).\n",
+      "AUTOSAVE\n",
+      "save_canvas\n",
+      "- canvas saved under ../_temp/output\\canvas_lm1.jpg (overwritten).\n",
+      "\n",
+      "\n",
+      "TERMINATE\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<phenopype.main.pype at 0x1b32f37f9c8>"
+      ]
+     },
+     "execution_count": 12,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "filepath = r\"images/stickle1.jpg\" # works\n",
+    "image = pp.load_image(filepath) # also works\n",
+    "\n",
+    "\n",
+    "pp.pype(filepath, name=\"lm1\", config_preset=\"landmarks_1\", dirpath=r\"../_temp/output\") \n",
+    "## try supplying \"image\" instead of \"filepath\"\n",
+    "## dirpath specifies a directory where all results are saved"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "However, to increase throughput we will use the `pype` function on files organized within a phenopype project (see [Tutorial 2](tutorial_2_phenopype_workflow.ipynb) and [Tutorial 3](tutorial_3_managing_projects_1.ipynb) for more general information on high throughput workflow). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--------------------------------------------\n",
+      "phenopype will create a new project at:\n",
+      "\n",
+      "../_temp/project\n",
+      "Proceed? (y/n)\n",
+      "y\n",
+      "Warning - project root_dir already exists - overwrite? (y/n)y\n",
+      "\n",
+      "\"../_temp/project\" created (overwritten)\n",
+      "\n",
+      "project attributes written to ../_temp/project\\attributes.yaml\n",
+      "--------------------------------------------\n",
+      "--------------------------------------------\n",
+      "phenopype will search for files at\n",
+      "\n",
+      "images\n",
+      "\n",
+      "using the following settings:\n",
+      "\n",
+      "filetypes: ['jpg', 'JPG', 'jpeg', 'JPEG', 'tif', 'png'], include: stickle, exclude: ['side', 'top'], raw_mode: copy, search_mode: dir, unique_mode: path\n",
+      "\n",
+      "Found image stickle1.JPG - phenopype-project folder 0__stickle1 created\n",
+      "Found image stickle2.JPG - phenopype-project folder 0__stickle2 created\n",
+      "Found image stickle3.JPG - phenopype-project folder 0__stickle3 created\n",
+      "\n",
+      "Found 3 files\n",
+      "--------------------------------------------\n",
+      "pype config generated from landmarks_2.\n",
+      "pype_lm1.yaml created for 0__stickle1\n",
+      "pype_lm1.yaml created for 0__stickle2\n",
+      "pype_lm1.yaml created for 0__stickle3\n",
+      "Scale set\n",
+      "- add column length\n",
+      "Template selected\n",
+      "- scale template saved under ../_temp/project\\scale_template.jpg.\n",
+      "added scale information to 0__stickle1\n",
+      "added scale information to 0__stickle2\n",
+      "added scale information to 0__stickle3\n",
+      "Project data saved under ../_temp/project\\project.data.\n"
+     ]
+    }
+   ],
+   "source": [
+    "myproj = pp.project(root_dir=r\"../_temp/project\")\n",
+    "\n",
+    "myproj.add_files(image_dir=\"images\",include=\"stickle\", exclude=[\"side\",\"top\"])\n",
+    "myproj.add_config(name = \"lm1\", config_preset=\"landmarks_2\")\n",
+    "myproj.add_scale(reference_image = \"images/stickleback_side.jpg\", template=True, overwrite=True)\n",
+    "\n",
+    "pp.project.save(myproj)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "## if you have already run above cell you can load your project using \"project.load\":\n",
+    "myproj = pp.project.load(r\"../_temp/project/project.data\") ## run this if you "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "After creating the project files, we can run the `pype` routine with a simple loop on `myproj.dirpaths`, which is a list of all project directories that contain the copied raw images and the config files we generated in the above cell. Interrup the loop with Esc. To resume to the point where you left, add the `skip` argument so directory with processed files are not run again."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2020:03:29 18:59:04 +++--------------\n",
+      "\n",
+      "\n",
+      "AUTOLOAD\n",
+      "- template loaded from root directory\n",
+      "PREPROCESSING\n",
+      "find_scale\n",
+      "---------------------------------------------------\n",
+      "Reference card found with 234 keypoint matches:\n",
+      "template image has 36 pixel per mm.\n",
+      "current image has 34.8 pixel per mm.\n",
+      "= 96.671 % of template image.\n",
+      "---------------------------------------------------\n",
+      "MEASUREMENT\n",
+      "landmarks\n",
+      "- setting landmarks\n",
+      "VISUALIZATION\n",
+      "show_landmarks\n",
+      "show_masks\n",
+      " - show mask: scale.\n",
+      "EXPORT\n",
+      "save_landmarks\n",
+      "- landmarks saved under ../_temp/project\\data\\0__stickle1\\landmarks_lm1.csv.\n",
+      "save_masks\n",
+      "- masks saved under ../_temp/project\\data\\0__stickle1\\masks_lm1.csv.\n",
+      "AUTOSAVE\n",
+      "save_canvas\n",
+      "- canvas saved under ../_temp/project\\data\\0__stickle1\\canvas_lm1.jpg.\n",
+      "save_scale\n",
+      "- save scale to attributes\n",
+      "\n",
+      "\n",
+      "TERMINATE\n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2020:03:29 18:59:10 +++--------------\n",
+      "\n",
+      "\n",
+      "AUTOLOAD\n",
+      "- template loaded from root directory\n",
+      "PREPROCESSING\n",
+      "find_scale\n",
+      "---------------------------------------------------\n",
+      "Reference card found with 212 keypoint matches:\n",
+      "template image has 36 pixel per mm.\n",
+      "current image has 34.8 pixel per mm.\n",
+      "= 96.718 % of template image.\n",
+      "---------------------------------------------------\n",
+      "MEASUREMENT\n",
+      "landmarks\n",
+      "- setting landmarks\n",
+      "VISUALIZATION\n",
+      "show_landmarks\n",
+      "show_masks\n",
+      " - show mask: scale.\n",
+      "EXPORT\n",
+      "save_landmarks\n",
+      "- landmarks saved under ../_temp/project\\data\\0__stickle2\\landmarks_lm1.csv.\n",
+      "save_masks\n",
+      "- masks saved under ../_temp/project\\data\\0__stickle2\\masks_lm1.csv.\n",
+      "AUTOSAVE\n",
+      "save_canvas\n",
+      "- canvas saved under ../_temp/project\\data\\0__stickle2\\canvas_lm1.jpg.\n",
+      "save_scale\n",
+      "- save scale to attributes\n",
+      "\n",
+      "\n",
+      "TERMINATE\n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2020:03:29 18:59:14 +++--------------\n",
+      "\n",
+      "\n",
+      "AUTOLOAD\n",
+      "- template loaded from root directory\n",
+      "PREPROCESSING\n",
+      "find_scale\n",
+      "---------------------------------------------------\n",
+      "Reference card found with 236 keypoint matches:\n",
+      "template image has 36 pixel per mm.\n",
+      "current image has 34.8 pixel per mm.\n",
+      "= 96.741 % of template image.\n",
+      "---------------------------------------------------\n",
+      "MEASUREMENT\n",
+      "landmarks\n",
+      "- setting landmarks\n",
+      "VISUALIZATION\n",
+      "show_landmarks\n",
+      "show_masks\n",
+      " - show mask: scale.\n",
+      "EXPORT\n",
+      "save_landmarks\n",
+      "- landmarks saved under ../_temp/project\\data\\0__stickle3\\landmarks_lm1.csv.\n",
+      "save_masks\n",
+      "- masks saved under ../_temp/project\\data\\0__stickle3\\masks_lm1.csv.\n",
+      "AUTOSAVE\n",
+      "save_canvas\n",
+      "- canvas saved under ../_temp/project\\data\\0__stickle3\\canvas_lm1.jpg.\n",
+      "save_scale\n",
+      "- save scale to attributes\n",
+      "\n",
+      "\n",
+      "TERMINATE\n"
+     ]
+    }
+   ],
+   "source": [
+    "for dirpath in myproj.dirpaths:\n",
+    "    out = pp.pype(dirpath, name=\"lm1\", skip=True) "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
   }
  ],
  "metadata": {

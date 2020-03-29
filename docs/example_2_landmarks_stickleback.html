@@ -92,6 +92,7 @@
 <li><a class="reference internal" href="#Adding-a-scale">Adding a scale</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#High-throughput">High throughput</a></li>
 </ul>
 </li>
 </ul>
@@ -146,6 +147,7 @@
 <li><a class="reference internal" href="#Adding-a-scale">Adding a scale</a></li>
 </ul>
 </li>
+<li><a class="reference internal" href="#High-throughput">High throughput</a></li>
 </ul>
 </li>
 </ul>
@@ -378,11 +380,14 @@ div.rendered_html tbody tr:hover {
 <h1>Example 2: Stickleback morphometrics - landmarks<a class="headerlink" href="#Example-2:-Stickleback-morphometrics---landmarks" title="Permalink to this headline">¶</a></h1>
 <p>Functional morphology of organisms is often measured by placing landmarks at specific points that show structural, functional or developmental significance. In this example phenopype is used to place morphometric landmarks across the anterior half of a stickleback (<em>Gasterosteus aculeatus</em>) stained with alizarin red.</p>
 <p>First we place landmarks in low throughput mode to learn how the landmark-function works, then we look at a high throughput landkmark example with a project directory and a global scale.</p>
-<center><div style="width:600px; text-align: left"><p><img alt="Phenopype workflow example" src="_images/stickleback_side.jpg" /></p>
-</div></center><div class="section" id="Low-throughput">
+<div class="row; text-align: left"><div class="col-md-6"><p><img alt="Before" src="_assets/stickle1.jpg" /></p>
+<p><strong>Input</strong> - Stained threespine stickleback, photographed in a glycerol bath from a camera stand</p>
+</div><div class="col-md-6"><p><img alt="After" src="_assets/stickle1_lm.jpg" /></p>
+<p><strong>Results</strong> - 22 landmarks are placed using the <code class="docutils literal notranslate"><span class="pre">landmark</span></code> tool from the <code class="docutils literal notranslate"><span class="pre">phenopype.measurements</span></code> module</p>
+</div></div><div class="section" id="Low-throughput">
 <h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -395,7 +400,7 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -419,12 +424,89 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>To create an control-image with the selected points, the <code class="docutils literal notranslate"><span class="pre">show_landmarks</span></code> has to be called explicitly. This is necessary when using the low throughput, but not the high throughput routine (see <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">Tutorial 2</span></a>); likewise the <code class="docutils literal notranslate"><span class="pre">save_landmarks</span></code> function.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="c1">## draw landmarks on canvas. appearance needs to be specified here too</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+<span class="n">ct</span><span class="o">.</span><span class="n">df_landmarks</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename</th>
+      <th>width</th>
+      <th>height</th>
+      <th>size_ratio_original</th>
+      <th>landmark</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>stickle1.jpg</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1034</td>
+      <td>451</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>stickle1.jpg</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>2</td>
+      <td>1202</td>
+      <td>326</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>stickle1.jpg</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>3</td>
+      <td>1348</td>
+      <td>473</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## draw landmarks on canvas. appearance needs to be specified here too</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span> <span class="c1">## save landmarks as csv to folder</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span> <span class="c1">## also save canvas for quality control</span>
 </pre></div>
@@ -435,24 +517,27 @@ div.rendered_html tbody tr:hover {
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- landmarks saved under ../_temp/output\landmarks.csv (overwritten).
-- canvas saved under ../_temp/output\canvas.jpg (overwritten).
+- landmarks saved under ../_temp/output\landmarks.csv.
+- canvas saved under ../_temp/output\canvas.jpg.
 </pre></div></div>
 </div>
 <div class="section" id="Adding-a-scale">
 <h3>Adding a scale<a class="headerlink" href="#Adding-a-scale" title="Permalink to this headline">¶</a></h3>
 <p>Now we will do the same thing again, but this time we use a reference image to create a scale-template so we can adjust our landmark coordinate space. This is important if for example the distance between the camera and your sample changes.</p>
-<center><div style="width:400px; text-align: left"><p><img alt="Phenopype workflow example" src="_images/stickleback_side.jpg" /></p>
+<center><div style="width:500px; text-align: left"><p><img alt="Adding a scale" src="../docs/_assets/set_scale.gif" /></p>
 </div></center><p>After loading the reference image, we measure the distance on the millimeter scale (click on two points inside the image), enter the distance (e.g. 10 mm), and then we create a template by dragging a rectangle around the whole (!) reference card. Finish each step with “enter”.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ref_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/stickleback_side.jpg&quot;</span>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+
+<span class="n">ref_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/stickleback_side.jpg&quot;</span>
+<span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/stickle1.jpg&quot;</span>
 
 <span class="n">ref_image</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">ref_path</span><span class="p">)</span> <span class="c1">## load image as container</span>
-<span class="n">ref_px_mm_ratio</span><span class="p">,</span> <span class="n">template_img</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_scale</span><span class="p">(</span><span class="n">ref_image</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ref_ratio</span><span class="p">,</span> <span class="n">template_img</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_scale</span><span class="p">(</span><span class="n">ref_image</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -468,12 +553,12 @@ Template selected
 </div>
 <p>In the next step, we load the sample image again. Then we use a classic machine learning algorithm to find the scale inside our already processed image.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ct</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">cont</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">find_scale</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template_img</span><span class="p">,</span> <span class="n">px_mm_ratio</span><span class="o">=</span><span class="n">ref_px_mm_ratio</span><span class="p">,</span> <span class="n">equalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">find_scale</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="n">template_img</span><span class="p">,</span> <span class="n">px_mm_ratio_ref</span><span class="o">=</span><span class="n">ref_ratio</span><span class="p">,</span> <span class="n">equalize</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -483,16 +568,16 @@ Template selected
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 ---------------------------------------------------
-Reference card found with 249 keypoint matches:
+Reference card found with 232 keypoint matches:
 template image has 36 pixel per mm.
 current image has 34.9 pixel per mm.
-= 96.839 % of template image.
+= 96.844 % of template image.
 ---------------------------------------------------
 </pre></div></div>
 </div>
-<p>Now we draw the perimeter around the detected scale, and plot it.</p>
+<p>Now we draw the perimeter around the detected scale. Because the detected scale has coordinates like a mask we need the <code class="docutils literal notranslate"><span class="pre">show_masks</span></code> function to draw it.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -510,11 +595,12 @@ current image has 34.9 pixel per mm.
 </div>
 <p>Now we place our landmarks again. The resulting csv now contains a column for the pixel-to-mm-ratio from the scale we detected.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -528,14 +614,103 @@ current image has 34.9 pixel per mm.
 </div>
 <p>Finally, we look at the results and export them.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+<span class="n">ct</span><span class="o">.</span><span class="n">df_landmarks</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename</th>
+      <th>width</th>
+      <th>height</th>
+      <th>size_ratio_original</th>
+      <th>px_mm_ratio</th>
+      <th>landmark</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>stickle1.jpg</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>34.9</td>
+      <td>1</td>
+      <td>1058</td>
+      <td>521</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>stickle1.jpg</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>34.9</td>
+      <td>2</td>
+      <td>1132</td>
+      <td>473</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>stickle1.jpg</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>34.9</td>
+      <td>3</td>
+      <td>1305</td>
+      <td>456</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>stickle1.jpg</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>34.9</td>
+      <td>4</td>
+      <td>1512</td>
+      <td>384</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -548,6 +723,277 @@ current image has 34.9 pixel per mm.
 - landmarks saved under ../_temp/output\landmarks.csv (overwritten).
 - canvas saved under ../_temp/output\canvas.jpg (overwritten).
 </pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="High-throughput">
+<h2>High throughput<a class="headerlink" href="#High-throughput" title="Permalink to this headline">¶</a></h2>
+<p>Now we will use the <code class="docutils literal notranslate"><span class="pre">pype</span></code> method to place landmarks - first on a single file, and then from within a Phenopype project.</p>
+<center><div style="text-align: left"><p><img alt="Landmarks in high throughput" src="../docs/_assets/landmarks_high_throughput.gif" /></p>
+</div></center><div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+</pre></div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">pype</span></code> can be used outside of a penopype project, supplying arrays or paths to images:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/stickle1.jpg&quot;</span> <span class="c1"># works</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">)</span> <span class="c1"># also works</span>
+
+
+<span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;lm1&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;landmarks_1&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span class="c1">## try supplying &quot;image&quot; instead of &quot;filepath&quot;</span>
+<span class="c1">## dirpath specifies a directory where all results are saved</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+
+------------+++ new pype iteration 2020:03:29 18:58:32 +++--------------
+
+
+AUTOLOAD
+- landmarks_lm1.csv
+MEASUREMENT
+landmarks
+- setting landmarks (overwriting)
+VISUALIZATION
+show_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/output\landmarks_lm1.csv (overwritten).
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/output\canvas_lm1.jpg (overwritten).
+
+
+TERMINATE
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;phenopype.main.pype at 0x1b32f37f9c8&gt;
+</pre></div></div>
+</div>
+<p>However, to increase throughput we will use the <code class="docutils literal notranslate"><span class="pre">pype</span></code> function on files organized within a phenopype project (see <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">Tutorial 2</span></a> and <a class="reference internal" href="tutorial_3_managing_projects_1.html"><span class="doc">Tutorial 3</span></a> for more general information on high throughput workflow).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">root_dir</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/project&quot;</span><span class="p">)</span>
+
+<span class="n">myproj</span><span class="o">.</span><span class="n">add_files</span><span class="p">(</span><span class="n">image_dir</span><span class="o">=</span><span class="s2">&quot;images&quot;</span><span class="p">,</span><span class="n">include</span><span class="o">=</span><span class="s2">&quot;stickle&quot;</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;side&quot;</span><span class="p">,</span><span class="s2">&quot;top&quot;</span><span class="p">])</span>
+<span class="n">myproj</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;lm1&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;landmarks_2&quot;</span><span class="p">)</span>
+<span class="n">myproj</span><span class="o">.</span><span class="n">add_scale</span><span class="p">(</span><span class="n">reference_image</span> <span class="o">=</span> <span class="s2">&quot;images/stickleback_side.jpg&quot;</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">myproj</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--------------------------------------------
+phenopype will create a new project at:
+
+../_temp/project
+Proceed? (y/n)
+y
+Warning - project root_dir already exists - overwrite? (y/n)y
+
+&#34;../_temp/project&#34; created (overwritten)
+
+project attributes written to ../_temp/project\attributes.yaml
+--------------------------------------------
+--------------------------------------------
+phenopype will search for files at
+
+images
+
+using the following settings:
+
+filetypes: [&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#39;, &#39;JPEG&#39;, &#39;tif&#39;, &#39;png&#39;], include: stickle, exclude: [&#39;side&#39;, &#39;top&#39;], raw_mode: copy, search_mode: dir, unique_mode: path
+
+Found image stickle1.JPG - phenopype-project folder 0__stickle1 created
+Found image stickle2.JPG - phenopype-project folder 0__stickle2 created
+Found image stickle3.JPG - phenopype-project folder 0__stickle3 created
+
+Found 3 files
+--------------------------------------------
+pype config generated from landmarks_2.
+pype_lm1.yaml created for 0__stickle1
+pype_lm1.yaml created for 0__stickle2
+pype_lm1.yaml created for 0__stickle3
+Scale set
+- add column length
+Template selected
+- scale template saved under ../_temp/project\scale_template.jpg.
+added scale information to 0__stickle1
+added scale information to 0__stickle2
+added scale information to 0__stickle3
+Project data saved under ../_temp/project\project.data.
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## if you have already run above cell you can load your project using &quot;project.load&quot;:</span>
+<span class="n">myproj</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;../_temp/project/project.data&quot;</span><span class="p">)</span> <span class="c1">## run this if you</span>
+</pre></div>
+</div>
+</div>
+<p>After creating the project files, we can run the <code class="docutils literal notranslate"><span class="pre">pype</span></code> routine with a simple loop on <code class="docutils literal notranslate"><span class="pre">myproj.dirpaths</span></code>, which is a list of all project directories that contain the copied raw images and the config files we generated in the above cell. Interrup the loop with Esc. To resume to the point where you left, add the <code class="docutils literal notranslate"><span class="pre">skip</span></code> argument so directory with processed files are not run again.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">dirpath</span> <span class="ow">in</span> <span class="n">myproj</span><span class="o">.</span><span class="n">dirpaths</span><span class="p">:</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">dirpath</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;lm1&quot;</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+
+------------+++ new pype iteration 2020:03:29 18:59:04 +++--------------
+
+
+AUTOLOAD
+- template loaded from root directory
+PREPROCESSING
+find_scale
+---------------------------------------------------
+Reference card found with 234 keypoint matches:
+template image has 36 pixel per mm.
+current image has 34.8 pixel per mm.
+= 96.671 % of template image.
+---------------------------------------------------
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+show_masks
+ - show mask: scale.
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/project\data\0__stickle1\landmarks_lm1.csv.
+save_masks
+- masks saved under ../_temp/project\data\0__stickle1\masks_lm1.csv.
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/project\data\0__stickle1\canvas_lm1.jpg.
+save_scale
+- save scale to attributes
+
+
+TERMINATE
+
+
+------------+++ new pype iteration 2020:03:29 18:59:10 +++--------------
+
+
+AUTOLOAD
+- template loaded from root directory
+PREPROCESSING
+find_scale
+---------------------------------------------------
+Reference card found with 212 keypoint matches:
+template image has 36 pixel per mm.
+current image has 34.8 pixel per mm.
+= 96.718 % of template image.
+---------------------------------------------------
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+show_masks
+ - show mask: scale.
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/project\data\0__stickle2\landmarks_lm1.csv.
+save_masks
+- masks saved under ../_temp/project\data\0__stickle2\masks_lm1.csv.
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/project\data\0__stickle2\canvas_lm1.jpg.
+save_scale
+- save scale to attributes
+
+
+TERMINATE
+
+
+------------+++ new pype iteration 2020:03:29 18:59:14 +++--------------
+
+
+AUTOLOAD
+- template loaded from root directory
+PREPROCESSING
+find_scale
+---------------------------------------------------
+Reference card found with 236 keypoint matches:
+template image has 36 pixel per mm.
+current image has 34.8 pixel per mm.
+= 96.741 % of template image.
+---------------------------------------------------
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+show_masks
+ - show mask: scale.
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/project\data\0__stickle3\landmarks_lm1.csv.
+save_masks
+- masks saved under ../_temp/project\data\0__stickle3\masks_lm1.csv.
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/project\data\0__stickle3\canvas_lm1.jpg.
+save_scale
+- save scale to attributes
+
+
+TERMINATE
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
 </div>
 </div>
 </div>
