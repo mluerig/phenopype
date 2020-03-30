@@ -12,9 +12,9 @@
     "\n",
     "| Workflow | Use case | Principle of operation | Explicitness | Reproducibility |\n",
     "|:---|:---------|:------------|:---|:---|\n",
-    "| [**Prototyping**](#proto) | analysis prototyping, self education and evaluation | images are loaded as arrays and functions are applied one by one | High | Low |\n",
-    "| [**Low throughput**](#low) | single pictures and very small datasets | images are loaded into phenopype containers | Medium | low |\n",
-    "| [**High throughput**](#high) | medium and large datasets - default analysis workflow | images are loaded from a phenopype project directory tree, and analyzed with the [pype](api.html#pype-method) method | Low | High |\n",
+    "| [**Prototyping**](#Prototyping-worflow) | analysis prototyping, self education and evaluation | images are loaded as arrays and functions are applied one by one | High | Low |\n",
+    "| [**Low throughput**](#Low-throughput-worflow) | single pictures and very small datasets | images are loaded into phenopype containers | Medium | low |\n",
+    "| [**High throughput**](#High-throughput-worflow) | medium and large datasets - default analysis workflow | images are loaded from a phenopype project directory tree, and analyzed with the [pype](api.html#pype-method) method | Low | High |\n",
     "\n",
     "---\n",
     "\n",
@@ -22,7 +22,7 @@
     "\n",
     "In the prototyping and low throughput workflow, users write a phenopype function stack in directly in Python code. This is recommended for users who wish to familiarize themselves with the basic principles of computer vision and to explore the phenopype function library. Output from all intermediate steps is returned from the functions and can be evaluated, which makes these routines are also appropriate for prototyping and testing. \n",
     "\n",
-    "To process image datasets in high throughput and reproducibility, users should work from a phenopype directory structure in conjunction with the pype-method. To get started with Phenopype's high througput workflow, [see below](#high), check [Tutorial 3](tutorial_3_managing_projects_1.ipynb) and consult the [pype section in the API reference](api.html#pype-method)."
+    "To process image datasets in high throughput and reproducibility, users should work from a phenopype directory structure in conjunction with the pype-method. To get started with Phenopype's high througput workflow, [see below](#High-throughput-worflow), check [Tutorial 3](tutorial_3_managing_projects_1.ipynb) and consult the [pype section in the API reference](api.html#pype-method)."
    ]
   },
   {
@@ -34,7 +34,7 @@
     "<center>\n",
     "<div style=\"width:600px; text-align: left\" >\n",
     "    \n",
-    "![Phenopype workflow example](../_assets/workflow_example_case.png)\n",
+    "![Phenopype workflow example](_assets/workflow_example_case.png)\n",
     "    \n",
     "**Fig. 1:** Workflow demonstration using a stained stickleback. The computer vision functions used to extract the trait of interest (bone-plate area, shape and pixel density) are the same in all cases, but workflows differ in the amount of code necessary and in reproducibility. \n",
     "    \n",
@@ -46,7 +46,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "## Prototyping worflow <a name=\"proto\"></a>"
+    "## Prototyping worflow <a name=\"Prototyping-worflow\"></a>"
    ]
   },
   {
@@ -62,7 +62,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "![Phenopype prototyping workflow](../_assets/workflow_proto.png)"
+    "![Phenopype prototyping workflow](_assets/workflow_proto.png)"
    ]
   },
   {
@@ -150,7 +150,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "![Phenopype low throughput workflow](../_assets/workflow_low.png)"
+    "![Phenopype low throughput workflow](_assets/workflow_low.png)"
    ]
   },
   {
@@ -267,7 +267,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "![Phenopype high throughput workflow](../_assets/workflow_high.png)"
+    "![Phenopype high throughput workflow](_assets/workflow_high.png)"
    ]
   },
   {
