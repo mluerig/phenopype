@@ -77,7 +77,7 @@ Pype method
 	<center>
 	<div style="width:500px; text-align: left" >
 		
-	<img src="_images/pype.png">
+	<img src="../_assets/pype.png">
 		
 	</div>
 	</center>

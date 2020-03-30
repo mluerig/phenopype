@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Tutorial 2: Working with phenopype &#8212; phenopype 1.0.1 documentation</title>
+    <title>Tutorial 2: Working with phenopype &#8212; phenopype 1.0.2 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           phenopype</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.1</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.2</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -427,14 +427,14 @@ appropriate for all stages of the scientific process:</p>
 <p>In the prototyping and low throughput workflow, users write a phenopype function stack in directly in Python code. This is recommended for users who wish to familiarize themselves with the basic principles of computer vision and to explore the phenopype function library. Output from all intermediate steps is returned from the functions and can be evaluated, which makes these routines are also appropriate for prototyping and testing.</p>
 <p>To process image datasets in high throughput and reproducibility, users should work from a phenopype directory structure in conjunction with the pype-method. To get started with Phenopype’s high througput workflow, <a class="reference external" href="#high">see below</a>, check <a class="reference internal" href="tutorial_3_managing_projects_1.html"><span class="doc">Tutorial 3</span></a> and consult the <a class="reference external" href="api.html#pype-method">pype section in the API reference</a>.</p>
 <p>In the following, all three workflows a demonstrated by analyzing an image of a threespine stickleback (<em>Gasterosteus aculeatus</em>) stained with alizarin red. Traits of interest are bone-plate area and shape, and, within the detected plates, pixel intensities that denote bone-density.</p>
-<center><div style="width:600px; text-align: left"><p><img alt="Phenopype workflow example" src="_assets/workflow_example_case.png" /></p>
+<center><div style="width:600px; text-align: left"><p><img alt="Phenopype workflow example" src="../_assets/workflow_example_case.png" /></p>
 <p><strong>Fig. 1:</strong> Workflow demonstration using a stained stickleback. The computer vision functions used to extract the trait of interest (bone-plate area, shape and pixel density) are the same in all cases, but workflows differ in the amount of code necessary and in reproducibility.</p>
 </div></center><div class="section" id="Prototyping-worflow">
 <h2>Prototyping worflow<a class="headerlink" href="#Prototyping-worflow" title="Permalink to this headline">¶</a></h2>
 <p>The low throughput workflow starts with the path to an image that is stored on the hard drive. <code class="docutils literal notranslate"><span class="pre">load_image</span></code> imports the file as a three-channel [1] numpy array (<em>ndarray</em>), together with image meta data (file name, exposure, dimensions, etc.) as a pandas <em>DataFrame</em>. The array gets passed on to the <code class="docutils literal notranslate"><span class="pre">threshold</span></code> function, which will return a binary array of the same dimensions. This array needs to be passed on to the <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> function, which will return a dictionary with the detected
 contours. This dictionary, together with the original array, can then be passed to the <code class="docutils literal notranslate"><span class="pre">colour_intensity</span></code> function. This function will collect the average color value from within the perimeter coordinates for each contour and return a pandas dataframe containing those values. Finally, the dataframe can be exported as a csv file with <code class="docutils literal notranslate"><span class="pre">save_colour</span></code>. By passing on the initially created meta-data, the function will automatically expand the provided columns of meta-info into the exported csv.</p>
 <p>[1] to learn more about the basic of Computer Vision check the resources section of the phenopype documentation.</p>
-<p><img alt="Phenopype prototyping workflow" src="_assets/workflow_proto.png" /></p>
+<p><img alt="Phenopype prototyping workflow" src="../_assets/workflow_proto.png" /></p>
 <p>Fig. 2: Schematic of Phenopype’s prototyping workflow</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
@@ -495,7 +495,7 @@ contours. This dictionary, together with the original array, can then be passed 
 <h2>Low throughput worflow<a class="headerlink" href="#Low-throughput-worflow" title="Permalink to this headline">¶</a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">load_image</span></code> function can also load an image into a phenopype container, which is a python class that incorporates loaded images, dataframes, detected contours, intermediate output, etc. so that they are available for inspection or storage at the end of the analysis. The advantage of using containers is that they don’t litter the global environment and namespace, while still containing all intermediate steps (e.g. binary masks or contour DataFrames). Containers can be used manually to
 analyze images, but typically they are used automatically within the pype-routine that is part of phenoype’s high throughput workflow (see below).</p>
-<p><img alt="Phenopype low throughput workflow" src="_assets/workflow_low.png" /></p>
+<p><img alt="Phenopype low throughput workflow" src="../_assets/workflow_low.png" /></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
@@ -576,7 +576,7 @@ provide the full image analysis pipeline to anyone who wishes to reproduce the o
 <p>For more detailed information on <code class="docutils literal notranslate"><span class="pre">pype</span></code> and it’s default behavior, see below, and the <a class="reference external" href="api.html#pype-method">pype section of the API reference</a></p>
 <p>For more information on how to use the <code class="docutils literal notranslate"><span class="pre">pype</span></code> in conjunction with phenopype projects please refer to the <a class="reference internal" href="tutorial_3_managing_projects_1.html"><span class="doc">Phenopype project tutorial</span></a>.</p>
 <p>Also be sure to check the examples, which include both low and high throughput code.</p>
-<p><img alt="Phenopype high throughput workflow" src="_assets/workflow_high.png" /></p>
+<p><img alt="Phenopype high throughput workflow" src="../_assets/workflow_high.png" /></p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
