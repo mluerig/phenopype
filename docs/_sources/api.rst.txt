@@ -71,19 +71,12 @@ Pype method
 
 	Method used to process image datasets with high throughput and reproducibility. Users should use the pype method in 
 	conjunction with image organized in a phenopype directory structure. To get started with the high througput workflow, see 
-	<a href="tutorial_2_phenopype_workflow">Tutorial 2</a> and <a href="tutorial_3_managing_projects_1">Tutorial 3</a>.
+	<a href="tutorial_2_phenopype_workflow.html">Tutorial 2</a> and <a href="tutorial_3_managing_projects_1.html">Tutorial 3</a>.
 	<br>
 
-	<center>
-	<div style="width:500px; text-align: left" >
-		
-	<img src="../_assets/pype.png">
-		
-	</div>
-	</center>
-	
-	<hr>
-
+.. figure:: pype.png
+    :scale: 50%
+    :align: center
 
 .. autoclass:: phenopype.main.pype
 	:members:

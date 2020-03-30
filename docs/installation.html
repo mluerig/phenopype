@@ -182,29 +182,29 @@ help can be found here:</p>
 <li><p><a class="reference external" href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10</a></p></li>
 <li><p><a class="reference external" href="https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97">https://towardsdatascience.com/how-to-successfully-install-anaconda-on-a-mac-and-actually-get-it-to-work-53ce18025f97</a></p></li>
 </ul>
+<p>If you prefer an “Rstudio-like” environment, you can use Phenopype from a Python Integrated Development Environment (IDE). My favorite IDE is Spyder (<a class="reference external" href="https://www.spyder-ide.org/">https://www.spyder-ide.org/</a>), but any other IDE will work too (a slightly outdated overview can be found <a class="reference external" href="https://wiki.python.org/moin/IntegratedDevelopmentEnvironments">here</a>). Phenopype can of course also be run from the command line using <code class="code docutils literal notranslate"><span class="pre">python</span></code>.</p>
 </div>
 <div class="section" id="install-phenopype">
 <h2>2. Install phenopype<a class="headerlink" href="#install-phenopype" title="Permalink to this headline">¶</a></h2>
-<p>First, use <code class="code docutils literal notranslate"><span class="pre">conda</span></code> create a virtual environment to have fuller control over your python packages. If you
-prefer an “Rstudio-like” environment, you can use phenpype from an IDE (Integrated Development Environment). My favorite IDE
-is Spyder (<a class="reference external" href="https://www.spyder-ide.org/">https://www.spyder-ide.org/</a>); a slightly outdated overview of other popular Python IDEs can be found
-<a class="reference external" href="https://wiki.python.org/moin/IntegratedDevelopmentEnvironments">here</a>. Phenopype can of course also be run from the
-command line using <code class="code docutils literal notranslate"><span class="pre">python</span></code>.</p>
+<p>You can install phenopype using <code class="code docutils literal notranslate"><span class="pre">pip</span></code>, and run it with <code class="code docutils literal notranslate"><span class="pre">spyder</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install phenopype
+</pre></div>
+</div>
+<p>However, to have fuller control over your python packages and to not mess up existing Python installation, I recommend to create a virtual environment using <code class="code docutils literal notranslate"><span class="pre">conda</span></code>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n <span class="s2">&quot;pp&quot;</span> <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7
 conda install spyder
 </pre></div>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>If your are using <cite>Spyder</cite>, make sure you install it to the new environment you have just created, otherwise <cite>Spyder</cite> will be loaded
-from conda base environment, where Phenopype is not installed.</p>
+<p>Make sure to install Spyder to the new environment you have just created, otherwise <cite>Spyder</cite> will be loaded from conda base environment where Phenopype may not be installed.</p>
 </div>
-<p>Then activate the virtual environment and install Phenopype using <cite>pip</cite> in your terminal or command line:</p>
+<p>Now activate the virtual environment and install Phenopype using <cite>pip</cite>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate pp
 pip install phenopype
 </pre></div>
 </div>
-<p>You can now use Phenopype by typing <code class="code docutils literal notranslate"><span class="pre">spyder</span></code> or <code class="code docutils literal notranslate"><span class="pre">python</span></code> into the command line. If you are unsure to proceed, consult the tutorials.</p>
+<p>You can now use Phenopype by typing <code class="code docutils literal notranslate"><span class="pre">spyder</span></code> or <code class="code docutils literal notranslate"><span class="pre">python</span></code> into the command line. If you are unsure to proceed, consult the &lt;a href=”tutorial_0.html”&gt; tutorials&lt;/a&gt;.</p>
 <div class="section" id="update-phenopype">
 <h3>2.1 Update Phenopype<a class="headerlink" href="#update-phenopype" title="Permalink to this headline">¶</a></h3>
 <p>For regular major and minor releases do:</p>
@@ -235,7 +235,7 @@ its dependencies or other python packages should only be done using <code class=
 <div class="section" id="choose-a-text-editor">
 <h2>3. Choose a text editor<a class="headerlink" href="#choose-a-text-editor" title="Permalink to this headline">¶</a></h2>
 <p>The high throughout method in Phenopype currently requires a text editor to be installed that <strong>does not lock the file</strong> - <a class="reference external" href="https://superuser.com/a/855057/970488">read about file locking here</a>.</p>
-<p>For Windows, I recommend <cite>Notepad++</cite>, which supports syntax highlighting and has many other useful features: <a class="reference external" href="https://notepad-plus-plus.org/downloads/">https://notepad-plus-plus.org/downloads/</a></p>
+<p>For Windows, notepad works. However, I recommend <cite>Notepad++</cite>, which supports syntax highlighting and has many other useful features: <a class="reference external" href="https://notepad-plus-plus.org/downloads/">https://notepad-plus-plus.org/downloads/</a></p>
 <p>For Linux <cite>Vim</cite> or <cite>Nano</cite> (are already installed on most Linux distributions), and for MacOS, <cite>Nano</cite> or <cite>brackets</cite> could work <a class="reference external" href="http://brackets.io/">http://brackets.io/</a>.</p>
 <p>Moreover, it is important that your OS knows how to handle <cite>.yaml</cite> files. Make sure that the default app to open these files is set as one of the edtiors that you selected.</p>
 <p>[More information about this will follow soon]</p>
