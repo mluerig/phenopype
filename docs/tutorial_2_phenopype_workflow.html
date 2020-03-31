@@ -91,8 +91,8 @@
 <li><a class="reference internal" href="#Prototyping-worflow">Prototyping worflow</a></li>
 <li><a class="reference internal" href="#Low-throughput-worflow">Low throughput worflow</a></li>
 <li><a class="reference internal" href="#High-throughput-worflow">High throughput worflow</a><ul>
-<li><a class="reference internal" href="#3.1-yaml-syntax">3.1 yaml-syntax</a></li>
-<li><a class="reference internal" href="#3.2.-pype-behavior">3.2. <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
+<li><a class="reference internal" href="#yaml-syntax">yaml-syntax</a></li>
+<li><a class="reference internal" href="#pype-behavior"><code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
 </ul>
 </li>
 </ul>
@@ -148,8 +148,8 @@
 <li><a class="reference internal" href="#Prototyping-worflow">Prototyping worflow</a></li>
 <li><a class="reference internal" href="#Low-throughput-worflow">Low throughput worflow</a></li>
 <li><a class="reference internal" href="#High-throughput-worflow">High throughput worflow</a><ul>
-<li><a class="reference internal" href="#3.1-yaml-syntax">3.1 yaml-syntax</a></li>
-<li><a class="reference internal" href="#3.2.-pype-behavior">3.2. <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
+<li><a class="reference internal" href="#yaml-syntax">yaml-syntax</a></li>
+<li><a class="reference internal" href="#pype-behavior"><code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
 </ul>
 </li>
 </ul>
@@ -644,11 +644,11 @@ TERMINATE
 </div>
 <p>At the current stage of development, the pype method is prone to errors resulting from incorrect yaml syntax, e.g. missing spaces or wrong indentation. The pype will still try to run from bottom to top and pass exceptions, but may result in errors that cascade through the function stack. Therefore I am going over basic yaml syntax, and the specific structure of the pype_config files.</p>
 <p>Moreover, the pype will trigger specific behavior of some functions to facilitate user experience when working with large data sets. Fore example, some functions get called automatically (e.g. from the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> and <code class="docutils literal notranslate"><span class="pre">export</span></code> modules), but they don’t necessarily show default behavior as documented in the api (e.g. <code class="docutils literal notranslate"><span class="pre">visualization.save_canvas</span></code> will always have <code class="docutils literal notranslate"><span class="pre">overwrite=True</span></code> to save output canvas). To clarify I am explaining here the most important aspects of <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior.</p>
-<div class="section" id="3.1-yaml-syntax">
-<h3>3.1 yaml-syntax<a class="headerlink" href="#3.1-yaml-syntax" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="yaml-syntax">
+<h3>yaml-syntax<a class="headerlink" href="#yaml-syntax" title="Permalink to this headline">¶</a></h3>
 </div>
-<div class="section" id="3.2.-pype-behavior">
-<h3>3.2. <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior<a class="headerlink" href="#3.2.-pype-behavior" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="pype-behavior">
+<h3><code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior<a class="headerlink" href="#pype-behavior" title="Permalink to this headline">¶</a></h3>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>

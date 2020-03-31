@@ -365,14 +365,30 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Tutorial-4:-Project-wide-variables-(e.g. size-and-colour-reference)">
 <h1>Tutorial 4: Project wide variables (e.g. size and colour reference)<a class="headerlink" href="#Tutorial-4:-Project-wide-variables-(e.g. size-and-colour-reference)" title="Permalink to this headline">¶</a></h1>
 <p>[ADD TEXT]</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">add_scale</span><span class="p">(</span><span class="n">reference_image</span> <span class="o">=</span> <span class="s2">&quot;images/stickleback_side.jpg&quot;</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-1-87449fdc4a65&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>myproj<span class="ansi-yellow-intense-fg ansi-bold">.</span>add_scale<span class="ansi-yellow-intense-fg ansi-bold">(</span>reference_image <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;images/stickleback_side.jpg&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> template<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> overwrite<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      2</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
+</pre></div></div>
 </div>
 </div>
 

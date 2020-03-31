@@ -13,3 +13,5 @@ After installing phenopype, download and unpack the phenopype repository from `g
 
 	jupyter notebook
 
+Alternatively, you can copy the code from the jupyter code cells over to Spyder and execute them there. In this case you need to adjust the file paths given in the code cells accordingly. 
+

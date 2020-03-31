@@ -508,34 +508,38 @@ join(path, *paths)
  &#39;tutorial_3_managing_projects_1.ipynb&#39;,
  &#39;tutorial_4_managing_projects_2.ipynb&#39;,
  &#39;tutorial_5_gui_interactions.ipynb&#39;,
- &#39;tutorial_6_video_analysis.ipynb&#39;]
+ &#39;tutorial_6_video_analysis.ipynb&#39;,
+ &#39;_assets&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;../assets/images&quot;</span><span class="p">)</span>
+<span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">FileNotFoundError</span>                         Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-7-0fae6bb78d88&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>os<span class="ansi-yellow-intense-fg ansi-bold">.</span>listdir<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;../assets/images&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">FileNotFoundError</span>: [WinError 3] The system cannot find the path specified: &#39;../assets/images&#39;
+[&#39;isopods.jpg&#39;,
+ &#39;phytoplankton.jpg&#39;,
+ &#39;snail.jpg&#39;,
+ &#39;stickle1.JPG&#39;,
+ &#39;stickle2.JPG&#39;,
+ &#39;stickle3.JPG&#39;,
+ &#39;stickleback_side.jpg&#39;,
+ &#39;stickleback_top.jpg&#39;]
 </pre></div></div>
 </div>
 <p>Note that I used the relative path here - full paths of course are also possible. To check where you are, you can use <code class="docutils literal notranslate"><span class="pre">getcwd</span></code> (getCurrentWorkingDirectory):</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -544,7 +548,7 @@ join(path, *paths)
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -572,7 +576,7 @@ join(path, *paths)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;isopods.jpg&#39;, &#39;phytoplankton.jpg&#39;, &#39;snail.jpg&#39;, &#39;stickleback_side.jpg&#39;, &#39;stickleback_side_plates.jpg&#39;, &#39;stickleback_top.jpg&#39;]
+[&#39;isopods.jpg&#39;, &#39;phytoplankton.jpg&#39;, &#39;snail.jpg&#39;, &#39;stickle1.JPG&#39;, &#39;stickle2.JPG&#39;, &#39;stickle3.JPG&#39;, &#39;stickleback_side.jpg&#39;, &#39;stickleback_top.jpg&#39;]
 isopods.jpg
 </pre></div></div>
 </div>
@@ -597,7 +601,7 @@ isopods.jpg
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -606,7 +610,7 @@ isopods.jpg
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -616,7 +620,7 @@ isopods.jpg
 </div>
 <p>Putting it all together, let’s try to get the path of all the images in our directory. For this, we need a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, and an empty list we can populate:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -633,7 +637,7 @@ isopods.jpg
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -641,8 +645,10 @@ isopods.jpg
 [&#39;images\\isopods.jpg&#39;,
  &#39;images\\phytoplankton.jpg&#39;,
  &#39;images\\snail.jpg&#39;,
+ &#39;images\\stickle1.JPG&#39;,
+ &#39;images\\stickle2.JPG&#39;,
+ &#39;images\\stickle3.JPG&#39;,
  &#39;images\\stickleback_side.jpg&#39;,
- &#39;images\\stickleback_side_plates.jpg&#39;,
  &#39;images\\stickleback_top.jpg&#39;]
 </pre></div></div>
 </div>
@@ -651,7 +657,7 @@ isopods.jpg
 <h2>Images in OpenCV<a class="headerlink" href="#Images-in-OpenCV" title="Permalink to this headline">¶</a></h2>
 <p>Let’s import another module. In fact <em>the</em> module that phenopype is built around: OpenCV (see the <a class="reference external" href="resources.html#opencv">resources</a> section of the documentation). Note: sometimes the modules are called differently than their bindings in python, e.g., for opencv, we have to call <code class="docutils literal notranslate"><span class="pre">cv2</span></code>. Once imported, we then can use a basic opencv function: importing an image as an array using <code class="docutils literal notranslate"><span class="pre">imread</span></code>.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -663,7 +669,7 @@ isopods.jpg
 <p>About digital images: <code class="docutils literal notranslate"><span class="pre">cv2.imread</span></code> converts a digital image file to an array, a stack of three matrices containing pixel wise information on the red, green and blue channel of an image, which - taken together - creates the colour image. To learn more about digital images and computer vision, check the <a class="reference external" href="resources.html#computer-vision">resources</a> section of the documentation.</p>
 <p>Lets examine our image. It is not informative neither possible to look at the whole matrix of pixel values inside the console, but sometimes it is useful to look at specific features of your image, which we can acess directly from the image-object. For example, the dimensions, using <code class="docutils literal notranslate"><span class="pre">shape</span></code>:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -672,7 +678,7 @@ isopods.jpg
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -682,7 +688,7 @@ isopods.jpg
 </div>
 <p>Or the mean pixel intensity:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -691,7 +697,7 @@ isopods.jpg
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
@@ -701,7 +707,7 @@ isopods.jpg
 </div>
 <p>We can look at the picture with <code class="docutils literal notranslate"><span class="pre">imshow</span></code>. However, because many <code class="docutils literal notranslate"><span class="pre">opencv</span></code> functions are GUI based, we need to add some more controller functions so we can control it.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -717,7 +723,7 @@ isopods.jpg
 <h2>Images in phenopype<a class="headerlink" href="#Images-in-phenopype" title="Permalink to this headline">¶</a></h2>
 <p>Complicated. Luckily, phenopype has a neat functions to load and display images. It even can even zoom in using the scroll wheel:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -727,9 +733,9 @@ isopods.jpg
 </pre></div>
 </div>
 </div>
-<p><code class="docutils literal notranslate"><span class="pre">show_image</span></code> can also work with lists of arrays / images, to show multiple images at the same time. Individual zoom possible. Close with <code class="docutils literal notranslate"><span class="pre">Esc</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">show_image</span></code> can also work with lists of arrays / images, to show multiple images at the same time. Individual zoom possible. Close with <code class="docutils literal notranslate"><span class="pre">Esc</span></code> or <code class="docutils literal notranslate"><span class="pre">Enter</span></code></p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -741,7 +747,7 @@ isopods.jpg
     <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="c1"># joining name and path strings</span>
     <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span> <span class="c1"># load images and store them in list</span>
 
-<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">pos_offset</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="c1">## show all images in the image folder in the tutorial directory</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">position_offset</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="c1">## show all images in the image folder in the tutorial directory</span>
 </pre></div>
 </div>
 </div>

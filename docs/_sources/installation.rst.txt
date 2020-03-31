@@ -56,7 +56,8 @@ Now activate the virtual environment and install Phenopype using `pip`:
 	conda activate pp
 	pip install phenopype
 
-You can now use Phenopype by typing :code:`spyder` or :code:`python` into the command line. If you are unsure to proceed, consult the <a href="tutorial_0.html"> tutorials</a>.
+You can now use Phenopype by typing :code:`spyder` or :code:`python` into the command line. If you are unsure to proceed, consult the `tutorials <tutorial_0.html>`_.
+
 
 2.1 Update Phenopype
 """"""""""""""""""""

@@ -87,7 +87,13 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Tutorial 3: Setting up and managing phenopype projects</a></li>
+<li><a class="reference internal" href="#">Tutorial 3: Setting up and managing phenopype projects</a><ul>
+<li><a class="reference internal" href="#Create-project-and-add-images">Create project and add images</a></li>
+<li><a class="reference internal" href="#Add-pype-configuration-files">Add <code class="docutils literal notranslate"><span class="pre">pype</span></code>-configuration files</a></li>
+<li><a class="reference internal" href="#Saving-and-loading-a-project">Saving and loading a project</a></li>
+<li><a class="reference internal" href="#Applying-the-pype-to-project-folders">Applying the pype to project folders</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -135,7 +141,13 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Tutorial 3: Setting up and managing phenopype projects</a></li>
+<li><a class="reference internal" href="#">Tutorial 3: Setting up and managing phenopype projects</a><ul>
+<li><a class="reference internal" href="#Create-project-and-add-images">Create project and add images</a></li>
+<li><a class="reference internal" href="#Add-pype-configuration-files">Add <code class="docutils literal notranslate"><span class="pre">pype</span></code>-configuration files</a></li>
+<li><a class="reference internal" href="#Saving-and-loading-a-project">Saving and loading a project</a></li>
+<li><a class="reference internal" href="#Applying-the-pype-to-project-folders">Applying the pype to project folders</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -364,8 +376,644 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Tutorial-3:-Setting-up-and-managing-phenopype-projects">
 <h1>Tutorial 3: Setting up and managing phenopype projects<a class="headerlink" href="#Tutorial-3:-Setting-up-and-managing-phenopype-projects" title="Permalink to this headline">¶</a></h1>
-<p>Phenopype projects are composed of a directory tree in which each folder contains the copy or a link to a single raw image file. Each raw should have only one folder, so that result or intermediate output from different iterations of processing and analysis are stored side by side.</p>
-<p>The project root folder should be separate from the raw data, e.g. as a folder inside of your project folder:</p>
+<p>A central aspect of efficiently using Phenopype is to work from within a <code class="docutils literal notranslate"><span class="pre">project</span></code>. Phenopype projects are composed of a directory tree in which each folder contains the copy or a link to a single raw image file (1). Alongside the images to be processed, users can store configuration file for the <code class="docutils literal notranslate"><span class="pre">pype</span></code> routine that we covered in the <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">previous tutorial</span></a>: configurations files can be created using preconfigured templates, which can easily be modifed (2).
+Once raw images have been added and configuration files are in place, the <code class="docutils literal notranslate"><span class="pre">pype</span></code> routine is used until results are satisfactory (3). Together, the raw images, the <code class="docutils literal notranslate"><span class="pre">pype</span></code>-configuration files and the saved results files are all that is needed to completely reproduce any phenotypic data that was collected in the process (4).</p>
+<div class="section" id="Create-project-and-add-images">
+<h2>Create project and add images<a class="headerlink" href="#Create-project-and-add-images" title="Permalink to this headline">¶</a></h2>
+<center><div style="width:500px; text-align: left"><p><img alt="Step 1" src="_images/workflow_high_step1.png" /></p>
+<p><strong>Step. 1</strong>: Create a phenopype project and organize raw images into separate folders where all relevant data, attributes and results are stored.</p>
+</div></center><p>A Phenopype project directory can be initiatlized with the <code class="docutils literal notranslate"><span class="pre">project</span></code> function. The <em>phenoype project root folder</em> should be separate from the raw data, e.g. as a folder inside of your <em>main project folder</em>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+<span class="kn">import</span> <span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">root_dir</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/my_project/phenopype_analysis&quot;</span><span class="p">)</span> <span class="c1">## doesn&#39;t have to be &quot;myproj&quot;, can be named anything</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--------------------------------------------
+phenopype will create a new project at:
+
+../_temp/my_project/phenopype_analysis
+Proceed? (y/n)
+y
+Warning - project root_dir already exists - overwrite? (y/n)y
+
+&#34;../_temp/my_project/phenopype_analysis&#34; created (overwritten)
+
+project attributes written to ../_temp/my_project/phenopype_analysis\attributes.yaml
+--------------------------------------------
+</pre></div></div>
+</div>
+<p>Next step is to add images to the project. You can do so with the <code class="docutils literal notranslate"><span class="pre">add_files</span></code> method of the created project (a <em>method</em> is an executable function that belongs to an existing <em>object</em>, in this case “myproj. see <a class="reference external" href="https://stackoverflow.com/questions/155609/whats-the-difference-between-a-method-and-a-function">this SO question</a>). The function offers some flexibility in terms of which files to import. Most important arguments here are <code class="docutils literal notranslate"><span class="pre">include</span></code>, <code class="docutils literal notranslate"><span class="pre">exclude</span></code> and <code class="docutils literal notranslate"><span class="pre">filetypes</span></code>. For example,
+given the following list of images:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">)</span> <span class="c1">## called from phenopype-master</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;isopods.jpg&#39;,
+ &#39;phytoplankton.jpg&#39;,
+ &#39;snail.jpg&#39;,
+ &#39;stickle1.JPG&#39;,
+ &#39;stickle2.JPG&#39;,
+ &#39;stickle3.JPG&#39;,
+ &#39;stickleback_side.jpg&#39;,
+ &#39;stickleback_top.jpg&#39;]
+</pre></div></div>
+</div>
+<p>If we want to import “stickle1”, “stickle2”, and “stickle3”, we can do a combination <code class="docutils literal notranslate"><span class="pre">include</span></code> and <code class="docutils literal notranslate"><span class="pre">exclude</span></code> (also prints all other default settings):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">add_files</span><span class="p">(</span><span class="n">image_dir</span><span class="o">=</span><span class="s2">&quot;images&quot;</span><span class="p">,</span>
+                 <span class="n">include</span><span class="o">=</span><span class="s2">&quot;stickle&quot;</span><span class="p">,</span>       <span class="c1">## can be type &quot;str&quot; or type &quot;list&quot;</span>
+                 <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;side&quot;</span><span class="p">,</span><span class="s2">&quot;top&quot;</span><span class="p">]</span>   <span class="c1">## can be type &quot;str&quot; or type &quot;list&quot;</span>
+                <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--------------------------------------------
+phenopype will search for files at
+
+images
+
+using the following settings:
+
+filetypes: [&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#39;, &#39;JPEG&#39;, &#39;tif&#39;, &#39;png&#39;], include: stickle, exclude: [&#39;side&#39;, &#39;top&#39;], raw_mode: copy, search_mode: dir, unique_mode: path
+
+Found image stickle1.JPG - phenopype-project folder 0__stickle1 created
+Found image stickle2.JPG - phenopype-project folder 0__stickle2 created
+Found image stickle3.JPG - phenopype-project folder 0__stickle3 created
+
+Found 3 files
+--------------------------------------------
+</pre></div></div>
+</div>
+<p>The three images have the same (nonstandard) file ending, so we can also use the filetype argument (and the overwrite argument, because have already added them above):</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span> <span class="n">myproj</span><span class="o">.</span><span class="n">add_files</span><span class="p">(</span><span class="n">image_dir</span><span class="o">=</span><span class="s2">&quot;images&quot;</span><span class="p">,</span>
+                 <span class="n">filetypes</span><span class="o">=</span><span class="s2">&quot;JPG&quot;</span> <span class="p">,</span>      <span class="c1">## can be type &quot;str&quot; or type &quot;list&quot;</span>
+                 <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span>
+                <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--------------------------------------------
+phenopype will search for files at
+
+images
+
+using the following settings:
+
+filetypes: JPG, include: [], exclude: [], raw_mode: copy, search_mode: dir, unique_mode: path
+
+Found image stickle1.JPG - phenopype-project folder 0__stickle1 created (overwritten)
+Found image stickle2.JPG - phenopype-project folder 0__stickle2 created (overwritten)
+Found image stickle3.JPG - phenopype-project folder 0__stickle3 created (overwritten)
+
+Found 3 files
+--------------------------------------------
+</pre></div></div>
+</div>
+<p>The remaining settings are <code class="docutils literal notranslate"><span class="pre">raw_mode</span></code>, <code class="docutils literal notranslate"><span class="pre">search_mode</span></code>, <code class="docutils literal notranslate"><span class="pre">unique_mode</span></code>. <code class="docutils literal notranslate"><span class="pre">raw_mode</span></code> determines whether raw files should be copied to each folder in the Phenopype directory tree (using <code class="docutils literal notranslate"><span class="pre">copy</span></code> [default]), or just their filepath (using <code class="docutils literal notranslate"><span class="pre">link</span></code>), which can be useful if data sets contain many or very large images. <code class="docutils literal notranslate"><span class="pre">search_mode</span></code> indicates whether only the top directory (<code class="docutils literal notranslate"><span class="pre">dir</span></code> [default]), or also all subdirectories (<code class="docutils literal notranslate"><span class="pre">recursive</span></code>) should be included in the search. <code class="docutils literal notranslate"><span class="pre">unique_mode</span></code> indicates
+whether files should be unique by their path (<code class="docutils literal notranslate"><span class="pre">filepath</span></code> [default]) or only by their name (<code class="docutils literal notranslate"><span class="pre">filename</span></code>) - duplicate files will be skipped.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">help</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">add_files</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on function add_files in module phenopype.main:
+
+add_files(self, image_dir, filetypes=[&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#39;, &#39;JPEG&#39;, &#39;tif&#39;, &#39;png&#39;], include=[], exclude=[], raw_mode=&#39;copy&#39;, search_mode=&#39;dir&#39;, unique_mode=&#39;path&#39;, overwrite=False, resize=1, **kwargs)
+    Add files to your project from a directory, can look recursively.
+    Specify in- or exclude arguments, filetypes, duplicate-action and copy
+    or link raw files to save memory on the harddrive. For each found image,
+    a folder will be created in the &#34;data&#34; folder within the projects root
+    directory. If found images are in subfolders and search_mode is
+    recursive, the respective phenopype directories will be created with
+    flattened path as prefix.
+
+    E.g., with &#34;raw_files&#34; as folder with the original image files
+    and &#34;phenopype_proj&#34; as rootfolder:
+
+    - raw_files/file.jpg ==&gt; phenopype_proj/data/file.jpg
+    - raw_files/subdir1/file.jpg ==&gt; phenopype_proj/data/1__subdir1__file.jpg
+    - raw_files/subdir1/subdir2/file.jpg ==&gt; phenopype_proj/data/2__subdir1__subdir2__file.jpg
+
+    Parameters
+    ----------
+
+    image_dir: str
+        path to directory with images
+    filetypes: list or str, optional
+        single or multiple string patterns to target files with certain endings.
+        &#34;default_filetypes&#34; are configured in settings.py
+    include: list or str, optional
+        single or multiple string patterns to target certain files to include
+    exclude: list or str, optional
+        single or multiple string patterns to target certain files to exclude -
+        can overrule &#34;include&#34;
+    raw_mode: {&#34;copy&#34;, &#34;link&#34;} str, optional
+        how should the raw files be passed on to the phenopype directory tree:
+        &#34;copy&#34; will make a copy of the original file, &#34;link&#34; will only send the
+        link to the original raw file to attributes, but not copy the actual
+        file (useful for big files)
+    search_mode: {&#34;dir&#34;, &#34;recursive&#34;}, str, optional
+        &#34;dir&#34; searches current directory for valid files; &#34;recursive&#34; walks
+        through all subdirectories
+    unique_mode: {&#34;filepath&#34;, &#34;filename&#34;}, str, optional:
+        how to deal with image duplicates - &#34;filepath&#34; is useful if identically
+        named files exist in different subfolders (folder structure will be
+        collapsed and goes into the filename), whereas filename will ignore
+        all similar named files after their first occurrence.
+    kwargs:
+        developer options
+
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Add-pype-configuration-files">
+<h2>Add <code class="docutils literal notranslate"><span class="pre">pype</span></code>-configuration files<a class="headerlink" href="#Add-pype-configuration-files" title="Permalink to this headline">¶</a></h2>
+<center><div style="width:500px; text-align: left"><p><img alt="Step 2" src="_images/workflow_high_step2.png" /></p>
+<p><strong>Step. 2</strong>: Create configuration files and store them alongside the raw images.</p>
+</div></center><p>In the next step we prepare the files we added for use with the <code class="docutils literal notranslate"><span class="pre">pype</span></code> routine by addding a configuration file with the <code class="docutils literal notranslate"><span class="pre">add_config</span></code> method. Instead of adding the functions one by one we can load presets that are appropriate for the given computer vision analysis.</p>
+<p>Currently, the different templates are stored inside a Python file, and can be inspected using <code class="docutils literal notranslate"><span class="pre">dir(pp.presets)</span></code> to show all existing presets, and <code class="docutils literal notranslate"><span class="pre">print(pp.presets.landmarks_plain)</span></code> to show the contents.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">dir</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">presets</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;__builtins__&#39;,
+ &#39;__cached__&#39;,
+ &#39;__doc__&#39;,
+ &#39;__file__&#39;,
+ &#39;__loader__&#39;,
+ &#39;__name__&#39;,
+ &#39;__package__&#39;,
+ &#39;__spec__&#39;,
+ &#39;demo1&#39;,
+ &#39;inverted1&#39;,
+ &#39;landmarks_2&#39;,
+ &#39;landmarks_plain&#39;,
+ &#39;object_detection_1&#39;,
+ &#39;preset1&#39;,
+ &#39;preset3&#39;,
+ &#39;preset4&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">landmarks_plain</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+measurement:
+- landmarks:
+    point_size: 25
+    point_col: green
+    label_size: 3
+    label_width: 5
+visualization:
+- show_landmarks:
+    point_size: 25
+    point_col: green
+    label_size: 3
+    label_width: 5
+export:
+- save_landmarks
+
+</pre></div></div>
+</div>
+<p>For example, if we want to place landmarks, we can use one of the corresponding presets.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;lm&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;landmarks_plain&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+pype config generated from landmarks_plain.
+pype_lm.yaml created for 0__stickle1
+pype_lm.yaml created for 0__stickle2
+pype_lm.yaml created for 0__stickle3
+</pre></div></div>
+</div>
+<p>Now all images folders contain a configuration file in <em>yaml</em> format (see <a class="reference internal" href="tutorial_2_phenopype_workflow.html#yaml-syntax"><span class="std std-ref">Tutorial 2</span></a> and the <a class="reference external" href="resources.html">resources section</a> of the Documentation for details).</p>
+<p>An imporant feature of <code class="docutils literal notranslate"><span class="pre">add_config</span></code> is the opportunity to evulate and edit the template before it gets saved in the folders. This is done by setting the flag <code class="docutils literal notranslate"><span class="pre">interactive=True</span></code> in the arguments. For example, if we globally want to change point and label size of the landmark preset, we can do:</p>
+<center><div style="width:500px; text-align: left"><p><img alt="Edit template" src="_images/change_template.png" /></p>
+<p>Edit the templates before saving them to the image folders.</p>
+</div></center><p><strong>NOTE 1:</strong> The <code class="docutils literal notranslate"><span class="pre">pype</span></code> function opens a text editor and a python window. To modify the <code class="docutils literal notranslate"><span class="pre">pype</span></code> configuration templates, by default, the first image in your project directory tree will copied over to the phenopype project root directory. After the windows have opened they can be controlled as described as in <a class="reference internal" href="tutorial_2_phenopype_workflow.html#pype-behavior"><span class="std std-ref">Tutorial 2</span></a>.</p>
+<p><strong>NOTE 2:</strong> If you have issues with this step, e.g. no text editor window is popping up, make sure you have set the default app for opening <em>yaml</em> files. Furthermore, consult the <a class="reference external" href="installation.html#choose-a-text-editor">installation instructions</a> and check if your text editor is configured correctly.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;lm&quot;</span><span class="p">,</span>
+                  <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;landmarks_plain&quot;</span><span class="p">,</span>
+                  <span class="n">interactive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span>                 <span class="c1">## needed because config with the name &quot;lm&quot; already exists in the folders</span>
+                 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+pype config generated from landmarks_plain.
+
+
+------------+++ new pype iteration 2020:03:31 13:45:14 +++--------------
+
+
+MEASUREMENT
+landmarks
+- setting landmarks
+- terminated polyline creation
+RESTART
+
+
+------------+++ new pype iteration 2020:03:31 13:45:20 +++--------------
+
+
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+
+
+TERMINATE
+pype_lm.yaml created for 0__stickle1 (overwritten)
+pype_lm.yaml created for 0__stickle2 (overwritten)
+pype_lm.yaml created for 0__stickle3 (overwritten)
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">help</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">add_config</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on function add_config in module phenopype.main:
+
+add_config(self, name, config_preset=&#39;preset1&#39;, interactive=False, overwrite=False, **kwargs)
+    Add pype configuration presets to all image folders in the project, either by using
+    the templates included in the presets folder, or by adding your own templates
+    by providing a path to a yaml file. Can be tested and modified using the
+    interactive flag before distributing the config files.
+
+    Parameters
+    ----------
+
+    name: str
+        name of config-file. this gets appended to all files and serves as and
+        identifier of a specific analysis pipeline
+    preset: str, optional
+        can be either a string denoting a template name (e.g. preset1, preset2,
+        landamarking1, ... - in &#34;phenopype/settings/presets.py&#34;) or a path to a
+        compatible yaml file
+    interactive: bool, optional
+        start a pype and modify preset before saving it to phenopype directories
+    overwrite: bool, optional
+        overwrite option, if a given pype config-file already exist
+    kwargs:
+        developer options
+
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Saving-and-loading-a-project">
+<h2>Saving and loading a project<a class="headerlink" href="#Saving-and-loading-a-project" title="Permalink to this headline">¶</a></h2>
+<p>Project objects can be saved using a the static method <code class="docutils literal notranslate"><span class="pre">save</span></code> (static = unbound to any object). This will save the project data to the project’s root directory. Currently, the only useful information stored in the project object is the list of all contained directories. Future releases will make more use of the project object.</p>
+<p><strong>NOTE:</strong> <code class="docutils literal notranslate"><span class="pre">pp.project.save</span></code> saves ONLY the project data, all data collected with the pype method or any of the other workflows need to be saved inside the folders using the appropriate <a class="reference external" href="api.html#export">export</a> functions.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">myproj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Project data saved under ../_temp/my_project/phenopype_analysis\project.data.
+</pre></div></div>
+</div>
+<p>To load the project again, add provide the path of the <code class="docutils literal notranslate"><span class="pre">project.data</span></code> file in the root folder to the <code class="docutils literal notranslate"><span class="pre">load</span></code> method:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;../_temp/my_project/phenopype_analysis/project.data&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Applying-the-pype-to-project-folders">
+<h2>Applying the pype to project folders<a class="headerlink" href="#Applying-the-pype-to-project-folders" title="Permalink to this headline">¶</a></h2>
+<center><div style="width:800px; text-align: left"><p><img alt="Step 3" src="_images/workflow_high_step3.png" /></p>
+<p><strong>Step. 3</strong>: Apply <code class="docutils literal notranslate"><span class="pre">pype</span></code> function image by image.</p>
+</div></center><p>After adding images and configuration, all is set to process your dataset with high throughput. Using a simple <code class="docutils literal notranslate"><span class="pre">for</span></code> loop, we go through all directories one by one. You can modify the configuration file and controll the window as described as in <a class="reference internal" href="tutorial_2_phenopype_workflow.html#yaml-syntax"><span class="std std-ref">Tutorial 2</span></a>. The <code class="docutils literal notranslate"><span class="pre">skip</span></code> argument will allow to skip files with a given config name you have already analyzed. This allows you to return to the point where you left off.</p>
+<p><strong>NOTE 1:</strong> Make sure to specifiy the name of the config file you added before, in this case, “lm”. The config file name serves multiple purposes: on the one hand it tells the <code class="docutils literal notranslate"><span class="pre">pype</span></code> function which configuration to load, if you have multiple in one directory. On the other hand, the name gets appended to all results files that are produced by this constellation.</p>
+<p><strong>NOTE 2:</strong> Consult <a class="reference internal" href="tutorial_2_phenopype_workflow.html#pype-behavior"><span class="std std-ref">Tutorial 2</span></a> to understand <code class="docutils literal notranslate"><span class="pre">pype</span></code> behavior. For example, the <code class="docutils literal notranslate"><span class="pre">pype</span></code> will automatically save all collected data, and by default overwrite any existing results files, but the latter only if indicated in the config file.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">myproj</span><span class="o">.</span><span class="n">dirpaths</span><span class="p">:</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">img</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;lm&quot;</span><span class="p">,</span>         <span class="c1">## loads the config file &quot;pype_config_lm.yaml&quot;. &quot;lm&quot; gets appended to all results files</span>
+            <span class="n">skip</span><span class="o">=</span><span class="kc">True</span>          <span class="c1">## skip=True will skip over any directories that already contain results files with &quot;lm&quot;</span>
+           <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+
+------------+++ new pype iteration 2020:03:31 13:45:35 +++--------------
+
+
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle1\landmarks_lm.csv.
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle1\canvas_lm.jpg.
+
+
+TERMINATE
+
+
+------------+++ new pype iteration 2020:03:31 13:45:42 +++--------------
+
+
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle2\landmarks_lm.csv.
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle2\canvas_lm.jpg.
+
+
+TERMINATE
+
+
+------------+++ new pype iteration 2020:03:31 13:45:46 +++--------------
+
+
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle3\landmarks_lm.csv.
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle3\canvas_lm.jpg.
+
+
+TERMINATE
+</pre></div></div>
+</div>
+<center><div style="width:500px; text-align: left"><p><img alt="Step 4" src="_images/workflow_high_step4.png" /></p>
+<p><strong>Step. 4</strong>: Each folder contains all information necessary to reproduce the collected phenopytic data. Ouput from different <code class="docutils literal notranslate"><span class="pre">pype</span></code> runs can be stored side by side in the same folders.</p>
+</div></center><p>As mentioned above, it’s possible to have multiple configuration files side by side in phenopype folders. For example, if we want to implement an alternative set of landmarks, we can simply do:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;lm2&quot;</span><span class="p">,</span>                  <span class="c1">## add different name (my not contain underscores or other special characters)</span>
+                  <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;landmarks_plain&quot;</span>    <span class="c1">## same preset</span>
+                 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+pype config generated from landmarks_plain.
+pype_lm2.yaml created for 0__stickle1
+pype_lm2.yaml created for 0__stickle2
+pype_lm2.yaml created for 0__stickle3
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">img</span> <span class="ow">in</span> <span class="n">myproj</span><span class="o">.</span><span class="n">dirpaths</span><span class="p">:</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">img</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;lm2&quot;</span><span class="p">,</span>         <span class="c1">## loads the config file &quot;pype_config_lm2.yaml&quot;. &quot;lm2&quot; gets appended to all results files</span>
+            <span class="n">skip</span><span class="o">=</span><span class="kc">True</span>          <span class="c1">## skip=True will skip over any directories that already contain results files with &quot;lm2&quot;</span>
+           <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+
+------------+++ new pype iteration 2020:03:31 13:45:58 +++--------------
+
+
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle1\landmarks_lm2.csv.
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle1\canvas_lm2.jpg.
+
+
+TERMINATE
+
+
+------------+++ new pype iteration 2020:03:31 13:46:00 +++--------------
+
+
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle2\landmarks_lm2.csv.
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle2\canvas_lm2.jpg.
+
+
+TERMINATE
+
+
+------------+++ new pype iteration 2020:03:31 13:46:03 +++--------------
+
+
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+show_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle3\landmarks_lm2.csv.
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle3\canvas_lm2.jpg.
+
+
+TERMINATE
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;../_temp/my_project/phenopype_analysis\data\0__stickle1&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;attributes.yaml&#39;,
+ &#39;canvas_lm.jpg&#39;,
+ &#39;canvas_lm2.jpg&#39;,
+ &#39;landmarks_lm.csv&#39;,
+ &#39;landmarks_lm2.csv&#39;,
+ &#39;pype_config_lm.yaml&#39;,
+ &#39;pype_config_lm2.yaml&#39;,
+ &#39;raw.JPG&#39;]
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -373,6 +1021,7 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>

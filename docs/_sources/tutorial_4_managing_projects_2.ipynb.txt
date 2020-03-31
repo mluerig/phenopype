@@ -14,7 +14,10 @@
    "execution_count": null,
    "metadata": {},
    "outputs": [],
-   "source": []
+   "source": [
+    "myproj.add_scale(reference_image = \"images/stickleback_side.jpg\", template=True, overwrite=True)\n",
+    "\n"
+   ]
   }
  ],
  "metadata": {
