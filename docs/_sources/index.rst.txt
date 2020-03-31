@@ -49,20 +49,65 @@ Phenopype: a phenotyping pipeline for Python
 
 .. raw:: html
 
+	</div>
+	</div>
+
+	<hr>
 	<h2>Examples</h2>
 
-.. toctree::
-	:maxdepth: 2
+	<div class="row">
+	
+		<div class="col-md-4">
+			<div class="thumbnail">
+			<a href="example_1_detect_objects_isopods.html">
+			<img src="_images/thumbs/ex1.jpg" alt="example_1_detect_objects_isopods" style="width:100%">
+				<div class="caption">
+				<p>Detect multiple isopods (<i>Asellus aquaticus</i>) on a tray and measure size and pigmentation.</p>
+				</div>
+			 </a>
+			</div>
+		</div>
 
-	example_1_detect_objects_isopods
-	example_2_landmarks_stickleback
-	example_3_shape_stickleback
-	example_4_video_analysis_stickleback
+		<div class="col-md-4">
+			<div class="thumbnail">
+			<a href="example_2_landmarks_stickleback.html">
+				<img src="_images/thumbs/ex2.jpg" alt="example_2_landmarks_stickleback" style="width:100%">
+				<div class="caption">
+				<p>Place landmarks on stained threespine stickleback (<i>Gasterosteus aculeatus</i>).</p>
+				</div>
+			 </a>
+			</div>
+		</div>
 
-.. raw:: html
+		<div class="col-md-4">
+			<div class="thumbnail">
+			<a href="example_3_shape_stickleback.html">
+				<img src="_images/thumbs/ex3.jpg" alt="example_3_shape_stickleback" style="width:100%">
+				<div class="caption">
+				<p>Measure size of armor plates of stained threespine stickleback (<i>Gasterosteus aculeatus</i>).</p>
+				</div>
+			 </a>
+			</div>
+		</div>
 
 	</div>
+	<div class="row">
+	
+		<div class="col-md-4">
+			<div class="thumbnail">
+			<a href="example_4_video_analysis_stickleback.html">
+			<img src="_images/thumbs/ex4.jpg" alt="example_4_video_analysis_stickleback" style="width:100%">
+				<div class="caption">
+				<p>Video analysis of movment in predator (stickleback) prey (isopods) interactions.</p>
+				</div>
+			 </a>
+			</div>
+		</div>
+
 	</div>
+
+
+
 
 
 
