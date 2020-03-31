@@ -18,7 +18,7 @@
     "\n",
     "---\n",
     "\n",
-    "For all three workflows, users assemble a stack of computer vision functions from phenopypes five core modules (preprocessing, segmentation, measurement, export, visualization - for an overview check the [API reference](api)). However, the degree of user interaction, visual feedback and the mode by which these functions are applied to images differ, as well as reproducibility. \n",
+    "For all three workflows, users assemble a stack of computer vision functions from phenopypes five core modules (preprocessing, segmentation, measurement, export, visualization - for an overview check the [API reference](api.html)). However, the degree of user interaction, visual feedback and the mode by which these functions are applied to images differ, as well as reproducibility. \n",
     "\n",
     "In the prototyping and low throughput workflow, users write a phenopype function stack in directly in Python code. This is recommended for users who wish to familiarize themselves with the basic principles of computer vision and to explore the phenopype function library. Output from all intermediate steps is returned from the functions and can be evaluated, which makes these routines are also appropriate for prototyping and testing. \n",
     "\n",
@@ -29,14 +29,14 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In the following, all three workflows a demonstrated by analyzing an image of a threespine stickleback (*Gasterosteus aculeatus*) stained with alizarin red. Traits of interest are bone-plate area and shape, and, within the detected plates, pixel intensities that denote bone-density.\n",
+    "\n",
     "\n",
     "<center>\n",
     "<div style=\"width:600px; text-align: left\" >\n",
     "    \n",
     "![Phenopype workflow example](_assets/workflow_example_case.png)\n",
     "    \n",
-    "**Fig. 1:** Workflow demonstration using a stained stickleback. The computer vision functions used to extract the trait of interest (bone-plate area, shape and pixel density) are the same in all cases, but workflows differ in the amount of code necessary and in reproducibility. \n",
+    "**Fig. 1:** Workflow demonstration using a stained stickleback (*Gasterosteus aculeatus*) stained with alizarin red. Traits of interest are bone-plate area and shape, and, within the detected plates, pixel intensities that denote bone-density. The computer vision functions used to extract the trait of interest (bone-plate area, shape and pixel density) are the same in all workflows, but workflows differ in the amount of code necessary and in reproducibility. \n",
     "    \n",
     "</div>\n",
     "</center>"
@@ -55,7 +55,7 @@
    "source": [
     "The low throughput workflow starts with the path to an image that is stored on the hard drive. `load_image` imports the file as a three-channel [1] numpy array (*ndarray*), together with image meta data (file name, exposure, dimensions, etc.) as a pandas *DataFrame*. The array gets passed on to the `threshold` function, which will return a binary array of the same dimensions. This array needs to be passed on to the `find_contours` function, which will return a dictionary with the detected contours. This dictionary, together with the original array, can then be passed to the `colour_intensity` function. This function will collect the average color value from within the perimeter coordinates for each contour and return a pandas dataframe containing those values. Finally, the dataframe can be exported as a csv file with `save_colour`. By passing on the initially created meta-data, the function will automatically expand the provided columns of meta-info into the exported csv.  \n",
     "\n",
-    "[1] to learn more about the basic of Computer Vision check the resources section of the phenopype documentation. "
+    "[1] to learn more about the basic of Computer Vision check the [resources section](resources.html) of the phenopype documentation. "
    ]
   },
   {
@@ -241,7 +241,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "The pype routine is phenopype’s standard method to analyse medium and large image datasets, where a function stack is constructed with the human readable `yaml` syntax (serialization language - for more information see the [resources section](resources) of the phenopype documentation). Users can execute the pype method on a filepath, an array, or a phenopype directory, which always will trigger three actions: \n",
+    "The pype routine is phenopype’s standard method to analyse medium and large image datasets, where a function stack is constructed with the human readable `yaml` syntax (serialization language - for more information see the [resources section](resources.html) of the phenopype documentation). Users can execute the pype method on a filepath, an array, or a phenopype directory, which always will trigger three actions: \n",
     "\n",
     "1. open the contained yaml configuration with the default OS text editor\n",
     "2. parse the contained functions and execute them in the sequence\n",
@@ -256,11 +256,9 @@
    "source": [
     "**Further information** \n",
     "\n",
-    "For more detailed information on `pype` and it's default behavior, see below, and the [pype section of the API reference](api.html#pype-method)\n",
-    "\n",
-    "For more information on how to use the `pype` in conjunction with phenopype projects please refer to the [Phenopype project tutorial](tutorial_3_managing_projects_1.ipynb).\n",
-    "\n",
-    "Also be sure to check the examples, which include both low and high throughput code."
+    "- For more detailed information on `pype` and it's default behavior, see [below](#pype-behavior), and the [pype section of the API reference](api.html#pype-method)\n",
+    "- For more information on how to use the `pype` in conjunction with phenopype projects please refer to the [Tutorial 3](tutorial_3_managing_projects_1.ipynb).\n",
+    "- Check the examples (e.g. [Example 2](example_2_landmarks_stickleback.ipynb)), which include both low and high throughput code."
    ]
   },
   {
