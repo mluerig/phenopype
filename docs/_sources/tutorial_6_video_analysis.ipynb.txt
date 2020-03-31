@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Tutorial 5: Video analysis\n",
+    "# Tutorial 6: Video analysis\n",
     "\n",
     "[ADD TEXT]\n"
    ]

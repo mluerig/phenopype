@@ -98,7 +98,18 @@ Phenopype: a phenotyping pipeline for Python
 			<a href="example_4_video_analysis_stickleback.html">
 			<img src="_images/thumbs/ex4.jpg" alt="example_4_video_analysis_stickleback" style="width:100%">
 				<div class="caption">
-				<p>Video analysis of movment in predator (stickleback) prey (isopods) interactions.</p>
+				<p>Video analysis of movment in predator - prey (stickleback and isopods) interactions.</p>
+				</div>
+			 </a>
+			</div>
+		</div>
+
+		<div class="col-md-4">
+			<div class="thumbnail">
+			<a href="example_5_phytoplankton.html">
+			<img src="_images/thumbs/ex5.jpg" alt="example_4_video_analysis_stickleback" style="width:100%">
+				<div class="caption">
+				<p>Quantifying fluorescence and shape of  phytoplankton cells in  microcoscope images.</p>
 				</div>
 			 </a>
 			</div>

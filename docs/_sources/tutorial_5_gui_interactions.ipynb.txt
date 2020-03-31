@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Tutorial 5: GUI interactions and behavior \n",
+    "# Tutorial 5: GUI interactions (masks, lines and drawing tools)\n",
     "\n",
     "[ADD TEXT]\n"
    ]
