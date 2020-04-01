@@ -66,8 +66,8 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions and behavior</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 5: Video analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
 </ul>
 </ul>
 </li>
@@ -84,7 +84,7 @@
 <li><a class="reference internal" href="#">API reference</a><ul>
 <li><a class="reference internal" href="#main-package-functions">Main package functions</a><ul>
 <li><a class="reference internal" href="#project-management">Project management</a></li>
-<li><a class="reference internal" href="#pype-method">Pype method</a></li>
+<li><a class="reference internal" href="#pype-method">pype method</a></li>
 <li><a class="reference internal" href="#utility-functions">Utility functions</a></li>
 </ul>
 </li>
@@ -156,7 +156,7 @@
 <li><a class="reference internal" href="#">API reference</a><ul>
 <li><a class="reference internal" href="#main-package-functions">Main package functions</a><ul>
 <li><a class="reference internal" href="#project-management">Project management</a></li>
-<li><a class="reference internal" href="#pype-method">Pype method</a></li>
+<li><a class="reference internal" href="#pype-method">pype method</a></li>
 <li><a class="reference internal" href="#utility-functions">Utility functions</a></li>
 </ul>
 </li>
@@ -189,7 +189,7 @@
 <div class="section" id="main-package-functions">
 <h2>Main package functions<a class="headerlink" href="#main-package-functions" title="Permalink to this headline">¶</a></h2>
 <p>Basic package components include classes and functions to start a new project (<a class="reference internal" href="#project-management"><span class="std std-ref">Project management</span></a>), to save and load projects, and to
-run the high throughout routine (<a class="reference internal" href="#pype-method"><span class="std std-ref">Pype method</span></a>). This also includes utility functions, e.g. to load
+run the high throughout routine (<a class="reference internal" href="#pype-method"><span class="std std-ref">pype method</span></a>). This also includes utility functions, e.g. to load
 and display images (<a class="reference internal" href="#utility-functions"><span class="std std-ref">Utility functions</span></a>)..</p>
 <hr class="docutils" />
 <div class="section" id="project-management">
@@ -371,7 +371,7 @@ separately with the appropriate export functions (e.g.
 
 </div>
 <div class="section" id="pype-method">
-<h3>Pype method<a class="headerlink" href="#pype-method" title="Permalink to this headline">¶</a></h3>
+<h3>pype method<a class="headerlink" href="#pype-method" title="Permalink to this headline">¶</a></h3>
 Method used to process image datasets with high throughput and reproducibility. Users should use the pype method in
 conjunction with image organized in a phenopype directory structure. To get started with the high througput workflow, see
 <a href="tutorial_2_phenopype_workflow.html">Tutorial 2</a> and <a href="tutorial_3_managing_projects_1.html">Tutorial 3</a>.
@@ -461,7 +461,7 @@ to all results-DataFrames</p></li>
 </dl>
 <dl class="py method">
 <dt id="phenopype.utils.container.load">
-<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">save_suffix</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">contours</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Autoload function for container: loads results files with given save_suffix
 into the container. Can be used manually, but is typically used within the
 pype routine.</p>

@@ -64,8 +64,8 @@ Above code creates a folder structure as follows:
 	:show-inheritance:
 
 
-Pype method
-"""""""""""
+pype method
+"""""""""""""""""""
 
 .. raw:: html
 

@@ -66,14 +66,8 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 2: Working with phenopype</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions and behavior</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 5: Video analysis</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="example_1_detect_objects_isopods.html">Example 1: Measuring shape, size and colour of isopods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_2_landmarks_stickleback.html">Example 2: Stickleback morphometrics - landmarks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_3_shape_stickleback.html">Example 3: Stickleback morphometrics - body and armor-plate shape</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_4_video_analysis_stickleback.html">Example 4: Video analysis - predator prey interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
 </ul>
 </ul>
 </li>
@@ -92,7 +86,13 @@
 <li><a class="reference internal" href="#Low-throughput-worflow">Low throughput worflow</a></li>
 <li><a class="reference internal" href="#High-throughput-worflow">High throughput worflow</a><ul>
 <li><a class="reference internal" href="#yaml-syntax">yaml-syntax</a></li>
-<li><a class="reference internal" href="#pype-behavior"><code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
+<li><a class="reference internal" href="#pype-behavior"><em>pype</em> behavior</a><ul>
+<li><a class="reference internal" href="#Window-control">Window control</a></li>
+<li><a class="reference internal" href="#Function-execution">Function execution</a></li>
+<li><a class="reference internal" href="#Visualization">Visualization</a></li>
+<li><a class="reference internal" href="#Export">Export</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -149,7 +149,13 @@
 <li><a class="reference internal" href="#Low-throughput-worflow">Low throughput worflow</a></li>
 <li><a class="reference internal" href="#High-throughput-worflow">High throughput worflow</a><ul>
 <li><a class="reference internal" href="#yaml-syntax">yaml-syntax</a></li>
-<li><a class="reference internal" href="#pype-behavior"><code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior</a></li>
+<li><a class="reference internal" href="#pype-behavior"><em>pype</em> behavior</a><ul>
+<li><a class="reference internal" href="#Window-control">Window control</a></li>
+<li><a class="reference internal" href="#Function-execution">Function execution</a></li>
+<li><a class="reference internal" href="#Visualization">Visualization</a></li>
+<li><a class="reference internal" href="#Export">Export</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -432,11 +438,11 @@ appropriate for all stages of the scientific process:</p>
 <h2>Prototyping worflow<a class="headerlink" href="#Prototyping-worflow" title="Permalink to this headline">¶</a></h2>
 <p>The low throughput workflow starts with the path to an image that is stored on the hard drive. <code class="docutils literal notranslate"><span class="pre">load_image</span></code> imports the file as a three-channel [1] numpy array (<em>ndarray</em>), together with image meta data (file name, exposure, dimensions, etc.) as a pandas <em>DataFrame</em>. The array gets passed on to the <code class="docutils literal notranslate"><span class="pre">threshold</span></code> function, which will return a binary array of the same dimensions. This array needs to be passed on to the <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> function, which will return a dictionary with the detected
 contours. This dictionary, together with the original array, can then be passed to the <code class="docutils literal notranslate"><span class="pre">colour_intensity</span></code> function. This function will collect the average color value from within the perimeter coordinates for each contour and return a pandas dataframe containing those values. Finally, the dataframe can be exported as a csv file with <code class="docutils literal notranslate"><span class="pre">save_colour</span></code>. By passing on the initially created meta-data, the function will automatically expand the provided columns of meta-info into the exported csv.</p>
-<p>[1] to learn more about the basic of Computer Vision check the <a class="reference external" href="resources.html">resources section</a> of the phenopype documentation.</p>
+<p>[1] to learn more about the basics of Computer Vision check the <a class="reference external" href="resources.html">resources section</a> of the phenopype documentation.</p>
 <p><img alt="Phenopype prototyping workflow" src="_images/workflow_proto.png" /></p>
 <p>Fig. 2: Schematic of Phenopype’s prototyping workflow</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -476,12 +482,12 @@ contours. This dictionary, together with the original array, can then be passed 
 <div class="highlight"><pre>
 - create mask
 - applying mask: mask1
-- contours saved under ../_temp/output\contours.csv (overwritten).
+- contours saved under ../_temp/output\contours.csv.
 </pre></div></div>
 </div>
 <p>While analyzing the image, you can explore output from the different steps to see what is going on. For example, the binary image resulting from the thresholding:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -496,7 +502,7 @@ contours. This dictionary, together with the original array, can then be passed 
 analyze images, but typically they are used automatically within the pype-routine that is part of phenoype’s high throughput workflow (see below).</p>
 <p><img alt="Phenopype low throughput workflow" src="_images/workflow_low.png" /></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -529,12 +535,12 @@ analyze images, but typically they are used automatically within the pype-routin
 <div class="highlight"><pre>
 - create mask
 - applying mask: mask1
-- contours saved under images\contours.csv.
+- contours saved under ../_temp/output\contours.csv.
 </pre></div></div>
 </div>
 <p>Although the intermediate steps from the functions are not present as objects in the namespace, you can access and evaluate it from the container. Again, we will look at the binary image:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -543,8 +549,8 @@ analyze images, but typically they are used automatically within the pype-routin
 </div>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">dir</span></code> to inspect all the components of the container:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -552,18 +558,10 @@ analyze images, but typically they are used automatically within the pype-routin
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-[&#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;canvas&#39;, &#39;df_contours&#39;, &#39;df_image_data&#39;, &#39;df_image_data_copy&#39;, &#39;df_masks&#39;, &#39;dirpath&#39;, &#39;image&#39;, &#39;image_bin&#39;, &#39;image_copy&#39;, &#39;image_data&#39;, &#39;image_gray&#39;, &#39;image_mod&#39;, &#39;load&#39;, &#39;reset&#39;, &#39;save&#39;, &#39;save_suffix&#39;, &#39;show&#39;]
-</pre></div></div>
-</div>
 </div>
 <div class="section" id="High-throughput-worflow">
 <h2>High throughput worflow<a class="headerlink" href="#High-throughput-worflow" title="Permalink to this headline">¶</a></h2>
-<p>The pype routine is phenopype’s standard method to analyse medium and large image datasets, where a function stack is constructed with the human readable <code class="docutils literal notranslate"><span class="pre">yaml</span></code> syntax (serialization language - for more information see the <a class="reference external" href="resources.html">resources section</a> of the phenopype documentation). Users can execute the pype method on a filepath, an array, or a phenopype directory, which always will trigger three actions:</p>
+<p>The pype routine is phenopype’s standard method to analyse medium and large image datasets, where a function stack is constructed with the human readable <code class="docutils literal notranslate"><span class="pre">yaml</span></code> syntax (<a class="reference external" href="#yaml-syntax">see below</a>). Users can execute the pype method on a filepath, an array, or a phenopype directory, which always will trigger three actions:</p>
 <ol class="arabic simple">
 <li><p>open the contained yaml configuration with the default OS text editor</p></li>
 <li><p>parse the contained functions and execute them in the sequence</p></li>
@@ -573,13 +571,13 @@ analyze images, but typically they are used automatically within the pype-routin
 provide the full image analysis pipeline to anyone who wishes to reproduce the obtained results.</p>
 <p><strong>Further information</strong></p>
 <ul class="simple">
-<li><p>For more detailed information on <code class="docutils literal notranslate"><span class="pre">pype</span></code> and it’s default behavior, see <a class="reference external" href="#pype-behavior">below</a>, and the <a class="reference external" href="api.html#pype-method">pype section of the API reference</a></p></li>
+<li><p>For more detailed information on the <code class="docutils literal notranslate"><span class="pre">pype</span></code> method, configuration files, and default behavior, see <a class="reference external" href="#yaml-syntax">below</a>, and the <a class="reference external" href="api.html#pype-method">pype section of the API reference</a></p></li>
 <li><p>For more information on how to use the <code class="docutils literal notranslate"><span class="pre">pype</span></code> in conjunction with phenopype projects please refer to the <a class="reference internal" href="tutorial_3_managing_projects_1.html"><span class="doc">Tutorial 3</span></a>.</p></li>
-<li><p>Check the examples (e.g. <a class="reference internal" href="example_2_landmarks_stickleback.html"><span class="doc">Example 2</span></a>), which include both low and high throughput code.</p></li>
+<li><p>Also, check the examples (e.g. <a class="reference internal" href="example_2_landmarks_stickleback.html"><span class="doc">Example 2</span></a>), which include code for both low and high throughput.</p></li>
 </ul>
 <p><img alt="Phenopype high throughput workflow" src="_images/workflow_high.png" /></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -588,9 +586,9 @@ provide the full image analysis pipeline to anyone who wishes to reproduce the o
 <span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/stickleback_side.jpg&quot;</span>
 
 <span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">image</span><span class="o">=</span><span class="n">filepath</span><span class="p">,</span> <span class="c1"># input - can be also an array or a phenopype directory</span>
-        <span class="n">dirpath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">,</span> <span class="c1">## where output is stored</span>
+        <span class="n">dirpath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">,</span> <span class="c1">## where output is stored - folder needs to exist</span>
         <span class="n">name</span><span class="o">=</span><span class="s2">&quot;demo&quot;</span><span class="p">,</span> <span class="c1"># name of the  pype routine, appended to all results-files</span>
-        <span class="n">preset</span><span class="o">=</span><span class="s2">&quot;demo1&quot;</span> <span class="c1"># template for the analysis - you can create your own!</span>
+        <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;demo1&quot;</span> <span class="c1"># template for the analysis - you can create your own!</span>
         <span class="p">)</span>
 </pre></div>
 </div>
@@ -602,7 +600,7 @@ provide the full image analysis pipeline to anyone who wishes to reproduce the o
 <div class="highlight"><pre>
 
 
-------------+++ new pype iteration 2020:03:25 15:03:29 +++--------------
+------------+++ new pype iteration 2020:04:01 09:53:59 +++--------------
 
 
 AUTOLOAD
@@ -611,7 +609,6 @@ PREPROCESSING
 create_mask
 - mask with label mask1 already created (overwrite=False)
 SEGMENTATION
-blur
 threshold
 - applying mask: mask1
 morphology
@@ -635,38 +632,142 @@ TERMINATE
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;phenopype.main.pype at 0x18b78889d48&gt;
+&lt;phenopype.main.pype at 0x25b7d2fa8c8&gt;
 </pre></div></div>
 </div>
-<p>At the current stage of development, the pype method is prone to errors resulting from incorrect yaml syntax, e.g. missing spaces or wrong indentation. The pype will still try to run from bottom to top and pass exceptions, but may result in errors that cascade through the function stack. Therefore I am going over basic yaml syntax, and the specific structure of the pype_config files.</p>
-<p>Moreover, the pype will trigger specific behavior of some functions to facilitate user experience when working with large data sets. Fore example, some functions get called automatically (e.g. from the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> and <code class="docutils literal notranslate"><span class="pre">export</span></code> modules), but they don’t necessarily show default behavior as documented in the api (e.g. <code class="docutils literal notranslate"><span class="pre">visualization.save_canvas</span></code> will always have <code class="docutils literal notranslate"><span class="pre">overwrite=True</span></code> to save output canvas). To clarify I am explaining here the most important aspects of <code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior.</p>
+<p>At the current stage of development, the pype method is prone to errors resulting from incorrect yaml syntax, e.g. missing spaces or wrong indentation. The pype will still try to run from bottom to top and pass exceptions, but may result in errors that cascade through the function stack. Consult the section <a class="reference external" href="#yaml-syntax">below</a> on how to modify yaml-syntax.</p>
+<p>Moreover, the pype will trigger specific behavior of some functions to facilitate user experience when working with large data sets. Fore example, some functions get called automatically (e.g. from the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> and <code class="docutils literal notranslate"><span class="pre">export</span></code> modules), but they don’t necessarily show default behavior as documented in the api (e.g. <code class="docutils literal notranslate"><span class="pre">visualization.save_canvas</span></code> will always have <code class="docutils literal notranslate"><span class="pre">overwrite=True</span></code> to save output canvas). Consult the section <a class="reference external" href="#pype-behavior">below</a> to learn about pype-behavior.</p>
 <div class="section" id="yaml-syntax">
 <h3>yaml-syntax<a class="headerlink" href="#yaml-syntax" title="Permalink to this headline">¶</a></h3>
+<p>The configuration files needed to run the pype are written in yaml (a recursive acronym for “YAML Ain’t Markup Language”). In principle, these are just text files that follow a specific syntax that follows rules for <a class="reference external" href="https://www.tutorialspoint.com/yaml/yaml_indentation_and_separation.htm">indentation and separation</a>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">demo1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+preprocessing:
+- create_mask:
+    tool: polygon
+segmentation:
+- threshold:
+    method: adaptive
+    blocksize: 199
+    constant: 5
+    channel: red
+- morphology:
+    operation: close
+    shape: ellipse
+    kernel_size: 3
+    iterations: 3
+- find_contours:
+    retrieval: ext
+    min_diameter: 0
+    min_area: 150
+measurement:
+visualization:
+- select_canvas:
+    canvas: image
+- show_contours:
+    line_thickness: 2
+    text_thickness: 1
+    text_size: 1
+    fill: 0.3
+- show_masks
+export:
+- save_contours:
+    overwrite: true
+- save_canvas:
+    resize: 0.5
+    overwrite: true
+
+</pre></div></div>
+</div>
+<p>The text inside the yaml configuration files is parsed by Python from top to bottom, i.e. converted to modules and functions in Phenopype. The first level without any indentation, e.g. from the above example <code class="docutils literal notranslate"><span class="pre">segmentation</span></code>, <code class="docutils literal notranslate"><span class="pre">visualization</span></code> and <code class="docutils literal notranslate"><span class="pre">export</span></code>, denote from the core module that a function is part of. The second level, e.g. <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">threshold</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">find_contours</span></code> are functions inside the <code class="docutils literal notranslate"><span class="pre">segmentation</span></code> module. The third level, e.g. <code class="docutils literal notranslate"><span class="pre">method:</span> <span class="pre">otsu</span></code> and <code class="docutils literal notranslate"><span class="pre">blocksize:</span> <span class="pre">99</span></code>, are
+arguments passed on to the function. Following this notation, the yaml parser in Python would interpret the first item in <code class="docutils literal notranslate"><span class="pre">segmentation</span></code> as follows:</p>
+<p>pp.segmentation.threshold(image, method=“otsu”, blocksize=99, constant=1, value=127, channel=“gray”)</p>
+<p>When running the pype routine, <code class="docutils literal notranslate"><span class="pre">image</span></code> is automatically loaded and passed to all functions. Apart from that you can add or remove functions as you like. Note the hyphen followed by a space in front (<code class="docutils literal notranslate"><span class="pre">-</span></code>) a function: this notation indicates that during parsing the items are interpreted as part of a list. This important, as it allows you to specify the same function as many times as you want.</p>
+<p>When adding or modifying modules and functions, it is important to keep in mind that the <strong>function stack is executed sequentially</strong>. So, if you want to perform a <code class="docutils literal notranslate"><span class="pre">morphology</span></code> operation on a binary images, it should come <em>after</em> and not before the main segmentation function (in this case <code class="docutils literal notranslate"><span class="pre">threshold</span></code>). Also, the order for modules should always be:</p>
+<p><strong>preprocessing &gt; segmentation &gt; measurement &gt; visualization &gt; export</strong></p>
+<p>Here are the most important syntax rules summed up:</p>
+<ul class="simple">
+<li><p><strong>indentation rules:</strong> 0 spaces for modules, hyphen+space in front of functions, 4 spaces in front of arguments</p></li>
+<li><p><strong>separation rules:</strong> modules and functions with arguments are followed by a colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>) and a new line; functions without specified arguments don’t need a colon; arguments are followed by a colon, a space and then the value</p></li>
+<li><p>modules and functions can be emtpy (e.g. see <code class="docutils literal notranslate"><span class="pre">measurement:</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">show_masks</span></code> above), but function arguments <em>cannot</em> (e.g. <code class="docutils literal notranslate"><span class="pre">overwrite:</span></code> needs to be <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
+<li><p>as per Python syntax, optional function arguments can, but don’t have to be specified and the functions will just run on default values</p></li>
+<li><p>if you need to add modules (not all presets contain all modules), stick to this order: preprocessing &gt; segmentation &gt; measurement &gt; visualization &gt; export</p></li>
+<li><p>functions can be added multiple times, but sometimes their output may be overwtritten (e.g. <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">threshold</span></code> only works once, <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">create_mask</span></code> multiple times [1])</p></li>
+</ul>
+<p>[1] Note that one <code class="docutils literal notranslate"><span class="pre">create_mask</span></code> mask operation already can create multiple masks - see <a class="reference internal" href="tutorial_5_gui_interactions.html"><span class="doc">Tutorial 5</span></a>.</p>
 </div>
 <div class="section" id="pype-behavior">
-<h3><code class="docutils literal notranslate"><span class="pre">pype</span></code>-behavior<a class="headerlink" href="#pype-behavior" title="Permalink to this headline">¶</a></h3>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
+<h3><em>pype</em> behavior<a class="headerlink" href="#pype-behavior" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">pype</span></code> function has specific implicit [1] behavior that aims at supporting speed and robustness when working in “production” (i.e. when performing the actual analysis of large image datasets compared to prototyping and low throughput workflow). Here I list some important aspects of that behavior.</p>
+<div class="section" id="Window-control">
+<h4>Window control<a class="headerlink" href="#Window-control" title="Permalink to this headline">¶</a></h4>
+<p>Handling the popped up image and text windows (if your text window didn’t pop up, check the <a class="reference external" href="installation.html#choose-a-text-editor">installation instructions</a>).</p>
+<ol class="arabic simple">
+<li><p>Editing and saving the opened configuration file will close the image window, run the functions in the control file, and show the updated results.</p></li>
+<li><p>Closing the image window manually (with the X button in the upper right), also runs the functions in the control file, and show the updated results.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Esc</span></code> will close all windows and interrupt the pype routine (<code class="docutils literal notranslate"><span class="pre">Esc</span></code> triggers <code class="docutils literal notranslate"><span class="pre">sys.exit()</span></code>, which will also end a Python session if run from the command line) [2,3].</p></li>
+<li><p>Each step that requires user interaction (e.g. <code class="docutils literal notranslate"><span class="pre">create_mask</span></code> or <code class="docutils literal notranslate"><span class="pre">landmarks</span></code>) needs to be confirmed with <code class="docutils literal notranslate"><span class="pre">Return</span></code> until the next function in the sequence is executed [2,3].</p></li>
+<li><p>At the end of the analysis, when the final steps (visualization and export functions) have run, you can end the pype routine with another <code class="docutils literal notranslate"><span class="pre">Return</span></code> keystroke [2,3].</p></li>
+</ol>
+<p>[1] At this point, it’s not configurable, but later versions will allow to customize the behavior.</p>
+<p>[2] Sometimes keystrokes will not be recognized, so they need to be executed multiple times - see <a class="reference internal" href="tutorial_5_gui_interactions.html"><span class="doc">Tutorial 5</span></a>.</p>
+<p>[3] The image window needs to be highlighted to detect keystrokes, not the text editor or the console - see <a class="reference internal" href="tutorial_5_gui_interactions.html"><span class="doc">Tutorial 5</span></a>.</p>
 </div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
+<div class="section" id="Function-execution">
+<h4>Function execution<a class="headerlink" href="#Function-execution" title="Permalink to this headline">¶</a></h4>
+<p>Handling the function stack specified in the config files</p>
+<ol class="arabic simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">pype</span></code> function will execute all functions in sequence and overwrite past iterations, except data from interactive user input (e.g. <code class="docutils literal notranslate"><span class="pre">create_mask</span></code> or <code class="docutils literal notranslate"><span class="pre">landmarks</span></code> - see point 2.).</p></li>
+<li><p>To overwrite interactive user input, set the argument <code class="docutils literal notranslate"><span class="pre">overwrite:</span> <span class="pre">true</span></code> at the specific function in the configuration file. <strong>Remember to remove it after the next run. [1]</strong></p></li>
+<li><p>If a <code class="docutils literal notranslate"><span class="pre">pype</span></code> is initialized on a directory (either from a Phenopype project or a directory specified with the argument <code class="docutils literal notranslate"><span class="pre">dirpath</span></code>), it will attempt to load input data (e.g. masks) that contain the provided <code class="docutils literal notranslate"><span class="pre">name</span></code> argument [2].</p></li>
+<li><p>To edit the loaded input data, set the argument <code class="docutils literal notranslate"><span class="pre">overwrite:</span> <span class="pre">true</span></code> as explained in point 2.</p></li>
+</ol>
+<p>[1] If you forget to remove an overwrite argument and are prompted to overwrite previous input, simply remove the <code class="docutils literal notranslate"><span class="pre">overwrite:</span> <span class="pre">true</span></code> argument, and save to run the <code class="docutils literal notranslate"><span class="pre">pype</span></code> again, it will fall back onto input from the last iteration.</p>
+<p>[2] For example, <code class="docutils literal notranslate"><span class="pre">pp.pype(image,</span> <span class="pre">name=&quot;run1&quot;,</span> <span class="pre">dirpath=&quot;path\to\directory)</span></code> will attempt to load any saved files in <code class="docutils literal notranslate"><span class="pre">directory</span></code> that contains the suffix <code class="docutils literal notranslate"><span class="pre">&quot;run1&quot;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;masks_run1.csv&quot;</span></code>).</p>
 </div>
+<div class="section" id="Visualization">
+<h4>Visualization<a class="headerlink" href="#Visualization" title="Permalink to this headline">¶</a></h4>
+<p>Handling aspects of visual feedback (can be completely suppressed by setting <code class="docutils literal notranslate"><span class="pre">feedback=False</span></code> in the <code class="docutils literal notranslate"><span class="pre">pype</span></code> arguments).</p>
+<ol class="arabic simple">
+<li><p>Visual feedback is always generated automatically by an internal function that show results (i.e. output from <code class="docutils literal notranslate"><span class="pre">landmarks</span></code>, <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> or <code class="docutils literal notranslate"><span class="pre">create_mask</span></code>) on top of a “canvas”.</p></li>
+<li><p>The canvas can be the image at any step of analytic process (i.e. raw image, binary image, or a colour channel [gray, red, green or blue]) and is selected with <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">select_canvas</span></code> as part of the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> module.</p></li>
+<li><p>If <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">select_canvas</span></code> is not specified explicitly, it is called automatically and defaults to the raw image as canvas.</p></li>
+<li><p>Output from all functions, needs to be specified manually. So, after using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">landmarks</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">show_landmarks</span></code> should be called in the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> module. [1]</p></li>
+<li><p>Visual parameters of interactive tools (e.g. <code class="docutils literal notranslate"><span class="pre">point_size</span></code> or <code class="docutils literal notranslate"><span class="pre">line_thickness</span></code>) is specified separately in the respective function, <em>and</em> in the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> module.</p></li>
+</ol>
+<p>[1] Experimental: use the flag <code class="docutils literal notranslate"><span class="pre">autoshow=True</span></code> in the <code class="docutils literal notranslate"><span class="pre">pype</span></code> arguments to automatically show results.</p>
 </div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
-</div>
+<div class="section" id="Export">
+<h4>Export<a class="headerlink" href="#Export" title="Permalink to this headline">¶</a></h4>
+<p>Saving results and canvas for quality control.</p>
+<ol class="arabic simple">
+<li><p>All results are saved automatically, even if the respective functions in <code class="docutils literal notranslate"><span class="pre">export</span></code> are not specified, with the <code class="docutils literal notranslate"><span class="pre">name</span></code> argument in <code class="docutils literal notranslate"><span class="pre">pype</span></code> as suffix [1,2].</p></li>
+<li><p>If a file already exist in the directory, and the respective function is <em>not</em> listed under <code class="docutils literal notranslate"><span class="pre">export:</span></code>, then it <em>will not</em> be overwritten. If an export function <em>is</em> specified under <code class="docutils literal notranslate"><span class="pre">export:</span></code>, it <em>will overwrite</em> any existing file [3]</p></li>
+<li><p>The canvas is an exception: it will always be saved and always be overwritten to show the output from the last iteration. However, users can modify the canvas name with <code class="docutils literal notranslate"><span class="pre">name</span></code> in the arguments to save different output side by side [3].</p></li>
+</ol>
+<p>[1] Experimental: use the flag <code class="docutils literal notranslate"><span class="pre">autosave=False</span></code> in the <code class="docutils literal notranslate"><span class="pre">pype</span></code> arguments to deactivate this behavior.</p>
+<p>[2] For example, <code class="docutils literal notranslate"><span class="pre">pp.pype(image,</span> <span class="pre">name=&quot;run1&quot;)</span></code> will save <code class="docutils literal notranslate"><span class="pre">&quot;masks_run1.csv&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;contours_run1.csv&quot;</span></code>.</p>
+<p>[3] For example, listing <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">save_landmarks</span></code> under <code class="docutils literal notranslate"><span class="pre">export:</span></code> will overwrite <code class="docutils literal notranslate"><span class="pre">landmarks_run1.csv</span></code></p>
+<p>[4] For example, <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">binary</span></code> under <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">save_canvas:</span></code> save the canvas as <code class="docutils literal notranslate"><span class="pre">canvas_binary.jpg</span></code></p>
 </div>
 </div>
 </div>
