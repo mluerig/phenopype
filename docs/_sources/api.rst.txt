@@ -2,17 +2,8 @@
 API reference
 =============
 
-Main package functions 
-----------------------
-
-Basic package components include classes and functions to start a new project (:ref:`Project management`), to save and load projects, and to 
-run the high throughout routine (:ref:`Pype method`). This also includes utility functions, e.g. to load 
-and display images (:ref:`Utility functions`)..
-
-------------------------------------------------------------------------------------------------------------------------------------
-
-Project management
-""""""""""""""""""
+Projects
+--------
 
 Phenopype projects are composed of a directory tree in which each folder contains the copy or a link to a single raw image file. Each raw 
 should have only one folder, so that result or intermediate output from different iterations of processing and analysis are stored side 
@@ -64,14 +55,16 @@ Above code creates a folder structure as follows:
 	:show-inheritance:
 
 
-pype method
-"""""""""""""""""""
+
+pype (high throughput function)
+-------------------------------
 
 .. raw:: html
 
-	Method used to process image datasets with high throughput and reproducibility. Users should use the pype method in 
-	conjunction with image organized in a phenopype directory structure. To get started with the high througput workflow, see 
-	<a href="tutorial_2_phenopype_workflow.html">Tutorial 2</a> and <a href="tutorial_3_managing_projects_1.html">Tutorial 3</a>.
+	Method used to process image datasets with high throughput and reproducibility. Should be used in 
+	conjunction with image organized in a Phenopype directory structure. To get started with the high 
+	througput workflow, see <a href="tutorial_2_phenopype_workflow.html">Tutorial 2</a> and 
+	<a href="tutorial_3_managing_projects_1.html">Tutorial 3</a>.
 	<br>
 
 .. figure:: pype.png
@@ -85,7 +78,7 @@ pype method
 
 
 Utility functions
-"""""""""""""""""
+-----------------
 
 Utility functions, e.g. to load and display images ,e.g. :func:`pp.utils.load_image` and :func:`pp.utils.show_image`. 
 Any of these functions can be called directly after loading  phenopype without the need to add the :code:`utils` submodule:
@@ -104,15 +97,11 @@ Any of these functions can be called directly after loading  phenopype without t
 	:members:
 	:undoc-members:
 	:show-inheritance:
-
-
-
-------------------------------------------------------------------------------------------------------------------------------------
-
+	:exclude-members: custom_formatwarning
 
 
 Image analysis (core modules)
--------------------------------
+-----------------------------
 
 Preprocessing
 """""""""""""
@@ -125,6 +114,7 @@ Preprocessing
 	:show-inheritance:
 
 
+
 Segmentation
 """"""""""""
 
@@ -134,6 +124,7 @@ Segmentation
 	:members:
 	:undoc-members:
 	:show-inheritance:
+
 
 
 Measurement
@@ -148,13 +139,6 @@ Measurement
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-Image analysis (support modules)
-----------------------------------
-
 Visualization
 """""""""""""
 
@@ -164,6 +148,8 @@ Visualization
 	:members:
 	:undoc-members:
 	:show-inheritance:
+
+
 
 Export
 """"""
@@ -177,15 +163,11 @@ Export
 
 
 
-------------------------------------------------------------------------------------------------------------------------------------
-
-
-
 Video analysis
 --------------
 
-Motion tracking (core module)
-"""""""""""""""""""""""""""""
+Generic motion tracking
+"""""""""""""""""""""""
 
 [ADD TEXT]
 
@@ -194,8 +176,8 @@ Motion tracking (core module)
 	:undoc-members:
 	:show-inheritance:	
 
-Tracking method (customizable method)
-"""""""""""""""""""""""""""""""""""""
+Define tracking method
+""""""""""""""""""""""
 
 [ADD TEXT]
 

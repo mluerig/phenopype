@@ -66,14 +66,8 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 3: Setting up and managing phenopype projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions and behavior</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 5: Video analysis</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="example_1_detect_objects_isopods.html">Example 1: Measuring shape, size and colour of isopods</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_2_landmarks_stickleback.html">Example 2: Stickleback morphometrics - landmarks</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_3_shape_stickleback.html">Example 3: Stickleback morphometrics - body and armor-plate shape</a></li>
-<li class="toctree-l1"><a class="reference internal" href="example_4_video_analysis_stickleback.html">Example 4: Video analysis - predator prey interactions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
 </ul>
 </ul>
 </li>
@@ -89,7 +83,7 @@
       aria-labelledby="dLabelLocalToc"><ul>
 <li><a class="reference internal" href="#">Tutorial 3: Setting up and managing phenopype projects</a><ul>
 <li><a class="reference internal" href="#Create-project-and-add-images">Create project and add images</a></li>
-<li><a class="reference internal" href="#Add-pype-configuration-files">Add <code class="docutils literal notranslate"><span class="pre">pype</span></code>-configuration files</a></li>
+<li><a class="reference internal" href="#Add-pype-configuration-files">Add pype-configuration files</a></li>
 <li><a class="reference internal" href="#Saving-and-loading-a-project">Saving and loading a project</a></li>
 <li><a class="reference internal" href="#Applying-the-pype-to-project-folders">Applying the pype to project folders</a></li>
 </ul>
@@ -143,7 +137,7 @@
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
 <li><a class="reference internal" href="#">Tutorial 3: Setting up and managing phenopype projects</a><ul>
 <li><a class="reference internal" href="#Create-project-and-add-images">Create project and add images</a></li>
-<li><a class="reference internal" href="#Add-pype-configuration-files">Add <code class="docutils literal notranslate"><span class="pre">pype</span></code>-configuration files</a></li>
+<li><a class="reference internal" href="#Add-pype-configuration-files">Add pype-configuration files</a></li>
 <li><a class="reference internal" href="#Saving-and-loading-a-project">Saving and loading a project</a></li>
 <li><a class="reference internal" href="#Applying-the-pype-to-project-folders">Applying the pype to project folders</a></li>
 </ul>
@@ -585,7 +579,7 @@ add_files(self, image_dir, filetypes=[&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#3
 </div>
 </div>
 <div class="section" id="Add-pype-configuration-files">
-<h2>Add <code class="docutils literal notranslate"><span class="pre">pype</span></code>-configuration files<a class="headerlink" href="#Add-pype-configuration-files" title="Permalink to this headline">¶</a></h2>
+<h2>Add pype-configuration files<a class="headerlink" href="#Add-pype-configuration-files" title="Permalink to this headline">¶</a></h2>
 <center><div style="width:500px; text-align: left"><p><img alt="Step 2" src="_images/workflow_high_step2.png" /></p>
 <p><strong>Step. 2</strong>: Create configuration files and store them alongside the raw images.</p>
 </div></center><p>In the next step we prepare the files we added for use with the <code class="docutils literal notranslate"><span class="pre">pype</span></code> routine by addding a configuration file with the <code class="docutils literal notranslate"><span class="pre">add_config</span></code> method. Instead of adding the functions one by one we can load presets that are appropriate for the given computer vision analysis.</p>

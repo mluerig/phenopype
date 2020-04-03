@@ -24,7 +24,7 @@ Phenopype: a phenotyping pipeline for Python
 	<h2>Documentation</h2>
 
 .. toctree::
-	:maxdepth: 3
+	:maxdepth: 2
 
 	installation
 	api
@@ -37,7 +37,7 @@ Phenopype: a phenotyping pipeline for Python
 	<h2>Tutorials</h2>
 
 .. toctree::
-	:maxdepth: 2
+	:maxdepth: 1
 
 	tutorial_0
 	tutorial_1_python_intro

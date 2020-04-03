@@ -86,7 +86,7 @@
 <li><a class="reference internal" href="#Low-throughput-worflow">Low throughput worflow</a></li>
 <li><a class="reference internal" href="#High-throughput-worflow">High throughput worflow</a><ul>
 <li><a class="reference internal" href="#yaml-syntax">yaml-syntax</a></li>
-<li><a class="reference internal" href="#pype-behavior"><em>pype</em> behavior</a><ul>
+<li><a class="reference internal" href="#pype-behavior">pype behavior</a><ul>
 <li><a class="reference internal" href="#Window-control">Window control</a></li>
 <li><a class="reference internal" href="#Function-execution">Function execution</a></li>
 <li><a class="reference internal" href="#Visualization">Visualization</a></li>
@@ -149,7 +149,7 @@
 <li><a class="reference internal" href="#Low-throughput-worflow">Low throughput worflow</a></li>
 <li><a class="reference internal" href="#High-throughput-worflow">High throughput worflow</a><ul>
 <li><a class="reference internal" href="#yaml-syntax">yaml-syntax</a></li>
-<li><a class="reference internal" href="#pype-behavior"><em>pype</em> behavior</a><ul>
+<li><a class="reference internal" href="#pype-behavior">pype behavior</a><ul>
 <li><a class="reference internal" href="#Window-control">Window control</a></li>
 <li><a class="reference internal" href="#Function-execution">Function execution</a></li>
 <li><a class="reference internal" href="#Visualization">Visualization</a></li>
@@ -482,12 +482,12 @@ contours. This dictionary, together with the original array, can then be passed 
 <div class="highlight"><pre>
 - create mask
 - applying mask: mask1
-- contours saved under ../_temp/output\contours.csv.
+- contours saved under ../_temp/output\contours.csv (overwritten).
 </pre></div></div>
 </div>
 <p>While analyzing the image, you can explore output from the different steps to see what is going on. For example, the binary image resulting from the thresholding:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -502,7 +502,7 @@ contours. This dictionary, together with the original array, can then be passed 
 analyze images, but typically they are used automatically within the pype-routine that is part of phenoype’s high throughput workflow (see below).</p>
 <p><img alt="Phenopype low throughput workflow" src="_images/workflow_low.png" /></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -535,12 +535,12 @@ analyze images, but typically they are used automatically within the pype-routin
 <div class="highlight"><pre>
 - create mask
 - applying mask: mask1
-- contours saved under ../_temp/output\contours.csv.
+- contours saved under ../_temp/output\contours.csv (overwritten).
 </pre></div></div>
 </div>
 <p>Although the intermediate steps from the functions are not present as objects in the namespace, you can access and evaluate it from the container. Again, we will look at the binary image:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -549,14 +549,22 @@ analyze images, but typically they are used automatically within the pype-routin
 </div>
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">dir</span></code> to inspect all the components of the container:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="nb">print</span><span class="p">(</span><span class="nb">dir</span><span class="p">(</span><span class="n">container</span><span class="p">))</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;__class__&#39;, &#39;__delattr__&#39;, &#39;__dict__&#39;, &#39;__dir__&#39;, &#39;__doc__&#39;, &#39;__eq__&#39;, &#39;__format__&#39;, &#39;__ge__&#39;, &#39;__getattribute__&#39;, &#39;__gt__&#39;, &#39;__hash__&#39;, &#39;__init__&#39;, &#39;__init_subclass__&#39;, &#39;__le__&#39;, &#39;__lt__&#39;, &#39;__module__&#39;, &#39;__ne__&#39;, &#39;__new__&#39;, &#39;__reduce__&#39;, &#39;__reduce_ex__&#39;, &#39;__repr__&#39;, &#39;__setattr__&#39;, &#39;__sizeof__&#39;, &#39;__str__&#39;, &#39;__subclasshook__&#39;, &#39;__weakref__&#39;, &#39;canvas&#39;, &#39;df_contours&#39;, &#39;df_image_data&#39;, &#39;df_image_data_copy&#39;, &#39;df_masks&#39;, &#39;dirpath&#39;, &#39;image&#39;, &#39;image_bin&#39;, &#39;image_copy&#39;, &#39;image_data&#39;, &#39;image_gray&#39;, &#39;image_mod&#39;, &#39;load&#39;, &#39;reset&#39;, &#39;save&#39;, &#39;save_suffix&#39;]
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="High-throughput-worflow">
@@ -577,7 +585,7 @@ provide the full image analysis pipeline to anyone who wishes to reproduce the o
 </ul>
 <p><img alt="Phenopype high throughput workflow" src="_images/workflow_high.png" /></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -600,7 +608,7 @@ provide the full image analysis pipeline to anyone who wishes to reproduce the o
 <div class="highlight"><pre>
 
 
-------------+++ new pype iteration 2020:04:01 09:53:59 +++--------------
+------------+++ new pype iteration 2020:04:02 17:22:14 +++--------------
 
 
 AUTOLOAD
@@ -632,12 +640,12 @@ TERMINATE
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;phenopype.main.pype at 0x25b7d2fa8c8&gt;
+&lt;phenopype.main.pype at 0x15e5d95a148&gt;
 </pre></div></div>
 </div>
 <p>At the current stage of development, the pype method is prone to errors resulting from incorrect yaml syntax, e.g. missing spaces or wrong indentation. The pype will still try to run from bottom to top and pass exceptions, but may result in errors that cascade through the function stack. Consult the section <a class="reference external" href="#yaml-syntax">below</a> on how to modify yaml-syntax.</p>
@@ -646,7 +654,7 @@ TERMINATE
 <h3>yaml-syntax<a class="headerlink" href="#yaml-syntax" title="Permalink to this headline">¶</a></h3>
 <p>The configuration files needed to run the pype are written in yaml (a recursive acronym for “YAML Ain’t Markup Language”). In principle, these are just text files that follow a specific syntax that follows rules for <a class="reference external" href="https://www.tutorialspoint.com/yaml/yaml_indentation_and_separation.htm">indentation and separation</a>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -716,7 +724,7 @@ arguments passed on to the function. Following this notation, the yaml parser in
 <p>[1] Note that one <code class="docutils literal notranslate"><span class="pre">create_mask</span></code> mask operation already can create multiple masks - see <a class="reference internal" href="tutorial_5_gui_interactions.html"><span class="doc">Tutorial 5</span></a>.</p>
 </div>
 <div class="section" id="pype-behavior">
-<h3><em>pype</em> behavior<a class="headerlink" href="#pype-behavior" title="Permalink to this headline">¶</a></h3>
+<h3>pype behavior<a class="headerlink" href="#pype-behavior" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">pype</span></code> function has specific implicit [1] behavior that aims at supporting speed and robustness when working in “production” (i.e. when performing the actual analysis of large image datasets compared to prototyping and low throughput workflow). Here I list some important aspects of that behavior.</p>
 <div class="section" id="Window-control">
 <h4>Window control<a class="headerlink" href="#Window-control" title="Permalink to this headline">¶</a></h4>

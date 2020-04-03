@@ -4,7 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Tutorial 2: Working with phenopype\n",
+    "# Tutorial 2: Working with phenopype \n",
     "\n",
     "Analysis of scientific images can be an iterative process that may require frequent user input to preprocess images, adjust settings and evaluate the obtained results. In phenopype, users can start this process by identifying the appropriate functions and settings to analyse a series of images (i.e. which segmentation algorithms is to be used). For the actual analysis, users then can switch to a workflow that has higher throughput and is more reproducible. Phenopype offers workflows that are appropriate for all stages of the scientific process:\n",
     "\n",
@@ -83,7 +83,7 @@
      "text": [
       "- create mask\n",
       "- applying mask: mask1\n",
-      "- contours saved under ../_temp/output\\contours.csv.\n"
+      "- contours saved under ../_temp/output\\contours.csv (overwritten).\n"
      ]
     }
    ],
@@ -125,7 +125,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -155,7 +155,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -164,7 +164,7 @@
      "text": [
       "- create mask\n",
       "- applying mask: mask1\n",
-      "- contours saved under ../_temp/output\\contours.csv.\n"
+      "- contours saved under ../_temp/output\\contours.csv (overwritten).\n"
      ]
     }
    ],
@@ -199,7 +199,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -215,9 +215,17 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 5,
    "metadata": {},
-   "outputs": [],
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'canvas', 'df_contours', 'df_image_data', 'df_image_data_copy', 'df_masks', 'dirpath', 'image', 'image_bin', 'image_copy', 'image_data', 'image_gray', 'image_mod', 'load', 'reset', 'save', 'save_suffix']\n"
+     ]
+    }
+   ],
    "source": [
     "print(dir(container))"
    ]
@@ -262,7 +270,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -271,7 +279,7 @@
      "text": [
       "\n",
       "\n",
-      "------------+++ new pype iteration 2020:04:01 09:53:59 +++--------------\n",
+      "------------+++ new pype iteration 2020:04:02 17:22:14 +++--------------\n",
       "\n",
       "\n",
       "AUTOLOAD\n",
@@ -305,10 +313,10 @@
     {
      "data": {
       "text/plain": [
-       "<phenopype.main.pype at 0x25b7d2fa8c8>"
+       "<phenopype.main.pype at 0x15e5d95a148>"
       ]
      },
-     "execution_count": 1,
+     "execution_count": 6,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -350,7 +358,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 2,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [
     {
@@ -448,7 +456,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "### *pype* behavior"
+    "### pype behavior"
    ]
   },
   {
