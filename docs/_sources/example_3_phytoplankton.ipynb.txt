@@ -4,9 +4,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "# Example 3: Stickleback morphometrics - body and armor-plate shape\n",
-    "\n",
-    "Variation in continuous phenotypic traits like shape or area of certain structures are difficult to quantify with landmarks, because they are too complex or have no underlying assumption of homology. In this example, the number and area of armor plating was measured as a continuous trait in a two-step process: first, a mask was set around the posterior region that contains the plates, second, the red channel of the image was thresholded (because this channel had the highest signal-to-noise-ratio). \n",
+    "# Example 3: Fluorescence intensity and shape of phytoplankton cells\n",
     "\n",
     "[ADD TEXT]"
    ]

@@ -61,60 +61,64 @@ Phenopype: a phenotyping pipeline for Python
 			<div class="thumbnail">
 			<a href="example_1_detect_objects_isopods.html">
 			<img src="_images/thumbs/ex1.jpg" alt="example_1_detect_objects_isopods" style="width:100%">
-				<div class="caption">
-				<p>Detect multiple isopods (<i>Asellus aquaticus</i>) on a tray and measure size and pigmentation.</p>
-				</div>
-			 </a>
+			<b><p style="text-decoration: underline;">Detect invertebrates</p></b>
+			<b>Organism:</b> freshwater isopods <br>
+			<b>Species:</b> <i>Asellus aquaticus</i> <br>
+			<b>Traits:</b> size, pigmentation, body-shape <br>
+			</a>
 			</div>
 		</div>
 
 		<div class="col-md-4">
 			<div class="thumbnail">
 			<a href="example_2_landmarks_stickleback.html">
-				<img src="_images/thumbs/ex2.jpg" alt="example_2_landmarks_stickleback" style="width:100%">
-				<div class="caption">
-				<p>Place landmarks on stained threespine stickleback (<i>Gasterosteus aculeatus</i>).</p>
-				</div>
-			 </a>
+			<img src="_images/thumbs/ex2.jpg" alt="example_2_landmarks_stickleback" style="width:100%">
+			<b><p style="text-decoration: underline;">Place landmarks</p></b>
+			<b>Organism:</b> threespine stickleback <br>
+			<b>Species:</b> <i>Gasterosteus aculeatus</i> <br>
+			<b>Traits:</b> landmarks, geometric morphometrics <br>
+			</a>
 			</div>
 		</div>
 
 		<div class="col-md-4">
 			<div class="thumbnail">
-			<a href="example_3_shape_stickleback.html">
-				<img src="_images/thumbs/ex3.jpg" alt="example_3_shape_stickleback" style="width:100%">
-				<div class="caption">
-				<p>Measure size of armor plates of stained threespine stickleback (<i>Gasterosteus aculeatus</i>).</p>
-				</div>
-			 </a>
+			<a href="example_3_phytoplankton.html">
+			<img src="_images/thumbs/ex3.jpg" alt="example_3_phytoplankton" style="width:100%">
+			<b><p style="text-decoration: underline;">Detect plankton cells</p></b>
+			<b>Organism:</b> phytoplankton <br>
+			<b>Species:</b> <i>community</i> <br>
+			<b>Traits:</b> pixel level intensity, shape-metrics <br>
+			</a>
 			</div>
 		</div>
 
 	</div>
 	<div class="row">
-	
+
 		<div class="col-md-4">
 			<div class="thumbnail">
 			<a href="example_4_video_analysis_stickleback.html">
 			<img src="_images/thumbs/ex4.jpg" alt="example_4_video_analysis_stickleback" style="width:100%">
-				<div class="caption">
-				<p>Video analysis of movment in predator - prey (stickleback and isopods) interactions.</p>
-				</div>
-			 </a>
+			<b><p style="text-decoration: underline;">Predator prey interactions</p></b>
+			<b>Organism:</b> stickleback and isopods <br>
+			<b>Species:</b> <i>Gasterosteus aculeatus, Asellus aquaticus</i> <br>
+			<b>Traits:</b> movement, size <br>
+			</a>
 			</div>
 		</div>
-
+		
 		<div class="col-md-4">
 			<div class="thumbnail">
-			<a href="example_5_phytoplankton.html">
-			<img src="_images/thumbs/ex5.jpg" alt="example_4_video_analysis_stickleback" style="width:100%">
-				<div class="caption">
-				<p>Quantifying fluorescence and shape of  phytoplankton cells in  microcoscope images.</p>
-				</div>
-			 </a>
+			<a href="example_5_shape_stickleback.html">
+			<img src="_images/thumbs/ex5.jpg" alt="example_5_shape_stickleback" style="width:100%">
+			<b><p style="text-decoration: underline;">Measure armor plates</p></b>
+			<b>Organism:</b> threespine stickleback <br>
+			<b>Species:</b> <i>Gasterosteus aculeatus</i> <br>
+			<b>Traits:</b> counting armor plates; shape and size<br>
+			</a>
 			</div>
 		</div>
-
 	</div>
 
 

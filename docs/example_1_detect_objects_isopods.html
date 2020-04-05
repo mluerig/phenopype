@@ -14,6 +14,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example 2: Stickleback morphometrics - landmarks" href="example_2_landmarks_stickleback.html" />
+    <link rel="prev" title="Tutorial 6: Video analysis" href="tutorial_6_video_analysis.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -58,10 +60,10 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial_0.html">How to run the tutorials and examples using Jupyter Notebook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype (prototyping, low throughput, high throughput)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
@@ -104,6 +106,14 @@
             
               
                 
+  <li>
+    <a href="tutorial_6_video_analysis.html" title="Previous Chapter: Tutorial 6: Video analysis"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tutorial 6: V...</span>
+    </a>
+  </li>
+  <li>
+    <a href="example_2_landmarks_stickleback.html" title="Next Chapter: Example 2: Stickleback morphometrics - landmarks"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Example 2: St... &raquo;</span>
+    </a>
+  </li>
               
             
             
@@ -381,7 +391,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Example-1:-Measuring-shape,-size-and-colour-of-isopods">
 <h1>Example 1: Measuring shape, size and colour of isopods<a class="headerlink" href="#Example-1:-Measuring-shape,-size-and-colour-of-isopods" title="Permalink to this headline">¶</a></h1>
 <p>Little nugget of information: this was the original computer vision problem that phenopype was intended to solve (it’s predecessor <a class="reference external" href="https://github.com/mluerig/iso_cv">“iso_cv”</a> was not much more than a script-collection).</p>
-<p>In this example I am demonstrating all three phenopype workflows (<a class="reference external" href="#prototyping">prototyping</a>, <a class="reference external" href="#low-throughput">low thoughput</a> and <a class="reference external" href="#high-throughput">high throughput</a>). For a project, you would probably only use either the high or low throughput approach, but the protoypting approach for this example nicely decomposes the all the required steps for a classic computer vision workflow.</p>
+<p>In this example I am demonstrating all three phenopype workflows (<a class="reference external" href="#Prototyping">prototyping</a>, <a class="reference external" href="#Low-throughput">low thoughput</a> and <a class="reference external" href="#High-throughput">high throughput</a>). For a project, you would probably only use either the high or low throughput approach, but the protoypting approach for this example decomposes the all the required steps for a classic computer vision workflow.</p>
 <div class="row; text-align: left"><div class="col-md-6"><p><img alt="Before" src="_images/ex1_before.jpg" /></p>
 <p><strong>Input</strong> - Freshwater isopod, alive, photographed on a white resin-tray from a camera stand.</p>
 </div><div class="col-md-6"><p><img alt="After" src="_images/ex1_after.jpg" /></p>
@@ -488,7 +498,8 @@ image from the following analysis steps (<code class="docutils literal notransla
 <div class="section" id="Create-size-reference">
 <h3>Create size reference<a class="headerlink" href="#Create-size-reference" title="Permalink to this headline">¶</a></h3>
 <p>Within the area we masked lies the reference card. We want to include its information in our results files (the pixel-to-mm-ratio), so we supply the image meta DataFrame with <code class="docutils literal notranslate"><span class="pre">df_image_data=img_data</span></code>. However, we do not want the card itself to be detected, so we mask it with the argument <code class="docutils literal notranslate"><span class="pre">mask=True</span></code> and by supplying or mask DataFrame with <code class="docutils literal notranslate"><span class="pre">df_masks=masks</span></code> to have both masks in one place.</p>
-<div class="nbinput docutils container">
+<center><div style="width:500px; text-align: left"><p><img alt="Adding a scale" src="_images/ex1_scale.gif" /></p>
+</div></center><div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
@@ -695,7 +706,7 @@ should have - 100 pixels should be enough to exclude all fecal pellets. Again, w
 <h3>Segmentation - 3rd attempt<a class="headerlink" href="#Segmentation---3rd-attempt" title="Permalink to this headline">¶</a></h3>
 <p>Obviously we need to to tune a few things here, waay to many things are being detected. Currently the <code class="docutils literal notranslate"><span class="pre">&quot;adaptive&quot;</span></code> algorithm is on default sensitivity (<code class="docutils literal notranslate"><span class="pre">blocksize=99</span></code>), which we can reduce a bit. Also, we can increase the value for the constant to be subtracted after the tresholding with <code class="docutils literal notranslate"><span class="pre">constant</span></code>. We will try <code class="docutils literal notranslate"><span class="pre">blocksize=49</span></code> and <code class="docutils literal notranslate"><span class="pre">constant=5</span></code>. Afterwards, we plot the detected contours back onto the canvas of the original image, not the green channel image</p>
 <center><div style="width:800px; text-align: left"><p><img alt="Binarization" src="_images/ex1_binarization.jpg" /></p>
-<p><strong>Figure 2</strong> - Demonstration of blocksize (19, 99, 199 - left to right) and constant (1, 5 - top and bottom) parameters. Increasing blocksize leads to better structuring of the pixel level information contained in the image (i.e. largers “blocks” of connected pixels can be detected). This is computationally costly, so it will be slow for large images. Also, there is an optimal value beyond which detection performance will decrease.</p>
+<p><strong>Figure 2</strong> - Demonstration of blocksize (19, 99, 199 - left to right) and constant (1, 5 - top and bottom) parameters. Increasing blocksize leads to better structuring of the pixel level information contained in the image (i.e. larger “blocks” of connected pixels can be detected). This is computationally costly, so it will be slow for large images. Also, there is an optimal value beyond which detection performance will decrease.</p>
 </div></center><div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
@@ -764,237 +775,7 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
 </div>
 <div class="section" id="Measuring-colour">
 <h3>Measuring colour<a class="headerlink" href="#Measuring-colour" title="Permalink to this headline">¶</a></h3>
-<p>Ok, this looks good - we now have a DataFrame with the contour-data of all 20 isopods, including their length (<code class="docutils literal notranslate"><span class="pre">diameter</span></code> of the enclosing circle), and the shape (<code class="docutils literal notranslate"><span class="pre">coords</span></code>).</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">contours</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
-</pre></div>
-</div>
-<div class="output_area rendered_html docutils container">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>filename</th>
-      <th>width</th>
-      <th>height</th>
-      <th>size_ratio_original</th>
-      <th>px_mm_ratio</th>
-      <th>contour</th>
-      <th>center</th>
-      <th>diameter</th>
-      <th>area</th>
-      <th>order</th>
-      <th>idx_child</th>
-      <th>idx_parent</th>
-      <th>coords</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>1</td>
-      <td>(850, 1310)</td>
-      <td>82</td>
-      <td>1499</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[865, 1295]], [[864, 1296]], [[863, 1296]], ...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>2</td>
-      <td>(591, 1282)</td>
-      <td>76</td>
-      <td>1132</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[620, 1264]], [[619, 1265]], [[614, 1265]], ...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>3</td>
-      <td>(1494, 1278)</td>
-      <td>76</td>
-      <td>1319</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[1519, 1255]], [[1518, 1256]], [[1516, 1256]...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>4</td>
-      <td>(396, 1192)</td>
-      <td>72</td>
-      <td>1266</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[371, 1172]], [[370, 1173]], [[370, 1175]], ...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>5</td>
-      <td>(869, 1188)</td>
-      <td>75</td>
-      <td>1365</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[887, 1158]], [[886, 1159]], [[884, 1159]], ...</td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>16</td>
-      <td>(302, 455)</td>
-      <td>74</td>
-      <td>1278</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[319, 425]], [[317, 427]], [[317, 428]], [[3...</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>17</td>
-      <td>(949, 411)</td>
-      <td>70</td>
-      <td>1104</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[968, 395]], [[967, 396]], [[963, 396]], [[9...</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>18</td>
-      <td>(1769, 403)</td>
-      <td>71</td>
-      <td>1148</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[1763, 368]], [[1762, 369]], [[1762, 371]], ...</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>19</td>
-      <td>(987, 298)</td>
-      <td>70</td>
-      <td>1089</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[1009, 284]], [[1008, 285]], [[1005, 285]], ...</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>9</td>
-      <td>20</td>
-      <td>(643, 309)</td>
-      <td>68</td>
-      <td>1029</td>
-      <td>parent</td>
-      <td>-1</td>
-      <td>-1</td>
-      <td>[[[657, 279]], [[656, 280]], [[656, 281]], [[6...</td>
-    </tr>
-  </tbody>
-</table>
-<p>20 rows × 13 columns</p>
-</div></div>
-</div>
-<p>Using this information, we can finally extract the colour information from inside the contours. To do so we can supply the original image array along with the contour DataFrame to the <code class="docutils literal notranslate"><span class="pre">colour_intensity</span></code> function:</p>
+<p>Ok, this looks good - we now have a DataFrame with the contour-data of all 20 isopods, including their length (<code class="docutils literal notranslate"><span class="pre">diameter</span></code> of the enclosing circle), and the shape (<code class="docutils literal notranslate"><span class="pre">coords</span></code>). Using this information, we can finally extract the colour information from inside the contours. To do so we can supply the original image array along with the contour DataFrame to the <code class="docutils literal notranslate"><span class="pre">colour_intensity</span></code> function:</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>

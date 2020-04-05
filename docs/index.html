@@ -60,9 +60,9 @@
 <li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials and examples using Jupyter Notebook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype (prototyping, low throughput, high throughput)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
@@ -169,9 +169,9 @@ To get started, <a href="https://github.com/mluerig/phenopype/archive/master.zip
 <div class="col-md-6">
 <h2>Tutorials</h2><div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials and examples using Jupyter Notebook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype (prototyping, low throughput, high throughput)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
@@ -190,32 +190,35 @@ To get started, <a href="https://github.com/mluerig/phenopype/archive/master.zip
                 <div class="thumbnail">
                 <a href="example_1_detect_objects_isopods.html">
                 <img src="_images/thumbs/ex1.jpg" alt="example_1_detect_objects_isopods" style="width:100%">
-                        <div class="caption">
-                        <p>Detect multiple isopods (<i>Asellus aquaticus</i>) on a tray and measure size and pigmentation.</p>
-                        </div>
-                 </a>
+                <b><p style="text-decoration: underline;">Detect invertebrates</p></b>
+                <b>Organism:</b> freshwater isopods <br>
+                <b>Species:</b> <i>Asellus aquaticus</i> <br>
+                <b>Traits:</b> size, pigmentation, body-shape <br>
+                </a>
                 </div>
         </div>
 
         <div class="col-md-4">
                 <div class="thumbnail">
                 <a href="example_2_landmarks_stickleback.html">
-                        <img src="_images/thumbs/ex2.jpg" alt="example_2_landmarks_stickleback" style="width:100%">
-                        <div class="caption">
-                        <p>Place landmarks on stained threespine stickleback (<i>Gasterosteus aculeatus</i>).</p>
-                        </div>
-                 </a>
+                <img src="_images/thumbs/ex2.jpg" alt="example_2_landmarks_stickleback" style="width:100%">
+                <b><p style="text-decoration: underline;">Place landmarks</p></b>
+                <b>Organism:</b> threespine stickleback <br>
+                <b>Species:</b> <i>Gasterosteus aculeatus</i> <br>
+                <b>Traits:</b> landmarks, geometric morphometrics <br>
+                </a>
                 </div>
         </div>
 
         <div class="col-md-4">
                 <div class="thumbnail">
-                <a href="example_3_shape_stickleback.html">
-                        <img src="_images/thumbs/ex3.jpg" alt="example_3_shape_stickleback" style="width:100%">
-                        <div class="caption">
-                        <p>Measure size of armor plates of stained threespine stickleback (<i>Gasterosteus aculeatus</i>).</p>
-                        </div>
-                 </a>
+                <a href="example_3_phytoplankton.html">
+                <img src="_images/thumbs/ex3.jpg" alt="example_3_phytoplankton" style="width:100%">
+                <b><p style="text-decoration: underline;">Detect plankton cells</p></b>
+                <b>Organism:</b> phytoplankton <br>
+                <b>Species:</b> <i>community</i> <br>
+                <b>Traits:</b> pixel level intensity, shape-metrics <br>
+                </a>
                 </div>
         </div>
 
@@ -226,24 +229,25 @@ To get started, <a href="https://github.com/mluerig/phenopype/archive/master.zip
                 <div class="thumbnail">
                 <a href="example_4_video_analysis_stickleback.html">
                 <img src="_images/thumbs/ex4.jpg" alt="example_4_video_analysis_stickleback" style="width:100%">
-                        <div class="caption">
-                        <p>Video analysis of movment in predator - prey (stickleback and isopods) interactions.</p>
-                        </div>
-                 </a>
+                <b><p style="text-decoration: underline;">Predator prey interactions</p></b>
+                <b>Organism:</b> stickleback and isopods <br>
+                <b>Species:</b> <i>Gasterosteus aculeatus, Asellus aquaticus</i> <br>
+                <b>Traits:</b> movement, size <br>
+                </a>
                 </div>
         </div>
 
         <div class="col-md-4">
                 <div class="thumbnail">
-                <a href="example_5_phytoplankton.html">
-                <img src="_images/thumbs/ex5.jpg" alt="example_4_video_analysis_stickleback" style="width:100%">
-                        <div class="caption">
-                        <p>Quantifying fluorescence and shape of  phytoplankton cells in  microcoscope images.</p>
-                        </div>
-                 </a>
+                <a href="example_5_shape_stickleback.html">
+                <img src="_images/thumbs/ex5.jpg" alt="example_5_shape_stickleback" style="width:100%">
+                <b><p style="text-decoration: underline;">Measure armor plates</p></b>
+                <b>Organism:</b> threespine stickleback <br>
+                <b>Species:</b> <i>Gasterosteus aculeatus</i> <br>
+                <b>Traits:</b> counting armor plates; shape and size<br>
+                </a>
                 </div>
         </div>
-
 </div></div>
 
 

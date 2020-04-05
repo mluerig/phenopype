@@ -14,6 +14,8 @@
     <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example 3: Fluorescence intensity and shape of phytoplankton cells" href="example_3_phytoplankton.html" />
+    <link rel="prev" title="Example 1: Measuring shape, size and colour of isopods" href="example_1_detect_objects_isopods.html" />
 <meta charset='utf-8'>
 <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
 <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
@@ -58,10 +60,10 @@
 <li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials</a></li>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial_0.html">How to run the tutorials and examples using Jupyter Notebook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype (prototyping, low throughput, high throughput)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
@@ -95,6 +97,14 @@
             
               
                 
+  <li>
+    <a href="example_1_detect_objects_isopods.html" title="Previous Chapter: Example 1: Measuring shape, size and colour of isopods"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Example 1: Me...</span>
+    </a>
+  </li>
+  <li>
+    <a href="example_3_phytoplankton.html" title="Next Chapter: Example 3: Fluorescence intensity and shape of phytoplankton cells"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Example 3: Fl... &raquo;</span>
+    </a>
+  </li>
               
             
             
@@ -364,9 +374,9 @@ div.rendered_html tbody tr:hover {
 <h1>Example 2: Stickleback morphometrics - landmarks<a class="headerlink" href="#Example-2:-Stickleback-morphometrics---landmarks" title="Permalink to this headline">¶</a></h1>
 <p>Functional morphology of organisms is often measured by placing landmarks at specific points that show structural, functional or developmental significance. In this example phenopype is used to place morphometric landmarks across the anterior half of a stickleback (<em>Gasterosteus aculeatus</em>) stained with alizarin red.</p>
 <p>First we place landmarks in low throughput mode to learn how the landmark-function works, then we look at a high throughput landkmark example with a project directory and a global scale.</p>
-<div class="row; text-align: left"><div class="col-md-6"><p><img alt="Before" src="_images/stickle1.jpg" /></p>
+<div class="row; text-align: left"><div class="col-md-6"><p><img alt="Before" src="_images/ex2_before.jpg" /></p>
 <p><strong>Input</strong> - Stained threespine stickleback, photographed in a glycerol bath from a camera stand</p>
-</div><div class="col-md-6"><p><img alt="After" src="_images/stickle1_lm.jpg" /></p>
+</div><div class="col-md-6"><p><img alt="After" src="_images/ex2_after.jpg" /></p>
 <p><strong>Results</strong> - 22 landmarks are placed using the <code class="docutils literal notranslate"><span class="pre">landmark</span></code> tool from the <code class="docutils literal notranslate"><span class="pre">phenopype.measurements</span></code> module</p>
 </div></div><div class="section" id="Low-throughput">
 <h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
@@ -508,7 +518,7 @@ div.rendered_html tbody tr:hover {
 <div class="section" id="Adding-a-scale">
 <h3>Adding a scale<a class="headerlink" href="#Adding-a-scale" title="Permalink to this headline">¶</a></h3>
 <p>Now we will do the same thing again, but this time we use a reference image to create a scale-template so we can adjust our landmark coordinate space. This is important if for example the distance between the camera and your sample changes.</p>
-<center><div style="width:500px; text-align: left"><p><img alt="Adding a scale" src="_images/set_scale_stickle.gif" /></p>
+<center><div style="width:500px; text-align: left"><p><img alt="Adding a scale" src="_images/ex2_scale.gif" /></p>
 </div></center><p>After loading the reference image, we measure the distance on the millimeter scale (click on two points inside the image), enter the distance (e.g. 10 mm), and then we create a template by dragging a rectangle around the whole (!) reference card. Finish each step with “enter”.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
@@ -713,7 +723,7 @@ current image has 34.9 pixel per mm.
 <div class="section" id="High-throughput">
 <h2>High throughput<a class="headerlink" href="#High-throughput" title="Permalink to this headline">¶</a></h2>
 <p>Now we will use the <code class="docutils literal notranslate"><span class="pre">pype</span></code> method to place landmarks - first on a single file, and then from within a Phenopype project.</p>
-<center><div style="text-align: left"><p><img alt="Landmarks in high throughput" src="_images/landmarks_high_throughput.gif" /></p>
+<center><div style="text-align: left"><p><img alt="Landmarks in high throughput" src="_images/ex2_ht.gif" /></p>
 <p><strong>High throughput method</strong> - the <code class="docutils literal notranslate"><span class="pre">pype</span></code> method opens the image and a text editor with the pype configuration file. Any change to the configuration file, in this case the point size for landmarks, will be immediately applied to the image.</p>
 </div></center><div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
