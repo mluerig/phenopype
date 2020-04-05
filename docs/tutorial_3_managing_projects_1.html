@@ -396,7 +396,7 @@ Once raw images have been added and configuration files are in place, the <code 
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
@@ -405,14 +405,33 @@ Once raw images have been added and configuration files are in place, the <code 
 phenopype will create a new project at:
 
 ../_temp/my_project/phenopype_analysis
-Proceed? (y/n)
-y
-Warning - project root_dir already exists - overwrite? (y/n)y
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">StdinNotImplementedError</span>                  Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-2-f302eafcd68d&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>myproj <span class="ansi-yellow-intense-fg ansi-bold">=</span> pp<span class="ansi-yellow-intense-fg ansi-bold">.</span>project<span class="ansi-yellow-intense-fg ansi-bold">(</span>root_dir<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">r&#34;../_temp/my_project/phenopype_analysis&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-red-intense-fg ansi-bold">## doesn&#39;t have to be &#34;myproj&#34;, can be named anything</span>
 
-&#34;../_temp/my_project/phenopype_analysis&#34; created (overwritten)
+<span class="ansi-green-intense-fg ansi-bold">e:\git_repos\phenopype\phenopype\main.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-intense-fg ansi-bold">(self, root_dir, overwrite)</span>
+<span class="ansi-green-fg">     62</span>         <span class="ansi-red-intense-fg ansi-bold">## decision tree if directory exists</span>
+<span class="ansi-green-fg">     63</span>         <span class="ansi-green-intense-fg ansi-bold">while</span> <span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 64</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>create <span class="ansi-yellow-intense-fg ansi-bold">=</span> input<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Proceed? (y/n)\n&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     65</span>             <span class="ansi-green-intense-fg ansi-bold">if</span> create<span class="ansi-yellow-intense-fg ansi-bold">==</span><span class="ansi-blue-intense-fg ansi-bold">&#34;y&#34;</span> <span class="ansi-green-intense-fg ansi-bold">or</span> create <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;yes&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     66</span>                 <span class="ansi-green-intense-fg ansi-bold">if</span> os<span class="ansi-yellow-intense-fg ansi-bold">.</span>path<span class="ansi-yellow-intense-fg ansi-bold">.</span>isdir<span class="ansi-yellow-intense-fg ansi-bold">(</span>root_dir<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
 
-project attributes written to ../_temp/my_project/phenopype_analysis\attributes.yaml
---------------------------------------------
+<span class="ansi-green-intense-fg ansi-bold">C:\Anaconda3\envs\pp37\lib\site-packages\ipykernel\kernelbase.py</span> in <span class="ansi-cyan-fg">raw_input</span><span class="ansi-blue-intense-fg ansi-bold">(self, prompt)</span>
+<span class="ansi-green-fg">    852</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_allow_stdin<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    853</span>             raise StdinNotImplementedError(
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 854</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span><span class="ansi-blue-intense-fg ansi-bold">&#34;raw_input was called, but this frontend does not support input requests.&#34;</span>
+<span class="ansi-green-fg">    855</span>             )
+<span class="ansi-green-fg">    856</span>         return self._input_request(str(prompt),
+
+<span class="ansi-red-intense-fg ansi-bold">StdinNotImplementedError</span>: raw_input was called, but this frontend does not support input requests.
 </pre></div></div>
 </div>
 <p>Next step is to add images to the project. You can do so with the <code class="docutils literal notranslate"><span class="pre">add_files</span></code> method of the created project (a <em>method</em> is an executable function that belongs to an existing <em>object</em>, in this case “myproj. see <a class="reference external" href="https://stackoverflow.com/questions/155609/whats-the-difference-between-a-method-and-a-function">this SO question</a>). The function offers some flexibility in terms of which files to import. Most important arguments here are <code class="docutils literal notranslate"><span class="pre">include</span></code>, <code class="docutils literal notranslate"><span class="pre">exclude</span></code> and <code class="docutils literal notranslate"><span class="pre">filetypes</span></code>. For example,
@@ -460,21 +479,15 @@ given the following list of images:</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
---------------------------------------------
-phenopype will search for files at
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-4-399602fa2260&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> myproj.add_files(image_dir=&#34;images&#34;,
+</span><span class="ansi-green-fg">      2</span>                  include<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;stickle&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>       <span class="ansi-red-intense-fg ansi-bold">## can be type &#34;str&#34; or type &#34;list&#34;</span>
+<span class="ansi-green-fg">      3</span>                  exclude<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;side&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span><span class="ansi-blue-intense-fg ansi-bold">&#34;top&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span>   <span class="ansi-red-intense-fg ansi-bold">## can be type &#34;str&#34; or type &#34;list&#34;</span>
+<span class="ansi-green-fg">      4</span>                 )
 
-images
-
-using the following settings:
-
-filetypes: [&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#39;, &#39;JPEG&#39;, &#39;tif&#39;, &#39;png&#39;], include: stickle, exclude: [&#39;side&#39;, &#39;top&#39;], raw_mode: copy, search_mode: dir, unique_mode: path
-
-Found image stickle1.JPG - phenopype-project folder 0__stickle1 created
-Found image stickle2.JPG - phenopype-project folder 0__stickle2 created
-Found image stickle3.JPG - phenopype-project folder 0__stickle3 created
-
-Found 3 files
---------------------------------------------
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
 </div>
 <p>The three images have the same (nonstandard) file ending, so we can also use the filetype argument (and the overwrite argument, because have already added them above):</p>
@@ -495,21 +508,15 @@ Found 3 files
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
---------------------------------------------
-phenopype will search for files at
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-5-21852fe82f0f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> myproj.add_files(image_dir=&#34;images&#34;,
+</span><span class="ansi-green-fg">      2</span>                 filetypes<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;JPG&#34;</span> <span class="ansi-yellow-intense-fg ansi-bold">,</span>      <span class="ansi-red-intense-fg ansi-bold">## can be type &#34;str&#34; or type &#34;list&#34;</span>
+<span class="ansi-green-fg">      3</span>                 overwrite<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span>
+<span class="ansi-green-fg">      4</span>                )
 
-images
-
-using the following settings:
-
-filetypes: JPG, include: [], exclude: [], raw_mode: copy, search_mode: dir, unique_mode: path
-
-Found image stickle1.JPG - phenopype-project folder 0__stickle1 created (overwritten)
-Found image stickle2.JPG - phenopype-project folder 0__stickle2 created (overwritten)
-Found image stickle3.JPG - phenopype-project folder 0__stickle3 created (overwritten)
-
-Found 3 files
---------------------------------------------
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
 </div>
 <p>The remaining settings are <code class="docutils literal notranslate"><span class="pre">raw_mode</span></code>, <code class="docutils literal notranslate"><span class="pre">search_mode</span></code>, <code class="docutils literal notranslate"><span class="pre">unique_mode</span></code>. <code class="docutils literal notranslate"><span class="pre">raw_mode</span></code> determines whether raw files should be copied to each folder in the Phenopype directory tree (using <code class="docutils literal notranslate"><span class="pre">copy</span></code> [default]), or just their filepath (using <code class="docutils literal notranslate"><span class="pre">link</span></code>), which can be useful if data sets contain many or very large images. <code class="docutils literal notranslate"><span class="pre">search_mode</span></code> indicates whether only the top directory (<code class="docutils literal notranslate"><span class="pre">dir</span></code> [default]), or also all subdirectories (<code class="docutils literal notranslate"><span class="pre">recursive</span></code>) should be included in the search. <code class="docutils literal notranslate"><span class="pre">unique_mode</span></code> indicates
@@ -611,7 +618,8 @@ add_files(self, image_dir, filetypes=[&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#3
  &#39;inverted1&#39;,
  &#39;landmarks_2&#39;,
  &#39;landmarks_plain&#39;,
- &#39;object_detection_1&#39;,
+ &#39;object_detection_morph&#39;,
+ &#39;object_detection_plain&#39;,
  &#39;preset1&#39;,
  &#39;preset3&#39;,
  &#39;preset4&#39;]
@@ -664,10 +672,12 @@ export:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-pype config generated from landmarks_plain.
-pype_lm.yaml created for 0__stickle1
-pype_lm.yaml created for 0__stickle2
-pype_lm.yaml created for 0__stickle3
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-9-b807c378d3a9&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>myproj<span class="ansi-yellow-intense-fg ansi-bold">.</span>add_config<span class="ansi-yellow-intense-fg ansi-bold">(</span>name <span class="ansi-yellow-intense-fg ansi-bold">=</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;lm&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> config_preset<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;landmarks_plain&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
 </div>
 <p>Now all images folders contain a configuration file in <em>yaml</em> format (see <a class="reference internal" href="tutorial_2_phenopype_workflow.html#yaml-syntax"><span class="std std-ref">Tutorial 2</span></a> and the <a class="reference external" href="resources.html">resources section</a> of the Documentation for details).</p>
@@ -694,33 +704,16 @@ pype_lm.yaml created for 0__stickle3
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-pype config generated from landmarks_plain.
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-10-8a954543c24f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> myproj.add_config(name = &#34;lm&#34;,
+</span><span class="ansi-green-fg">      2</span>                   config_preset<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;landmarks_plain&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">      3</span>                   interactive<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">      4</span>                   overwrite<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span>                 <span class="ansi-red-intense-fg ansi-bold">## needed because config with the name &#34;lm&#34; already exists in the folders</span>
+<span class="ansi-green-fg">      5</span>                  )
 
-
-------------+++ new pype iteration 2020:03:31 13:45:14 +++--------------
-
-
-MEASUREMENT
-landmarks
-- setting landmarks
-- terminated polyline creation
-RESTART
-
-
-------------+++ new pype iteration 2020:03:31 13:45:20 +++--------------
-
-
-MEASUREMENT
-landmarks
-- setting landmarks
-VISUALIZATION
-show_landmarks
-
-
-TERMINATE
-pype_lm.yaml created for 0__stickle1 (overwritten)
-pype_lm.yaml created for 0__stickle2 (overwritten)
-pype_lm.yaml created for 0__stickle3 (overwritten)
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -783,11 +776,16 @@ add_config(self, name, config_preset=&#39;preset1&#39;, interactive=False, overw
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Project data saved under ../_temp/my_project/phenopype_analysis\project.data.
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-12-c7ed1fc8e314&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>pp<span class="ansi-yellow-intense-fg ansi-bold">.</span>project<span class="ansi-yellow-intense-fg ansi-bold">.</span>save<span class="ansi-yellow-intense-fg ansi-bold">(</span>myproj<span class="ansi-yellow-intense-fg ansi-bold">,</span> overwrite<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
 </div>
 <p>To load the project again, add provide the path of the <code class="docutils literal notranslate"><span class="pre">project.data</span></code> file in the root folder to the <code class="docutils literal notranslate"><span class="pre">load</span></code> method:</p>
-<div class="nbinput nblast docutils container">
+<div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
@@ -795,6 +793,26 @@ Project data saved under ../_temp/my_project/phenopype_analysis\project.data.
 <span></span><span class="n">myproj</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;../_temp/my_project/phenopype_analysis/project.data&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-13-afcf469dfb73&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>myproj <span class="ansi-yellow-intense-fg ansi-bold">=</span> pp<span class="ansi-yellow-intense-fg ansi-bold">.</span>project<span class="ansi-yellow-intense-fg ansi-bold">.</span>load<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">r&#34;../_temp/my_project/phenopype_analysis/project.data&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">e:\git_repos\phenopype\phenopype\main.py</span> in <span class="ansi-cyan-fg">load</span><span class="ansi-blue-intense-fg ansi-bold">(path)</span>
+<span class="ansi-green-fg">    480</span>             path to project<span class="ansi-yellow-intense-fg ansi-bold">.</span>data<span class="ansi-yellow-intense-fg ansi-bold">,</span> loads project file saved to root dir of project
+<span class="ansi-green-fg">    481</span>         &#34;&#34;&#34;
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 482</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">with</span> open<span class="ansi-yellow-intense-fg ansi-bold">(</span>path<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;rb&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">as</span> output<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    483</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> pickle<span class="ansi-yellow-intense-fg ansi-bold">.</span>load<span class="ansi-yellow-intense-fg ansi-bold">(</span>output<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    484</span>
+
+<span class="ansi-red-intense-fg ansi-bold">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;../_temp/my_project/phenopype_analysis/project.data&#39;
+</pre></div></div>
 </div>
 </div>
 <div class="section" id="Applying-the-pype-to-project-folders">
@@ -822,63 +840,16 @@ Project data saved under ../_temp/my_project/phenopype_analysis\project.data.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-14-76e7e47fd9dd&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">for</span> img <span class="ansi-green-intense-fg ansi-bold">in</span> myproj<span class="ansi-yellow-intense-fg ansi-bold">.</span>dirpaths<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">      2</span>     pp.pype(img,
+<span class="ansi-green-fg">      3</span>             name<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;lm&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>         <span class="ansi-red-intense-fg ansi-bold">## loads the config file &#34;pype_config_lm.yaml&#34;. &#34;lm&#34; gets appended to all results files</span>
+<span class="ansi-green-fg">      4</span>             skip<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span>          <span class="ansi-red-intense-fg ansi-bold">## skip=True will skip over any directories that already contain results files with &#34;lm&#34;</span>
+<span class="ansi-green-fg">      5</span>            )
 
-
-------------+++ new pype iteration 2020:03:31 13:45:35 +++--------------
-
-
-MEASUREMENT
-landmarks
-- setting landmarks
-VISUALIZATION
-show_landmarks
-EXPORT
-save_landmarks
-- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle1\landmarks_lm.csv.
-AUTOSAVE
-save_canvas
-- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle1\canvas_lm.jpg.
-
-
-TERMINATE
-
-
-------------+++ new pype iteration 2020:03:31 13:45:42 +++--------------
-
-
-MEASUREMENT
-landmarks
-- setting landmarks
-VISUALIZATION
-show_landmarks
-EXPORT
-save_landmarks
-- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle2\landmarks_lm.csv.
-AUTOSAVE
-save_canvas
-- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle2\canvas_lm.jpg.
-
-
-TERMINATE
-
-
-------------+++ new pype iteration 2020:03:31 13:45:46 +++--------------
-
-
-MEASUREMENT
-landmarks
-- setting landmarks
-VISUALIZATION
-show_landmarks
-EXPORT
-save_landmarks
-- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle3\landmarks_lm.csv.
-AUTOSAVE
-save_canvas
-- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle3\canvas_lm.jpg.
-
-
-TERMINATE
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
 </div>
 <center><div style="width:500px; text-align: left"><p><img alt="Step 4" src="_images/workflow_high_step4.png" /></p>
@@ -900,10 +871,14 @@ TERMINATE
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-pype config generated from landmarks_plain.
-pype_lm2.yaml created for 0__stickle1
-pype_lm2.yaml created for 0__stickle2
-pype_lm2.yaml created for 0__stickle3
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-15-ac69b4af8596&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> myproj.add_config(name = &#34;lm2&#34;,                  ## add different name (my not contain underscores or other special characters)
+</span><span class="ansi-green-fg">      2</span>                   config_preset<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;landmarks_plain&#34;</span>    <span class="ansi-red-intense-fg ansi-bold">## same preset</span>
+<span class="ansi-green-fg">      3</span>                  )
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -924,63 +899,16 @@ pype_lm2.yaml created for 0__stickle3
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-16-603e1c61ff0b&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">for</span> img <span class="ansi-green-intense-fg ansi-bold">in</span> myproj<span class="ansi-yellow-intense-fg ansi-bold">.</span>dirpaths<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">      2</span>     pp.pype(img,
+<span class="ansi-green-fg">      3</span>             name<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;lm2&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>         <span class="ansi-red-intense-fg ansi-bold">## loads the config file &#34;pype_config_lm2.yaml&#34;. &#34;lm2&#34; gets appended to all results files</span>
+<span class="ansi-green-fg">      4</span>             skip<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span>          <span class="ansi-red-intense-fg ansi-bold">## skip=True will skip over any directories that already contain results files with &#34;lm2&#34;</span>
+<span class="ansi-green-fg">      5</span>            )
 
-
-------------+++ new pype iteration 2020:03:31 13:45:58 +++--------------
-
-
-MEASUREMENT
-landmarks
-- setting landmarks
-VISUALIZATION
-show_landmarks
-EXPORT
-save_landmarks
-- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle1\landmarks_lm2.csv.
-AUTOSAVE
-save_canvas
-- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle1\canvas_lm2.jpg.
-
-
-TERMINATE
-
-
-------------+++ new pype iteration 2020:03:31 13:46:00 +++--------------
-
-
-MEASUREMENT
-landmarks
-- setting landmarks
-VISUALIZATION
-show_landmarks
-EXPORT
-save_landmarks
-- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle2\landmarks_lm2.csv.
-AUTOSAVE
-save_canvas
-- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle2\canvas_lm2.jpg.
-
-
-TERMINATE
-
-
-------------+++ new pype iteration 2020:03:31 13:46:03 +++--------------
-
-
-MEASUREMENT
-landmarks
-- setting landmarks
-VISUALIZATION
-show_landmarks
-EXPORT
-save_landmarks
-- landmarks saved under ../_temp/my_project/phenopype_analysis\data\0__stickle3\landmarks_lm2.csv.
-AUTOSAVE
-save_canvas
-- canvas saved under ../_temp/my_project/phenopype_analysis\data\0__stickle3\canvas_lm2.jpg.
-
-
-TERMINATE
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -993,19 +921,16 @@ TERMINATE
 </div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
-</pre></div>
+<div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;attributes.yaml&#39;,
- &#39;canvas_lm.jpg&#39;,
- &#39;canvas_lm2.jpg&#39;,
- &#39;landmarks_lm.csv&#39;,
- &#39;landmarks_lm2.csv&#39;,
- &#39;pype_config_lm.yaml&#39;,
- &#39;pype_config_lm2.yaml&#39;,
- &#39;raw.JPG&#39;]
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">FileNotFoundError</span>                         Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-17-35202c78df28&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>os<span class="ansi-yellow-intense-fg ansi-bold">.</span>listdir<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">r&#34;../_temp/my_project/phenopype_analysis\data\0__stickle1&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-red-intense-fg ansi-bold">FileNotFoundError</span>: [WinError 3] The system cannot find the path specified: &#39;../_temp/my_project/phenopype_analysis\\data\\0__stickle1&#39;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">

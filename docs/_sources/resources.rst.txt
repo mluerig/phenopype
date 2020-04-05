@@ -48,7 +48,9 @@ Examples
 - https://docs.opencv.org/3.4.9/pages.html
 - https://github.com/opencv/opencv/wiki
 
+Morphological operations
 
+- https://docs.opencv.org/3.4.9/d9/d61/tutorial_py_morphological_ops.html
 
 Computer vision
 ---------------

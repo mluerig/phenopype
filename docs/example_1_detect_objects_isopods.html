@@ -79,7 +79,23 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Example 1: Measuring shape, size and colour of isopods</a></li>
+<li><a class="reference internal" href="#">Example 1: Measuring shape, size and colour of isopods</a><ul>
+<li><a class="reference internal" href="#Prototyping">Prototyping</a><ul>
+<li><a class="reference internal" href="#Loading-the-image">Loading the image</a></li>
+<li><a class="reference internal" href="#Drawing-a-mask">Drawing a mask</a></li>
+<li><a class="reference internal" href="#Create-size-reference">Create size reference</a></li>
+<li><a class="reference internal" href="#Segmentation---1st-attempt">Segmentation - 1st attempt</a></li>
+<li><a class="reference internal" href="#Segmentation---2nd-attempt">Segmentation - 2nd attempt</a></li>
+<li><a class="reference internal" href="#Segmentation---3rd-attempt">Segmentation - 3rd attempt</a></li>
+<li><a class="reference internal" href="#Segmentation---final-product">Segmentation - final product</a></li>
+<li><a class="reference internal" href="#Measuring-colour">Measuring colour</a></li>
+<li><a class="reference internal" href="#Export">Export</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Low-throughput">Low throughput</a></li>
+<li><a class="reference internal" href="#High-throughput">High throughput</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -119,7 +135,23 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Example 1: Measuring shape, size and colour of isopods</a></li>
+<li><a class="reference internal" href="#">Example 1: Measuring shape, size and colour of isopods</a><ul>
+<li><a class="reference internal" href="#Prototyping">Prototyping</a><ul>
+<li><a class="reference internal" href="#Loading-the-image">Loading the image</a></li>
+<li><a class="reference internal" href="#Drawing-a-mask">Drawing a mask</a></li>
+<li><a class="reference internal" href="#Create-size-reference">Create size reference</a></li>
+<li><a class="reference internal" href="#Segmentation---1st-attempt">Segmentation - 1st attempt</a></li>
+<li><a class="reference internal" href="#Segmentation---2nd-attempt">Segmentation - 2nd attempt</a></li>
+<li><a class="reference internal" href="#Segmentation---3rd-attempt">Segmentation - 3rd attempt</a></li>
+<li><a class="reference internal" href="#Segmentation---final-product">Segmentation - final product</a></li>
+<li><a class="reference internal" href="#Measuring-colour">Measuring colour</a></li>
+<li><a class="reference internal" href="#Export">Export</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Low-throughput">Low throughput</a></li>
+<li><a class="reference internal" href="#High-throughput">High throughput</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -348,7 +380,761 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Example-1:-Measuring-shape,-size-and-colour-of-isopods">
 <h1>Example 1: Measuring shape, size and colour of isopods<a class="headerlink" href="#Example-1:-Measuring-shape,-size-and-colour-of-isopods" title="Permalink to this headline">¶</a></h1>
-<p>[ADD TEXT]</p>
+<p>Little nugget of information: this was the original computer vision problem that phenopype was intended to solve (it’s predecessor <a class="reference external" href="https://github.com/mluerig/iso_cv">“iso_cv”</a> was not much more than a script-collection).</p>
+<p>In this example I am demonstrating all three phenopype workflows (<a class="reference external" href="#prototyping">prototyping</a>, <a class="reference external" href="#low-throughput">low thoughput</a> and <a class="reference external" href="#high-throughput">high throughput</a>). For a project, you would probably only use either the high or low throughput approach, but the protoypting approach for this example nicely decomposes the all the required steps for a classic computer vision workflow.</p>
+<div class="row; text-align: left"><div class="col-md-6"><p><img alt="Before" src="_images/ex1_before.jpg" /></p>
+<p><strong>Input</strong> - Freshwater isopod, alive, photographed on a white resin-tray from a camera stand.</p>
+</div><div class="col-md-6"><p><img alt="After" src="_images/ex1_after.jpg" /></p>
+<p><strong>Results</strong> - Isopod shape, size and colour are extracted (and size referenced using the reference card)</p>
+</div></div><div class="section" id="Prototyping">
+<h2>Prototyping<a class="headerlink" href="#Prototyping" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Loading-the-image">
+<h3>Loading the image<a class="headerlink" href="#Loading-the-image" title="Permalink to this headline">¶</a></h3>
+<p>First we import the image from the a filepath using <code class="docutils literal notranslate"><span class="pre">load_image</span></code>. With the flag <code class="docutils literal notranslate"><span class="pre">df=True</span></code> we can extract some image-meta information that we want to be represented in the results files later (i.e. image name and its dimensions). After loading it, we can have a quick look at it with the <code class="docutils literal notranslate"><span class="pre">show_image</span></code> function - you can close it again with Enter or Esc.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/isopods.jpg&quot;</span>
+<span class="n">image</span><span class="p">,</span> <span class="n">img_data</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">img_data</span> <span class="c1">## size ratio refers whether this image has been resized using the resize argument of `load_image`</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename</th>
+      <th>width</th>
+      <th>height</th>
+      <th>size_ratio_original</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="Drawing-a-mask">
+<h3>Drawing a mask<a class="headerlink" href="#Drawing-a-mask" title="Permalink to this headline">¶</a></h3>
+<p>The original image has a lot of noise, e.g. the non-white area around the tray, water reflections, the label, the reference card, and the little fecal pellets that lie around on the tray. Classic computer vision algorithms are unspecific to the object, so they will pick up any object that is darker than its environment. Therefore, a useful preprocessing step is to exclude some of that noise by applying a mask. With the <code class="docutils literal notranslate"><span class="pre">create_mask</span></code> function, you can include or exclude certain areas of the
+image from the following analysis steps (<code class="docutils literal notranslate"><span class="pre">include=True/False</span></code>).</p>
+<p>Here, we want to include all of the wite tray that has isopods in it: Hold the left button down and drag the rectangle shaped mask tool over the area you want to include (for more details on the mask and other interaction-tools, see <a class="reference internal" href="tutorial_5_gui_interactions.html"><span class="doc">Tutorial 5</span></a>).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">masks</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">image</span><span class="p">,</span><span class="n">df_image_data</span><span class="o">=</span><span class="n">img_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- create mask
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Create-size-reference">
+<h3>Create size reference<a class="headerlink" href="#Create-size-reference" title="Permalink to this headline">¶</a></h3>
+<p>Within the area we masked lies the reference card. We want to include its information in our results files (the pixel-to-mm-ratio), so we supply the image meta DataFrame with <code class="docutils literal notranslate"><span class="pre">df_image_data=img_data</span></code>. However, we do not want the card itself to be detected, so we mask it with the argument <code class="docutils literal notranslate"><span class="pre">mask=True</span></code> and by supplying or mask DataFrame with <code class="docutils literal notranslate"><span class="pre">df_masks=masks</span></code> to have both masks in one place.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">img_data</span><span class="p">,</span> <span class="n">masks</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_scale</span><span class="p">(</span><span class="n">image</span><span class="p">,</span>
+                                                <span class="n">mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                                <span class="n">df_image_data</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span>
+                                                <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- measure pixel-to-mm-ratio
+Scale set
+- add column length
+Template selected
+</pre></div></div>
+</div>
+<p>Now the <code class="docutils literal notranslate"><span class="pre">masks</span></code> DataFrame contains two masks: the one we created above that <em>includes</em> the tray and the one we made to <em>exclude</em> the scale reference card:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">masks</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename</th>
+      <th>width</th>
+      <th>height</th>
+      <th>size_ratio_original</th>
+      <th>mask</th>
+      <th>include</th>
+      <th>coords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>mask1</td>
+      <td>True</td>
+      <td>[(249, 180), (1898, 180), (1898, 1353), (249, ...</td>
+    </tr>
+    <tr>
+      <th>0</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>scale</td>
+      <td>False</td>
+      <td>[(441, 1017), (682, 1017), (682, 1233), (441, ...</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>We can now have a quick look at both masks together by calling the visualization function <code class="docutils literal notranslate"><span class="pre">show_mask</span></code>, followed by <code class="docutils literal notranslate"><span class="pre">show_image</span></code>. For this we should create a new array and <em>not</em> overwrite the original image loaded before - here we call it <code class="docutils literal notranslate"><span class="pre">canvas</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_masks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ - show mask: mask1.
+ - show mask: scale.
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Segmentation---1st-attempt">
+<h3>Segmentation - 1st attempt<a class="headerlink" href="#Segmentation---1st-attempt" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have removed most of the noise, we can implement an algorithm that segments the imgae into foreground and background (check the <a class="reference external" href="resources.html#computer-vision">resources section</a> of the documentation. Here we use the <code class="docutils literal notranslate"><span class="pre">threshold</span></code> algorithm that to detect the isopods as foreground and the tray as background. By supplying the mask DataFrame we created before with <code class="docutils literal notranslate"><span class="pre">df_masks=masks</span></code>, we can exclude the unwanted regions of the image:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">image_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- applying mask: mask1
+- applying mask: scale
+</pre></div></div>
+</div>
+<p>The resulting array <code class="docutils literal notranslate"><span class="pre">image_bin</span></code> is a binary image where white regions are foreground and black background:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">image_bin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>So far so good, but there is still a lot of noise inside the image (isopod fecal pellets) that we need to remove. Right now, all information about foreground and background is in “pixel-space”, i.e. it’s a drawn representation of the informative areas. To convert it to coordinate space, and in the later steps extract information from the raw image, we will use <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> on this binary image. But setting the argument <code class="docutils literal notranslate"><span class="pre">min_area</span></code>, we can set a minimum size for the area that the contours
+should have - 100 pixels should be enough to exclude all fecal pellets. Again, we can supply the image meta DataFrame to concatenate existing information. Afterwards we can draw the contours onto <code class="docutils literal notranslate"><span class="pre">canvas</span></code> with <code class="docutils literal notranslate"><span class="pre">show_contours</span></code> - the detected contours are in green.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">df_contours</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Segmentation---2nd-attempt">
+<h3>Segmentation - 2nd attempt<a class="headerlink" href="#Segmentation---2nd-attempt" title="Permalink to this headline">¶</a></h3>
+<p>Now we have excluded all noise - but some isopods are not well deteced. Mostly the ones with lighter pigmenation, because the contrast they form agains the light background isn’t strong enough. We can try a different threshold algorithm by setting the <code class="docutils literal notranslate"><span class="pre">method</span></code> argument: <code class="docutils literal notranslate"><span class="pre">&quot;adaptive&quot;</span></code> algorithms work particularly well with variable contrast levels and lighting.</p>
+<p>Additionally, instead of using the default gray channel (i.e. the average across all three colour channels), we can try to run the thresholding function on a single colour channel. The contrast and signal-to-noise-ratio can be different betweeen the channels. We can select a different channel using the <code class="docutils literal notranslate"><span class="pre">select_canvas</span></code> function - here I isolate all three colour channels, and supply them to <code class="docutils literal notranslate"><span class="pre">show_image</span></code> to show themm all at once, and to evaluate, which colour-channels is suited best:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">r</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">select_canvas</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">select_canvas</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">select_canvas</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="s2">&quot;b&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">([</span><span class="n">r</span><span class="p">,</span><span class="n">g</span><span class="p">,</span><span class="n">b</span><span class="p">],</span> <span class="n">max_dim</span><span class="o">=</span><span class="mi">500</span><span class="p">)</span> <span class="c1">## max_dim=reduce window size to 500 pixels on any axis</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- red channel
+- green channel
+- blue channel
+</pre></div></div>
+</div>
+<p>Looking at this suggests that the green colour channel will yield the best results: here, even the lighter pigmented isopods have a strong contrast against the tray. We can supply either <code class="docutils literal notranslate"><span class="pre">g</span></code> to <code class="docutils literal notranslate"><span class="pre">threshold</span></code>, or directly select this with the <code class="docutils literal notranslate"><span class="pre">channel</span></code> argument:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">image_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">image_bin</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- applying mask: mask1
+- applying mask: scale
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Segmentation---3rd-attempt">
+<h3>Segmentation - 3rd attempt<a class="headerlink" href="#Segmentation---3rd-attempt" title="Permalink to this headline">¶</a></h3>
+<p>Obviously we need to to tune a few things here, waay to many things are being detected. Currently the <code class="docutils literal notranslate"><span class="pre">&quot;adaptive&quot;</span></code> algorithm is on default sensitivity (<code class="docutils literal notranslate"><span class="pre">blocksize=99</span></code>), which we can reduce a bit. Also, we can increase the value for the constant to be subtracted after the tresholding with <code class="docutils literal notranslate"><span class="pre">constant</span></code>. We will try <code class="docutils literal notranslate"><span class="pre">blocksize=49</span></code> and <code class="docutils literal notranslate"><span class="pre">constant=5</span></code>. Afterwards, we plot the detected contours back onto the canvas of the original image, not the green channel image</p>
+<center><div style="width:800px; text-align: left"><p><img alt="Binarization" src="_images/ex1_binarization.jpg" /></p>
+<p><strong>Figure 2</strong> - Demonstration of blocksize (19, 99, 199 - left to right) and constant (1, 5 - top and bottom) parameters. Increasing blocksize leads to better structuring of the pixel level information contained in the image (i.e. largers “blocks” of connected pixels can be detected). This is computationally costly, so it will be slow for large images. Also, there is an optimal value beyond which detection performance will decrease.</p>
+</div></center><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">image_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">blocksize</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span>
+                                      <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">df_contours</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- applying mask: mask1
+- applying mask: scale
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Segmentation---final-product">
+<h3>Segmentation - final product<a class="headerlink" href="#Segmentation---final-product" title="Permalink to this headline">¶</a></h3>
+<p>That looks pretty good. The last thing we need to take care of are the appendages (we don’t want to include those) and the gaps that sometimes form between the segments (we want to have that error to be consistent towards no gaps). Some blurring, and a morphological operation will do the trick (see <a class="reference external" href="https://docs.opencv.org/3.4.9/d9/d61/tutorial_py_morphological_ops.html">the OpenCV docs</a> and the <a class="reference external" href="resources.html#computer-vision">resources section</a> of the documentation for more info).
+Blurring will smooth the contour of the isopods, and a farly large <code class="docutils literal notranslate"><span class="pre">&quot;cross&quot;</span></code> shaped kernel will “cut off” the appendages and other long structures in the binary image.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">image_blurred</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">blur</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">kernel_size</span> <span class="o">=</span> <span class="mi">15</span><span class="p">)</span>
+<span class="n">image_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image_blurred</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">blocksize</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span>
+                                      <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span>  <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
+<span class="n">image_morph</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">morphology</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">&quot;cross&quot;</span><span class="p">,</span>
+                                         <span class="n">kernel_size</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="n">contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_morph</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_masks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">contours</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- applying mask: mask1
+- applying mask: scale
+ - show mask: mask1.
+ - show mask: scale.
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Measuring-colour">
+<h3>Measuring colour<a class="headerlink" href="#Measuring-colour" title="Permalink to this headline">¶</a></h3>
+<p>Ok, this looks good - we now have a DataFrame with the contour-data of all 20 isopods, including their length (<code class="docutils literal notranslate"><span class="pre">diameter</span></code> of the enclosing circle), and the shape (<code class="docutils literal notranslate"><span class="pre">coords</span></code>).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">contours</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename</th>
+      <th>width</th>
+      <th>height</th>
+      <th>size_ratio_original</th>
+      <th>px_mm_ratio</th>
+      <th>contour</th>
+      <th>center</th>
+      <th>diameter</th>
+      <th>area</th>
+      <th>order</th>
+      <th>idx_child</th>
+      <th>idx_parent</th>
+      <th>coords</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>1</td>
+      <td>(850, 1310)</td>
+      <td>82</td>
+      <td>1499</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[865, 1295]], [[864, 1296]], [[863, 1296]], ...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>2</td>
+      <td>(591, 1282)</td>
+      <td>76</td>
+      <td>1132</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[620, 1264]], [[619, 1265]], [[614, 1265]], ...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>3</td>
+      <td>(1494, 1278)</td>
+      <td>76</td>
+      <td>1319</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[1519, 1255]], [[1518, 1256]], [[1516, 1256]...</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>4</td>
+      <td>(396, 1192)</td>
+      <td>72</td>
+      <td>1266</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[371, 1172]], [[370, 1173]], [[370, 1175]], ...</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>5</td>
+      <td>(869, 1188)</td>
+      <td>75</td>
+      <td>1365</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[887, 1158]], [[886, 1159]], [[884, 1159]], ...</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>15</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>16</td>
+      <td>(302, 455)</td>
+      <td>74</td>
+      <td>1278</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[319, 425]], [[317, 427]], [[317, 428]], [[3...</td>
+    </tr>
+    <tr>
+      <th>16</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>17</td>
+      <td>(949, 411)</td>
+      <td>70</td>
+      <td>1104</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[968, 395]], [[967, 396]], [[963, 396]], [[9...</td>
+    </tr>
+    <tr>
+      <th>17</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>18</td>
+      <td>(1769, 403)</td>
+      <td>71</td>
+      <td>1148</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[1763, 368]], [[1762, 369]], [[1762, 371]], ...</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>19</td>
+      <td>(987, 298)</td>
+      <td>70</td>
+      <td>1089</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[1009, 284]], [[1008, 285]], [[1005, 285]], ...</td>
+    </tr>
+    <tr>
+      <th>19</th>
+      <td>isopods.jpg</td>
+      <td>2100</td>
+      <td>1400</td>
+      <td>1</td>
+      <td>9</td>
+      <td>20</td>
+      <td>(643, 309)</td>
+      <td>68</td>
+      <td>1029</td>
+      <td>parent</td>
+      <td>-1</td>
+      <td>-1</td>
+      <td>[[[657, 279]], [[656, 280]], [[656, 281]], [[6...</td>
+    </tr>
+  </tbody>
+</table>
+<p>20 rows × 13 columns</p>
+</div></div>
+</div>
+<p>Using this information, we can finally extract the colour information from inside the contours. To do so we can supply the original image array along with the contour DataFrame to the <code class="docutils literal notranslate"><span class="pre">colour_intensity</span></code> function:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pigmentation</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">colour_intensity</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_image_data</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">contours</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="Export">
+<h3>Export<a class="headerlink" href="#Export" title="Permalink to this headline">¶</a></h3>
+<p>Done - we can now save the contours and the colour information to csv, as well as the canvas for quality control:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">contours</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_colours</span><span class="p">(</span><span class="n">pigmentation</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- contours saved under ../_temp/output\contours.csv (overwritten).
+- colours saved under ../_temp/output\colours.csv (overwritten).
+- canvas saved under ../_temp/output\canvas.jpg (overwritten).
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Low-throughput">
+<h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/isopods.jpg&quot;</span>
+
+<span class="n">ct</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">cont</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">## load image as container</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_scale</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ct</span><span class="o">.</span><span class="n">df_masks</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+
+</pre></div>
+</div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -356,6 +1142,51 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ct</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="High-throughput">
+<h2>High throughput<a class="headerlink" href="#High-throughput" title="Permalink to this headline">¶</a></h2>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

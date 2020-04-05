@@ -214,7 +214,7 @@ by side. The project root folder should be separate from the raw data, e.g. as a
 <p class="admonition-title">Important</p>
 <p>Currently the only useful information contained in the project object (<code class="code docutils literal notranslate"><span class="pre">myproj</span></code>) is a list of all directories inside the
 project’s directory tree. It is important to save <cite>both</cite> the project AND all results in the data directories using the appropriate
-functions in (<a class="reference internal" href="tutorial_2_phenopype_workflow.html#Export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
+functions in (<a class="reference internal" href="example_1_detect_objects_isopods.html#Export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
 </div>
 <dl class="py class">
 <dt id="phenopype.main.project">
@@ -660,20 +660,30 @@ should existing masks with the same label be overwritten</p></li>
 
 <dl class="py function">
 <dt id="phenopype.core.preprocessing.create_scale">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">template</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_scale</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">df_image_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">template</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">mask</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">df_masks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">overwrite</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure a size or colour reference card and return the information</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata to add the scale
+information to (pixel-to-mm-ratio)</p></li>
 <li><p><strong>template</strong> (<em>bool</em><em>, </em><em>optional</em>) – should a template for scale detection be created. with an existing
 template, phenopype can try to find a reference card in a given image,
-measure its dimensions, and adjust pixel-to-mm-ratio and colour space</p></li>
+measure its dimensions, and adjust and colour space. automatically
+creates and returns a mask DataFrame that can be added to an existing
+one</p></li>
+<li><p><strong>mask</strong> (<em>bool</em><em>, </em><em>optional</em>) – mask a reference card inside the image (returns a mask DataFrame)</p></li>
+<li><p><strong>df_masks</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing masks to add the created mask to</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if a container is supplied, or when working from the pype, should any
+exsting scale information (px-to-mm-ratio) or template be overwritten</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>px_mm_ratio</strong> (<em>int or container</em>) – pixel to mm ratio</p></li>
+<li><p><strong>px_mm_ratio</strong> (<em>int or container</em>) – pixel to mm ratio - not returned if df_image_data is supplied</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame or container</em>) – new or updated, containes scale information</p></li>
+<li><p><strong>df_masks</strong> (<em>DataFrame or container</em>) – new or updated, contains mask information</p></li>
 <li><p><strong>template</strong> (<em>array or container</em>) – template for reference card detection</p></li>
 </ul>
 </p>
@@ -736,7 +746,7 @@ images’ histogram</p></li>
 <dd class="field-even"><p><ul class="simple">
 <li><p><strong>scale_current_px_mm_ratio</strong> (<em>int or container</em>) – pixel to mm ratio of current image</p></li>
 <li><p><strong>image</strong> (<em>array or container</em>) – if scale contains colour information, this is the corrected image</p></li>
-<li><p><strong>df_mask</strong> (<em>DataFrame or container</em>) – contains mask coordinates to mask reference card within image from
+<li><p><strong>df_masks</strong> (<em>DataFrame or container</em>) – contains mask coordinates to mask reference card within image from
 segmentation algorithms</p></li>
 </ul>
 </p>
@@ -845,12 +855,15 @@ original size).</p></li>
 
 <dl class="py function">
 <dt id="phenopype.core.segmentation.morphology">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">morphology</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.morphology" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">morphology</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">kernel_size</span><span class="o">=</span><span class="default_value">5</span></em>, <em class="sig-param"><span class="n">shape</span><span class="o">=</span><span class="default_value">'rect'</span></em>, <em class="sig-param"><span class="n">operation</span><span class="o">=</span><span class="default_value">'close'</span></em>, <em class="sig-param"><span class="n">iterations</span><span class="o">=</span><span class="default_value">1</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.morphology" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>kernel_size</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 5.</p></li>
+<li><p><strong>shape</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “rect”.</p></li>
+<li><p><strong>operation</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “close”.</p></li>
+<li><p><strong>iterations</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 1.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -881,7 +894,7 @@ original size).</p></li>
 
 <dl class="py function">
 <dt id="phenopype.core.segmentation.threshold">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">threshold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.threshold" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">threshold</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">df_masks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">'otsu'</span></em>, <em class="sig-param"><span class="n">constant</span><span class="o">=</span><span class="default_value">1</span></em>, <em class="sig-param"><span class="n">blocksize</span><span class="o">=</span><span class="default_value">99</span></em>, <em class="sig-param"><span class="n">value</span><span class="o">=</span><span class="default_value">127</span></em>, <em class="sig-param"><span class="n">channel</span><span class="o">=</span><span class="default_value">'gray'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.threshold" title="Permalink to this definition">¶</a></dt>
 <dd><p>If the input array was single channel, the threshold method can only use the
 grayscale space to, but if multiple channels were provided, then one can either chose
 to coerce the color image to grayscale or use one of the color channels directly.</p>
@@ -889,7 +902,12 @@ to coerce the color image to grayscale or use one of the color channels directly
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>df_masks</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
+<li><p><strong>method</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “otsu”.</p></li>
+<li><p><strong>constant</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 1.</p></li>
+<li><p><strong>blocksize</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 99.</p></li>
+<li><p><strong>value</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 127.</p></li>
+<li><p><strong>channel</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is gray.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -959,7 +977,7 @@ to coerce the color image to grayscale or use one of the color channels directly
 
 <dl class="py function">
 <dt id="phenopype.core.measurement.colour_intensity">
-<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">colour_intensity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.colour_intensity" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">colour_intensity</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">df_image_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">df_contours</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">channels</span><span class="o">=</span><span class="default_value">'gray'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.colour_intensity" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
@@ -987,16 +1005,17 @@ to coerce the color image to grayscale or use one of the color channels directly
 <p>[ADD TEXT]</p>
 <span class="target" id="module-phenopype.core.visualization"></span><dl class="py function">
 <dt id="phenopype.core.visualization.select_canvas">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">select_canvas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">canvas</span><span class="o">=</span><span class="default_value">'image_mod'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.select_canvas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Select the canvas for the pype method.</p>
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">select_canvas</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">canvas</span><span class="o">=</span><span class="default_value">'image_mod'</span></em>, <em class="sig-param"><span class="n">multi</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.select_canvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Isolate a colour channel from an image or select canvas for the pype method.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – phenopype container</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
 <li><p><strong>canvas</strong> (<em>{&quot;mod&quot;</em><em>, </em><em>&quot;bin&quot;</em><em>, </em><em>&quot;gray&quot;</em><em>, </em><em>&quot;raw&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;blue&quot;} str</em><em>, </em><em>optional</em>) – the type of canvas to be used for visual feedback. some types require a
 function to be run first, e.g. “bin” needs a segmentation algorithm to be
 run first. black/white images don’t have colour channels. coerced to 3D
-array</p></li>
+array by default</p></li>
+<li><p><strong>multi</strong> (<em>bool</em><em>, </em><em>optional</em>) – coerce returned array to multilevel (3-level)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1010,7 +1029,7 @@ array</p></li>
 
 <dl class="py function">
 <dt id="phenopype.core.visualization.show_contours">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_contours</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">df_image_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">df_contours</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">fill</span><span class="o">=</span><span class="default_value">0.3</span></em>, <em class="sig-param"><span class="n">mark_holes</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">line_colour</span><span class="o">=</span><span class="default_value">'green'</span></em>, <em class="sig-param"><span class="n">text_colour</span><span class="o">=</span><span class="default_value">'black'</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_contours" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_contours</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">df_image_data</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">df_contours</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">offset_coords</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">fill</span><span class="o">=</span><span class="default_value">0.3</span></em>, <em class="sig-param"><span class="n">mark_holes</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">level</span><span class="o">=</span><span class="default_value">3</span></em>, <em class="sig-param"><span class="n">line_colour</span><span class="o">=</span><span class="default_value">'green'</span></em>, <em class="sig-param"><span class="n">label_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label_colour</span><span class="o">=</span><span class="default_value">'black'</span></em>, <em class="sig-param"><span class="n">line_width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label_width</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_contours" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1023,7 +1042,10 @@ array</p></li>
 <li><p><strong>mark_holes</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is True.</p></li>
 <li><p><strong>level</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 3.</p></li>
 <li><p><strong>line_colour</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “green”.</p></li>
-<li><p><strong>text_colour</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “black”.</p></li>
+<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em>) – line width</p></li>
+<li><p><strong>label_colour</strong> (<em>{&quot;black&quot;</em><em>, </em><em>&quot;white&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;} str</em><em>, </em><em>optional</em>) – contour label colour.</p></li>
+<li><p><strong>label_size</strong> (<em>int</em><em>, </em><em>optional</em>) – contour label font size (scaled to image)</p></li>
+<li><p><strong>label_width</strong> (<em>int</em><em>, </em><em>optional</em>) – contour label font thickness</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1038,7 +1060,7 @@ array</p></li>
 <dl class="py function">
 <dt id="phenopype.core.visualization.show_landmarks">
 <code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_landmarks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">df_landmarks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">point_col</span><span class="o">=</span><span class="default_value">'green'</span></em>, <em class="sig-param"><span class="n">point_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label_col</span><span class="o">=</span><span class="default_value">'black'</span></em>, <em class="sig-param"><span class="n">label_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label_width</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_landmarks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draw landmarks on image.</p>
+<dd><p>Draw landmarks into an image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1062,12 +1084,13 @@ array</p></li>
 
 <dl class="py function">
 <dt id="phenopype.core.visualization.show_masks">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_masks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">colour</span><span class="o">=</span><span class="default_value">'blue'</span></em>, <em class="sig-param"><span class="n">select</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_masks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_masks</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">obj_input</span></em>, <em class="sig-param"><span class="n">select</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">df_masks</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">line_colour</span><span class="o">=</span><span class="default_value">'blue'</span></em>, <em class="sig-param"><span class="n">line_width</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label</span><span class="o">=</span><span class="default_value">False</span></em>, <em class="sig-param"><span class="n">label_size</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">label_col</span><span class="o">=</span><span class="default_value">'black'</span></em>, <em class="sig-param"><span class="n">label_width</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_masks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw masks into an image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>include</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – determine whether resulting mask is to include or exclude objects within</p></li>
+<li><p><strong>select</strong> (<em>str</em><em> or </em><em>list</em>) – select a subset of masks to display</p></li>
+<li><p><strong>df_masks</strong> (<em>DataFrame</em>) – contains mask coordinates and label</p></li>
 <li><p><strong>label</strong> (<em>str</em><em> (</em><em>default: &quot;area1&quot;</em><em>)</em>) – passes a label to the mask</p></li>
 <li><p><strong>tool</strong> (<em>str</em><em> (</em><em>default: &quot;rectangle&quot;</em><em>)</em>) – zoom into the scale with “rectangle” or “polygon”.</p></li>
 </ul>

@@ -201,7 +201,7 @@
     "<center>\n",
     "<div style=\"width:500px; text-align: left\">\n",
     "    \n",
-    "![Adding a scale](_assets/set_scale.gif)\n",
+    "![Adding a scale](_assets/set_scale_stickle.gif)\n",
     "    \n",
     "</div>\n",
     "</center>"
