@@ -451,7 +451,10 @@ given the following list of images:</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;isopods.jpg&#39;,
+[&#39;canvas.jpg&#39;,
+ &#39;contours.csv&#39;,
+ &#39;isopods.jpg&#39;,
+ &#39;masks.csv&#39;,
  &#39;phytoplankton.jpg&#39;,
  &#39;snail.jpg&#39;,
  &#39;stickle1.JPG&#39;,
@@ -732,7 +735,7 @@ export:
 <div class="highlight"><pre>
 Help on function add_config in module phenopype.main:
 
-add_config(self, name, config_preset=&#39;preset1&#39;, interactive=False, overwrite=False, **kwargs)
+add_config(self, name, config_preset=&#39;preset1&#39;, interactive=False, overwrite=False, idx=0, **kwargs)
     Add pype configuration presets to all image folders in the project, either by using
     the templates included in the presets folder, or by adding your own templates
     by providing a path to a yaml file. Can be tested and modified using the
@@ -958,7 +961,7 @@ add_config(self, name, config_preset=&#39;preset1&#39;, interactive=False, overw
     </p>
     <p>
         &copy; Copyright 2020, Moritz Lürig.<br/>
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.0.0b1.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.<br/>
     </p>
   </div>
 </footer>

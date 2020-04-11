@@ -15,6 +15,9 @@ After installing phenopype, download and unpack the phenopype repository from `g
 
 Alternatively, you can copy the code from the jupyter code cells over to Spyder and execute them there. In this case you need to adjust the file paths given in the code cells accordingly. 
 
+.. tip:: 
+	If you want to use the tutorials or examples as a blueprint for your own project, simply save them as python a script by clicking File > Download as > Python (.py).
+
 
 Tutorials
 ---------
@@ -41,3 +44,5 @@ Examples
 	example_4_video_analysis_stickleback
 	example_5_shape_stickleback
 	example_6_counting_snails
+
+
