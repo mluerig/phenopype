@@ -103,10 +103,15 @@ Any of these functions can be called directly after loading  phenopype without t
 Image analysis (core modules)
 -----------------------------
 
+Core image processing functions. Any function can be executed in prototyping, low throughput, and high 
+throughput workflow. In general, the order in which the different steps are performed should always be 
+the same:
+
+**preprocessing > segmentation > measurement > visualization > export**
+
+
 Preprocessing
 """""""""""""
-
-[ADD TEXT]
 
 .. automodule:: phenopype.core.preprocessing
 	:members:
@@ -118,8 +123,6 @@ Preprocessing
 Segmentation
 """"""""""""
 
-[ADD TEXT]
-
 .. automodule:: phenopype.core.segmentation
 	:members:
 	:undoc-members:
@@ -129,8 +132,6 @@ Segmentation
 
 Measurement
 """""""""""
-
-[ADD TEXT]
 
 .. automodule:: phenopype.core.measurement
 	:members:
@@ -142,8 +143,6 @@ Measurement
 Visualization
 """""""""""""
 
-[ADD TEXT]
-
 .. automodule:: phenopype.core.visualization
 	:members:
 	:undoc-members:
@@ -153,8 +152,6 @@ Visualization
 
 Export
 """"""
-
-[ADD TEXT]
 
 .. automodule:: phenopype.core.export
 	:members:

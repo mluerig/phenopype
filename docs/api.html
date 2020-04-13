@@ -86,11 +86,11 @@
 <li><a class="reference internal" href="#pype-high-throughput-function">pype (high throughput function)</a></li>
 <li><a class="reference internal" href="#utility-functions">Utility functions</a></li>
 <li><a class="reference internal" href="#image-analysis-core-modules">Image analysis (core modules)</a><ul>
-<li><a class="reference internal" href="#preprocessing">Preprocessing</a></li>
-<li><a class="reference internal" href="#segmentation">Segmentation</a></li>
-<li><a class="reference internal" href="#measurement">Measurement</a></li>
-<li><a class="reference internal" href="#visualization">Visualization</a></li>
-<li><a class="reference internal" href="#export">Export</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.preprocessing">Preprocessing</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.segmentation">Segmentation</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.measurement">Measurement</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.visualization">Visualization</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.export">Export</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#video-analysis">Video analysis</a><ul>
@@ -152,11 +152,11 @@
 <li><a class="reference internal" href="#pype-high-throughput-function">pype (high throughput function)</a></li>
 <li><a class="reference internal" href="#utility-functions">Utility functions</a></li>
 <li><a class="reference internal" href="#image-analysis-core-modules">Image analysis (core modules)</a><ul>
-<li><a class="reference internal" href="#preprocessing">Preprocessing</a></li>
-<li><a class="reference internal" href="#segmentation">Segmentation</a></li>
-<li><a class="reference internal" href="#measurement">Measurement</a></li>
-<li><a class="reference internal" href="#visualization">Visualization</a></li>
-<li><a class="reference internal" href="#export">Export</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.preprocessing">Preprocessing</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.segmentation">Segmentation</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.measurement">Measurement</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.visualization">Visualization</a></li>
+<li><a class="reference internal" href="#module-phenopype.core.export">Export</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#video-analysis">Video analysis</a><ul>
@@ -214,7 +214,7 @@ by side. The project root folder should be separate from the raw data, e.g. as a
 <p class="admonition-title">Important</p>
 <p>Currently the only useful information contained in the project object (<code class="code docutils literal notranslate"><span class="pre">myproj</span></code>) is a list of all directories inside the
 project’s directory tree. It is important to save <cite>both</cite> the project AND all results in the data directories using the appropriate
-functions in (<a class="reference internal" href="#export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
+functions in (<a class="reference internal" href="#module-phenopype.core.export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
 </div>
 <dl class="class">
 <dt id="phenopype.main.project">
@@ -634,10 +634,13 @@ original size).</p></li>
 </div>
 <div class="section" id="image-analysis-core-modules">
 <h2>Image analysis (core modules)<a class="headerlink" href="#image-analysis-core-modules" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="preprocessing">
-<h3>Preprocessing<a class="headerlink" href="#preprocessing" title="Permalink to this headline">¶</a></h3>
-<p>[ADD TEXT]</p>
-<span class="target" id="module-phenopype.core.preprocessing"></span><dl class="function">
+<p>Core image processing functions. Any function can be executed in prototyping, low throughput, and high
+throughput workflow. In general, the order in which the different steps are performed should always be
+the same:</p>
+<p><strong>preprocessing &gt; segmentation &gt; measurement &gt; visualization &gt; export</strong></p>
+<div class="section" id="module-phenopype.core.preprocessing">
+<span id="preprocessing"></span><h3>Preprocessing<a class="headerlink" href="#module-phenopype.core.preprocessing" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
 <dt id="phenopype.core.preprocessing.create_mask">
 <code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">include=True</em>, <em class="sig-param">label='mask1'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='rectangle'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
@@ -804,10 +807,9 @@ original size).</p></li>
 </dd></dl>
 
 </div>
-<div class="section" id="segmentation">
-<h3>Segmentation<a class="headerlink" href="#segmentation" title="Permalink to this headline">¶</a></h3>
-<p>[ADD TEXT]</p>
-<span class="target" id="module-phenopype.core.segmentation"></span><dl class="function">
+<div class="section" id="module-phenopype.core.segmentation">
+<span id="segmentation"></span><h3>Segmentation<a class="headerlink" href="#module-phenopype.core.segmentation" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
 <dt id="phenopype.core.segmentation.blur">
 <code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">blur</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">kernel_size=5</em>, <em class="sig-param">method='averaging'</em>, <em class="sig-param">sigma_color=75</em>, <em class="sig-param">sigma_space=75</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.blur" title="Permalink to this definition">¶</a></dt>
 <dd><p>Apply a blurring algorithm to the image.</p>
@@ -881,21 +883,12 @@ for minimum area, diameter or nodes (= number of corners).</p>
 <li><p><strong>retrieval</strong> (<em>{&quot;ext&quot;</em><em>, </em><em>&quot;list&quot;</em><em>, </em><em>&quot;tree&quot;</em><em>, </em><em>&quot;ccomp&quot;</em><em>, </em><em>&quot;flood&quot;} str</em><em>, </em><em>optional</em>) – <dl class="simple">
 <dt>contour retrieval procedure:</dt><dd><ul>
 <li><p>ext: retrieves only the extreme outer contours</p></li>
-<li><dl class="simple">
-<dt>list: retrieves all of the contours without establishing any</dt><dd><p>hierarchical relationships</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>tree: retrieves all of the contours and reconstructs a full</dt><dd><p>hierarchy of nested contours</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>ccomp: retrieves all of the contours and organizes them into a</dt><dd><p>two-level hierarchy (parent and child)</p>
-</dd>
-</dl>
-</li>
+<li><p>list: retrieves all of the contours without establishing any
+hierarchical relationships</p></li>
+<li><p>tree: retrieves all of the contours and reconstructs a full
+hierarchy of nested contours</p></li>
+<li><p>ccomp: retrieves all of the contours and organizes them into a
+two-level hierarchy (parent and child)</p></li>
 <li><p>flood: flood-fill algorithm</p></li>
 </ul>
 </dd>
@@ -922,7 +915,11 @@ for minimum area, diameter or nodes (= number of corners).</p>
 <dl class="function">
 <dt id="phenopype.core.segmentation.morphology">
 <code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">morphology</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">kernel_size=5</em>, <em class="sig-param">shape='rect'</em>, <em class="sig-param">operation='close'</em>, <em class="sig-param">iterations=1</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.morphology" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Performs advanced morphological transformations using erosion and dilation
+as basic operations. Provides different kernel shapes and a suite of operation
+types (read more about morphological operations here:
+<a class="reference external" href="https://docs.opencv.org/master/db/df6/tutorial_erosion_dilatation.html">https://docs.opencv.org/master/db/df6/tutorial_erosion_dilatation.html</a>)</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
@@ -948,27 +945,10 @@ ceiled)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+<dd class="field-even"><p><strong>image</strong> – processed image</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>TYPE</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="function">
-<dt id="phenopype.core.segmentation.skeletonize">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">skeletonize</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.skeletonize" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>img</strong> (<em>TYPE</em>) – DESCRIPTION.</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><strong>skeleton</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>iters</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-</ul>
-</p>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -976,45 +956,75 @@ ceiled)</p></li>
 <dl class="function">
 <dt id="phenopype.core.segmentation.threshold">
 <code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">threshold</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">method='otsu'</em>, <em class="sig-param">constant=1</em>, <em class="sig-param">blocksize=99</em>, <em class="sig-param">value=127</em>, <em class="sig-param">channel='gray'</em>, <em class="sig-param">invert=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.threshold" title="Permalink to this definition">¶</a></dt>
-<dd><p>If the input array was single channel, the threshold method can only use the
-grayscale space to, but if multiple channels were provided, then one can either chose
-to coerce the color image to grayscale or use one of the color channels directly.</p>
+<dd><p>Applies a fixed-level threshold to create a binary image from a grayscale
+image or a multichannel image (gray, red, green or blue channel can be selected).
+Three types of thresholding algorithms are supported. Binary mask coordinates
+can be supplied to include or exclude areas.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>df_masks</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
-<li><p><strong>method</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “otsu”.</p></li>
-<li><p><strong>constant</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 1.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>df_masks</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – contains mask coordinates</p></li>
+<li><p><strong>method</strong> (<em>{&quot;otsu&quot;</em><em>, </em><em>&quot;adaptive&quot;</em><em>, </em><em>&quot;binary&quot;} str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>type of thresholding algorithm:</dt><dd><ul>
+<li><p>otsu: use Otsu algorithm to choose the optimal threshold value</p></li>
+<li><p>adaptive: dynamic threshold values across image (uses arguments
+“blocksize” and “constant”)</p></li>
+<li><p>binary: fixed threshold value (uses argument “value”)</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
 <li><p><strong>blocksize</strong> (<em>int</em><em>, </em><em>optional</em>) – Size of a pixel neighborhood that is used to calculate a threshold
-value for the pixel (has to be odd - even numbers will be ceiled)</p></li>
-<li><p><strong>value</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 127.</p></li>
-<li><p><strong>channel</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “gray”.</p></li>
-<li><p><strong>invert</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is False.</p></li>
+value for the pixel (has to be odd - even numbers will be ceiled; for
+“adaptive” method)</p></li>
+<li><p><strong>constant</strong> (<em>int</em><em>, </em><em>optional</em>) – value to subtract from binarization output (for “adaptive” method)</p></li>
+<li><p><strong>value</strong> (<em>{between 0 and 255} int</em><em>, </em><em>optional</em>) – thesholding value (for “binary” method)</p></li>
+<li><p><strong>{&quot;gray&quot;</strong><strong>, </strong><strong>&quot;red&quot;</strong><strong>, </strong><strong>&quot;green&quot;</strong><strong>, </strong><strong>&quot;blue&quot;}</strong> (<em>channel</em>) – which channel of the image to use for thresholding</p></li>
+<li><p><strong>invert</strong> (<em>bool</em><em>, </em><em>optional</em>) – invert all pixel values PRIOR to applying threshold values</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p><strong>image</strong> – binary image</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.segmentation.watershed">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">watershed</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">close_iterations=3</em>, <em class="sig-param">close_kernel_size=3</em>, <em class="sig-param">open_iterations=3</em>, <em class="sig-param">open_kernel_size=3</em>, <em class="sig-param">distance_cutoff=0.5</em>, <em class="sig-param">distance_mask=0</em>, <em class="sig-param">distance_type='l1'</em>, <em class="sig-param">shape='ellipse'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.watershed" title="Permalink to this definition">¶</a></dt>
-<dd><p>If the input array was single channel, the threshold method can only use the
-grayscale space to, but if multiple channels were provided, then one can either chose
-to coerce the color image to grayscale or use one of the color channels directly.</p>
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">watershed</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">iterations=3</em>, <em class="sig-param">kernel_size=3</em>, <em class="sig-param">distance_cutoff=0.5</em>, <em class="sig-param">distance_mask=0</em>, <em class="sig-param">distance_type='l1'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.watershed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Performs non-parametric marker-based segmentation - useful if many detected
+contours are touching or overlapping with each other. Input image should be
+a binary image that serves as the true background. Iteratively, edges are
+eroded, the difference serves as markers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>kernel_size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the diff-kernel (has to be odd - even numbers will be ceiled)</p></li>
+<li><p><strong>iterations</strong> (<em>int</em><em>, </em><em>optional</em>) – number of times to apply diff-operation</p></li>
+<li><p><strong>distance_cutoff</strong> (<em>{between 0 and 1} float</em><em>, </em><em>optional</em>) – watershed distance transform cutoff (larger values discard more pixels)</p></li>
+<li><p><strong>distance_mask</strong> (<em>{0</em><em>, </em><em>3</em><em>, </em><em>5} int</em><em>, </em><em>optional</em>) – size of distance mask - not all sizes work with all distance types (will
+be coerced to 0)</p></li>
+<li><p><strong>distance_type</strong> (<em>{&quot;user&quot;</em><em>, </em><em>&quot;l1&quot;</em><em>, </em><em>&quot;l2&quot;</em><em>, </em><em>&quot;C&quot;</em><em>, </em><em>&quot;l12&quot;</em><em>, </em><em>&quot;fair&quot;</em><em>, </em><em>&quot;welsch&quot;</em><em>, </em><em>&quot;huber&quot;} str</em><em>, </em><em>optional</em>) – distance transformation type</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image</strong> – binary image</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
-<div class="section" id="measurement">
-<h3>Measurement<a class="headerlink" href="#measurement" title="Permalink to this headline">¶</a></h3>
-<p>[ADD TEXT]</p>
-<span class="target" id="module-phenopype.core.measurement"></span><dl class="function">
+<div class="section" id="module-phenopype.core.measurement">
+<span id="measurement"></span><h3>Measurement<a class="headerlink" href="#module-phenopype.core.measurement" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
 <dt id="phenopype.core.measurement.landmarks">
 <code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.landmarks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set landmarks, with option to measure length and enter specimen ID.</p>
@@ -1068,11 +1078,31 @@ to coerce the color image to grayscale or use one of the color channels directly
 </dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="phenopype.core.measurement.skeletonize">
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">skeletonize</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.skeletonize" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>df_image_data</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
+<li><p><strong>df_contours</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
+<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df_contours</strong> – DESCRIPTION.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>TYPE</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
-<div class="section" id="visualization">
-<h3>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h3>
-<p>[ADD TEXT]</p>
-<span class="target" id="module-phenopype.core.visualization"></span><dl class="function">
+<div class="section" id="module-phenopype.core.visualization">
+<span id="visualization"></span><h3>Visualization<a class="headerlink" href="#module-phenopype.core.visualization" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
 <dt id="phenopype.core.visualization.select_canvas">
 <code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">select_canvas</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">canvas='image_mod'</em>, <em class="sig-param">multi=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.select_canvas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Isolate a colour channel from an image or select canvas for the pype method.</p>
@@ -1098,7 +1128,7 @@ array by default</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.visualization.show_contours">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">offset_coords=None</em>, <em class="sig-param">label=True</em>, <em class="sig-param">fill=0.3</em>, <em class="sig-param">mark_holes=True</em>, <em class="sig-param">level=3</em>, <em class="sig-param">line_colour='green'</em>, <em class="sig-param">label_size=None</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">line_width=None</em>, <em class="sig-param">label_width=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_contours" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">offset_coords=None</em>, <em class="sig-param">label=True</em>, <em class="sig-param">fill=0.3</em>, <em class="sig-param">mark_holes=True</em>, <em class="sig-param">level=3</em>, <em class="sig-param">line_colour='green'</em>, <em class="sig-param">label_size=None</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">line_width=None</em>, <em class="sig-param">label_width=None</em>, <em class="sig-param">skeleton=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_contours" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1183,10 +1213,9 @@ array by default</p></li>
 </dd></dl>
 
 </div>
-<div class="section" id="export">
-<h3>Export<a class="headerlink" href="#export" title="Permalink to this headline">¶</a></h3>
-<p>[ADD TEXT]</p>
-<span class="target" id="module-phenopype.core.export"></span><dl class="function">
+<div class="section" id="module-phenopype.core.export">
+<span id="export"></span><h3>Export<a class="headerlink" href="#module-phenopype.core.export" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
 <dt id="phenopype.core.export.save_canvas">
 <code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_canvas</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">name=''</em>, <em class="sig-param">resize=0.5</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_canvas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save a canvas (processed image). Less flexible than “save_image”, should
