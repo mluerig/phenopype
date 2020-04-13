@@ -214,7 +214,7 @@ by side. The project root folder should be separate from the raw data, e.g. as a
 <p class="admonition-title">Important</p>
 <p>Currently the only useful information contained in the project object (<code class="code docutils literal notranslate"><span class="pre">myproj</span></code>) is a list of all directories inside the
 project’s directory tree. It is important to save <cite>both</cite> the project AND all results in the data directories using the appropriate
-functions in (<a class="reference internal" href="tutorial_2_phenopype_workflow.html#Export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
+functions in (<a class="reference internal" href="#export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
 </div>
 <dl class="class">
 <dt id="phenopype.main.project">
@@ -639,7 +639,7 @@ original size).</p></li>
 <p>[ADD TEXT]</p>
 <span class="target" id="module-phenopype.core.preprocessing"></span><dl class="function">
 <dt id="phenopype.core.preprocessing.create_mask">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">include=True</em>, <em class="sig-param">label='mask1'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='rectangle'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">include=True</em>, <em class="sig-param">label='mask1'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='rectangle'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -650,7 +650,6 @@ original size).</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if working using a container, or from a phenopype project directory,
 should existing masks with the same label be overwritten</p></li>
 <li><p><strong>tool</strong> (<em>{&quot;rectangle&quot;</em><em>, </em><em>&quot;polygon&quot;} str</em><em>, </em><em>optional</em>) – select tool by which mask is drawn</p></li>
-<li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -664,23 +663,31 @@ should existing masks with the same label be overwritten</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.preprocessing.create_scale">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">template=False</em>, <em class="sig-param">mask=False</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">overwrite=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Measure a size or colour reference card and return the information</p>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">mask=False</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">template=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measure a size or colour reference card. Minimum input interaction is
+measuring a size reference: click on two points inside the provided image,
+and enter the distance - returns the pixel-to-mm-ratio as integer or
+inserts it into a provided DataFrame (df_image_data). In an optional second
+step, drag a rectangle mask over the reference card to exclude it from any
+subsequent image segementation. The mask is exported as new DataFrame, OR,
+if provided before, gets appended to an existing one (df_masks). The mask
+can also be stored as a template for automatic scale detection with the
+“find_scale” function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
 <li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata to add the scale
 information to (pixel-to-mm-ratio)</p></li>
+<li><p><strong>df_masks</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing masks to add the created mask to</p></li>
+<li><p><strong>mask</strong> (<em>bool</em><em>, </em><em>optional</em>) – mask a reference card inside the image (returns a mask DataFrame)</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if a container is supplied, or when working from the pype, should any
+exsting scale information (px-to-mm-ratio) or template be overwritten</p></li>
 <li><p><strong>template</strong> (<em>bool</em><em>, </em><em>optional</em>) – should a template for scale detection be created. with an existing
 template, phenopype can try to find a reference card in a given image,
 measure its dimensions, and adjust and colour space. automatically
 creates and returns a mask DataFrame that can be added to an existing
 one</p></li>
-<li><p><strong>mask</strong> (<em>bool</em><em>, </em><em>optional</em>) – mask a reference card inside the image (returns a mask DataFrame)</p></li>
-<li><p><strong>df_masks</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing masks to add the created mask to</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if a container is supplied, or when working from the pype, should any
-exsting scale information (px-to-mm-ratio) or template be overwritten</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -697,14 +704,14 @@ exsting scale information (px-to-mm-ratio) or template be overwritten</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.preprocessing.enter_data">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">enter_data</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df=None</em>, <em class="sig-param">columns='ID'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">fontsize=3</em>, <em class="sig-param">font_col='red'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.enter_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Enter generic data that can be added as columns to an existing DataFrame.
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">enter_data</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">columns='ID'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">label_colour='red'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.enter_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generic data entry that can be added as columns to an existing DataFrame.
 Useful for images containing labels, or other comments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
-<li><p><strong>df</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – DataFrame to add columns to (each row)</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata to add columns to</p></li>
 <li><p><strong>columns</strong> (<em>str</em><em> or </em><em>list</em>) – columns to be added to existing or generic data frame</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite existing columns in df</p></li>
 <li><p><strong>fontsize</strong> (<em>int</em><em>, </em><em>optional</em>) – fonsize for onscreen display.</p></li>
@@ -722,28 +729,28 @@ Useful for images containing labels, or other comments.</p>
 
 <dl class="function">
 <dt id="phenopype.core.preprocessing.find_scale">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">find_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">equalize=False</em>, <em class="sig-param">min_matches=10</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">px_mm_ratio_ref=None</em>, <em class="sig-param">template=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.find_scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Find scale from a defined template inside an image and update pixel
-ratio. Image registration is run by the “AKAZE” algorithm
-(<a class="reference external" href="http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf">http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf</a>).
-Future implementations will include more algorithms to select from.
-Prior to running detect_scale, measure_scale and make_scale_template
-have to be run once to pass on reference scale size and template of
-scale reference card (gets passed on internally by calling detect_scale
-from the same instance of scale_maker.</p>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">find_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">template=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">equalize=False</em>, <em class="sig-param">min_matches=10</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">px_mm_ratio_ref=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.find_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find scale from a template created with “create_scale”. Image registration
+is run by the “AKAZE” algorithm. Future implementations will include more
+algorithms to select from. First, use “create_scale” with “template=True”
+and pass the template to this function. This happends automatically in the
+low and high throughput workflow (i.e., when “obj_input” is a container, the
+template image is contained within. Use “equalize=True” to adjust the
+histograms of all colour channels to the reference image.</p>
+<p>AKAZE: <a class="reference external" href="http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf">http://www.bmva.org/bmvc/2013/Papers/paper0013/abstract0013.pdf</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input for processing</p></li>
-<li><p><strong>resize</strong> (<em>num. optional</em>) – resize image to speed up detection process. default: 0.5 for
-images with diameter &gt; 5000px (WARNING: too low values may
-result in poor detection performance or even crashes)</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite existing scale_current_px_mm_ratio in container</p></li>
+<li><p><strong>template</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a><em>, </em><em>optional</em>) – reference image of scale</p></li>
 <li><p><strong>equalize</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the provided image be colour corrected to match the template
 images’ histogram</p></li>
 <li><p><strong>min_matches</strong> (<em>int</em><em>, </em><em>optional</em>) – minimum key point matches for image registration</p></li>
+<li><p><strong>resize</strong> (<em>num</em><em>, </em><em>optional</em>) – resize image to speed up detection process. default: 0.5 for
+images with diameter &gt; 5000px (WARNING: too low values may
+result in poor detection performance or even crashes)</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite existing scale_current_px_mm_ratio in container</p></li>
 <li><p><strong>px_mm_ratio_ref</strong> (<em>int</em><em>, </em><em>optional</em>) – pixel-to-mm-ratio of the template image</p></li>
-<li><p><strong>template</strong> (<em>array</em><em>, </em><em>optional</em>) – reference image of scale</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -760,7 +767,7 @@ segmentation algorithms</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.preprocessing.invert_image">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">invert_image</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.invert_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">invert_image</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.invert_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Invert all pixel intensities in image (e.g. 0 to 255 or 100 to 155)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -777,7 +784,7 @@ segmentation algorithms</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.preprocessing.resize_image">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">resize_image</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">resize=1</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.resize_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">resize_image</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">factor=1</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.resize_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Resize image by resize factor</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -802,57 +809,112 @@ original size).</p></li>
 <p>[ADD TEXT]</p>
 <span class="target" id="module-phenopype.core.segmentation"></span><dl class="function">
 <dt id="phenopype.core.segmentation.blur">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">blur</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.blur" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">blur</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">kernel_size=5</em>, <em class="sig-param">method='averaging'</em>, <em class="sig-param">sigma_color=75</em>, <em class="sig-param">sigma_space=75</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.blur" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply a blurring algorithm to the image.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>kernel_size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the blurring kernel (has to be odd - even numbers will be ceiled)</p></li>
+<li><p><strong>method</strong> (<em>{averaging</em><em>, </em><em>gaussian</em><em>, </em><em>median</em><em>, </em><em>bilateral} str</em><em>, </em><em>optional</em>) – blurring algorithm</p></li>
+<li><p><strong>sigma_colour</strong> (<em>int</em><em>, </em><em>optional</em>) – for ‘bilateral’</p></li>
+<li><p><strong>sigma_space</strong> (<em>int</em><em>, </em><em>optional</em>) – for ‘bilateral’</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>image</strong> – DESCRIPTION.</p>
+<dd class="field-even"><p><strong>image</strong> – blurred image</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>TYPE</p>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.segmentation.draw">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.draw" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='line'</em>, <em class="sig-param">line_colour='black'</em>, <em class="sig-param">line_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.draw" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw lines, rectangles or polygons onto a colour or binary image. Can be
+used to connect. disconnect or erase contours.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if a container is supplied, or when working from the pype, should any
+exsting drawings be overwritten</p></li>
+<li><p><strong>tool</strong> (<em>{line</em><em>, </em><em>polygon</em><em>, </em><em>rectangle} str</em><em>, </em><em>optional</em>) – type of tool to use for drawing</p></li>
+<li><p><strong>line_colour</strong> (<em>{&quot;black&quot;</em><em>, </em><em>&quot;white&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;} str</em><em>, </em><em>optional</em>) – line or filling (for rectangle and polygon) colour</p></li>
+<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em>) – line width</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p><strong>image</strong> – image with drawings</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.segmentation.find_contours">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">find_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.find_contours" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">find_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">approximation='simple'</em>, <em class="sig-param">retrieval='ext'</em>, <em class="sig-param">offset_coords=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">min_nodes=3</em>, <em class="sig-param">max_nodes=inf</em>, <em class="sig-param">min_area=0</em>, <em class="sig-param">max_area=inf</em>, <em class="sig-param">min_diameter=0</em>, <em class="sig-param">max_diameter=inf</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.find_contours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Find objects in binarized image. The input image needs to be a binarized image
+or a container on which a binarizing segmentation algorithm (e.g. threshold or
+watershed) has been performed. A flavor of different approximation algorithms
+and retrieval intstructions can be applied. The contours can also be filtered
+for minimum area, diameter or nodes (= number of corners).</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata</p></li>
+<li><p><strong>approximation</strong> (<em>{&quot;none&quot;</em><em>, </em><em>&quot;simple&quot;</em><em>, </em><em>&quot;L1&quot;</em><em>, </em><em>&quot;KCOS&quot;</em><em>] </em><em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>contour approximation algorithm:</dt><dd><ul>
+<li><p>none: no approximation, all contour coordinates are returned</p></li>
+<li><p>simple: only the minimum coordinates required are returned</p></li>
+<li><p>L1: Teh-Chin chain approximation algorithm</p></li>
+<li><p>KCOS: Teh-Chin chain approximation algorithm</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>retrieval</strong> (<em>{&quot;ext&quot;</em><em>, </em><em>&quot;list&quot;</em><em>, </em><em>&quot;tree&quot;</em><em>, </em><em>&quot;ccomp&quot;</em><em>, </em><em>&quot;flood&quot;} str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>contour retrieval procedure:</dt><dd><ul>
+<li><p>ext: retrieves only the extreme outer contours</p></li>
+<li><dl class="simple">
+<dt>list: retrieves all of the contours without establishing any</dt><dd><p>hierarchical relationships</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>tree: retrieves all of the contours and reconstructs a full</dt><dd><p>hierarchy of nested contours</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>ccomp: retrieves all of the contours and organizes them into a</dt><dd><p>two-level hierarchy (parent and child)</p>
+</dd>
+</dl>
+</li>
+<li><p>flood: flood-fill algorithm</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>offset_coords</strong> (<em>tuple</em><em>, </em><em>optional</em>) – offset by which every contour point is shifted.</p></li>
+<li><p><strong>min_nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – minimum number of coordinates</p></li>
+<li><p><strong>max_nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum number of coordinates</p></li>
+<li><p><strong>min_area</strong> (<em>int</em><em>, </em><em>optional</em>) – minimum contour area in pixels</p></li>
+<li><p><strong>max_area</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum contour area in pixels</p></li>
+<li><p><strong>min_diameter</strong> (<em>int</em><em>, </em><em>optional</em>) – minimum diameter of boundary circle</p></li>
+<li><p><strong>max_diameter</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum diameter of boundary circle</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>DESCRIPTION.</p>
+<dd class="field-even"><p><strong>df_contours</strong> – contains contours</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>TYPE</p>
+<dd class="field-odd"><p>DataFrame or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -863,11 +925,26 @@ original size).</p></li>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>kernel_size</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 5.</p></li>
-<li><p><strong>shape</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “rect”.</p></li>
-<li><p><strong>operation</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “close”.</p></li>
-<li><p><strong>iterations</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 1.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>kernel_size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the morphology kernel (has to be odd - even numbers will be
+ceiled)</p></li>
+<li><p><strong>shape</strong> (<em>{&quot;rect&quot;</em><em>, </em><em>&quot;cross&quot;</em><em>, </em><em>&quot;ellipse&quot;} str</em><em>, </em><em>optional</em>) – shape of the kernel</p></li>
+<li><p><strong>operation</strong> (<em>{erode</em><em>, </em><em>dilate</em><em>, </em><em>open</em><em>, </em><em>close</em><em>, </em><em>gradient</em><em>, </em><em>tophat</em><em>, </em><em>blackhat</em><em>, </em><em>hitmiss} str</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>the morphology operation to be performed:</dt><dd><ul>
+<li><p>erode: remove pixels from the border</p></li>
+<li><p>dilate: add pixels to the border</p></li>
+<li><p>open: erosion followed by dilation</p></li>
+<li><p>close: dilation followed by erosion</p></li>
+<li><p>gradient: difference between dilation and erosion of an input image</p></li>
+<li><p>tophat: difference between input image and opening of input image</p></li>
+<li><p>blackhat: difference between input image and closing of input image</p></li>
+<li><p>hitmiss: find patterns in binary images (read more here:
+<a class="reference external" href="https://docs.opencv.org/master/db/d06/tutorial_hitOrMiss.html">https://docs.opencv.org/master/db/d06/tutorial_hitOrMiss.html</a>)</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>iterations</strong> (<em>int</em><em>, </em><em>optional</em>) – number of times to run morphology operation</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -902,6 +979,27 @@ original size).</p></li>
 <dd><p>If the input array was single channel, the threshold method can only use the
 grayscale space to, but if multiple channels were provided, then one can either chose
 to coerce the color image to grayscale or use one of the color channels directly.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>df_masks</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
+<li><p><strong>method</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “otsu”.</p></li>
+<li><p><strong>constant</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 1.</p></li>
+<li><p><strong>blocksize</strong> (<em>int</em><em>, </em><em>optional</em>) – Size of a pixel neighborhood that is used to calculate a threshold
+value for the pixel (has to be odd - even numbers will be ceiled)</p></li>
+<li><p><strong>value</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 127.</p></li>
+<li><p><strong>channel</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “gray”.</p></li>
+<li><p><strong>invert</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p></p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">

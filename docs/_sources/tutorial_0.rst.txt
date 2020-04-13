@@ -7,7 +7,7 @@ The tutorials are written as `Jupyter notebooks`, interactive web-apps to run, d
 
 	pip install jupyter notebook
 
-After installing phenopype, download and unpack the phenopype repository from `github <https://github.com/mluerig/phenopype>`_. Go to the tutorial folder, open a terminal and run the notebooks:
+After installing phenopype, `clone the phenopype repository from github <https://github.com/mluerig/phenopype/archive/master.zip>`_. After downloading, unpack the zip file, cd to the tutorial folder, open a terminal and run the notebooks:
 
 .. code-block:: bash
 
@@ -16,7 +16,7 @@ After installing phenopype, download and unpack the phenopype repository from `g
 Alternatively, you can copy the code from the jupyter code cells over to Spyder and execute them there. In this case you need to adjust the file paths given in the code cells accordingly. 
 
 .. tip:: 
-	If you want to use the tutorials or examples as a blueprint for your own project, simply save them as python a script by clicking File>Download as>Python (.py).
+	If you want to use the tutorials or examples as a blueprint for your own project, simply save them as python a script by clicking File > Download as > Python (.py).
 
 
 Tutorials
@@ -44,5 +44,4 @@ Examples
 	example_4_video_analysis_stickleback
 	example_5_shape_stickleback
 	example_6_counting_snails
-
-
+	example_7_worm_length

@@ -89,8 +89,8 @@
 <li><a class="reference internal" href="#pype-behavior">pype behavior</a><ul>
 <li><a class="reference internal" href="#Window-control">Window control</a></li>
 <li><a class="reference internal" href="#Function-execution">Function execution</a></li>
-<li><a class="reference internal" href="#Visualization">Visualization</a></li>
-<li><a class="reference internal" href="#Export">Export</a></li>
+<li><a class="reference internal" href="#Visualizing-the-results">Visualizing the results</a></li>
+<li><a class="reference internal" href="#Exporting-the-results">Exporting the results</a></li>
 </ul>
 </li>
 </ul>
@@ -152,8 +152,8 @@
 <li><a class="reference internal" href="#pype-behavior">pype behavior</a><ul>
 <li><a class="reference internal" href="#Window-control">Window control</a></li>
 <li><a class="reference internal" href="#Function-execution">Function execution</a></li>
-<li><a class="reference internal" href="#Visualization">Visualization</a></li>
-<li><a class="reference internal" href="#Export">Export</a></li>
+<li><a class="reference internal" href="#Visualizing-the-results">Visualizing the results</a></li>
+<li><a class="reference internal" href="#Exporting-the-results">Exporting the results</a></li>
 </ul>
 </li>
 </ul>
@@ -742,8 +742,8 @@ arguments passed on to the function. Following this notation, the yaml parser in
 <p>[1] If you forget to remove an overwrite argument and are prompted to overwrite previous input, simply remove the <code class="docutils literal notranslate"><span class="pre">overwrite:</span> <span class="pre">true</span></code> argument, and save to run the <code class="docutils literal notranslate"><span class="pre">pype</span></code> again, it will fall back onto input from the last iteration.</p>
 <p>[2] For example, <code class="docutils literal notranslate"><span class="pre">pp.pype(image,</span> <span class="pre">name=&quot;run1&quot;,</span> <span class="pre">dirpath=&quot;path\to\directory)</span></code> will attempt to load any saved files in <code class="docutils literal notranslate"><span class="pre">directory</span></code> that contains the suffix <code class="docutils literal notranslate"><span class="pre">&quot;run1&quot;</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">&quot;masks_run1.csv&quot;</span></code>).</p>
 </div>
-<div class="section" id="Visualization">
-<h4>Visualization<a class="headerlink" href="#Visualization" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="Visualizing-the-results">
+<h4>Visualizing the results<a class="headerlink" href="#Visualizing-the-results" title="Permalink to this headline">¶</a></h4>
 <p>Handling aspects of visual feedback (can be completely suppressed by setting <code class="docutils literal notranslate"><span class="pre">feedback=False</span></code> in the <code class="docutils literal notranslate"><span class="pre">pype</span></code> arguments).</p>
 <ol class="arabic simple">
 <li><p>Visual feedback is always generated automatically by an internal function that show results (i.e. output from <code class="docutils literal notranslate"><span class="pre">landmarks</span></code>, <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> or <code class="docutils literal notranslate"><span class="pre">create_mask</span></code>) on top of a “canvas”.</p></li>
@@ -754,8 +754,8 @@ arguments passed on to the function. Following this notation, the yaml parser in
 </ol>
 <p>[1] Experimental: use the flag <code class="docutils literal notranslate"><span class="pre">autoshow=True</span></code> in the <code class="docutils literal notranslate"><span class="pre">pype</span></code> arguments to automatically show results.</p>
 </div>
-<div class="section" id="Export">
-<h4>Export<a class="headerlink" href="#Export" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="Exporting-the-results">
+<h4>Exporting the results<a class="headerlink" href="#Exporting-the-results" title="Permalink to this headline">¶</a></h4>
 <p>Saving results and canvas for quality control.</p>
 <ol class="arabic simple">
 <li><p>All results are saved automatically, even if the respective functions in <code class="docutils literal notranslate"><span class="pre">export</span></code> are not specified, with the <code class="docutils literal notranslate"><span class="pre">name</span></code> argument in <code class="docutils literal notranslate"><span class="pre">pype</span></code> as suffix [1,2].</p></li>
@@ -766,6 +766,15 @@ arguments passed on to the function. Following this notation, the yaml parser in
 <p>[2] For example, <code class="docutils literal notranslate"><span class="pre">pp.pype(image,</span> <span class="pre">name=&quot;run1&quot;)</span></code> will save <code class="docutils literal notranslate"><span class="pre">&quot;masks_run1.csv&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;contours_run1.csv&quot;</span></code>.</p>
 <p>[3] For example, listing <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">save_landmarks</span></code> under <code class="docutils literal notranslate"><span class="pre">export:</span></code> will overwrite <code class="docutils literal notranslate"><span class="pre">landmarks_run1.csv</span></code></p>
 <p>[4] For example, <code class="docutils literal notranslate"><span class="pre">name:</span> <span class="pre">binary</span></code> under <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">save_canvas:</span></code> save the canvas as <code class="docutils literal notranslate"><span class="pre">canvas_binary.jpg</span></code></p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 </div>
