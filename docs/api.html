@@ -195,7 +195,7 @@ by side. The project root folder should be separate from the raw data, e.g. as a
  data_raw
  phenopype<span class="se">\ </span>            <span class="c1"># create phenopype project here with &quot;pp.project&quot;</span>
   data<span class="se">\ </span>                <span class="c1"># created automatically</span>
-   project.data <span class="c1"># created with &quot;pp.project.save&quot;</span>
+   project.data         <span class="c1"># created with &quot;pp.project.save&quot;</span>
    file1<span class="se">\ </span>              <span class="c1"># add files to project using &quot;pp.project.add_files&quot;</span>
     raw.jpg                     <span class="c1"># created by &quot;pp.project.add_files&quot;</span>
     attributes.yaml     <span class="c1"># created by &quot;pp.project.add_files&quot;</span>
@@ -643,11 +643,16 @@ the same:</p>
 <dl class="function">
 <dt id="phenopype.core.preprocessing.create_mask">
 <code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">include=True</em>, <em class="sig-param">label='mask1'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='rectangle'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
+<dd><p>Draw rectangle or polygon mask onto image by clicking and dragging the
+cursor over the image. One mask can contain multiple sets of coordinates,
+i.e. multiple and not overallping masks. For rectangle mask, finish with
+ENTER. For polygons, finish current polygon with CTRL, and then with ENTER.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata, will be added to mask
+output DataFrame</p></li>
 <li><p><strong>include</strong> (<em>bool</em><em>, </em><em>optional</em>) – determine whether resulting mask is to include or exclude objects within</p></li>
 <li><p><strong>label</strong> (<em>str</em><em>, </em><em>optinal</em>) – assigns a label to the mask</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if working using a container, or from a phenopype project directory,
@@ -868,7 +873,7 @@ for minimum area, diameter or nodes (= number of corners).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object (binary)</p></li>
 <li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata</p></li>
 <li><p><strong>approximation</strong> (<em>{&quot;none&quot;</em><em>, </em><em>&quot;simple&quot;</em><em>, </em><em>&quot;L1&quot;</em><em>, </em><em>&quot;KCOS&quot;</em><em>] </em><em>str</em><em>, </em><em>optional</em>) – <dl class="simple">
 <dt>contour approximation algorithm:</dt><dd><ul>
@@ -1026,75 +1031,103 @@ be coerced to 0)</p></li>
 <span id="measurement"></span><h3>Measurement<a class="headerlink" href="#module-phenopype.core.measurement" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="phenopype.core.measurement.landmarks">
-<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.landmarks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set landmarks, with option to measure length and enter specimen ID.</p>
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">point_colour='green'</em>, <em class="sig-param">point_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.landmarks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set landmarks onto image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>scale</strong> (<em>num</em><em> (</em><em>default: 1</em><em>)</em>) – pixel to mm-ratio</p></li>
-<li><p><strong>ID</strong> (<em>str</em><em> (</em><em>default: NA</em><em>)</em>) – specimen ID; “query” is special flag for user entry</p></li>
-<li><p><strong>draw_line</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – flag to draw arc and measure it’s length</p></li>
-<li><p><strong>zoom_factor</strong> (<em>int</em><em> (</em><em>default 5</em><em>)</em>) – magnification factor on mousewheel use</p></li>
-<li><p><strong>show</strong> (<em>bool</em><em> (</em><em>default: False</em><em>)</em>) – display the set landmarks</p></li>
-<li><p><strong>point_size</strong> (<em>num</em><em> (</em><em>default: 1/300 of image diameter</em><em>)</em>) – size of the landmarks on the image in pixels</p></li>
-<li><p><strong>point_col</strong> (<em>value</em><em> (</em><em>default: red</em><em>)</em>) – colour of landmark (red, green, blue, black, white)</p></li>
-<li><p><strong>label_size</strong> (<em>num</em><em> (</em><em>default: 1/1500 of image diameter</em><em>)</em>) – size of the numeric landmark label in pixels</p></li>
-<li><p><strong>label_col</strong> (<em>value</em><em> (</em><em>default: black</em><em>)</em>) – colour of label (red, green, blue, black, white)</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata, will be added to landmark
+output DataFrame</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if working using a container, or from a phenopype project directory,
+should existing landmarks be overwritten</p></li>
+<li><p><strong>point_colour</strong> (<em>{&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;</em><em>, </em><em>&quot;black&quot;</em><em>, </em><em>&quot;white&quot;} str</em><em>, </em><em>optional</em>) – landmark point colour</p></li>
+<li><p><strong>point_size</strong> (<em>int</em><em>, </em><em>optional</em>) – landmark point size in pixels</p></li>
+<li><p><strong>label_colour</strong> (<em>{&quot;black&quot;</em><em>, </em><em>&quot;white&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;} str</em><em>, </em><em>optional</em>) – landmark label colour.</p></li>
+<li><p><strong>label_size</strong> (<em>int</em><em>, </em><em>optional</em>) – landmark label font size (scaled to image)</p></li>
+<li><p><strong>label_width</strong> (<em>int</em><em>, </em><em>optional</em>) – landmark label font width  (scaled to image)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p><em>.df = pandas data frame with landmarks (and arc-length, if selected)</em></p></li>
-<li><p><em>.drawn = image array with drawn landmarks (and lines)</em></p></li>
-<li><p><em>.ID = provided specimen ID</em></p></li>
-</ul>
-</p>
+<dd class="field-even"><p><strong>df_masks</strong> – contains landmark coordiantes</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.measurement.colour_intensity">
-<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">colour_intensity</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">channels='gray'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.colour_intensity" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="function">
-<dt id="phenopype.core.measurement.polylines">
-<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.polylines" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">colour_intensity</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">channels='gray'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.colour_intensity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Measures pixel values within the provided contours, either across all
+channels (“gray”) or for each channel separately (“rgb”). Measures mean
+and standard deviation</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata, will be added to
+output DataFrame</p></li>
+<li><p><strong>df_contours</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – contains the contours</p></li>
+<li><p><strong>channels</strong> (<em>{&quot;gray&quot;</em><em>, </em><em>&quot;rgb&quot;} str</em><em>, </em><em>optional</em>) – for which channels should pixel intensity be measured</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p><strong>df_colours</strong> – contains the pixel intensities</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
+<dd class="field-odd"><p>DataFrame or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="phenopype.core.measurement.polylines">
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">line_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.polylines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set points, draw a connected line between them, and measure its length.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata, will be added to
+output DataFrame</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if working using a container, or from a phenopype project directory,
+should existing polylines be overwritten</p></li>
+<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em>) – width of polyline</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>df_polylines</strong> – contains the drawn polylines</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>DataFrame or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.measurement.skeletonize">
-<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">skeletonize</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.skeletonize" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">skeletonize</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">thinning='zhangsuen'</em>, <em class="sig-param">padding=10</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.skeletonize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Applies a binary blob thinning operation, to achieve a skeletization of
+the input image using the technique, i.e. retrieve the topological skeleton
+(<a class="reference external" href="https://en.wikipedia.org/wiki/Topological_skeleton">https://en.wikipedia.org/wiki/Topological_skeleton</a>), using the algorithms
+of Thang-Suen or Guo-Hall.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>df_image_data</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
-<li><p><strong>df_contours</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object (binary)</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata, will be added to contour
+output DataFrame</p></li>
+<li><p><strong>df_contours</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – contains contours</p></li>
+<li><p><strong>thinning</strong> (<em>{&quot;zhangsuen&quot;</em><em>, </em><em>&quot;guohall&quot;} str</em><em>, </em><em>optional</em>) – type of thinning algorithm to apply</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p><strong>df_contours</strong> – DESCRIPTION.</p>
+<dd class="field-even"><p><strong>image</strong> – thinned binary image</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>TYPE</p>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1158,18 +1191,18 @@ array by default</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.visualization.show_landmarks">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_landmarks=None</em>, <em class="sig-param">point_col='green'</em>, <em class="sig-param">point_size=None</em>, <em class="sig-param">label_col='black'</em>, <em class="sig-param">label_size=None</em>, <em class="sig-param">label_width=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_landmarks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_landmarks=None</em>, <em class="sig-param">point_colour='green'</em>, <em class="sig-param">point_size=None</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_size=None</em>, <em class="sig-param">label_width=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_landmarks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw landmarks into an image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
 <li><p><strong>df_landmarks</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – should contain contour coordinates as an array in a df cell</p></li>
-<li><p><strong>point_col</strong> (<em>{&quot;green&quot;</em><em>, </em><em>&quot;blue&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;black&quot;</em><em>, </em><em>&quot;white&quot;} str</em><em>, </em><em>optional</em>) – landmark point colour</p></li>
+<li><p><strong>point_colour</strong> (<em>{&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;</em><em>, </em><em>&quot;black&quot;</em><em>, </em><em>&quot;white&quot;} str</em><em>, </em><em>optional</em>) – landmark point colour</p></li>
 <li><p><strong>point_size</strong> (<em>int</em><em>, </em><em>optional</em>) – landmark point size in pixels</p></li>
-<li><p><strong>label_col</strong> (<em>{&quot;black&quot;</em><em>, </em><em>&quot;white&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;} str</em><em>, </em><em>optional</em>) – landmark label colour.</p></li>
-<li><p><strong>label_size</strong> (<em>int</em><em>, </em><em>optional</em>) – landmark label size (scaled to image)</p></li>
-<li><p><strong>label_width</strong> (<em>int</em><em>, </em><em>optional</em>) – text thickness</p></li>
+<li><p><strong>label_colour</strong> (<em>{&quot;black&quot;</em><em>, </em><em>&quot;white&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;} str</em><em>, </em><em>optional</em>) – landmark label colour.</p></li>
+<li><p><strong>label_size</strong> (<em>int</em><em>, </em><em>optional</em>) – landmark label font size (scaled to image)</p></li>
+<li><p><strong>label_width</strong> (<em>int</em><em>, </em><em>optional</em>) – landmark label font width  (scaled to image)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>

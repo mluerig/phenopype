@@ -29,7 +29,7 @@ Above code creates a folder structure as follows:
 	 data_raw 
 	 phenopype\		# create phenopype project here with "pp.project"
 	  data\ 		# created automatically
-	   project.data	# created with "pp.project.save"
+	   project.data		# created with "pp.project.save"
 	   file1\		# add files to project using "pp.project.add_files"
 	    raw.jpg			# created by "pp.project.add_files"
 	    attributes.yaml	# created by "pp.project.add_files"
