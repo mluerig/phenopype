@@ -109,6 +109,10 @@ the same:
 
 **preprocessing > segmentation > measurement > visualization > export**
 
+In general, any function can either take an array or a phenopype container. If an array is passed, additional 
+input arguments may be required (e.g. to draw contours onto an image, but an array and a DataFrame containing the
+contours must be supplied, whereas a container already includes both). 
+
 
 Preprocessing
 """""""""""""

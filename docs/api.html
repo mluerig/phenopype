@@ -638,6 +638,9 @@ original size).</p></li>
 throughput workflow. In general, the order in which the different steps are performed should always be
 the same:</p>
 <p><strong>preprocessing &gt; segmentation &gt; measurement &gt; visualization &gt; export</strong></p>
+<p>In general, any function can either take an array or a phenopype container. If an array is passed, additional
+input arguments may be required (e.g. to draw contours onto an image, but an array and a DataFrame containing the
+contours must be supplied, whereas a container already includes both).</p>
 <div class="section" id="module-phenopype.core.preprocessing">
 <span id="preprocessing"></span><h3>Preprocessing<a class="headerlink" href="#module-phenopype.core.preprocessing" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
@@ -1032,7 +1035,7 @@ be coerced to 0)</p></li>
 <dl class="function">
 <dt id="phenopype.core.measurement.landmarks">
 <code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">point_colour='green'</em>, <em class="sig-param">point_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.landmarks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set landmarks onto image.</p>
+<dd><p>Place landmarks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1160,21 +1163,25 @@ array by default</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="phenopype.core.visualization.show_contours">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">offset_coords=None</em>, <em class="sig-param">label=True</em>, <em class="sig-param">fill=0.3</em>, <em class="sig-param">mark_holes=True</em>, <em class="sig-param">level=3</em>, <em class="sig-param">line_colour='green'</em>, <em class="sig-param">label_size=None</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">line_width=None</em>, <em class="sig-param">label_width=None</em>, <em class="sig-param">skeleton=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_contours" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<dt id="phenopype.core.visualization.draw_contours">
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">offset_coords=None</em>, <em class="sig-param">label=True</em>, <em class="sig-param">fill=0.3</em>, <em class="sig-param">mark_holes=True</em>, <em class="sig-param">level=3</em>, <em class="sig-param">line_colour='green'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">skeleton=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_contours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw contours and their labels onto a canvas. Can be filled or empty, offset
+coordinates can be supplied. This will also draw the skeleton, if the argument
+“skeleton=True” and the supplied “df_contour” contains a “skeleton_coords”
+column.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>df_image_data</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
-<li><p><strong>df_contours</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
-<li><p><strong>offset_coords</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is None.</p></li>
-<li><p><strong>label</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is True.</p></li>
-<li><p><strong>fill</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 0.3.</p></li>
-<li><p><strong>mark_holes</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is True.</p></li>
-<li><p><strong>level</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is 3.</p></li>
-<li><p><strong>line_colour</strong> (<em>TYPE</em><em>, </em><em>optional</em>) – DESCRIPTION. The default is “green”.</p></li>
-<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em>) – line width</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>df_contours</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – contains the contours</p></li>
+<li><p><strong>offset_coords</strong> (<em>tuple</em><em>, </em><em>optional</em>) – offset coordinates, will be added to all contours</p></li>
+<li><p><strong>label</strong> (<em>bool</em><em>, </em><em>optional</em>) – draw contour label</p></li>
+<li><p><strong>fill</strong> (<em>float</em><em>, </em><em>optional</em>) – background transparency for contour fill (0=no fill).</p></li>
+<li><p><strong>mark_holes</strong> (<em>bool</em><em>, </em><em>optional</em>) – contours located inside other contours (i.e. their holes) will be
+highlighted in red</p></li>
+<li><p><strong>level</strong> (<em>int</em><em>, </em><em>optional</em>) – the default is 3.</p></li>
+<li><p><strong>line_colour</strong> (<em>{&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;</em><em>, </em><em>&quot;black&quot;</em><em>, </em><em>&quot;white&quot;} str</em><em>, </em><em>optional</em>) – contour line colour</p></li>
+<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em>) – contour line width</p></li>
 <li><p><strong>label_colour</strong> (<em>{&quot;black&quot;</em><em>, </em><em>&quot;white&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;} str</em><em>, </em><em>optional</em>) – contour label colour.</p></li>
 <li><p><strong>label_size</strong> (<em>int</em><em>, </em><em>optional</em>) – contour label font size (scaled to image)</p></li>
 <li><p><strong>label_width</strong> (<em>int</em><em>, </em><em>optional</em>) – contour label font thickness</p></li>
@@ -1190,8 +1197,8 @@ array by default</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="phenopype.core.visualization.show_landmarks">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_landmarks=None</em>, <em class="sig-param">point_colour='green'</em>, <em class="sig-param">point_size=None</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_size=None</em>, <em class="sig-param">label_width=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_landmarks" title="Permalink to this definition">¶</a></dt>
+<dt id="phenopype.core.visualization.draw_landmarks">
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_landmarks=None</em>, <em class="sig-param">point_colour='green'</em>, <em class="sig-param">point_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_landmarks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw landmarks into an image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1215,32 +1222,49 @@ array by default</p></li>
 </dd></dl>
 
 <dl class="function">
-<dt id="phenopype.core.visualization.show_masks">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_masks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">select=None</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">line_colour='blue'</em>, <em class="sig-param">line_width=None</em>, <em class="sig-param">label=False</em>, <em class="sig-param">label_size=None</em>, <em class="sig-param">label_col='black'</em>, <em class="sig-param">label_width=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_masks" title="Permalink to this definition">¶</a></dt>
-<dd><p>Draw masks into an image.</p>
+<dt id="phenopype.core.visualization.draw_masks">
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_masks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">select=None</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">line_colour='blue'</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">label=False</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_masks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw masks into an image. This function is also used to draw the perimeter
+of a created or detected reference scale card.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
 <li><p><strong>select</strong> (<em>str</em><em> or </em><em>list</em>) – select a subset of masks to display</p></li>
-<li><p><strong>df_masks</strong> (<em>DataFrame</em>) – contains mask coordinates and label</p></li>
-<li><p><strong>label</strong> (<em>str</em><em> (</em><em>default: &quot;area1&quot;</em><em>)</em>) – passes a label to the mask</p></li>
-<li><p><strong>tool</strong> (<em>str</em><em> (</em><em>default: &quot;rectangle&quot;</em><em>)</em>) – zoom into the scale with “rectangle” or “polygon”.</p></li>
+<li><p><strong>df_masks</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – contains mask coordinates and label</p></li>
+<li><p><strong>line_colour</strong> (<em>{&quot;blue&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;black&quot;</em><em>, </em><em>&quot;white&quot;} str</em><em>, </em><em>optional</em>) – mask line colour</p></li>
+<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em>) – mask line width</p></li>
+<li><p><strong>label_colour</strong> (<em>{&quot;black&quot;</em><em>, </em><em>&quot;white&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;} str</em><em>, </em><em>optional</em>) – mask label colour.</p></li>
+<li><p><strong>label_size</strong> (<em>int</em><em>, </em><em>optional</em>) – mask label font size (scaled to image)</p></li>
+<li><p><strong>label_width</strong> (<em>int</em><em>, </em><em>optional</em>) – mask label font width  (scaled to image)</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image</strong> – image with masks</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
-<dt id="phenopype.core.visualization.show_polylines">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">show_polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.show_polylines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Mask maker method to draw rectangle or polygon mask onto image.</p>
+<dt id="phenopype.core.visualization.draw_polylines">
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">line_colour='blue'</em>, <em class="sig-param">line_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_polylines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Draw polylines onto an image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>include</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – determine whether resulting mask is to include or exclude objects within</p></li>
-<li><p><strong>label</strong> (<em>str</em><em> (</em><em>default: &quot;area1&quot;</em><em>)</em>) – passes a label to the mask</p></li>
-<li><p><strong>tool</strong> (<em>str</em><em> (</em><em>default: &quot;rectangle&quot;</em><em>)</em>) – zoom into the scale with “rectangle” or “polygon”.</p></li>
+<li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>line_colour</strong> (<em>{&quot;blue&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;black&quot;</em><em>, </em><em>&quot;white&quot;} str</em><em>, </em><em>optional</em>) – polyline colour</p></li>
+<li><p><strong>line_width</strong> (<em>int</em><em>, </em><em>optional</em>) – polyline width</p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>image</strong> – image with polylines</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>array or <a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container">container</a></p>
 </dd>
 </dl>
 </dd></dl>

@@ -1,3 +1,0 @@
-filename,width,height,size_ratio_original,mask,include,coords
-isopods.jpg,2100,1400,1,mask1,True,"[(247, 199), (1879, 199), (1879, 1341), (247, 1341), (247, 199)]"
-isopods.jpg,2100,1400,1,scale,False,"[(449, 1000), (684, 1000), (684, 1236), (449, 1236), (449, 1000)]"
