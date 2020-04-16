@@ -1,0 +1,45 @@
+image:
+  filename: stickleback_side.jpg
+  filepath: tutorials/images\stickleback_side.jpg
+  filetype: .jpg
+  width: 3000
+  height: 2000
+  size_ratio_original: 1
+pype:
+  name: v1
+  preset: demo1
+  date_created: '20200415_185858'
+preprocessing:
+- create_mask:
+    tool: polygon
+segmentation:
+- threshold:
+    method: adaptive
+    blocksize: 199
+    constant: 5
+    channel: red
+- morphology:
+    operation: close
+    shape: ellipse
+    kernel_size: 3
+    iterations: 3
+- find_contours:
+    retrieval: ext
+    min_diameter: 0
+    min_area: 150
+measurement:
+- polylines
+visualization:
+- select_canvas:
+    canvas: raw
+- draw_contours
+- draw_landmarks
+- draw_masks
+- draw_polylines
+
+export:
+- save_contours:
+    overwrite: true
+- save_canvas:
+    resize: 0.5
+    overwrite: true
