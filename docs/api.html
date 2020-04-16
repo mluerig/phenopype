@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>API reference &#8212; phenopype 1.0.2 documentation</title>
+    <title>API reference &#8212; phenopype 1.0.3 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           phenopype</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -214,7 +214,7 @@ by side. The project root folder should be separate from the raw data, e.g. as a
 <p class="admonition-title">Important</p>
 <p>Currently the only useful information contained in the project object (<code class="code docutils literal notranslate"><span class="pre">myproj</span></code>) is a list of all directories inside the
 project’s directory tree. It is important to save <cite>both</cite> the project AND all results in the data directories using the appropriate
-functions in (<a class="reference internal" href="#module-phenopype.core.export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
+functions in (<a class="reference internal" href="example_1_detect_objects_isopods.html#Export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
 </div>
 <dl class="class">
 <dt id="phenopype.main.project">
@@ -231,10 +231,10 @@ will create the project folder at the provided location.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
+<dd class="field-even"><p><strong>project</strong> – phenopype project object</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None</p>
+<dd class="field-odd"><p><a class="reference internal" href="#phenopype.main.project" title="phenopype.main.project">project</a></p>
 </dd>
 </dl>
 <dl class="method">
@@ -344,7 +344,14 @@ separately with the appropriate export functions (e.g.
 <dd><p>Load phenoype project.data file to Python namespace.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – path to project.data, loads project file saved to root dir of project</p>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – path to project.data, or the directory project.data is contained in
+(root_dir)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><strong>project</strong> – phenopype project object</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#phenopype.main.project" title="phenopype.main.project">project</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -674,7 +681,7 @@ should existing masks with the same label be overwritten</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.preprocessing.create_scale">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">mask=False</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">template=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_scale" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">mask=False</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">template=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Measure a size or colour reference card. Minimum input interaction is
 measuring a size reference: click on two points inside the provided image,
 and enter the distance - returns the pixel-to-mm-ratio as integer or
@@ -699,6 +706,7 @@ template, phenopype can try to find a reference card in a given image,
 measure its dimensions, and adjust and colour space. automatically
 creates and returns a mask DataFrame that can be added to an existing
 one</p></li>
+<li><p><strong>kwargs</strong> (<em>optional</em>) – developer options</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1003,7 +1011,7 @@ value for the pixel (has to be odd - even numbers will be ceiled; for
 
 <dl class="function">
 <dt id="phenopype.core.segmentation.watershed">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">watershed</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">iterations=3</em>, <em class="sig-param">kernel_size=3</em>, <em class="sig-param">distance_cutoff=0.5</em>, <em class="sig-param">distance_mask=0</em>, <em class="sig-param">distance_type='l1'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.watershed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">watershed</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">iterations=3</em>, <em class="sig-param">kernel_size=3</em>, <em class="sig-param">distance_cutoff=0.5</em>, <em class="sig-param">distance_mask=0</em>, <em class="sig-param">distance_type='l1'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.watershed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs non-parametric marker-based segmentation - useful if many detected
 contours are touching or overlapping with each other. Input image should be
 a binary image that serves as the true background. Iteratively, edges are
@@ -1274,9 +1282,8 @@ of a created or detected reference scale card.</p>
 <span id="export"></span><h3>Export<a class="headerlink" href="#module-phenopype.core.export" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="phenopype.core.export.save_canvas">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_canvas</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">name=''</em>, <em class="sig-param">resize=0.5</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_canvas" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a canvas (processed image). Less flexible than “save_image”, should
-only be used for low and high throughput worklow.</p>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_canvas</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">name=''</em>, <em class="sig-param">resize=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_canvas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a canvas (processed image).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1284,33 +1291,26 @@ only be used for low and high throughput worklow.</p>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite flag in case file exists</p></li>
 <li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – folder to save file in</p></li>
 <li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
-<li><p><strong>name</strong> (<em>str</em>) – custom name for file</p></li>
-<li><p><strong>resize</strong> (<em>float</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
+<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – custom name for file</p></li>
+<li><p><strong>resize</strong> (<em>float</em><em>, </em><em>optional</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
 original size).</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_colours">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_colours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_colours" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a pandas dataframe to csv.</p>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_colours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">round_digits=1</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_colours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save colour intensities to csv.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em><em> (</em><em>optional</em><em>, </em><em>default: &quot;results&quot;</em><em>)</em>) – name for saved csv</p></li>
-<li><p><strong>dirpath</strong> (<em>str</em><em> (</em><em>default: None</em><em>)</em>) – location to save df</p></li>
-<li><p><strong>round</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default: 1</em><em>)</em>) – number of digits to round to</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite csv if it already exists</p></li>
-<li><p><strong>silent</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: True</em><em>)</em>) – do not print where file was saved</p></li>
+<li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool optional</em>) – overwrite csv if it already exists</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – location to save df</p></li>
+<li><p><strong>round_digits</strong> (<em>int</em><em>, </em><em>optional</em>) – number of digits to round to</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
 </ul>
 </dd>
 </dl>
@@ -1318,39 +1318,32 @@ original size).</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_contours">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_contours" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save contour df to csv.</p>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">convert_coords=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_contours" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save contour coordinates and features to csv. This also saves skeletonization
+ouput if the data is contained in the provided DataFrame.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – object containing the contours</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – overwrite flag in case file exists</p></li>
-<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – folder to save file in</p></li>
+<li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool optional</em>) – overwrite csv if it already exists</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – location to save df</p></li>
 <li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>convert_coords</strong> (<em>bool</em><em>, </em><em>optional</em>) – convert the coordinates from array to x and y column</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_drawing">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_drawing</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_drawing" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a pandas dataframe to csv.</p>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_drawing</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_drawing" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save drawing coordinates to attributes.yaml</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em><em> (</em><em>optional</em><em>, </em><em>default: &quot;results&quot;</em><em>)</em>) – name for saved csv</p></li>
-<li><p><strong>dirpath</strong> (<em>str</em><em> (</em><em>default: None</em><em>)</em>) – location to save df</p></li>
-<li><p><strong>round</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default: 1</em><em>)</em>) – number of digits to round to</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite csv if it already exists</p></li>
-<li><p><strong>silent</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: True</em><em>)</em>) – do not print where file was saved</p></li>
+<li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool optional</em>) – overwrite if drawing already exists</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – location to save df</p></li>
 </ul>
 </dd>
 </dl>
@@ -1358,16 +1351,14 @@ original size).</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_data_entry">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_data_entry</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_data_entry" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a pandas dataframe to csv.</p>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_data_entry</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_data_entry" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save data entry to attributes.yaml</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em><em> (</em><em>optional</em><em>, </em><em>default: &quot;results&quot;</em><em>)</em>) – name for saved csv</p></li>
-<li><p><strong>dirpath</strong> (<em>str</em><em> (</em><em>default: None</em><em>)</em>) – location to save df</p></li>
-<li><p><strong>round</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default: 1</em><em>)</em>) – number of digits to round to</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite csv if it already exists</p></li>
-<li><p><strong>silent</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: True</em><em>)</em>) – do not print where file was saved</p></li>
+<li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool optional</em>) – overwrite if entry already exists</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – location to save df</p></li>
 </ul>
 </dd>
 </dl>
@@ -1375,73 +1366,63 @@ original size).</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_landmarks">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_landmarks" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_landmarks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save landmark coordinates to csv.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool optional</em>) – overwrite csv if it already exists</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – location to save df</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_masks">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_masks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_masks" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_masks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_masks" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save mask coordinates and information (“include”” and “label”) to csv.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool optional</em>) – overwrite csv if it already exists</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – location to save df</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_polylines">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_polylines" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_polylines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save polylines to csv.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>obj_input</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
-<li><p><strong>**kwargs</strong> (<em>TYPE</em>) – DESCRIPTION.</p></li>
+<li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool optional</em>) – overwrite csv if it already exists</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – location to save df</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
 </ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p></p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>None.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_scale">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_scale" title="Permalink to this definition">¶</a></dt>
-<dd><p>Save a pandas dataframe to csv.</p>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save a created or detected scale to attributes.yaml</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em><em> (</em><em>optional</em><em>, </em><em>default: &quot;results&quot;</em><em>)</em>) – name for saved csv</p></li>
-<li><p><strong>dirpath</strong> (<em>str</em><em> (</em><em>default: None</em><em>)</em>) – location to save df</p></li>
-<li><p><strong>round</strong> (<em>int</em><em> (</em><em>optional</em><em>, </em><em>default: 1</em><em>)</em>) – number of digits to round to</p></li>
-<li><p><strong>overwrite</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: False</em><em>)</em>) – overwrite csv if it already exists</p></li>
-<li><p><strong>silent</strong> (<em>bool</em><em> (</em><em>optional</em><em>, </em><em>default: True</em><em>)</em>) – do not print where file was saved</p></li>
+<li><p><strong>obj_input</strong> (<em>DataFrame</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>overwrite</strong> (<em>bool optional</em>) – overwrite csv if it already exists</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – location to save df</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
 </ul>
 </dd>
 </dl>

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Tutorial 3: Setting up and managing phenopype projects &#8212; phenopype 1.0.2 documentation</title>
+    <title>Tutorial 3: Setting up and managing phenopype projects &#8212; phenopype 1.0.3 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -38,7 +38,7 @@
         </button>
         <a class="navbar-brand" href="index.html">
           phenopype</a>
-        <span class="navbar-text navbar-version pull-left"><b>1.0.2</b></span>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.3</b></span>
       </div>
 
         <div class="collapse navbar-collapse nav-collapse">
@@ -378,7 +378,7 @@ Once raw images have been added and configuration files are in place, the <code 
 <p><strong>Step. 1</strong>: Create a phenopype project and organize raw images into separate folders where all relevant data, attributes and results are stored.</p>
 </div></center><p>A Phenopype project directory can be initiatlized with the <code class="docutils literal notranslate"><span class="pre">project</span></code> function. The <em>phenoype project root folder</em> should be separate from the raw data, e.g. as a folder inside of your <em>main project folder</em>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -418,11 +418,11 @@ phenopype will create a new project at:
 <span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>myproj <span class="ansi-yellow-intense-fg ansi-bold">=</span> pp<span class="ansi-yellow-intense-fg ansi-bold">.</span>project<span class="ansi-yellow-intense-fg ansi-bold">(</span>root_dir<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">r&#34;../_temp/my_project/phenopype_analysis&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-red-intense-fg ansi-bold">## doesn&#39;t have to be &#34;myproj&#34;, can be named anything</span>
 
 <span class="ansi-green-intense-fg ansi-bold">e:\git_repos\phenopype\phenopype\main.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-intense-fg ansi-bold">(self, root_dir, overwrite)</span>
-<span class="ansi-green-fg">     62</span>         <span class="ansi-red-intense-fg ansi-bold">## decision tree if directory exists</span>
-<span class="ansi-green-fg">     63</span>         <span class="ansi-green-intense-fg ansi-bold">while</span> <span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">---&gt; 64</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>create <span class="ansi-yellow-intense-fg ansi-bold">=</span> input<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Proceed? (y/n)\n&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">     65</span>             <span class="ansi-green-intense-fg ansi-bold">if</span> create<span class="ansi-yellow-intense-fg ansi-bold">==</span><span class="ansi-blue-intense-fg ansi-bold">&#34;y&#34;</span> <span class="ansi-green-intense-fg ansi-bold">or</span> create <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;yes&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">     66</span>                 <span class="ansi-green-intense-fg ansi-bold">if</span> os<span class="ansi-yellow-intense-fg ansi-bold">.</span>path<span class="ansi-yellow-intense-fg ansi-bold">.</span>isdir<span class="ansi-yellow-intense-fg ansi-bold">(</span>root_dir<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     61</span>         <span class="ansi-red-intense-fg ansi-bold">## decision tree if directory exists</span>
+<span class="ansi-green-fg">     62</span>         <span class="ansi-green-intense-fg ansi-bold">while</span> <span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">---&gt; 63</span><span class="ansi-yellow-intense-fg ansi-bold">             </span>create <span class="ansi-yellow-intense-fg ansi-bold">=</span> input<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Proceed? (y/n)\n&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">     64</span>             <span class="ansi-green-intense-fg ansi-bold">if</span> create<span class="ansi-yellow-intense-fg ansi-bold">==</span><span class="ansi-blue-intense-fg ansi-bold">&#34;y&#34;</span> <span class="ansi-green-intense-fg ansi-bold">or</span> create <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;yes&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">     65</span>                 <span class="ansi-green-intense-fg ansi-bold">if</span> os<span class="ansi-yellow-intense-fg ansi-bold">.</span>path<span class="ansi-yellow-intense-fg ansi-bold">.</span>isdir<span class="ansi-yellow-intense-fg ansi-bold">(</span>root_dir<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
 
 <span class="ansi-green-intense-fg ansi-bold">C:\Anaconda3\envs\pp37\lib\site-packages\ipykernel\kernelbase.py</span> in <span class="ansi-cyan-fg">raw_input</span><span class="ansi-blue-intense-fg ansi-bold">(self, prompt)</span>
 <span class="ansi-green-fg">    852</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_allow_stdin<span class="ansi-yellow-intense-fg ansi-bold">:</span>
@@ -451,10 +451,7 @@ given the following list of images:</p>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-[&#39;canvas.jpg&#39;,
- &#39;contours.csv&#39;,
- &#39;isopods.jpg&#39;,
- &#39;masks.csv&#39;,
+[&#39;isopods.jpg&#39;,
  &#39;phytoplankton.jpg&#39;,
  &#39;snail.jpg&#39;,
  &#39;stickle1.JPG&#39;,
@@ -618,6 +615,7 @@ add_files(self, image_dir, filetypes=[&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#3
  &#39;__package__&#39;,
  &#39;__spec__&#39;,
  &#39;demo1&#39;,
+ &#39;demo2&#39;,
  &#39;inverted1&#39;,
  &#39;landmarks_2&#39;,
  &#39;landmarks_plain&#39;,
@@ -625,7 +623,8 @@ add_files(self, image_dir, filetypes=[&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#3
  &#39;object_detection_plain&#39;,
  &#39;preset1&#39;,
  &#39;preset3&#39;,
- &#39;preset4&#39;]
+ &#39;preset4&#39;,
+ &#39;watershed&#39;]
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
@@ -646,13 +645,13 @@ add_files(self, image_dir, filetypes=[&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#3
 measurement:
 - landmarks:
     point_size: 25
-    point_col: green
+    point_colour: green
     label_size: 3
     label_width: 5
 visualization:
-- show_landmarks:
+- draw_landmarks:
     point_size: 25
-    point_col: green
+    point_colour: green
     label_size: 3
     label_width: 5
 export:
@@ -808,11 +807,11 @@ add_config(self, name, config_preset=&#39;preset1&#39;, interactive=False, overw
 <span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>myproj <span class="ansi-yellow-intense-fg ansi-bold">=</span> pp<span class="ansi-yellow-intense-fg ansi-bold">.</span>project<span class="ansi-yellow-intense-fg ansi-bold">.</span>load<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">r&#34;../_temp/my_project/phenopype_analysis/project.data&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
 
 <span class="ansi-green-intense-fg ansi-bold">e:\git_repos\phenopype\phenopype\main.py</span> in <span class="ansi-cyan-fg">load</span><span class="ansi-blue-intense-fg ansi-bold">(path)</span>
-<span class="ansi-green-fg">    480</span>             path to project<span class="ansi-yellow-intense-fg ansi-bold">.</span>data<span class="ansi-yellow-intense-fg ansi-bold">,</span> loads project file saved to root dir of project
-<span class="ansi-green-fg">    481</span>         &#34;&#34;&#34;
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 482</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">with</span> open<span class="ansi-yellow-intense-fg ansi-bold">(</span>path<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;rb&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">as</span> output<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    483</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> pickle<span class="ansi-yellow-intense-fg ansi-bold">.</span>load<span class="ansi-yellow-intense-fg ansi-bold">(</span>output<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    484</span>
+<span class="ansi-green-fg">    492</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    493</span>             path <span class="ansi-yellow-intense-fg ansi-bold">=</span> os<span class="ansi-yellow-intense-fg ansi-bold">.</span>path<span class="ansi-yellow-intense-fg ansi-bold">.</span>join<span class="ansi-yellow-intense-fg ansi-bold">(</span>path<span class="ansi-yellow-intense-fg ansi-bold">,</span><span class="ansi-blue-intense-fg ansi-bold">&#34;project.data&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 494</span><span class="ansi-yellow-intense-fg ansi-bold">         </span><span class="ansi-green-intense-fg ansi-bold">with</span> open<span class="ansi-yellow-intense-fg ansi-bold">(</span>path<span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#39;rb&#39;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span> <span class="ansi-green-intense-fg ansi-bold">as</span> output<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    495</span>             <span class="ansi-green-intense-fg ansi-bold">return</span> pickle<span class="ansi-yellow-intense-fg ansi-bold">.</span>load<span class="ansi-yellow-intense-fg ansi-bold">(</span>output<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    496</span>
 
 <span class="ansi-red-intense-fg ansi-bold">FileNotFoundError</span>: [Errno 2] No such file or directory: &#39;../_temp/my_project/phenopype_analysis/project.data&#39;
 </pre></div></div>
