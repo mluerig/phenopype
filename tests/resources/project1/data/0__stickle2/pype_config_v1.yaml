@@ -1,6 +1,6 @@
 image:
   filename: stickle2.JPG
-  filepath: tutorials/images/stickle2.JPG
+  filepath: tutorials/images\stickle2.JPG
   filetype: .JPG
   width: 2400
   height: 1600
@@ -8,7 +8,7 @@ image:
 pype:
   name: v1
   preset: demo1
-  date_created: '20200417_164933'
+  date_created: '20200417_173000'
 preprocessing:
 - create_mask:
     tool: polygon
