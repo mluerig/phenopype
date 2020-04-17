@@ -1,4 +1,4 @@
-date_created: '20200417_151506'
-date_changed: '20200417_151506'
+date_created: '20200417_190739'
+date_changed: '20200417_190739'
 root_dir: tests/resources/project2
-data_dir: tests/resources/project2/data
+data_dir: tests/resources/project2\data
