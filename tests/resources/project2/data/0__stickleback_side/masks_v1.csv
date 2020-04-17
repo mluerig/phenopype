@@ -1,0 +1,3 @@
+filename,width,height,mask,include,coords
+stickleback_side.jpg,3000,2000,mask1,True,"[(1088, 584), (1090, 746), (1578, 761), (1598, 728), (1418, 696), (1104, 587), (1088, 584)]"
+stickleback_side.jpg,3000,2000,scale,False,"[[(1607, 1080), (1608, 1963), (2577, 1963), (2577, 1081), (1607, 1080)]]"

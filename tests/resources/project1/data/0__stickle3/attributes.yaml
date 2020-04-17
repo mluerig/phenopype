@@ -1,0 +1,12 @@
+image:
+  filename: stickle3.JPG
+  filepath: tutorials/images/stickle3.JPG
+  filetype: .JPG
+  width: 2400
+  height: 1600
+  size_ratio_original: 1
+project:
+  dirname: 0__stickle3
+  dirpath: tests/resources/project1/data/0__stickle3
+  raw_mode: link
+  raw_path: tutorials/images/stickle3.JPG

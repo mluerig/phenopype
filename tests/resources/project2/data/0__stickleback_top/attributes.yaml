@@ -1,0 +1,15 @@
+image:
+  filename: stickleback_top.jpg
+  filepath: tutorials/images/stickleback_top.jpg
+  filetype: .jpg
+  width: 3000
+  height: 2000
+  size_ratio_original: 1
+project:
+  dirname: 0__stickleback_top
+  dirpath: tests/resources/project2/data/0__stickleback_top
+  raw_mode: link
+  raw_path: tutorials/images/stickleback_top.jpg
+scale:
+  template_path: tests/resources/project2/scale_template.jpg
+  template_px_mm_ratio: 35
