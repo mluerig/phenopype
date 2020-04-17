@@ -1,12 +1,12 @@
 image:
   filename: stickle2.JPG
-  filepath: tutorials/images\stickle2.JPG
+  filepath: tutorials/images/stickle2.JPG
   filetype: .JPG
   width: 2400
   height: 1600
   size_ratio_original: 1
 project:
   dirname: 0__stickle2
-  dirpath: tests/resources/project1\data\0__stickle2
+  dirpath: tests/resources/project1/data/0__stickle2
   raw_mode: link
-  raw_path: tutorials/images\stickle2.JPG
+  raw_path: tutorials/images/stickle2.JPG
