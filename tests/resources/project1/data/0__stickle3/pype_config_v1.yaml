@@ -8,7 +8,7 @@ image:
 pype:
   name: v1
   preset: demo1
-  date_created: '20200417_151816'
+  date_created: '20200417_152748'
 preprocessing:
 - create_mask:
     tool: polygon
