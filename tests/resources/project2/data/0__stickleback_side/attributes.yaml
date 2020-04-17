@@ -18,6 +18,6 @@ drawing:
   tool: line
   line_width: 2
   colour: black
-  coords: '[[(1481, 733), (1489, 716)]]'
+  coords: '[[(1585, 721), (1597, 772)], [(1618, 715), (1610, 769)]]'
 other:
   ID: '142501'
