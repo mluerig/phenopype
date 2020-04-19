@@ -80,7 +80,11 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Example 7: Measuring worm length</a></li>
+<li><a class="reference internal" href="#">Example 7: Measuring worm length</a><ul>
+<li><a class="reference internal" href="#Low-throughput">Low throughput</a></li>
+<li><a class="reference internal" href="#High-throughput">High throughput</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -124,7 +128,11 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Example 7: Measuring worm length</a></li>
+<li><a class="reference internal" href="#">Example 7: Measuring worm length</a><ul>
+<li><a class="reference internal" href="#Low-throughput">Low throughput</a></li>
+<li><a class="reference internal" href="#High-throughput">High throughput</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -353,7 +361,218 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Example-7:-Measuring-worm-length">
 <h1>Example 7: Measuring worm length<a class="headerlink" href="#Example-7:-Measuring-worm-length" title="Permalink to this headline">¶</a></h1>
-<p>[ADD TEXT]</p>
+<p>Body length is one of the most common measured traits in ecological or evolutionary experiments involving animals. However, live animals are typically not well behaved in front of camera, e.g. because the don’t align their body straight, which makes length measure difficult and sometimes time consuming. Some computer vision procedures such as skeletonization (<a class="reference external" href="https://en.wikipedia.org/wiki/Topological_skeleton">https://en.wikipedia.org/wiki/Topological_skeleton</a>) can help.</p>
+<p>Here I demonstrate how to automatically measure the length of worms in 6 well plates by dragging a mask around them.</p>
+<p><strong>Note:</strong> For details on the differen workflows (prototyping-, low throughput- and high throughout) see <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">Tutorial 2</span></a>. Not all examples include the prototyping workflow.</p>
+<div class="row; text-align: left"><div class="col-md-6"><p><img alt="Before" src="_images/ex7_before.jpg" /></p>
+<p><strong>Input</strong> - Worms placed in 6 well plates</p>
+</div><div class="col-md-6"><p><img alt="After" src="_images/ex7_after.jpg" /></p>
+<p><strong>Results</strong> - extracted body contour (green area) and body length (red line) as a topological skeleton</p>
+</div></div><div class="section" id="Low-throughput">
+<h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
+<p>First we load the image as a container. If you have saved data before with a specific <code class="docutils literal notranslate"><span class="pre">save_suffix</span></code> (recommended for reproducibility and to not overwrite files) you can reload it if you have provided it at the point of container creation in <code class="docutils literal notranslate"><span class="pre">load_image</span></code>:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+
+<span class="n">image_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;./images/worms.jpg&quot;</span>
+<span class="n">custom_save_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span>
+<span class="n">ct</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="c1"># path to image</span>
+                   <span class="n">cont</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># create a phenopype container</span>
+                   <span class="n">save_suffix</span><span class="o">=</span><span class="s2">&quot;worms1&quot;</span><span class="p">,</span>      <span class="c1"># indicate a suffix for save- and loading operations</span>
+                   <span class="n">dirpath</span><span class="o">=</span><span class="n">custom_save_path</span><span class="p">)</span>  <span class="c1"># supply an (existing) directory where files get stored and loaded from</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ct</span><span class="o">.</span><span class="n">load</span><span class="p">()</span> <span class="c1"># to reload any saved masks</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AUTOLOAD
+- masks_worms1.csv
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ct</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span> <span class="c1"># reset canvas and images, if you run repeatedly</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># finding circles can be potentially automatized in the future using hough transform</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">blocksize</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">min_diameter</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="c1">## pp.segmentation(draw) # uncomment this if you need to manually separate worms from the well-border</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">skeletonize</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># this will measure the longest distance in a curvy object</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># this draws both the contour (green) and the skeleton</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># will be skipped if loaded before</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">custom_save_path</span><span class="p">)</span> <span class="c1">#</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">custom_save_path</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">custom_save_path</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># resize=1 to have the original sized picture</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- mask with label mask1 already created (overwrite=False)
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+- masks saved under ../_temp/output\masks_worms1.csv (overwritten).
+- contours saved under ../_temp/output\contours_worms1.csv (overwritten).
+- canvas saved under ../_temp/output\canvas_worms1.jpg (overwritten).
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="High-throughput">
+<h2>High throughput<a class="headerlink" href="#High-throughput" title="Permalink to this headline">¶</a></h2>
+<p>As for the other examples I have created a preset (<code class="docutils literal notranslate"><span class="pre">ex7</span></code>) with appropriate settings for the worm example. The template can be passed to the <code class="docutils literal notranslate"><span class="pre">pype</span></code> using <code class="docutils literal notranslate"><span class="pre">config_preset=&quot;ex7&quot;</span></code> - see below.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+
+<span class="n">image_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;./images/worms.jpg&quot;</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">ex7</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+preprocessing:
+- create_mask
+segmentation:
+- threshold:
+    method: adaptive
+    blocksize: 49      ## for adaptive
+    constant: 5        ## for adaptive
+- find_contours:
+    retrieval: ccomp
+    min_diameter: 50
+    min_area: 0
+measurement:
+- skeletonize
+visualization:
+- select_canvas:
+    canvas: image
+- draw_contours:
+    line_width: 2
+    label_width: 1
+    label_size: 1
+    fill: 0.3
+export:
+- save_contours:
+    overwrite: true
+
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;worms2&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;ex7&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+../_temp/output\pype_config_worms2.yaml
+
+
+------------+++ new pype iteration 2020:04:19 15:45:35 +++--------------
+
+
+AUTOLOAD
+- drawing loaded from attributes.yaml
+- masks_worms2.csv
+PREPROCESSING
+create_mask
+- mask with label mask1 already created (overwrite=False)
+SEGMENTATION
+threshold
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+draw
+- polylines already drawn (overwrite=False)
+find_contours
+MEASUREMENT
+skeletonize
+VISUALIZATION
+select_canvas
+- invalid selection - defaulting to raw image
+draw_contours
+EXPORT
+save_contours
+- contours saved under ../_temp/output\contours_worms2.csv (overwritten).
+save_canvas
+- canvas saved under ../_temp/output\canvas_worms2.jpg (overwritten).
+AUTOSAVE
+save_masks
+- masks not saved - file already exists (overwrite=False).
+save_drawing
+- drawing saved (overwriting)
+
+
+TERMINATE
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;phenopype.main.pype at 0x266993dde88&gt;
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -362,14 +581,6 @@ div.rendered_html tbody tr:hover {
 <span></span>
 </pre></div>
 </div>
-</div>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
-</pre></div>
 </div>
 </div>
 </div>
