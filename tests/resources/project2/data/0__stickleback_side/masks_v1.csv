@@ -1,3 +1,0 @@
-filename,width,height,mask,include,coords
-stickleback_side.jpg,3000,2000,mask1,True,"[(1087, 583), (1079, 762), (1600, 760), (1595, 724), (1442, 700), (1258, 621), (1103, 587), (1087, 583)]"
-stickleback_side.jpg,3000,2000,scale,False,"[[(1628, 1101), (1629, 1960), (2526, 1960), (2526, 1101), (1628, 1101)]]"
