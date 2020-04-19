@@ -214,7 +214,7 @@ by side. The project root folder should be separate from the raw data, e.g. as a
 <p class="admonition-title">Important</p>
 <p>Currently the only useful information contained in the project object (<code class="code docutils literal notranslate"><span class="pre">myproj</span></code>) is a list of all directories inside the
 project’s directory tree. It is important to save <cite>both</cite> the project AND all results in the data directories using the appropriate
-functions in (<a class="reference internal" href="example_1_detect_objects_isopods.html#Export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
+functions in (<a class="reference internal" href="#module-phenopype.core.export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
 </div>
 <dl class="class">
 <dt id="phenopype.main.project">
@@ -519,7 +519,7 @@ the analysis.</p>
 
 <dl class="function">
 <dt id="phenopype.utils.load_image">
-<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_image</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">cont=False</em>, <em class="sig-param">df=False</em>, <em class="sig-param">meta=False</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_image</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">cont=False</em>, <em class="sig-param">df=False</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">meta=False</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create ndarray from image path or return or resize exising array.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -530,10 +530,12 @@ loaded to Python.</p></li>
 container</p></li>
 <li><p><strong>df</strong> (<em>bool</em><em>, </em><em>optional</em>) – should a DataFrame containing image information (e.g. dimensions) be
 returned.</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – path to an existing directory where all output should be stored</p></li>
 <li><p><strong>meta</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the DataFrame encompass image meta data (e.g. from exif-data).
 This works only when obj_input is a path string to the original file.</p></li>
 <li><p><strong>resize</strong> (<em>float</em><em>, </em><em>optional</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
 original size).</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename of results files, if container is created</p></li>
 <li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
 </dd>
@@ -1501,7 +1503,7 @@ ouput if the data is contained in the provided DataFrame.</p>
 <p>[ADD TEXT]</p>
 <dl class="class">
 <dt id="phenopype.tracking.tracking_method">
-<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">tracking_method</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.tracking_method" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">tracking_method</code><span class="sig-paren">(</span><em class="sig-param">label='default'</em>, <em class="sig-param">overlay_colour='red'</em>, <em class="sig-param">min_length=1</em>, <em class="sig-param">max_length=1000</em>, <em class="sig-param">mode='multiple'</em>, <em class="sig-param">operations=[]</em>, <em class="sig-param">mask=[]</em>, <em class="sig-param">exclude=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.tracking_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Constructs a tracking method that can be supplied to the tracker.</p>
 <dl class="field-list simple">
