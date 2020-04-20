@@ -441,7 +441,7 @@ contours. This dictionary, together with the original array, can then be passed 
 <p>[1] to learn more about the basics of Computer Vision check the <a class="reference external" href="resources.html">resources section</a> of the phenopype documentation.</p>
 <p><img alt="Phenopype prototyping workflow" src="_images/workflow_proto.png" /> Fig. 2: Schematic of Phenopype’s prototyping workflow</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -488,7 +488,7 @@ no meta-data found
 </div>
 <p>While analyzing the image, you can explore output from the different steps to see what is going on. For example, the binary image resulting from the thresholding:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -503,7 +503,7 @@ no meta-data found
 analyze images, but typically they are used automatically within the pype-routine that is part of phenoype’s high throughput workflow (see below).</p>
 <p><img alt="Phenopype low throughput workflow" src="_images/workflow_low.png" /></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -523,7 +523,7 @@ analyze images, but typically they are used automatically within the pype-routin
 <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">morphology</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;close&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">&quot;ellipse&quot;</span><span class="p">,</span>
                            <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span> <span class="c1"># 5</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">retrieval</span><span class="o">=</span><span class="s2">&quot;ext&quot;</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span> <span class="c1"># 6</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">container</span><span class="p">)</span> <span class="c1"># 6</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">container</span><span class="p">)</span> <span class="c1"># 6</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">dirpath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">container</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
@@ -534,14 +534,15 @@ analyze images, but typically they are used automatically within the pype-routin
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+no meta-data found
 - create mask
-- applying mask: mask1
+- include mask &#34;mask1&#34; pixels
 - contours saved under ../_temp/output\contours.csv (overwritten).
 </pre></div></div>
 </div>
 <p>Although the intermediate steps from the functions are not present as objects in the namespace, you can access and evaluate it from the container. Again, we will look at the binary image:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -551,7 +552,7 @@ analyze images, but typically they are used automatically within the pype-routin
 </div>
 <p>Use <code class="docutils literal notranslate"><span class="pre">dir</span></code> to inspect all the components of the container:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -586,7 +587,7 @@ provide the full image analysis pipeline to anyone who wishes to reproduce the o
 </ul>
 <p><img alt="Phenopype high throughput workflow" src="_images/workflow_high.png" /></p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -607,25 +608,28 @@ provide the full image analysis pipeline to anyone who wishes to reproduce the o
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+../_temp/output\pype_config_demo.yaml
 
 
-------------+++ new pype iteration 2020:04:02 17:22:14 +++--------------
+------------+++ new pype iteration 2020:04:20 16:14:24 +++--------------
 
 
 AUTOLOAD
+- drawing loaded from attributes.yaml
 - masks_demo.csv
 PREPROCESSING
 create_mask
 - mask with label mask1 already created (overwrite=False)
 SEGMENTATION
 threshold
-- applying mask: mask1
+- include mask &#34;mask1&#34; pixels
 morphology
 find_contours
 VISUALIZATION
 select_canvas
-show_contours
-show_masks
+- invalid selection - defaulting to raw image
+draw_contours
+draw_masks
  - show mask: mask1.
 EXPORT
 save_contours
@@ -635,18 +639,20 @@ save_canvas
 AUTOSAVE
 save_masks
 - masks not saved - file already exists (overwrite=False).
+save_drawing
+- drawing saved (overwriting)
 
 
 TERMINATE
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;phenopype.main.pype at 0x15e5d95a148&gt;
+&lt;phenopype.main.pype at 0x2c52e39a8c8&gt;
 </pre></div></div>
 </div>
 <p>At the current stage of development, the pype method is prone to errors resulting from incorrect yaml syntax, e.g. missing spaces or wrong indentation. The pype will still try to run from bottom to top and pass exceptions, but may result in errors that cascade through the function stack. Consult the section <a class="reference external" href="#yaml-syntax">below</a> on how to modify yaml-syntax.</p>
@@ -655,7 +661,7 @@ TERMINATE
 <h3>yaml-syntax<a class="headerlink" href="#yaml-syntax" title="Permalink to this headline">¶</a></h3>
 <p>The configuration files needed to run the pype are written in yaml (a recursive acronym for “YAML Ain’t Markup Language”). In principle, these are just text files that follow a specific syntax that follows rules for <a class="reference external" href="https://www.tutorialspoint.com/yaml/yaml_indentation_and_separation.htm">indentation and separation</a>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -692,12 +698,12 @@ measurement:
 visualization:
 - select_canvas:
     canvas: image
-- show_contours:
-    line_thickness: 2
-    text_thickness: 1
-    text_size: 1
+- draw_contours:
+    line_width: 2
+    label_width: 1
+    label_size: 1
     fill: 0.3
-- show_masks
+- draw_masks
 export:
 - save_contours:
     overwrite: true
@@ -717,7 +723,7 @@ arguments passed on to the function. Following this notation, the yaml parser in
 <ul class="simple">
 <li><p><strong>indentation rules:</strong> 0 spaces for modules, hyphen+space in front of functions, 4 spaces in front of arguments</p></li>
 <li><p><strong>separation rules:</strong> modules and functions with arguments are followed by a colon (<code class="docutils literal notranslate"><span class="pre">:</span></code>) and a new line; functions without specified arguments don’t need a colon; arguments are followed by a colon, a space and then the value</p></li>
-<li><p>modules and functions can be emtpy (e.g. see <code class="docutils literal notranslate"><span class="pre">measurement:</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">show_masks</span></code> above), but function arguments <em>cannot</em> (e.g. <code class="docutils literal notranslate"><span class="pre">overwrite:</span></code> needs to be <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
+<li><p>modules and functions can be emtpy (e.g. see <code class="docutils literal notranslate"><span class="pre">measurement:</span></code> and <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">draw_masks</span></code> above), but function arguments <em>cannot</em> (e.g. <code class="docutils literal notranslate"><span class="pre">overwrite:</span></code> needs to be <code class="docutils literal notranslate"><span class="pre">true</span></code> or <code class="docutils literal notranslate"><span class="pre">false</span></code>)</p></li>
 <li><p>as per Python syntax, optional function arguments can, but don’t have to be specified and the functions will just run on default values</p></li>
 <li><p>if you need to add modules (not all presets contain all modules), stick to this order: preprocessing &gt; segmentation &gt; measurement &gt; visualization &gt; export</p></li>
 <li><p>functions can be added multiple times, but sometimes their output may be overwtritten (e.g. <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">threshold</span></code> only works once, <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">create_mask</span></code> multiple times [1])</p></li>
@@ -760,7 +766,7 @@ arguments passed on to the function. Following this notation, the yaml parser in
 <li><p>Visual feedback is always generated automatically by an internal function that show results (i.e. output from <code class="docutils literal notranslate"><span class="pre">landmarks</span></code>, <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> or <code class="docutils literal notranslate"><span class="pre">create_mask</span></code>) on top of a “canvas”.</p></li>
 <li><p>The canvas can be the image at any step of analytic process (i.e. raw image, binary image, or a colour channel [gray, red, green or blue]) and is selected with <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">select_canvas</span></code> as part of the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> module.</p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">select_canvas</span></code> is not specified explicitly, it is called automatically and defaults to the raw image as canvas.</p></li>
-<li><p>Output from all functions, needs to be specified manually. So, after using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">landmarks</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">show_landmarks</span></code> should be called in the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> module. [1]</p></li>
+<li><p>Output from all functions, needs to be specified manually. So, after using <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">landmarks</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">draw_landmarks</span></code> should be called in the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> module. [1]</p></li>
 <li><p>Visual parameters of interactive tools (e.g. <code class="docutils literal notranslate"><span class="pre">point_size</span></code> or <code class="docutils literal notranslate"><span class="pre">line_thickness</span></code>) is specified separately in the respective function, <em>and</em> in the <code class="docutils literal notranslate"><span class="pre">visualization</span></code> module.</p></li>
 </ol>
 <p>[1] Experimental: use the flag <code class="docutils literal notranslate"><span class="pre">autoshow=True</span></code> in the <code class="docutils literal notranslate"><span class="pre">pype</span></code> arguments to automatically show results.</p>

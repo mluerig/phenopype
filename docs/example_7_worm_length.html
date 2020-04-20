@@ -361,8 +361,8 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Example-7:-Measuring-worm-length">
 <h1>Example 7: Measuring worm length<a class="headerlink" href="#Example-7:-Measuring-worm-length" title="Permalink to this headline">¶</a></h1>
-<p>Body length is one of the most common measured traits in ecological or evolutionary experiments involving animals. However, live animals are typically not well behaved in front of camera, e.g. because the don’t align their body straight, which makes length measure difficult and sometimes time consuming. Some computer vision procedures such as skeletonization (<a class="reference external" href="https://en.wikipedia.org/wiki/Topological_skeleton">https://en.wikipedia.org/wiki/Topological_skeleton</a>) can help.</p>
-<p>Here I demonstrate how to automatically measure the length of worms in 6 well plates by dragging a mask around them.</p>
+<p>Body length is a commonly measured trait. However, live animals are typically not well behaved in front of camera: typically the body is not aligned straight, which makes length measure difficult and sometimes time consuming. Some computer vision can help here, such as skeletonization (<a class="reference external" href="https://en.wikipedia.org/wiki/Topological_skeleton">https://en.wikipedia.org/wiki/Topological_skeleton</a>) for an acurate semi automatic approach, and polyline drawing for a less acurate, manual aproach.</p>
+<p>Here I demonstrate how to automatically measure the length of california blackworms (<em>Lumbriculus variegatus</em>) in 6 well plates by dragging a mask around them. A future implementation will like include a variant of <a class="reference external" href="https://en.wikipedia.org/wiki/Hough_transform">Hough transformation</a> to automatically detect the circles of the wellplates for a full automatic workflow.</p>
 <p><strong>Note:</strong> For details on the differen workflows (prototyping-, low throughput- and high throughout) see <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">Tutorial 2</span></a>. Not all examples include the prototyping workflow.</p>
 <div class="row; text-align: left"><div class="col-md-6"><p><img alt="Before" src="_images/ex7_before.jpg" /></p>
 <p><strong>Input</strong> - Worms placed in 6 well plates</p>
@@ -372,7 +372,7 @@ div.rendered_html tbody tr:hover {
 <h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
 <p>First we load the image as a container. If you have saved data before with a specific <code class="docutils literal notranslate"><span class="pre">save_suffix</span></code> (recommended for reproducibility and to not overwrite files) you can reload it if you have provided it at the point of container creation in <code class="docutils literal notranslate"><span class="pre">load_image</span></code>:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -388,11 +388,11 @@ div.rendered_html tbody tr:hover {
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ct</span><span class="o">.</span><span class="n">load</span><span class="p">()</span> <span class="c1"># to reload any saved masks</span>
+<span></span><span class="n">ct</span><span class="o">.</span><span class="n">load</span><span class="p">()</span> <span class="c1"># to reload any saved masks or polylines</span>
 </pre></div>
 </div>
 </div>
@@ -402,11 +402,13 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 AUTOLOAD
+- drawing loaded from attributes.yaml
+- polylines_worms1.csv
 - masks_worms1.csv
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -415,6 +417,7 @@ AUTOLOAD
 <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">blocksize</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">min_diameter</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="c1">## pp.segmentation(draw) # uncomment this if you need to manually separate worms from the well-border</span>
+<span class="c1">## pp.visualization.polylines(ct) # uncomment this if you need to manually measure a worm</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">skeletonize</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># this will measure the longest distance in a curvy object</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># this draws both the contour (green) and the skeleton</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># will be skipped if loaded before</span>
@@ -448,6 +451,36 @@ AUTOLOAD
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Should a worm superimpose itself it is not possible for the skeletonization algorithm to follow the shape through from beginning to end (e.g. in worm 3 in this example). In that case one has to manually draw a line along the worm using the <code class="docutils literal notranslate"><span class="pre">polylines</span></code> tool.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">polylines</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_polylines</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_polylines</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- polylines already drawn (overwrite=False)
+- polylines saved under ../_temp/output\polylines_worms1.csv (overwritten).
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
 </pre></div>
 </div>
@@ -456,6 +489,7 @@ AUTOLOAD
 </pre></div>
 </div>
 </div>
+<p>Alternatively to the <code class="docutils literal notranslate"><span class="pre">polylines</span></code> tool, one can also use the drawing tool if you just need to separte an endpoint or if the worm touches the border. This should be done on the binary image, <em>before</em> the contour are detected.</p>
 </div>
 <div class="section" id="High-throughput">
 <h2>High throughput<a class="headerlink" href="#High-throughput" title="Permalink to this headline">¶</a></h2>

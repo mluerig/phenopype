@@ -214,7 +214,7 @@ by side. The project root folder should be separate from the raw data, e.g. as a
 <p class="admonition-title">Important</p>
 <p>Currently the only useful information contained in the project object (<code class="code docutils literal notranslate"><span class="pre">myproj</span></code>) is a list of all directories inside the
 project’s directory tree. It is important to save <cite>both</cite> the project AND all results in the data directories using the appropriate
-functions in (<a class="reference internal" href="#module-phenopype.core.export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
+functions in (<a class="reference internal" href="example_1_detect_objects_isopods.html#Export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
 </div>
 <dl class="class">
 <dt id="phenopype.main.project">
@@ -304,7 +304,7 @@ compatible yaml file</p></li>
 
 <dl class="method">
 <dt id="phenopype.main.project.add_scale">
-<code class="sig-name descname">add_scale</code><span class="sig-paren">(</span><em class="sig-param">reference_image</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">template=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.add_scale" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_scale</code><span class="sig-paren">(</span><em class="sig-param">reference_image</em>, <em class="sig-param">overwrite=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.add_scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add pype configuration presets to all project directories.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -750,7 +750,7 @@ Useful for images containing labels, or other comments.</p>
 
 <dl class="function">
 <dt id="phenopype.core.preprocessing.find_scale">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">find_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">template=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">equalize=False</em>, <em class="sig-param">min_matches=10</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">px_mm_ratio_ref=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.find_scale" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">find_scale</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">template=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">equalize=False</em>, <em class="sig-param">min_matches=10</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">px_mm_ratio_ref=None</em>, <em class="sig-param">df_masks=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.find_scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find scale from a template created with “create_scale”. Image registration
 is run by the “AKAZE” algorithm. Future implementations will include more
 algorithms to select from. First, use “create_scale” with “template=True”
@@ -763,6 +763,9 @@ histograms of all colour channels to the reference image.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input for processing</p></li>
+<li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata to add the scale
+information to (pixel-to-mm-ratio)</p></li>
+<li><p><strong>df_masks</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing masks to add the detected mask to</p></li>
 <li><p><strong>template</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a><em>, </em><em>optional</em>) – reference image of scale</p></li>
 <li><p><strong>equalize</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the provided image be colour corrected to match the template
 images’ histogram</p></li>

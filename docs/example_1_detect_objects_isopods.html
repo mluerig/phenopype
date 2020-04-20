@@ -600,13 +600,13 @@ Template selected
 </table>
 </div></div>
 </div>
-<p>We can now have a quick look at both masks together by calling the visualization function <code class="docutils literal notranslate"><span class="pre">show_mask</span></code>, followed by <code class="docutils literal notranslate"><span class="pre">show_image</span></code>. For this we should create a new array and <em>not</em> overwrite the original image loaded before - here we call it <code class="docutils literal notranslate"><span class="pre">canvas</span></code>:</p>
+<p>We can now have a quick look at both masks together by calling the visualization function <code class="docutils literal notranslate"><span class="pre">draw_mask</span></code>, followed by <code class="docutils literal notranslate"><span class="pre">show_image</span></code>. For this we should create a new array and <em>not</em> overwrite the original image loaded before - here we call it <code class="docutils literal notranslate"><span class="pre">canvas</span></code>:</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_masks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span></span><span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -655,14 +655,14 @@ Template selected
 </div>
 </div>
 <p>So far so good, but there is still a lot of noise inside the image (isopod fecal pellets) that we need to remove. Right now, all information about foreground and background is in “pixel-space”, i.e. it’s a drawn representation of the informative areas. To convert it to coordinate space, and in the later steps extract information from the raw image, we will use <code class="docutils literal notranslate"><span class="pre">find_contours</span></code> on this binary image. But setting the argument <code class="docutils literal notranslate"><span class="pre">min_area</span></code>, we can set a minimum size for the area that the contours
-should have - 100 pixels should be enough to exclude all fecal pellets. Again, we can supply the image meta DataFrame to concatenate existing information. Afterwards we can draw the contours onto <code class="docutils literal notranslate"><span class="pre">canvas</span></code> with <code class="docutils literal notranslate"><span class="pre">show_contours</span></code> - the detected contours are in green.</p>
+should have - 100 pixels should be enough to exclude all fecal pellets. Again, we can supply the image meta DataFrame to concatenate existing information. Afterwards we can draw the contours onto <code class="docutils literal notranslate"><span class="pre">canvas</span></code> with <code class="docutils literal notranslate"><span class="pre">draw_contours</span></code> - the detected contours are in green.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">df_contours</span><span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">df_contours</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -729,7 +729,7 @@ should have - 100 pixels should be enough to exclude all fecal pellets. Again, w
 <span></span><span class="n">image_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">blocksize</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span>
                                       <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
 <span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">df_contours</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">df_contours</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -770,8 +770,8 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
                                          <span class="n">kernel_size</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
 <span class="n">contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_morph</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
-<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_masks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">contours</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">contours</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -941,7 +941,7 @@ Template selected
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
 
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
@@ -995,7 +995,7 @@ Template selected
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
 
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
@@ -1080,7 +1080,7 @@ find_contours
 VISUALIZATION
 select_canvas
 - invalid selection - defaulting to raw image
-show_contours
+draw_contours
 EXPORT
 save_contours
 - contours saved under ../_temp/output\contours_iso1.csv (overwritten).
@@ -1146,7 +1146,7 @@ segmentation:
 visualization:
 - select_canvas:
     canvas: image
-- show_contours:
+- draw_contours:
     line_width: 2
     label_width: 1
     label_size: 1
@@ -1197,7 +1197,7 @@ find_contours
 VISUALIZATION
 select_canvas
 - invalid selection - defaulting to raw image
-show_contours
+draw_contours
 EXPORT
 save_contours
 - contours saved under ../_temp/output\contours_iso2.csv (overwritten).

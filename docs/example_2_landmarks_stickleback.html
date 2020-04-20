@@ -416,13 +416,13 @@ div.rendered_html tbody tr:hover {
 - setting landmarks
 </pre></div></div>
 </div>
-<p>To create an control-image with the selected points, the <code class="docutils literal notranslate"><span class="pre">show_landmarks</span></code> has to be called explicitly. This is necessary when using the low throughput, but not the high throughput routine (see <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">Tutorial 2</span></a>); likewise the <code class="docutils literal notranslate"><span class="pre">save_landmarks</span></code> function.</p>
+<p>To create an control-image with the selected points, the <code class="docutils literal notranslate"><span class="pre">draw_landmarks</span></code> has to be called explicitly. This is necessary when using the low throughput, but not the high throughput routine (see <a class="reference internal" href="tutorial_2_phenopype_workflow.html"><span class="doc">Tutorial 2</span></a>); likewise the <code class="docutils literal notranslate"><span class="pre">save_landmarks</span></code> function.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
 <span class="n">ct</span><span class="o">.</span><span class="n">df_landmarks</span>
 </pre></div>
@@ -569,13 +569,13 @@ current image has 34.9 pixel per mm.
 ---------------------------------------------------
 </pre></div></div>
 </div>
-<p>Now we draw the perimeter around the detected scale. Because the detected scale has coordinates like a mask we need the <code class="docutils literal notranslate"><span class="pre">show_masks</span></code> function to draw it.</p>
+<p>Now we draw the perimeter around the detected scale. Because the detected scale has coordinates like a mask we need the <code class="docutils literal notranslate"><span class="pre">draw_masks</span></code> function to draw it.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -594,7 +594,7 @@ current image has 34.9 pixel per mm.
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">show_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -766,7 +766,7 @@ MEASUREMENT
 landmarks
 - setting landmarks (overwriting)
 VISUALIZATION
-show_landmarks
+draw_landmarks
 EXPORT
 save_landmarks
 - landmarks saved under ../_temp/output\landmarks_lm1.csv (overwritten).
@@ -894,8 +894,8 @@ MEASUREMENT
 landmarks
 - setting landmarks
 VISUALIZATION
-show_landmarks
-show_masks
+draw_landmarks
+draw_masks
  - show mask: scale.
 EXPORT
 save_landmarks
@@ -929,8 +929,8 @@ MEASUREMENT
 landmarks
 - setting landmarks
 VISUALIZATION
-show_landmarks
-show_masks
+draw_landmarks
+draw_masks
  - show mask: scale.
 EXPORT
 save_landmarks
@@ -964,8 +964,8 @@ MEASUREMENT
 landmarks
 - setting landmarks
 VISUALIZATION
-show_landmarks
-show_masks
+draw_landmarks
+draw_masks
  - show mask: scale.
 EXPORT
 save_landmarks
