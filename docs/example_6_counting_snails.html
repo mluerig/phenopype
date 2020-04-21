@@ -81,7 +81,10 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Example 6: Counting and measuring freshwater snails</a></li>
+<li><a class="reference internal" href="#">Example 6: Counting and measuring freshwater snails</a><ul>
+<li><a class="reference internal" href="#Low-throughput">Low throughput</a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -129,7 +132,10 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Example 6: Counting and measuring freshwater snails</a></li>
+<li><a class="reference internal" href="#">Example 6: Counting and measuring freshwater snails</a><ul>
+<li><a class="reference internal" href="#Low-throughput">Low throughput</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -358,7 +364,170 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Example-6:-Counting-and-measuring-freshwater-snails">
 <h1>Example 6: Counting and measuring freshwater snails<a class="headerlink" href="#Example-6:-Counting-and-measuring-freshwater-snails" title="Permalink to this headline">¶</a></h1>
-<p>[ADD TEXT]</p>
+<p>In this example we will use thresholding and watershed algorithms to count freshwater snails.</p>
+<div class="row; text-align: left"><div class="col-md-6"><p><img alt="Before" src="_images/ex6_before.jpg" /></p>
+<p><strong>Input</strong> - Snails photographed from a camera stand. Variable brightness across the tray and snail clumping are the biggest challenges.</p>
+</div><div class="col-md-6"><p><img alt="After" src="_images/ex6_after.jpg" /></p>
+<p><strong>Results</strong> - After applying adaptive thresholding and a watershed algorithm, the snail separate well from the background. Now we can count them, and measure size, shape and colouration</p>
+</div></div><div class="section" id="Low-throughput">
+<h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
+<p>First, we test a single image with the low throughput workflow.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">image_dir</span> <span class="o">=</span> <span class="s2">&quot;images/snails1.jpg&quot;</span>
+
+<span class="n">ct</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span>
+                   <span class="n">cont</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># load as container</span>
+                   <span class="n">dirpath</span><span class="o">=</span> <span class="s2">&quot;../_temp/output/ex6&quot;</span><span class="p">,</span>  <span class="c1"># specify save-directory</span>
+                   <span class="n">save_suffix</span> <span class="o">=</span> <span class="s2">&quot;ex6&quot;</span><span class="p">)</span> <span class="c1"># give files a save-suffix (e.g. &quot;contours_ex6.csv&quot;)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Directory to save files set at - E:\git_repos\phenopype\_temp\output\ex6
+Nothing loaded.
+</pre></div></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">load</span></code> method of a <code class="docutils literal notranslate"><span class="pre">container</span></code> attempts to load any previously saved results, masks, etc. from the specified <code class="docutils literal notranslate"><span class="pre">dirpath</span></code>. <code class="docutils literal notranslate"><span class="pre">reset</span></code> will only reset the modified images, as well as image and contour DataFrames. This will preserve any drawn masks or other data stemming from user interaction.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">ct</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="n">ct</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Nothing loaded.
+</pre></div></div>
+</div>
+<p>Draw a mask around the snails inside the tray by dragging a rectangle around them - finish with <code class="docutils literal notranslate"><span class="pre">Enter</span></code>, abort with <code class="docutils literal notranslate"><span class="pre">Esc</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- mask with label mask1 already created (overwrite=False)
+</pre></div></div>
+</div>
+<p>Now we’ll blur the image a little, convert it to a binary image, and look at the results:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">blur</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span>
+                          <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span>
+                          <span class="n">blocksize</span><span class="o">=</span><span class="mi">59</span><span class="p">,</span> <span class="c1">## relatively low sensitivity</span>
+                          <span class="n">constant</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1">## relatively high subtraction factor from the result</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># `ct` automatically shows the last edit within the container, `ct.image` would also work</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- include mask &#34;mask1&#34; pixels
+</pre></div></div>
+</div>
+<p>The break up the clumping, we apply the watershed algorithm to the binarized image:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">watershed</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">distance_cutoff</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span> <span class="c1"># , iterations=1, kernel_size=1</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>With this image we can find the contours - for watershed we <em>have</em> to select the <code class="docutils literal notranslate"><span class="pre">&quot;ccomp&quot;</span></code> option.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span>
+                              <span class="n">retrieval</span><span class="o">=</span><span class="s2">&quot;ccomp&quot;</span><span class="p">,</span> <span class="c1"># this finds the splitted rather than the outer contours</span>
+                              <span class="n">min_area</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span> <span class="c1"># noise removal</span>
+</pre></div>
+</div>
+</div>
+<p>Now we draw the contours…</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">select_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="c1"># onto which image should the contours be draw</span>
+                               <span class="n">canvas</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">)</span> <span class="c1"># raw = original image</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span>
+                               <span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                               <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                               <span class="n">watershed</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># this flag needs to be added</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- raw image
+</pre></div></div>
+</div>
+<p>… and save them, as well as the masks (if we need to redo this) and the canvas for quality control.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- canvas saved under ../_temp/output/ex6\canvas_ex6.jpg (overwritten).
+- masks saved under ../_temp/output/ex6\masks_ex6.csv (overwritten).
+- contours saved under ../_temp/output/ex6\contours_ex6.csv (overwritten).
+</pre></div></div>
+</div>
+<p><strong>Note:</strong> the countour csv contains BOTH the outer (unseparated=“parent”) and inner (separated=“child”) contours. Be sure to select the desired rows using the <code class="docutils literal notranslate"><span class="pre">&quot;order&quot;</span></code> column when analyzing.</p>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
 </pre></div>
@@ -366,6 +535,7 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span>
 </pre></div>
+</div>
 </div>
 </div>
 </div>

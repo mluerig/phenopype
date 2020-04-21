@@ -1177,7 +1177,7 @@ array by default</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.visualization.draw_contours">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">offset_coords=None</em>, <em class="sig-param">label=True</em>, <em class="sig-param">fill=0.3</em>, <em class="sig-param">mark_holes=True</em>, <em class="sig-param">level=3</em>, <em class="sig-param">line_colour='green'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">skeleton=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_contours" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">offset_coords=None</em>, <em class="sig-param">label=True</em>, <em class="sig-param">fill=0.3</em>, <em class="sig-param">mark_holes=True</em>, <em class="sig-param">level=3</em>, <em class="sig-param">line_colour='green'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">skeleton=True</em>, <em class="sig-param">watershed=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_contours" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw contours and their labels onto a canvas. Can be filled or empty, offset
 coordinates can be supplied. This will also draw the skeleton, if the argument
 “skeleton=True” and the supplied “df_contour” contains a “skeleton_coords”
@@ -1198,6 +1198,8 @@ highlighted in red</p></li>
 <li><p><strong>label_colour</strong> (<em>{&quot;black&quot;</em><em>, </em><em>&quot;white&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;red&quot;</em><em>, </em><em>&quot;blue&quot;} str</em><em>, </em><em>optional</em>) – contour label colour.</p></li>
 <li><p><strong>label_size</strong> (<em>int</em><em>, </em><em>optional</em>) – contour label font size (scaled to image)</p></li>
 <li><p><strong>label_width</strong> (<em>int</em><em>, </em><em>optional</em>) – contour label font thickness</p></li>
+<li><p><strong>watershed</strong> (<em>bool</em><em>, </em><em>optional</em>) – indicates if a watershed-procedure has been performed. formats the
+coordinate colours accordingly (excludes “mark_holes option”)</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1442,7 +1444,7 @@ ouput if the data is contained in the provided DataFrame.</p>
 <p>[ADD TEXT]</p>
 <dl class="class">
 <dt id="phenopype.tracking.motion_tracker">
-<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">motion_tracker</code><span class="sig-paren">(</span><em class="sig-param">video_path</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">motion_tracker</code><span class="sig-paren">(</span><em class="sig-param">video_path</em>, <em class="sig-param">at_frame=1</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="method">
 <dt id="phenopype.tracking.motion_tracker.video_output">
