@@ -119,7 +119,7 @@ Examples
 			<div class="thumbnail">
 			<a href="example_5_shape_stickleback.html">
 			<img src="_images/thumbs/ex5.jpg" alt="example_5_shape_stickleback" style="width:100%">
-			<b><p style="text-decoration: underline;">Measuring armor plates</p></b>
+			<b><p style="text-decoration: underline;">Measuring armor plate area</p></b>
 			<b>Organism:</b> threespine stickleback <br>
 			<b>Species:</b> <i>G. aculeatus</i> <br>
 			<b>Traits:</b> counting armor plates; shape and size<br>
