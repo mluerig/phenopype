@@ -371,8 +371,8 @@ div.rendered_html tbody tr:hover {
 </div></div><div class="section" id="Low-throughput">
 <h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
 <p>First we load the image as a container. If you have saved data before with a specific <code class="docutils literal notranslate"><span class="pre">save_suffix</span></code> (recommended for reproducibility and to not overwrite files) you can reload it if you have provided it at the point of container creation in <code class="docutils literal notranslate"><span class="pre">load_image</span></code>:</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -387,8 +387,16 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Directory to save files set at - E:\git_repos\phenopype\_temp\output
+</pre></div></div>
+</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -407,21 +415,93 @@ AUTOLOAD
 - masks_worms1.csv
 </pre></div></div>
 </div>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">ct</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span> <span class="c1"># reset canvas and images, if you run repeatedly</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># finding circles can be potentially automatized in the future using hough transform</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">blocksize</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">min_diameter</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>First we drag a rectangle around each worm in each well. Future releases will include “circle”-shaped mask tools, and the opportunity to automatically find circles using hough transform - OpenCV is already set up to do so: <a class="reference external" href="https://docs.opencv.org/3.4/d4/d70/tutorial_hough_circle.html">https://docs.opencv.org/3.4/d4/d70/tutorial_hough_circle.html</a></p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- mask with label mask1 already created (overwrite=False)
+</pre></div></div>
+</div>
+<p>Next step is to perform the segmentation. To adjust vor variable brightness inside the wells we use the <code class="docutils literal notranslate"><span class="pre">&quot;adaptive&quot;</span></code> <code class="docutils literal notranslate"><span class="pre">threshold</span></code> method, and afterwards, <code class="docutils literal notranslate"><span class="pre">find_contours</span></code>. If the worms touch the border of the well, or their own body, you can directly manipulate the binary image using the draw function (two clicks draw a line, or use the argument <code class="docutils literal notranslate"><span class="pre">tool=&quot;rectangle&quot;</span></code>. Sometimes a worm may overlap with itself - in that case, use <code class="docutils literal notranslate"><span class="pre">polylines</span></code> to measure it manually.</p>
+<p>Be aware that low- and high-throughput workflows are designed for consecutive application of functions, meaning that repeated execution of thresholding will be on an already thresholded image. To restart that process, reset the container with <code class="docutils literal notranslate"><span class="pre">ct.reset()</span></code>(see above)</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">blocksize</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="c1">## pp.segmentation(draw) # uncomment this if you need to manually separate worms from the well-border</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">min_diameter</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
 <span class="c1">## pp.visualization.polylines(ct) # uncomment this if you need to manually measure a worm</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">skeletonize</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># this will measure the longest distance in a curvy object</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+- include mask &#34;mask1&#34; pixels
+</pre></div></div>
+</div>
+<p>Next we draw the output, and save the results (including a visualization).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">select_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">)</span> <span class="c1"># first select a background (try &quot;binary&quot;)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># this draws both the contour (green) and the skeleton</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span> <span class="c1"># will be skipped if loaded before</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">custom_save_path</span><span class="p">)</span> <span class="c1">#</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- raw image
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">custom_save_path</span><span class="p">)</span> <span class="c1">#</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">custom_save_path</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">custom_save_path</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># resize=1 to have the original sized picture</span>
 </pre></div>
@@ -432,26 +512,13 @@ AUTOLOAD
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- mask with label mask1 already created (overwrite=False)
-- include mask &#34;mask1&#34; pixels
-- include mask &#34;mask1&#34; pixels
-- include mask &#34;mask1&#34; pixels
-- include mask &#34;mask1&#34; pixels
-- include mask &#34;mask1&#34; pixels
-- include mask &#34;mask1&#34; pixels
- - show mask: mask1.
- - show mask: mask1.
- - show mask: mask1.
- - show mask: mask1.
- - show mask: mask1.
- - show mask: mask1.
 - masks saved under ../_temp/output\masks_worms1.csv (overwritten).
 - contours saved under ../_temp/output\contours_worms1.csv (overwritten).
 - canvas saved under ../_temp/output\canvas_worms1.jpg (overwritten).
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -461,7 +528,7 @@ AUTOLOAD
 </div>
 <p>Should a worm superimpose itself it is not possible for the skeletonization algorithm to follow the shape through from beginning to end (e.g. in worm 3 in this example). In that case one has to manually draw a line along the worm using the <code class="docutils literal notranslate"><span class="pre">polylines</span></code> tool.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -481,7 +548,7 @@ AUTOLOAD
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -495,7 +562,7 @@ AUTOLOAD
 <h2>High throughput<a class="headerlink" href="#High-throughput" title="Permalink to this headline">¶</a></h2>
 <p>As for the other examples I have created a preset (<code class="docutils literal notranslate"><span class="pre">ex7</span></code>) with appropriate settings for the example. The template can be passed to the <code class="docutils literal notranslate"><span class="pre">pype</span></code> using <code class="docutils literal notranslate"><span class="pre">config_preset=&quot;ex7&quot;</span></code> - see below.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -518,14 +585,16 @@ preprocessing:
 segmentation:
 - threshold:
     method: adaptive
-    blocksize: 49      ## for adaptive
-    constant: 5        ## for adaptive
+    blocksize: 49
+    constant: 5
+# - draw
 - find_contours:
     retrieval: ccomp
     min_diameter: 50
     min_area: 0
 measurement:
 - skeletonize
+# - polylines
 visualization:
 - select_canvas:
     canvas: image
@@ -534,6 +603,8 @@ visualization:
     label_width: 1
     label_size: 1
     fill: 0.3
+- draw_masks
+# - draw_polylines
 export:
 - save_contours:
     overwrite: true
@@ -541,11 +612,11 @@ export:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;worms2&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;ex7&quot;</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;worms2&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output/ex7&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;ex7&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -554,14 +625,13 @@ export:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-../_temp/output\pype_config_worms2.yaml
+../_temp/output/ex7\pype_config_worms2.yaml
 
 
-------------+++ new pype iteration 2020:04:19 15:45:35 +++--------------
+------------+++ new pype iteration 2020:04:23 14:48:56 +++--------------
 
 
 AUTOLOAD
-- drawing loaded from attributes.yaml
 - masks_worms2.csv
 PREPROCESSING
 create_mask
@@ -574,37 +644,43 @@ threshold
 - include mask &#34;mask1&#34; pixels
 - include mask &#34;mask1&#34; pixels
 - include mask &#34;mask1&#34; pixels
-draw
-- polylines already drawn (overwrite=False)
 find_contours
 MEASUREMENT
 skeletonize
 VISUALIZATION
+NoneType
 select_canvas
 - invalid selection - defaulting to raw image
+ndarray
 draw_contours
+ndarray
+draw_masks
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
+ - show mask: mask1.
 EXPORT
 save_contours
-- contours saved under ../_temp/output\contours_worms2.csv (overwritten).
-save_canvas
-- canvas saved under ../_temp/output\canvas_worms2.jpg (overwritten).
+- contours saved under ../_temp/output/ex7\contours_worms2.csv (overwritten).
 AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/output/ex7\canvas_worms2.jpg (overwritten).
 save_masks
 - masks not saved - file already exists (overwrite=False).
-save_drawing
-- drawing saved (overwriting)
 
 
 TERMINATE
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;phenopype.main.pype at 0x266993dde88&gt;
+&lt;phenopype.main.pype at 0x1a275b0eb08&gt;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">
