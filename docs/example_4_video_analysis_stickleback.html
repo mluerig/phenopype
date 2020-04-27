@@ -364,9 +364,102 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+<span class="kn">import</span> <span class="nn">trackpy</span> <span class="k">as</span> <span class="nn">tp</span> <span class="c1">#can be installed using pip</span>
 </pre></div>
 </div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">video_path</span> <span class="o">=</span>  <span class="sa">r</span><span class="s2">&quot;images/isopods_fish.mp4&quot;</span>
+<span class="n">out_dir</span> <span class="o">=</span>  <span class="sa">r</span><span class="s2">&quot;../_temp/video&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># draw masks</span>
+<span class="n">mt</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">motion_tracker</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span>
+<span class="n">mt</span><span class="o">.</span><span class="n">video_output</span><span class="p">(</span><span class="n">save_suffix</span><span class="o">=</span><span class="s2">&quot;v1&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">out_dir</span><span class="p">)</span>
+
+<span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">mt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;full arena&quot;</span><span class="p">)</span>
+
+<span class="c1"># create fish method</span>
+<span class="n">fish</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">tracking_method</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;fish&quot;</span><span class="p">,</span>  <span class="n">blur</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">remove_shadows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                          <span class="n">min_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">overlay_colour</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
+                          <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;single&quot;</span><span class="p">)</span>
+<span class="n">isopods</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">tracking_method</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;isopod&quot;</span><span class="p">,</span> <span class="n">blur</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">remove_shadows</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                            <span class="n">min_length</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">overlay_colour</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span>
+                            <span class="n">operations</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;diameter&quot;</span><span class="p">,</span> <span class="s2">&quot;area&quot;</span><span class="p">,</span><span class="s2">&quot;grayscale&quot;</span><span class="p">,</span><span class="s2">&quot;grayscale_background&quot;</span><span class="p">,</span><span class="s2">&quot;bgr&quot;</span><span class="p">])</span>
+
+<span class="c1"># run motion tracker</span>
+<span class="n">mt</span><span class="o">.</span><span class="n">motion_detection</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">start_after</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                    <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="n">fish</span><span class="p">,</span> <span class="n">isopods</span><span class="p">],</span> <span class="n">detect_shadows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;MOG&quot;</span><span class="p">)</span>
+<span class="n">coordinates</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">run_tracking</span><span class="p">(</span><span class="n">show</span><span class="o">=</span><span class="s2">&quot;overlay&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">return_df</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># save output</span>
+<span class="n">coordinates</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_coordinates.csv&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">coordinates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_coordinates.csv&quot;</span><span class="p">))</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+
+
+--------------------------------------------------------------
+Input video properties - &#34;isopods_fish.mp4&#34;:
+
+Frames per second: 29.97000099996667
+N frames: 450
+Length: 00:15 (mm:ss)
+Dimensions: (960, 540)
+Colour video: True
+FourCC code: avc1
+--------------------------------------------------------------
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">StdinNotImplementedError</span>                  Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-3-0b45393c61ef&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-fg">      1</span> <span class="ansi-red-intense-fg ansi-bold"># draw masks</span>
+<span class="ansi-green-fg">      2</span> mt <span class="ansi-yellow-intense-fg ansi-bold">=</span> pp<span class="ansi-yellow-intense-fg ansi-bold">.</span>motion_tracker<span class="ansi-yellow-intense-fg ansi-bold">(</span>video_path<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 3</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>mt<span class="ansi-yellow-intense-fg ansi-bold">.</span>video_output<span class="ansi-yellow-intense-fg ansi-bold">(</span>save_suffix<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;v1&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> dirpath<span class="ansi-yellow-intense-fg ansi-bold">=</span>out_dir<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">      4</span>
+<span class="ansi-green-fg">      5</span> pp<span class="ansi-yellow-intense-fg ansi-bold">.</span>preprocessing<span class="ansi-yellow-intense-fg ansi-bold">.</span>create_mask<span class="ansi-yellow-intense-fg ansi-bold">(</span>mt<span class="ansi-yellow-intense-fg ansi-bold">,</span> label<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;full arena&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">e:\git_repos\phenopype\phenopype\tracking.py</span> in <span class="ansi-cyan-fg">video_output</span><span class="ansi-blue-intense-fg ansi-bold">(self, video_format, save_suffix, dirpath, fps, save_colour, dimensions, resize)</span>
+<span class="ansi-green-fg">    121</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    122</span>             <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> os<span class="ansi-yellow-intense-fg ansi-bold">.</span>path<span class="ansi-yellow-intense-fg ansi-bold">.</span>isdir<span class="ansi-yellow-intense-fg ansi-bold">(</span>dirpath<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 123</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>q <span class="ansi-yellow-intense-fg ansi-bold">=</span> input<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Save folder {} does not exist - create?.&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>format<span class="ansi-yellow-intense-fg ansi-bold">(</span>dirpath<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
+<span class="ansi-green-fg">    124</span>                 <span class="ansi-green-intense-fg ansi-bold">if</span> q <span class="ansi-green-intense-fg ansi-bold">in</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;True&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;true&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;y&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;yes&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    125</span>                     os<span class="ansi-yellow-intense-fg ansi-bold">.</span>makedirs<span class="ansi-yellow-intense-fg ansi-bold">(</span>dirpath<span class="ansi-yellow-intense-fg ansi-bold">)</span>
+
+<span class="ansi-green-intense-fg ansi-bold">C:\Anaconda3\envs\pp37\lib\site-packages\ipykernel\kernelbase.py</span> in <span class="ansi-cyan-fg">raw_input</span><span class="ansi-blue-intense-fg ansi-bold">(self, prompt)</span>
+<span class="ansi-green-fg">    852</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_allow_stdin<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">    853</span>             raise StdinNotImplementedError(
+<span class="ansi-green-intense-fg ansi-bold">--&gt; 854</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span><span class="ansi-blue-intense-fg ansi-bold">&#34;raw_input was called, but this frontend does not support input requests.&#34;</span>
+<span class="ansi-green-fg">    855</span>             )
+<span class="ansi-green-fg">    856</span>         return self._input_request(str(prompt),
+
+<span class="ansi-red-intense-fg ansi-bold">StdinNotImplementedError</span>: raw_input was called, but this frontend does not support input requests.
+</pre></div></div>
 </div>
 </div>
 
