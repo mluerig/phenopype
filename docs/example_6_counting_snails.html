@@ -375,14 +375,14 @@ div.rendered_html tbody tr:hover {
 <h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
 <p>First, we test a single image with the low throughput workflow.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
-<span class="n">image_dir</span> <span class="o">=</span> <span class="s2">&quot;images/snails.jpg&quot;</span>
+<span class="n">image_dir</span> <span class="o">=</span> <span class="s2">&quot;images/snails1.jpg&quot;</span>
 
 <span class="n">ct</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">image_dir</span><span class="p">,</span>
                    <span class="n">cont</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>  <span class="c1"># load as container</span>
@@ -397,12 +397,11 @@ div.rendered_html tbody tr:hover {
 <div class="output_area docutils container">
 <div class="highlight"><pre>
 Directory to save files set at - E:\git_repos\phenopype\_temp\output\ex6
-Nothing loaded.
 </pre></div></div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">load</span></code> method of a <code class="docutils literal notranslate"><span class="pre">container</span></code> attempts to load any previously saved results, masks, etc. from the specified <code class="docutils literal notranslate"><span class="pre">dirpath</span></code>. <code class="docutils literal notranslate"><span class="pre">reset</span></code> will only reset the modified images, as well as image and contour DataFrames. This will preserve any drawn masks or other data stemming from user interaction.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -416,12 +415,13 @@ Nothing loaded.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Nothing loaded.
+AUTOLOAD
+- masks_snails1.csv
 </pre></div></div>
 </div>
 <p>Draw a mask around the snails inside the tray by dragging a rectangle around them - finish with <code class="docutils literal notranslate"><span class="pre">Enter</span></code>, abort with <code class="docutils literal notranslate"><span class="pre">Esc</span></code>.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -439,7 +439,7 @@ Nothing loaded.
 </div>
 <p>Now we’ll blur the image a little, convert it to a binary image, and look at the results:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -462,7 +462,7 @@ Nothing loaded.
 </div>
 <p>The break up the clumping, we apply the watershed algorithm to the binarized image:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -473,7 +473,7 @@ Nothing loaded.
 </div>
 <p>With this image we can find the contours - for watershed we <em>have</em> to select the <code class="docutils literal notranslate"><span class="pre">&quot;ccomp&quot;</span></code> option.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -485,7 +485,7 @@ Nothing loaded.
 </div>
 <p>Now we draw the contours…</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -509,11 +509,11 @@ Nothing loaded.
 </div>
 <p>… and save them, as well as the masks (if we need to redo this) and the canvas for quality control.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="n">raw</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">,</span> <span class="n">resize</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
 </pre></div>
@@ -524,9 +524,9 @@ Nothing loaded.
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- canvas saved under ../_temp/output/ex6\canvas_ex6.jpg (overwritten).
-- masks saved under ../_temp/output/ex6\masks_ex6.csv (overwritten).
-- contours saved under ../_temp/output/ex6\contours_ex6.csv (overwritten).
+- canvas saved under ../_temp/output/ex6\canvas_snails1.jpg (overwritten).
+- masks saved under ../_temp/output/ex6\masks_snails1.csv (overwritten).
+- contours saved under ../_temp/output/ex6\contours_snails1.csv (overwritten).
 </pre></div></div>
 </div>
 <p><strong>Note:</strong> the countour csv contains BOTH the outer (unseparated=“parent”) and inner (separated=“child”) contours. Be sure to select the desired rows using the <code class="docutils literal notranslate"><span class="pre">&quot;order&quot;</span></code> column when analyzing.</p>
@@ -535,7 +535,7 @@ Nothing loaded.
 <h2>High throughput<a class="headerlink" href="#High-throughput" title="Permalink to this headline">¶</a></h2>
 <p>As for the other examples I have created a preset (<code class="docutils literal notranslate"><span class="pre">ex6</span></code>) with appropriate settings for the example. The template can be passed to the <code class="docutils literal notranslate"><span class="pre">pype</span></code> using <code class="docutils literal notranslate"><span class="pre">config_preset=&quot;ex6&quot;</span></code> - see below.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -560,13 +560,13 @@ segmentation:
     kernel_size: 3
 - threshold:
     method: adaptive
-    blocksize: 49
+    blocksize: 59
     constant: 10
     channel: gray
 - watershed:
     distance_cutoff: 0.5
 - find_contours:
-    retrieval: ext
+    retrieval: ccomp
     min_diameter: 0
     min_area: 200
 measurement:
@@ -579,6 +579,7 @@ visualization:
     label_width: 1
     label_size: 1
     fill: 0
+    watershed: true
 export:
 - save_contours:
     overwrite: true
@@ -586,7 +587,7 @@ export:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -594,26 +595,22 @@ export:
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Did not find &#34;pype_config_snails1.yaml&#34; -  create at following location? (y/n):
-../_temp/output/ex6\pype_config_snails1.yaml
-y
-pype config generated from ex6.
-Created and saved new pype config &#34;pype_config_snails1.yaml&#34; in folder ../_temp/output/ex6
-../_temp/output/ex6\pype_config_snails1.yaml
+../_temp/output/ex6\pype_config_snails2.yaml
 
 
-------------+++ new pype iteration 2020:04:22 11:54:07 +++--------------
+------------+++ new pype iteration 2020:04:28 18:30:46 +++--------------
 
 
-Nothing loaded.
+AUTOLOAD
+- masks_snails2.csv
 PREPROCESSING
 create_mask
-- create mask
+- mask with label mask1 already created (overwrite=False)
 SEGMENTATION
 blur
 threshold
@@ -630,46 +627,93 @@ ndarray
 draw_contours
 EXPORT
 save_contours
-- contours saved under ../_temp/output/ex6\contours_snails1.csv.
+- contours saved under ../_temp/output/ex6\contours_snails2.csv (overwritten).
 AUTOSAVE
 save_canvas
-- canvas saved under ../_temp/output/ex6\canvas_snails1.jpg.
+- canvas saved under ../_temp/output/ex6\canvas_snails2.jpg (overwritten).
 save_colours
-- colours saved under ../_temp/output/ex6\colours_snails1.csv.
+- colours not saved - file already exists (overwrite=False).
 save_masks
-- masks saved under ../_temp/output/ex6\masks_snails1.csv.
+- masks not saved - file already exists (overwrite=False).
+
+
+TERMINATE
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;phenopype.main.pype at 0x1bf87500f88&gt;
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">image_path</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;./images/snails2.jpg&quot;</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;snails2&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output/ex6&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;ex6&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span>
+        <span class="n">name</span><span class="o">=</span><span class="s2">&quot;snails2&quot;</span><span class="p">,</span>
+        <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output/ex6&quot;</span><span class="p">,</span>
+        <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;ex6&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="nboutput nblast docutils container">
+<div class="nboutput docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-Did not find &#34;pype_config_snails2.yaml&#34; -  create at following location? (y/n):
-../_temp/output/ex6\pype_config_snails2.yaml
-y
-pype config generated from ex6.
-Created and saved new pype config &#34;pype_config_snails2.yaml&#34; in folder ../_temp/output/ex6
 ../_temp/output/ex6\pype_config_snails2.yaml
 
 
-------------+++ new pype iteration 2020:04:22 11:58:29 +++--------------
+------------+++ new pype iteration 2020:04:28 18:31:10 +++--------------
 
 
-Nothing loaded.
+AUTOLOAD
+- masks_snails2.csv
 PREPROCESSING
 create_mask
-- create mask
+- mask with label mask1 already created (overwrite=False)
+SEGMENTATION
+blur
+threshold
+- include mask &#34;mask1&#34; pixels
+watershed
+find_contours
+MEASUREMENT
+colour_intensity
+VISUALIZATION
+NoneType
+select_canvas
+- raw image
+ndarray
+draw_contours
+EXPORT
+save_contours
+- contours saved under ../_temp/output/ex6\contours_snails2.csv (overwritten).
+AUTOSAVE
+save_canvas
+- canvas saved under ../_temp/output/ex6\canvas_snails2.jpg (overwritten).
+save_colours
+- colours not saved - file already exists (overwrite=False).
+save_masks
+- masks not saved - file already exists (overwrite=False).
+
+
+TERMINATE
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;phenopype.main.pype at 0x1bf873b87c8&gt;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">

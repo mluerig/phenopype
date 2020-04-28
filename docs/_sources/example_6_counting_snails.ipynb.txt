@@ -41,15 +41,14 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Directory to save files set at - E:\\git_repos\\phenopype\\_temp\\output\\ex6\n",
-      "Nothing loaded.\n"
+      "Directory to save files set at - E:\\git_repos\\phenopype\\_temp\\output\\ex6\n"
      ]
     }
    ],
@@ -57,7 +56,7 @@
     "import phenopype as pp\n",
     "import os \n",
     "\n",
-    "image_dir = \"images/snails.jpg\"\n",
+    "image_dir = \"images/snails1.jpg\"\n",
     "\n",
     "ct = pp.load_image(image_dir, \n",
     "                   cont=True,  # load as container\n",
@@ -74,14 +73,15 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 22,
+   "execution_count": 4,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Nothing loaded.\n"
+      "AUTOLOAD\n",
+      "- masks_snails1.csv\n"
      ]
     }
    ],
@@ -99,7 +99,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 20,
+   "execution_count": 5,
    "metadata": {},
    "outputs": [
     {
@@ -123,7 +123,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 26,
+   "execution_count": 6,
    "metadata": {},
    "outputs": [
     {
@@ -152,7 +152,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 24,
+   "execution_count": 7,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -169,7 +169,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 25,
+   "execution_count": 8,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -187,7 +187,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
@@ -217,21 +217,21 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "- canvas saved under ../_temp/output/ex6\\canvas_ex6.jpg (overwritten).\n",
-      "- masks saved under ../_temp/output/ex6\\masks_ex6.csv (overwritten).\n",
-      "- contours saved under ../_temp/output/ex6\\contours_ex6.csv (overwritten).\n"
+      "- canvas saved under ../_temp/output/ex6\\canvas_snails1.jpg (overwritten).\n",
+      "- masks saved under ../_temp/output/ex6\\masks_snails1.csv (overwritten).\n",
+      "- contours saved under ../_temp/output/ex6\\contours_snails1.csv (overwritten).\n"
      ]
     }
    ],
    "source": [
-    "pp.export.save_canvas(ct, canvas=raw, name=\"raw\", resize=1)\n",
+    "pp.export.save_canvas(ct)\n",
     "pp.export.save_masks(ct)\n",
     "pp.export.save_contours(ct)"
    ]
@@ -254,7 +254,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 1,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [
     {
@@ -269,13 +269,13 @@
       "    kernel_size: 3\n",
       "- threshold:\n",
       "    method: adaptive\n",
-      "    blocksize: 49\n",
+      "    blocksize: 59\n",
       "    constant: 10\n",
       "    channel: gray\n",
       "- watershed:\n",
       "    distance_cutoff: 0.5\n",
       "- find_contours:\n",
-      "    retrieval: ext\n",
+      "    retrieval: ccomp\n",
       "    min_diameter: 0\n",
       "    min_area: 200\n",
       "measurement:\n",
@@ -288,6 +288,7 @@
       "    label_width: 1\n",
       "    label_size: 1\n",
       "    fill: 0\n",
+      "    watershed: true\n",
       "export:\n",
       "- save_contours:\n",
       "    overwrite: true\n",
@@ -305,28 +306,24 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Did not find \"pype_config_snails1.yaml\" -  create at following location? (y/n):\n",
-      "../_temp/output/ex6\\pype_config_snails1.yaml\n",
-      "y\n",
-      "pype config generated from ex6.\n",
-      "Created and saved new pype config \"pype_config_snails1.yaml\" in folder ../_temp/output/ex6\n",
-      "../_temp/output/ex6\\pype_config_snails1.yaml\n",
+      "../_temp/output/ex6\\pype_config_snails2.yaml\n",
       "\n",
       "\n",
-      "------------+++ new pype iteration 2020:04:22 11:54:07 +++--------------\n",
+      "------------+++ new pype iteration 2020:04:28 18:30:46 +++--------------\n",
       "\n",
       "\n",
-      "Nothing loaded.\n",
+      "AUTOLOAD\n",
+      "- masks_snails2.csv\n",
       "PREPROCESSING\n",
       "create_mask\n",
-      "- create mask\n",
+      "- mask with label mask1 already created (overwrite=False)\n",
       "SEGMENTATION\n",
       "blur\n",
       "threshold\n",
@@ -343,15 +340,28 @@
       "draw_contours\n",
       "EXPORT\n",
       "save_contours\n",
-      "- contours saved under ../_temp/output/ex6\\contours_snails1.csv.\n",
+      "- contours saved under ../_temp/output/ex6\\contours_snails2.csv (overwritten).\n",
       "AUTOSAVE\n",
       "save_canvas\n",
-      "- canvas saved under ../_temp/output/ex6\\canvas_snails1.jpg.\n",
+      "- canvas saved under ../_temp/output/ex6\\canvas_snails2.jpg (overwritten).\n",
       "save_colours\n",
-      "- colours saved under ../_temp/output/ex6\\colours_snails1.csv.\n",
+      "- colours not saved - file already exists (overwrite=False).\n",
       "save_masks\n",
-      "- masks saved under ../_temp/output/ex6\\masks_snails1.csv.\n"
+      "- masks not saved - file already exists (overwrite=False).\n",
+      "\n",
+      "\n",
+      "TERMINATE\n"
      ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<phenopype.main.pype at 0x1bf87500f88>"
+      ]
+     },
+     "execution_count": 13,
+     "metadata": {},
+     "output_type": "execute_result"
     }
    ],
    "source": [
@@ -360,34 +370,70 @@
   },
   {
    "cell_type": "code",
-   "execution_count": null,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "Did not find \"pype_config_snails2.yaml\" -  create at following location? (y/n):\n",
-      "../_temp/output/ex6\\pype_config_snails2.yaml\n",
-      "y\n",
-      "pype config generated from ex6.\n",
-      "Created and saved new pype config \"pype_config_snails2.yaml\" in folder ../_temp/output/ex6\n",
       "../_temp/output/ex6\\pype_config_snails2.yaml\n",
       "\n",
       "\n",
-      "------------+++ new pype iteration 2020:04:22 11:58:29 +++--------------\n",
+      "------------+++ new pype iteration 2020:04:28 18:31:10 +++--------------\n",
       "\n",
       "\n",
-      "Nothing loaded.\n",
+      "AUTOLOAD\n",
+      "- masks_snails2.csv\n",
       "PREPROCESSING\n",
       "create_mask\n",
-      "- create mask\n"
+      "- mask with label mask1 already created (overwrite=False)\n",
+      "SEGMENTATION\n",
+      "blur\n",
+      "threshold\n",
+      "- include mask \"mask1\" pixels\n",
+      "watershed\n",
+      "find_contours\n",
+      "MEASUREMENT\n",
+      "colour_intensity\n",
+      "VISUALIZATION\n",
+      "NoneType\n",
+      "select_canvas\n",
+      "- raw image\n",
+      "ndarray\n",
+      "draw_contours\n",
+      "EXPORT\n",
+      "save_contours\n",
+      "- contours saved under ../_temp/output/ex6\\contours_snails2.csv (overwritten).\n",
+      "AUTOSAVE\n",
+      "save_canvas\n",
+      "- canvas saved under ../_temp/output/ex6\\canvas_snails2.jpg (overwritten).\n",
+      "save_colours\n",
+      "- colours not saved - file already exists (overwrite=False).\n",
+      "save_masks\n",
+      "- masks not saved - file already exists (overwrite=False).\n",
+      "\n",
+      "\n",
+      "TERMINATE\n"
      ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<phenopype.main.pype at 0x1bf873b87c8>"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
     }
    ],
    "source": [
     "image_path = r\"./images/snails2.jpg\"\n",
-    "pp.pype(image_path, name=\"snails2\", dirpath=r\"../_temp/output/ex6\", config_preset=\"ex6\")"
+    "pp.pype(image_path, \n",
+    "        name=\"snails2\", \n",
+    "        dirpath=r\"../_temp/output/ex6\", \n",
+    "        config_preset=\"ex6\")"
    ]
   },
   {

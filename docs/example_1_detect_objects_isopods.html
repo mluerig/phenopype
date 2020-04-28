@@ -427,7 +427,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">img_data</span> <span class="c1">## size ratio refers whether this image has been resized using the resize argument of `load_image`</span>
+<span></span><span class="n">img_data</span> <span class="c1"># size ratio refers whether this image has been resized using the resize argument of `load_image`</span>
 </pre></div>
 </div>
 </div>
@@ -519,8 +519,10 @@ image from the following analysis steps (<code class="docutils literal notransla
 <div class="highlight"><pre>
 - measure pixel-to-mm-ratio
 Scale set
+Scale set
 - add column length
 Template selected
+- scale pixel-to-mm-ratio already measured (overwrite=False)
 </pre></div></div>
 </div>
 <p>Now the <code class="docutils literal notranslate"><span class="pre">masks</span></code> DataFrame contains two masks: the one we created above that <em>includes</em> the tray and the one we made to <em>exclude</em> the scale reference card:</p>
@@ -574,17 +576,7 @@ Template selected
       <td>1</td>
       <td>mask1</td>
       <td>True</td>
-      <td>[(515, 1067), (515, 1067), (515, 1067), (515, ...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>isopods.jpg</td>
-      <td>2100</td>
-      <td>1400</td>
-      <td>1</td>
-      <td>mask1</td>
-      <td>True</td>
-      <td>[(247, 187), (1894, 187), (1894, 1339), (247, ...</td>
+      <td>[(220, 138), (1892, 138), (1892, 1353), (220, ...</td>
     </tr>
     <tr>
       <th>0</th>
@@ -594,7 +586,7 @@ Template selected
       <td>1</td>
       <td>scale</td>
       <td>False</td>
-      <td>[(441, 1017), (682, 1017), (682, 1229), (441, ...</td>
+      <td>[(443, 1025), (688, 1025), (688, 1229), (443, ...</td>
     </tr>
   </tbody>
 </table>
@@ -617,7 +609,6 @@ Template selected
 <div class="output_area docutils container">
 <div class="highlight"><pre>
  - show mask: mask1.
- - show mask: mask1.
  - show mask: scale.
 </pre></div></div>
 </div>
@@ -639,9 +630,8 @@ Template selected
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- applying mask: mask1
-- applying mask: mask1
-- applying mask: scale
+- include mask &#34;mask1&#34; pixels
+- exclude mask &#34;scale&#34; pixels
 </pre></div></div>
 </div>
 <p>The resulting array <code class="docutils literal notranslate"><span class="pre">image_bin</span></code> is a binary image where white regions are foreground and black background:</p>
@@ -661,7 +651,7 @@ should have - 100 pixels should be enough to exclude all fecal pellets. Again, w
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span></span><span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">df_image_data</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">df_contours</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
@@ -710,9 +700,8 @@ should have - 100 pixels should be enough to exclude all fecal pellets. Again, w
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- applying mask: mask1
-- applying mask: mask1
-- applying mask: scale
+- include mask &#34;mask1&#34; pixels
+- exclude mask &#34;scale&#34; pixels
 </pre></div></div>
 </div>
 </div>
@@ -728,7 +717,7 @@ should have - 100 pixels should be enough to exclude all fecal pellets. Again, w
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">image_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span> <span class="n">blocksize</span><span class="o">=</span><span class="mi">49</span><span class="p">,</span>
                                       <span class="n">constant</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">)</span>
-<span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">df_image_data</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
 <span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">df_contours</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
@@ -739,9 +728,8 @@ should have - 100 pixels should be enough to exclude all fecal pellets. Again, w
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- applying mask: mask1
-- applying mask: mask1
-- applying mask: scale
+- include mask &#34;mask1&#34; pixels
+- exclude mask &#34;scale&#34; pixels
 </pre></div></div>
 </div>
 </div>
@@ -749,17 +737,8 @@ should have - 100 pixels should be enough to exclude all fecal pellets. Again, w
 <h3>Segmentation - final product<a class="headerlink" href="#Segmentation---final-product" title="Permalink to this headline">¶</a></h3>
 <p>That looks pretty good. The last thing we need to take care of are the appendages (we don’t want to include those) and the gaps that sometimes form between the segments (we want to have that error to be consistent towards no gaps). Some blurring, and a morphological operation will do the trick (see <a class="reference external" href="https://docs.opencv.org/3.4.9/d9/d61/tutorial_py_morphological_ops.html">the OpenCV docs</a> and the <a class="reference external" href="resources.html#computer-vision">resources section</a> of the documentation for more info).
 Blurring will smooth the contour of the isopods, and a farly large <code class="docutils literal notranslate"><span class="pre">&quot;cross&quot;</span></code> shaped kernel will “cut off” the appendages and other long structures in the binary image.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -769,7 +748,7 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
 <span class="n">image_morph</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">morphology</span><span class="p">(</span><span class="n">image_bin</span><span class="p">,</span> <span class="n">operation</span><span class="o">=</span><span class="s2">&quot;open&quot;</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="s2">&quot;cross&quot;</span><span class="p">,</span>
                                          <span class="n">kernel_size</span> <span class="o">=</span> <span class="mi">9</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-<span class="n">contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_morph</span><span class="p">,</span> <span class="n">df</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
+<span class="n">contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">image_morph</span><span class="p">,</span> <span class="n">df_image_data</span><span class="o">=</span><span class="n">img_data</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">250</span><span class="p">)</span>
 <span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
 <span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">df_contours</span><span class="o">=</span><span class="n">contours</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
@@ -781,10 +760,8 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- applying mask: mask1
-- applying mask: mask1
-- applying mask: scale
- - show mask: mask1.
+- include mask &#34;mask1&#34; pixels
+- exclude mask &#34;scale&#34; pixels
  - show mask: mask1.
  - show mask: scale.
 </pre></div></div>
@@ -794,7 +771,7 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
 <h3>Measuring colour<a class="headerlink" href="#Measuring-colour" title="Permalink to this headline">¶</a></h3>
 <p>Ok, this looks good - we now have a DataFrame with the contour-data of all 20 isopods, including their length (<code class="docutils literal notranslate"><span class="pre">diameter</span></code> of the enclosing circle), and the shape (<code class="docutils literal notranslate"><span class="pre">coords</span></code>). Using this information, we can finally extract the colour information from inside the contours. To do so we can supply the original image array along with the contour DataFrame to the <code class="docutils literal notranslate"><span class="pre">colour_intensity</span></code> function:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[16]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[15]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -807,13 +784,14 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
 <h3>Export<a class="headerlink" href="#Export" title="Permalink to this headline">¶</a></h3>
 <p>Done - we can now save the contours and the colour information to csv, as well as the canvas for quality control:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[17]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">contours</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_colours</span><span class="p">(</span><span class="n">pigmentation</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">contours</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output/ex1&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_colours</span><span class="p">(</span><span class="n">pigmentation</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output/ex1&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output/ex1&quot;</span><span class="p">)</span>
+
 </pre></div>
 </div>
 </div>
@@ -822,9 +800,9 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- contours saved under ../_temp/output\contours.csv (overwritten).
-- colours saved under ../_temp/output\colours.csv (overwritten).
-- canvas saved under ../_temp/output\canvas.jpg (overwritten).
+- contours saved under ../_temp/output/ex1\contours.csv (overwritten).
+- colours saved under ../_temp/output/ex1\colours.csv.
+- canvas saved under ../_temp/output/ex1\canvas.jpg (overwritten).
 </pre></div></div>
 </div>
 </div>
@@ -833,7 +811,7 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
 <h2>Low throughput<a class="headerlink" href="#Low-throughput" title="Permalink to this headline">¶</a></h2>
 <p>In the low throughput approach we will apply the very same functions as in the prototyping approach. However, we use the knowledge acquired before (i.e. good settings for the segmentation functions). Notice that less objects are created because the intermediate output is stored in the container. This makes for a cleaner workspace, but may conceal which steps have already been performed.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[18]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -841,21 +819,32 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
 </pre></div>
 </div>
 </div>
-<p>Load image.</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[19]:
+<p>Load image. The container also has a <code class="docutils literal notranslate"><span class="pre">load</span></code> method with which we can attempt to load previously stored input, such as masks.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/isopods.jpg&quot;</span>
 
 <span class="n">ct</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">cont</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">## load image as container</span>
+
+<span class="n">ct</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output/ex1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<p>Mask the edges of the tray, measure the reference card, and mask it.</p>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+AUTOLOAD
+- masks.csv
+</pre></div></div>
+</div>
+<p>Mask the edges of the tray, measure the reference card, and mask it. If masks have been loaded by the step above, this is skipped (unless <code class="docutils literal notranslate"><span class="pre">overwrite=True</span></code>).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -871,15 +860,17 @@ Blurring will smooth the contour of the isopods, and a farly large <code class="
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- create mask
+- mask with label mask1 already created (overwrite=False)
 - measure pixel-to-mm-ratio
 Scale set
 - add column length
 Template selected
+- scale template mask already created (overwrite=False)
+- scale pixel-to-mm-ratio already measured (overwrite=False)
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[20]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
 </pre></div>
 </div>
 <div class="output_area rendered_html docutils container">
@@ -919,30 +910,30 @@ Template selected
       <td>1</td>
       <td>mask1</td>
       <td>True</td>
-      <td>[(258, 182), (1898, 182), (1898, 1357), (258, ...</td>
+      <td>[(252, 197), (1917, 197), (1917, 1345), (252, ...</td>
     </tr>
     <tr>
-      <th>0</th>
+      <th>1</th>
       <td>isopods.jpg</td>
       <td>2100</td>
       <td>1400</td>
       <td>1</td>
       <td>scale</td>
       <td>False</td>
-      <td>[(443, 1021), (684, 1021), (684, 1233), (443, ...</td>
+      <td>[(457, 1023), (680, 1023), (680, 1227), (457, ...</td>
     </tr>
   </tbody>
 </table>
 </div></div>
 </div>
-<p>Write mask to canvas and show it.</p>
+<p>Now we first have to select the canvas, then we can draw the mask onto the canvas and finally show it.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[21]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
-
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">select_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -952,13 +943,14 @@ Template selected
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+- raw image
  - show mask: mask1.
  - show mask: scale.
 </pre></div></div>
 </div>
 <p>First blur the image, then use <code class="docutils literal notranslate"><span class="pre">threshold</span></code> to segment it. Note that any masks in the container will be automatically applied. Afterwards, morphology operations are applied to the binary image.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[22]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -975,13 +967,13 @@ Template selected
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-- applying mask: mask1
-- applying mask: scale
+- include mask &#34;mask1&#34; pixels
+- exclude mask &#34;scale&#34; pixels
 </pre></div></div>
 </div>
 <p>Find the contours…</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[23]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -991,23 +983,22 @@ Template selected
 </div>
 <p>… draw them onto the canvas, and show them:</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[24]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">ct</span><span class="p">)</span>
-
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <p>Finally, use container’s builtin autosave function <code class="docutils literal notranslate"><span class="pre">save</span></code> and export all contours and masks and the canvas. If you don’t set the <code class="docutils literal notranslate"><span class="pre">dirpath</span></code> argument it will save all files to the directory that the original image is located in.</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[25]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">ct</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span></span><span class="n">ct</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">dirpath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../_temp/output/ex1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1018,16 +1009,51 @@ Template selected
 <div class="highlight"><pre>
 AUTOSAVE
 save_canvas
-- canvas saved under ../_temp/output\canvas.jpg (overwritten).
+- canvas saved under ../_temp/output/ex1\canvas.jpg (overwritten).
 save_contours
 - contours not saved - file already exists (overwrite=False).
 save_masks
 - masks not saved - file already exists (overwrite=False).
+save_scale
+- save scale to attributes
 </pre></div></div>
 </div>
 <p><strong>Note:</strong> if you need to redo an analysis using the container, you should reset it with it’s builtin <code class="docutils literal notranslate"><span class="pre">reset</span></code> method. Otherwise you may end up trying to binarize an image that is already binary, which will give unexpected, wront results.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">help</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">save</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on method save in module phenopype.utils:
+
+save(dirpath=None, overwrite=False, **kwargs) method of phenopype.utils.container instance
+    Autosave function for container.
+
+    Parameters
+    ----------
+    dirpath: str, optional
+        provide a custom directory where files should be save - overwrites
+        dirpath provided from container, if applicable
+    export_list: list, optional
+        used in pype rountine to check against already performed saving operations.
+        running container.save() with an empty export_list will assumed that nothing
+        has been saved so far, and will try
+    overwrite : bool, optional
+        gloabl overwrite flag in case file exists
+
+</pre></div></div>
+</div>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[26]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[31]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1043,7 +1069,7 @@ save_masks
 </div></center><p>The idea of the pype method is to control the image analysis workflow from within a configuration file. While you modify that file, saving the changes will immediately update the reiterate the contained functions and show the results. After you finish, all settings needed to reproduce the results will be contained inside the configuration file.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">pype</span></code> can be initialized with the path to the image, and a name that will be appended to all results-files and the the configuration file that is created. Providing different names allows you to run and save multiple analyses side by side. Here we will use the <code class="docutils literal notranslate"><span class="pre">object_detection_morph</span></code> template, which contains preset instructions for object detection and morphology operations.</p>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[27]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -1052,13 +1078,13 @@ save_masks
 </div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="n">filepath</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;images/isopods.jpg&quot;</span>
 
-<span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;iso1&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;object_detection_morph&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;iso1&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;object_detection_morph&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output/ex1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1067,52 +1093,80 @@ save_masks
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+../_temp/output/ex1\pype_config_iso1.yaml
 
 
-------------+++ new pype iteration 2020:04:11 14:25:24 +++--------------
+------------+++ new pype iteration 2020:04:28 18:15:30 +++--------------
 
 
+AUTOLOAD
+- current scale information loaded from attributes.yaml
+- masks_iso1.csv
+PREPROCESSING
+create_mask
+- mask with label mask1 already created (overwrite=False)
+create_scale
+- scale pixel-to-mm-ratio already measured (overwrite=False)
 SEGMENTATION
 blur
 threshold
+- include mask &#34;mask1&#34; pixels
 morphology
 find_contours
 VISUALIZATION
+NoneType
 select_canvas
 - invalid selection - defaulting to raw image
+ndarray
 draw_contours
 EXPORT
 save_contours
-- contours saved under ../_temp/output\contours_iso1.csv (overwritten).
+- contours saved under ../_temp/output/ex1\contours_iso1.csv (overwritten).
 AUTOSAVE
 save_canvas
-- canvas saved under ../_temp/output\canvas_iso1.jpg (overwritten).
+- canvas saved under ../_temp/output/ex1\canvas_iso1.jpg (overwritten).
+save_masks
+- masks not saved - file already exists (overwrite=False).
+save_scale
+- save scale to attributes (overwriting)
 
 
 TERMINATE
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[28]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;phenopype.main.pype at 0x165f3a4ec48&gt;
+&lt;phenopype.main.pype at 0x26290e616c8&gt;
 </pre></div></div>
 </div>
 <p>If course, this default template does not come with the settings we have laboriously determined in the steps above - so we need to modify the settings in the configuration file. You can do so by simply changing according to our previous settings. For example:</p>
 <p><code class="docutils literal notranslate"><span class="pre">pp.segmentation.threshold(ct,</span> <span class="pre">method=&quot;adaptive&quot;,</span> <span class="pre">blocksize=49,</span> <span class="pre">constant=5,</span> <span class="pre">channel=&quot;green&quot;)</span></code></p>
 <p>becomes</p>
-<p><code class="docutils literal notranslate"><span class="pre">-</span> <span class="pre">threshold:</span>&#160;&#160;&#160;&#160; <span class="pre">method:</span> <span class="pre">adaptive</span>&#160;&#160;&#160;&#160; <span class="pre">blocksize:</span> <span class="pre">49</span>&#160;&#160;&#160;&#160; <span class="pre">constant:</span> <span class="pre">5</span>&#160;&#160;&#160;&#160; <span class="pre">channel:</span> <span class="pre">green</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">-</span> <span class="n">threshold</span><span class="p">:</span>
+    <span class="n">method</span><span class="p">:</span> <span class="n">adaptive</span>
+    <span class="n">blocksize</span><span class="p">:</span> <span class="mi">49</span>
+    <span class="n">constant</span><span class="p">:</span> <span class="mi">5</span>
+    <span class="n">channel</span><span class="p">:</span> <span class="n">green</span>
+</pre></div>
+</div>
+<p>We also need to add a preprocessing section to draw a mask and scale:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">preprocessing</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">create_mask</span>
+<span class="o">-</span> <span class="n">create_scale</span>
+</pre></div>
+</div>
 <p>Read more on how yaml-syntax works in the <a class="reference internal" href="tutorial_2_phenopype_workflow.html#yaml-syntax"><span class="std std-ref">corresponding section in Tutorial 2</span></a></p>
-<p>For convenience, the appropriate settings for this example are contained in a preset template named <code class="docutils literal notranslate"><span class="pre">demo2</span></code>, which we can supply directly to the <code class="docutils literal notranslate"><span class="pre">pype</span></code>. Note that we need to rename this run, otherwise the <code class="docutils literal notranslate"><span class="pre">pype</span></code> will reload our old settings (you can also just delete them in the folder).</p>
+<p>For convenience, the appropriate settings for this example are contained in a preset template named <code class="docutils literal notranslate"><span class="pre">ex1</span></code>, which we can supply directly to the <code class="docutils literal notranslate"><span class="pre">pype</span></code>. Note that we need to rename this run, otherwise the <code class="docutils literal notranslate"><span class="pre">pype</span></code> will reload our old settings (you can also just delete them in the folder).</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[29]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="nb">print</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">demo2</span><span class="p">)</span>
+<span></span><span class="nb">print</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">presets</span><span class="o">.</span><span class="n">ex1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1158,11 +1212,11 @@ export:
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;iso2&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;demo2&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output&quot;</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;iso2&quot;</span><span class="p">,</span> <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;ex1&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="sa">r</span><span class="s2">&quot;../_temp/output/ex1&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1171,53 +1225,62 @@ export:
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
+Did not find &#34;pype_config_iso2.yaml&#34; -  create at following location? (y/n):
+../_temp/output/ex2\pype_config_iso2.yaml
+y
+pype config generated from ex1.
+Created and saved new pype config &#34;pype_config_iso2.yaml&#34; in folder ../_temp/output/ex2
+../_temp/output/ex2\pype_config_iso2.yaml
 
 
-------------+++ new pype iteration 2020:04:11 14:25:31 +++--------------
+------------+++ new pype iteration 2020:04:28 18:16:03 +++--------------
 
 
-AUTOLOAD
-- masks_iso2.csv
+Nothing loaded.
 PREPROCESSING
 create_mask
-- mask with label mask1 already created (overwrite=False)
+- create mask
 create_scale
 - measure pixel-to-mm-ratio
 Scale set
 - add column length
 Template selected
-- scale template mask already created (overwrite=False)
+- scale pixel-to-mm-ratio already measured (overwrite=False)
 SEGMENTATION
 blur
 threshold
-- applying mask: mask1
-- applying mask: scale
+- include mask &#34;mask1&#34; pixels
+- exclude mask &#34;scale&#34; pixels
 morphology
 find_contours
 VISUALIZATION
+NoneType
 select_canvas
 - invalid selection - defaulting to raw image
+ndarray
 draw_contours
 EXPORT
 save_contours
-- contours saved under ../_temp/output\contours_iso2.csv (overwritten).
+- contours saved under ../_temp/output/ex2\contours_iso2.csv.
 AUTOSAVE
 save_canvas
-- canvas saved under ../_temp/output\canvas_iso2.jpg (overwritten).
+- canvas saved under ../_temp/output/ex2\canvas_iso2.jpg.
 save_masks
-- masks not saved - file already exists (overwrite=False).
+- masks saved under ../_temp/output/ex2\masks_iso2.csv.
+save_scale
+- save scale to attributes
 
 
 TERMINATE
 </pre></div></div>
 </div>
 <div class="nboutput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[30]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
 </pre></div>
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-&lt;phenopype.main.pype at 0x165816af348&gt;
+&lt;phenopype.main.pype at 0x26291b9d048&gt;
 </pre></div></div>
 </div>
 <div class="nbinput nblast docutils container">

@@ -6,7 +6,7 @@
    "source": [
     "# Example 2: Stickleback morphometrics - landmarks\n",
     "\n",
-    "Functional morphology of organisms is often measured by placing landmarks at specific points that show structural, functional or developmental significance. In this example phenopype is used to place morphometric landmarks across the anterior half of a threespine stickleback (*Gasterosteus aculeatus*) stained with alizarin red.\n",
+    "Functional morphology of organisms is often measured by placing landmarks at specific points that show structural, functional or developmental significance. In this example phenopype is used to place morphometric landmarks across the anterior half of a stickleback (*Gasterosteus aculeatus*) stained with alizarin red.\n",
     "\n",
     "First we place landmarks in low throughput mode to learn how the landmark-function works, then we look at a high throughput landkmark example with a project directory and a global scale. "
    ]
@@ -54,21 +54,24 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 6,
+   "execution_count": 2,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "- setting landmarks (overwriting)\n"
+      "- setting landmarks\n"
      ]
     }
    ],
    "source": [
     "## just place a few test-landmarks\n",
     "\n",
-    "pp.measurement.landmarks(ct, point_size=5, point_colour=\"green\", label_size=1, overwrite=True) \n",
+    "pp.measurement.landmarks(ct, \n",
+    "                         point_size=15, \n",
+    "                         point_colour=\"green\", \n",
+    "                         label_size=1, overwrite=True) \n",
     "\n",
     "## sets landmarks. the landmarks get stored inside the container. if you have already placed landmarks\n",
     "## to the same container and set \"overwrite=False\", you wont be able to place them again until you set\n",
@@ -79,12 +82,12 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "To create an control-image with the selected points, the `draw_landmarks` has to be called explicitly. This is necessary when using the low throughput, but not the high throughput routine (see [Tutorial 2](tutorial_2_phenopype_workflow.ipynb)); likewise the `save_landmarks` function."
+    "To create an image with the selected points, we first need te select the background image (or \"canvas\") with `select_canvas` and then call the `draw_landmarks` function. These explicit steps are necessary when using the low throughput, but not the high throughput routine (see [Tutorial 2](tutorial_2_phenopype_workflow.ipynb)); likewise the `save_landmarks` function."
    ]
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 3,
    "metadata": {},
    "outputs": [
     {
@@ -132,8 +135,8 @@
        "      <td>1600</td>\n",
        "      <td>1</td>\n",
        "      <td>1</td>\n",
-       "      <td>792</td>\n",
-       "      <td>273</td>\n",
+       "      <td>1240</td>\n",
+       "      <td>379</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>1</th>\n",
@@ -142,8 +145,8 @@
        "      <td>1600</td>\n",
        "      <td>1</td>\n",
        "      <td>2</td>\n",
-       "      <td>1142</td>\n",
-       "      <td>338</td>\n",
+       "      <td>1180</td>\n",
+       "      <td>456</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>2</th>\n",
@@ -152,8 +155,8 @@
        "      <td>1600</td>\n",
        "      <td>1</td>\n",
        "      <td>3</td>\n",
-       "      <td>1212</td>\n",
-       "      <td>497</td>\n",
+       "      <td>1262</td>\n",
+       "      <td>574</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>3</th>\n",
@@ -162,8 +165,8 @@
        "      <td>1600</td>\n",
        "      <td>1</td>\n",
        "      <td>4</td>\n",
-       "      <td>1344</td>\n",
-       "      <td>723</td>\n",
+       "      <td>1394</td>\n",
+       "      <td>773</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -171,21 +174,23 @@
       ],
       "text/plain": [
        "       filename  width  height  size_ratio_original  landmark     x    y\n",
-       "0  stickle1.jpg   2400    1600                    1         1   792  273\n",
-       "1  stickle1.jpg   2400    1600                    1         2  1142  338\n",
-       "2  stickle1.jpg   2400    1600                    1         3  1212  497\n",
-       "3  stickle1.jpg   2400    1600                    1         4  1344  723"
+       "0  stickle1.jpg   2400    1600                    1         1  1240  379\n",
+       "1  stickle1.jpg   2400    1600                    1         2  1180  456\n",
+       "2  stickle1.jpg   2400    1600                    1         3  1262  574\n",
+       "3  stickle1.jpg   2400    1600                    1         4  1394  773"
       ]
      },
-     "execution_count": 8,
+     "execution_count": 3,
      "metadata": {},
      "output_type": "execute_result"
     }
    ],
    "source": [
-    "pp.visualization.select_canvas(ct, canvas=\"raw\") # raw = default\n",
-    "pp.visualization.draw_landmarks(ct, point_size=5, point_colour=\"green\", label_size=1) \n",
-    "pp.show_image(ct)\n",
+    "pp.visualization.select_canvas(ct, canvas=\"raw\")\n",
+    "pp.visualization.draw_landmarks(ct, point_size=15, \n",
+    "                                point_colour=\"green\", \n",
+    "                                label_size=1) \n",
+    "pp.show_image(ct.canvas)\n",
     "ct.df_landmarks"
    ]
   },
@@ -198,15 +203,15 @@
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "- landmarks saved under ../_temp/output\\landmarks.csv.\n",
-      "- canvas saved under ../_temp/output\\canvas.jpg.\n"
+      "- landmarks saved under ../_temp/output/ex2\\landmarks.csv (overwritten).\n",
+      "- canvas saved under ../_temp/output/ex2\\canvas.jpg (overwritten).\n"
      ]
     }
    ],
    "source": [
     "## draw landmarks on canvas. appearance needs to be specified here too\n",
-    "pp.export.save_landmarks(ct, dirpath=r\"../_temp/output\") ## save landmarks as csv to folder\n",
-    "pp.export.save_canvas(ct, dirpath=r\"../_temp/output\") ## also save canvas for quality control "
+    "pp.export.save_landmarks(ct, dirpath=r\"../_temp/output/ex2\") ## save landmarks as csv to folder\n",
+    "pp.export.save_canvas(ct, dirpath=r\"../_temp/output/ex2\") ## also save canvas for quality control "
    ]
   },
   {
@@ -264,7 +269,7 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "In the next step, we load the sample image again. Then we use a classic machine learning algorithm to find the scale inside our already processed image."
+    "In the next step, we load the sample image again. The `find_scale` uses a classic machine learning algorithm to find the scale inside our already processed image."
    ]
   },
   {
@@ -277,17 +282,20 @@
      "output_type": "stream",
      "text": [
       "---------------------------------------------------\n",
-      "Reference card found with 251 keypoint matches:\n",
+      "Reference card found with 235 keypoint matches:\n",
       "template image has 36 pixel per mm.\n",
-      "current image has 34.9 pixel per mm.\n",
-      "= 96.82 % of template image.\n",
+      "current image has 34.8 pixel per mm.\n",
+      "= 96.748 % of template image.\n",
       "---------------------------------------------------\n"
      ]
     }
    ],
    "source": [
     "ct = pp.load_image(filepath, cont=True) \n",
-    "pp.preprocessing.find_scale(ct, template=template_img, px_mm_ratio_ref=ref_ratio, equalize=False)"
+    "pp.preprocessing.find_scale(ct, \n",
+    "                            template=template_img, \n",
+    "                            px_mm_ratio_ref=ref_ratio, \n",
+    "                            equalize=False)"
    ]
   },
   {
@@ -301,12 +309,38 @@
    "cell_type": "markdown",
    "metadata": {},
    "source": [
-    "Now we draw the perimeter around the detected scale. Because the detected scale has coordinates like a mask we need the `draw_masks` function to draw it. "
+    "## Enter some data\n",
+    "\n",
+    "For high data quality it is important to verify the ID of the specimen in the current picture. Often, the picture name contains the ID, but typically an label is placed inside the image. Using the `enter_data` tool we open the image and an entry prompt that will create a column with a name of our chosing inside all exported results:"
    ]
   },
   {
    "cell_type": "code",
    "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "- add column ID\n"
+     ]
+    }
+   ],
+   "source": [
+    "pp.preprocessing.enter_data(ct, columns=\"ID\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we draw the perimeter around the detected scale. Because the detected scale has coordinates like a mask we need the `draw_masks` function to draw it. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
    "metadata": {},
    "outputs": [
     {
@@ -332,7 +366,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 8,
+   "execution_count": 9,
    "metadata": {},
    "outputs": [
     {
@@ -357,7 +391,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 9,
+   "execution_count": 10,
    "metadata": {},
    "outputs": [
     {
@@ -386,6 +420,7 @@
        "      <th>height</th>\n",
        "      <th>size_ratio_original</th>\n",
        "      <th>current_px_mm_ratio</th>\n",
+       "      <th>ID</th>\n",
        "      <th>landmark</th>\n",
        "      <th>x</th>\n",
        "      <th>y</th>\n",
@@ -398,10 +433,11 @@
        "      <td>2400</td>\n",
        "      <td>1600</td>\n",
        "      <td>1</td>\n",
-       "      <td>34.9</td>\n",
+       "      <td>34.8</td>\n",
+       "      <td>142501</td>\n",
        "      <td>1</td>\n",
-       "      <td>902</td>\n",
-       "      <td>333</td>\n",
+       "      <td>1543</td>\n",
+       "      <td>430</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>1</th>\n",
@@ -409,10 +445,11 @@
        "      <td>2400</td>\n",
        "      <td>1600</td>\n",
        "      <td>1</td>\n",
-       "      <td>34.9</td>\n",
+       "      <td>34.8</td>\n",
+       "      <td>142501</td>\n",
        "      <td>2</td>\n",
-       "      <td>1008</td>\n",
-       "      <td>593</td>\n",
+       "      <td>1490</td>\n",
+       "      <td>468</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>2</th>\n",
@@ -420,10 +457,11 @@
        "      <td>2400</td>\n",
        "      <td>1600</td>\n",
        "      <td>1</td>\n",
-       "      <td>34.9</td>\n",
+       "      <td>34.8</td>\n",
+       "      <td>142501</td>\n",
        "      <td>3</td>\n",
-       "      <td>1188</td>\n",
-       "      <td>343</td>\n",
+       "      <td>1202</td>\n",
+       "      <td>559</td>\n",
        "    </tr>\n",
        "    <tr>\n",
        "      <th>3</th>\n",
@@ -431,10 +469,11 @@
        "      <td>2400</td>\n",
        "      <td>1600</td>\n",
        "      <td>1</td>\n",
-       "      <td>34.9</td>\n",
+       "      <td>34.8</td>\n",
+       "      <td>142501</td>\n",
        "      <td>4</td>\n",
-       "      <td>1586</td>\n",
-       "      <td>305</td>\n",
+       "      <td>1087</td>\n",
+       "      <td>545</td>\n",
        "    </tr>\n",
        "  </tbody>\n",
        "</table>\n",
@@ -442,19 +481,19 @@
       ],
       "text/plain": [
        "       filename  width  height  size_ratio_original  current_px_mm_ratio  \\\n",
-       "0  stickle1.jpg   2400    1600                    1                 34.9   \n",
-       "1  stickle1.jpg   2400    1600                    1                 34.9   \n",
-       "2  stickle1.jpg   2400    1600                    1                 34.9   \n",
-       "3  stickle1.jpg   2400    1600                    1                 34.9   \n",
+       "0  stickle1.jpg   2400    1600                    1                 34.8   \n",
+       "1  stickle1.jpg   2400    1600                    1                 34.8   \n",
+       "2  stickle1.jpg   2400    1600                    1                 34.8   \n",
+       "3  stickle1.jpg   2400    1600                    1                 34.8   \n",
        "\n",
-       "   landmark     x    y  \n",
-       "0         1   902  333  \n",
-       "1         2  1008  593  \n",
-       "2         3  1188  343  \n",
-       "3         4  1586  305  "
+       "       ID  landmark     x    y  \n",
+       "0  142501         1  1543  430  \n",
+       "1  142501         2  1490  468  \n",
+       "2  142501         3  1202  559  \n",
+       "3  142501         4  1087  545  "
       ]
      },
-     "execution_count": 9,
+     "execution_count": 10,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -466,21 +505,21 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 10,
+   "execution_count": 11,
    "metadata": {},
    "outputs": [
     {
      "name": "stdout",
      "output_type": "stream",
      "text": [
-      "- landmarks saved under ../_temp/output\\landmarks.csv (overwritten).\n",
-      "- canvas saved under ../_temp/output\\canvas.jpg (overwritten).\n"
+      "- landmarks saved under ../_temp/output/ex2\\landmarks.csv (overwritten).\n",
+      "- canvas saved under ../_temp/output/ex2\\canvas.jpg (overwritten).\n"
      ]
     }
    ],
    "source": [
-    "pp.export.save_landmarks(ct, dirpath=r\"../_temp/output\") \n",
-    "pp.export.save_canvas(ct, dirpath=r\"../_temp/output\")"
+    "pp.export.save_landmarks(ct, dirpath=r\"../_temp/output/ex2\") \n",
+    "pp.export.save_canvas(ct, dirpath=r\"../_temp/output/ex2\")"
    ]
   },
   {
@@ -508,7 +547,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 11,
+   "execution_count": 12,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -525,7 +564,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 12,
+   "execution_count": 13,
    "metadata": {},
    "outputs": [
     {
@@ -535,10 +574,11 @@
       "../_temp/output/ex2\\pype_config_lm1.yaml\n",
       "\n",
       "\n",
-      "------------+++ new pype iteration 2020:04:23 14:29:07 +++--------------\n",
+      "------------+++ new pype iteration 2020:04:28 19:09:36 +++--------------\n",
       "\n",
       "\n",
       "AUTOLOAD\n",
+      "- current scale information loaded from attributes.yaml\n",
       "- landmarks_lm1.csv\n",
       "MEASUREMENT\n",
       "landmarks\n",
@@ -554,6 +594,8 @@
       "AUTOSAVE\n",
       "save_canvas\n",
       "- canvas saved under ../_temp/output/ex2\\canvas_lm1.jpg (overwritten).\n",
+      "save_scale\n",
+      "- save scale to attributes (overwriting)\n",
       "\n",
       "\n",
       "TERMINATE\n"
@@ -562,10 +604,10 @@
     {
      "data": {
       "text/plain": [
-       "<phenopype.main.pype at 0x24d22b71108>"
+       "<phenopype.main.pype at 0x23712a97288>"
       ]
      },
-     "execution_count": 12,
+     "execution_count": 13,
      "metadata": {},
      "output_type": "execute_result"
     }
@@ -590,7 +632,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 13,
+   "execution_count": 14,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -605,7 +647,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 14,
+   "execution_count": 15,
    "metadata": {},
    "outputs": [
     {
@@ -643,7 +685,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 15,
+   "execution_count": 16,
    "metadata": {},
    "outputs": [
     {
@@ -675,6 +717,7 @@
       "\n",
       "preprocessing: \n",
       "- find_scale\n",
+      "- enter_data\n",
       "measurement:\n",
       "- landmarks:\n",
       "    point_size: 12\n",
@@ -691,6 +734,7 @@
       "export:\n",
       "- save_landmarks\n",
       "- save_masks\n",
+      "- save_data_entry\n",
       "\n"
      ]
     }
@@ -710,7 +754,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 16,
+   "execution_count": 17,
    "metadata": {},
    "outputs": [
     {
@@ -719,6 +763,7 @@
      "text": [
       "- scale template saved under scale_template.jpg.\n",
       "- measure pixel-to-mm-ratio\n",
+      "Scale set\n",
       "Scale set\n",
       "- add column length\n",
       "Template selected\n",
@@ -737,7 +782,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 17,
+   "execution_count": 18,
    "metadata": {},
    "outputs": [],
    "source": [
@@ -754,7 +799,7 @@
   },
   {
    "cell_type": "code",
-   "execution_count": 18,
+   "execution_count": 19,
    "metadata": {},
    "outputs": [
     {
@@ -764,7 +809,7 @@
       "E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle1\\pype_config_lm2.yaml\n",
       "\n",
       "\n",
-      "------------+++ new pype iteration 2020:04:23 14:30:33 +++--------------\n",
+      "------------+++ new pype iteration 2020:04:28 19:10:28 +++--------------\n",
       "\n",
       "\n",
       "AUTOLOAD\n",
@@ -773,11 +818,13 @@
       "PREPROCESSING\n",
       "find_scale\n",
       "---------------------------------------------------\n",
-      "Reference card found with 231 keypoint matches:\n",
+      "Reference card found with 240 keypoint matches:\n",
       "template image has 36 pixel per mm.\n",
-      "current image has 34.9 pixel per mm.\n",
-      "= 96.814 % of template image.\n",
+      "current image has 34.8 pixel per mm.\n",
+      "= 96.749 % of template image.\n",
       "---------------------------------------------------\n",
+      "enter_data\n",
+      "- add column ID\n",
       "MEASUREMENT\n",
       "landmarks\n",
       "- setting landmarks\n",
@@ -794,6 +841,8 @@
       "- landmarks saved under E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle1\\landmarks_lm2.csv.\n",
       "save_masks\n",
       "- masks saved under E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle1\\masks_lm2.csv.\n",
+      "save_data_entry\n",
+      "- add column ID\n",
       "AUTOSAVE\n",
       "save_canvas\n",
       "- canvas saved under E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle1\\canvas_lm2.jpg.\n",
@@ -805,7 +854,7 @@
       "E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle2\\pype_config_lm2.yaml\n",
       "\n",
       "\n",
-      "------------+++ new pype iteration 2020:04:23 14:30:37 +++--------------\n",
+      "------------+++ new pype iteration 2020:04:28 19:10:43 +++--------------\n",
       "\n",
       "\n",
       "AUTOLOAD\n",
@@ -814,11 +863,13 @@
       "PREPROCESSING\n",
       "find_scale\n",
       "---------------------------------------------------\n",
-      "Reference card found with 204 keypoint matches:\n",
+      "Reference card found with 210 keypoint matches:\n",
       "template image has 36 pixel per mm.\n",
       "current image has 34.8 pixel per mm.\n",
-      "= 96.679 % of template image.\n",
+      "= 96.597 % of template image.\n",
       "---------------------------------------------------\n",
+      "enter_data\n",
+      "- add column ID\n",
       "MEASUREMENT\n",
       "landmarks\n",
       "- setting landmarks\n",
@@ -835,6 +886,8 @@
       "- landmarks saved under E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle2\\landmarks_lm2.csv.\n",
       "save_masks\n",
       "- masks saved under E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle2\\masks_lm2.csv.\n",
+      "save_data_entry\n",
+      "- add column ID\n",
       "AUTOSAVE\n",
       "save_canvas\n",
       "- canvas saved under E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle2\\canvas_lm2.jpg.\n",
@@ -846,7 +899,7 @@
       "E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle3\\pype_config_lm2.yaml\n",
       "\n",
       "\n",
-      "------------+++ new pype iteration 2020:04:23 14:30:41 +++--------------\n",
+      "------------+++ new pype iteration 2020:04:28 19:10:52 +++--------------\n",
       "\n",
       "\n",
       "AUTOLOAD\n",
@@ -855,11 +908,13 @@
       "PREPROCESSING\n",
       "find_scale\n",
       "---------------------------------------------------\n",
-      "Reference card found with 233 keypoint matches:\n",
+      "Reference card found with 235 keypoint matches:\n",
       "template image has 36 pixel per mm.\n",
       "current image has 34.8 pixel per mm.\n",
-      "= 96.791 % of template image.\n",
+      "= 96.675 % of template image.\n",
       "---------------------------------------------------\n",
+      "enter_data\n",
+      "- add column ID\n",
       "MEASUREMENT\n",
       "landmarks\n",
       "- setting landmarks\n",
@@ -876,6 +931,8 @@
       "- landmarks saved under E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle3\\landmarks_lm2.csv.\n",
       "save_masks\n",
       "- masks saved under E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle3\\masks_lm2.csv.\n",
+      "save_data_entry\n",
+      "- add column ID\n",
       "AUTOSAVE\n",
       "save_canvas\n",
       "- canvas saved under E:\\git_repos\\phenopype\\_temp\\project\\data/0__stickle3\\canvas_lm2.jpg.\n",

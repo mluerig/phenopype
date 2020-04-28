@@ -94,8 +94,8 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#video-analysis">Video analysis</a><ul>
-<li><a class="reference internal" href="#generic-motion-tracking">Generic motion tracking</a></li>
-<li><a class="reference internal" href="#define-tracking-method">Define tracking method</a></li>
+<li><a class="reference internal" href="#motion-tracker">Motion tracker</a></li>
+<li><a class="reference internal" href="#tracking-methods">Tracking methods</a></li>
 </ul>
 </li>
 </ul>
@@ -160,8 +160,8 @@
 </ul>
 </li>
 <li><a class="reference internal" href="#video-analysis">Video analysis</a><ul>
-<li><a class="reference internal" href="#generic-motion-tracking">Generic motion tracking</a></li>
-<li><a class="reference internal" href="#define-tracking-method">Define tracking method</a></li>
+<li><a class="reference internal" href="#motion-tracker">Motion tracker</a></li>
+<li><a class="reference internal" href="#tracking-methods">Tracking methods</a></li>
 </ul>
 </li>
 </ul>
@@ -426,7 +426,7 @@ Any of these functions can be called directly after loading  phenopype without t
 </div>
 <span class="target" id="module-phenopype.utils"></span><dl class="class">
 <dt id="phenopype.utils.container">
-<em class="property">class </em><code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">container</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">df_image_data</em>, <em class="sig-param">save_suffix=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">container</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">df_image_data</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A phenopype container is a Python class where loaded images, dataframes,
 detected contours, intermediate output, etc. are stored so that they are
@@ -448,7 +448,7 @@ to all results-DataFrames</p></li>
 </dl>
 <dl class="method">
 <dt id="phenopype.utils.container.load">
-<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">contours=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.load" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">load</code><span class="sig-paren">(</span><em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">contours=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.container.load" title="Permalink to this definition">¶</a></dt>
 <dd><p>Autoload function for container: loads results files with given save_suffix
 into the container. Can be used manually, but is typically used within the
 pype routine.</p>
@@ -1438,9 +1438,10 @@ ouput if the data is contained in the provided DataFrame.</p>
 </div>
 <div class="section" id="video-analysis">
 <h2>Video analysis<a class="headerlink" href="#video-analysis" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="generic-motion-tracking">
-<h3>Generic motion tracking<a class="headerlink" href="#generic-motion-tracking" title="Permalink to this headline">¶</a></h3>
-<p>[ADD TEXT]</p>
+These classes provide basic motion tracking features via foreground-background subtraction - for more details see
+<a href="https://docs.opencv.org/3.4/d1/dc5/tutorial_background_subtraction.html">the OpenCV docs 2</a> and
+<a href="tutorial_6_video_analysis.html">Tutorial 6</a>.<div class="section" id="motion-tracker">
+<h3>Motion tracker<a class="headerlink" href="#motion-tracker" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="phenopype.tracking.motion_tracker">
 <em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">motion_tracker</code><span class="sig-paren">(</span><em class="sig-param">video_path</em>, <em class="sig-param">at_frame=1</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker" title="Permalink to this definition">¶</a></dt>
@@ -1485,17 +1486,19 @@ default value.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>skip</strong> (<em>int</em><em>, </em><em>optional</em>) – how many frames to skip between each capture</p></li>
-<li><p><strong>start</strong> (<em>int</em><em>, </em><em>optional</em>) – start after X seconds</p></li>
-<li><p><strong>finish</strong> (<em>int</em><em>, </em><em>optional</em>) – finish after X seconds</p></li>
+<li><p><strong>warmup</strong> (<em>int</em><em>, </em><em>optional</em>) – warmup period in seconds for the background subtractor</p></li>
+<li><p><strong>start_after</strong> (<em>int</em><em>, </em><em>optional</em>) – start after X seconds</p></li>
+<li><p><strong>finish_after</strong> (<em>int</em><em>, </em><em>optional</em>) – finish after X seconds</p></li>
 <li><p><strong>history</strong> (<em>int</em><em>, </em><em>optional</em>) – how many frames to use for fg-bg subtraction algorithm</p></li>
-<li><p><strong>threshold</strong> (<em>int</em><em>, </em><em>optional</em>) – <dl class="simple">
-<dt>sensitivity-level for fg-bg subtraction algorithm (lower = more</dt><dd><p>sensitive)</p>
-</dd>
-</dl>
-</p></li>
-<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – type of fg-bg subtraction algorithm (“MOG” or “KNN”)</p></li>
+<li><p><strong>threshold</strong> (<em>int</em><em>, </em><em>optional</em>) – sensitivity-level for fg-bg subtraction algorithm (lower = more
+sensitive)</p></li>
+<li><p><strong>detect_shadows</strong> (<em>bool</em><em>, </em><em>optional</em>) – attempt to detect shadows - will be returned as gray pixels</p></li>
+<li><p><strong>mode</strong> (<em>{&quot;MOG&quot;</em><em>, </em><em>&quot;KNN&quot;} str</em><em>, </em><em>optional</em>) – type of fg-bg subtraction algorithm</p></li>
 <li><p><strong>methods</strong> (<em>method</em><em> or </em><em>list of methods</em><em>, </em><em>optional</em>) – list with tracking_method objects</p></li>
-<li><p><strong>c_mask</strong> – </p></li>
+<li><p><strong>c_mask</strong> (<em>bool</em><em>, </em><em>optional</em>) – consecutive masking. if multiple methods are defined, the objects
+detected first will mask the objects detected in subsequent methods</p></li>
+<li><p><strong>c_mask_shape</strong> (<em>{&quot;rect&quot;</em><em>, </em><em>&quot;ellipse&quot;</em><em>, </em><em>&quot;contour&quot;} str</em><em>, </em><em>optional</em>) – which shape should the consecutive mask have</p></li>
+<li><p><strong>c_mask_size</strong> (<em>int</em><em>, </em><em>optional</em>) – area in pixels that is added around the mask</p></li>
 </ul>
 </dd>
 </dl>
@@ -1521,34 +1524,41 @@ input video).</p>
 </dd></dl>
 
 </div>
-<div class="section" id="define-tracking-method">
-<h3>Define tracking method<a class="headerlink" href="#define-tracking-method" title="Permalink to this headline">¶</a></h3>
-<p>[ADD TEXT]</p>
+<div class="section" id="tracking-methods">
+<h3>Tracking methods<a class="headerlink" href="#tracking-methods" title="Permalink to this headline">¶</a></h3>
 <dl class="class">
 <dt id="phenopype.tracking.tracking_method">
-<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">tracking_method</code><span class="sig-paren">(</span><em class="sig-param">label='default'</em>, <em class="sig-param">blur=5</em>, <em class="sig-param">threshold=127</em>, <em class="sig-param">remove_shadows=True</em>, <em class="sig-param">overlay_colour='red'</em>, <em class="sig-param">min_length=0</em>, <em class="sig-param">max_length=inf</em>, <em class="sig-param">min_area=0</em>, <em class="sig-param">max_area=inf</em>, <em class="sig-param">mode='multiple'</em>, <em class="sig-param">operations=[]</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.tracking_method" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">tracking_method</code><span class="sig-paren">(</span><em class="sig-param">label='m1'</em>, <em class="sig-param">blur=5</em>, <em class="sig-param">threshold=127</em>, <em class="sig-param">remove_shadows=True</em>, <em class="sig-param">min_length=0</em>, <em class="sig-param">max_length=inf</em>, <em class="sig-param">min_area=0</em>, <em class="sig-param">max_area=inf</em>, <em class="sig-param">mode='multiple'</em>, <em class="sig-param">overlay_colour='red'</em>, <em class="sig-param">operations=[]</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.tracking_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Constructs a tracking method that can be supplied to the motion_tracker
 class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;multiple&quot;</em><em>)</em>) – how many objects to track: “multiple”, or “single” (biggest by diameter)
-objects</p></li>
-<li><p><strong>operations</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;diameter&quot;</em><em>, </em><em>&quot;area&quot;</em><em>]</em><em>)</em>) – determines the type of operations to be performed on the detected objects:
-- “diameter” of the bounding circle of our object
-- “area” within the contour of our object
-- “grayscale” mean and standard deviation of grayscale pixel values
-inside the object contours
-- “grayscale_background” background within boundingbox of contour
-- “bgr” mean and standard deviation of blue, green and red pixel
+<li><p><strong>label</strong> (<em>str</em><em>, </em><em>optional</em>) – label for all objects detected by this method</p></li>
+<li><p><strong>blur</strong> (<em>int</em><em>, </em><em>optional</em>) – blurring of fgbg-mask (kernel size)</p></li>
+<li><p><strong>threshold</strong> (<em>int</em><em>, </em><em>optional</em>) – binarization of fgbg-mask after blurring (threshold value)</p></li>
+<li><p><strong>remove_shadows</strong> (<em>bool</em><em>, </em><em>optional</em>) – if motion_tracker has detect_shadows=True, they can be removed here</p></li>
+<li><p><strong>min_area</strong> (<em>int</em><em>, </em><em>optional</em>) – minimum contour area in pixels to be included</p></li>
+<li><p><strong>max_area</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum contour area in pixels to be included</p></li>
+<li><p><strong>min_length</strong> (<em>int</em><em>, </em><em>optional</em>) – minimum diameter of boundary circle to be included</p></li>
+<li><p><strong>max_length</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum diameter of boundary circle to be included</p></li>
+<li><p><strong>mode</strong> (<em>{&quot;single&quot;</em><em>, </em><em>&quot;multiple&quot;} str</em><em>, </em><em>optional</em>) – track “multiple”, or “single” (biggest by diameter) objects</p></li>
+<li><p><strong>remove_shadows</strong> – remove shadows if shadow-detection is actived in MOG-algorithm</p></li>
+<li><p><strong>overlay_colour</strong> (<em>{&quot;red&quot;</em><em>, </em><em>&quot;green&quot;</em><em>, </em><em>&quot;blue&quot;</em><em>, </em><em>&quot;black&quot;</em><em>, </em><em>&quot;white&quot;} str</em><em>, </em><em>optional</em>) – which colour should tracked objects have</p></li>
+<li><p><strong>operations</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;length&quot;</em><em>, </em><em>&quot;area&quot;</em><em>]</em><em>)</em>) – <dl class="simple">
+<dt>determines the type of operations to be performed on the detected objects:</dt><dd><ul>
+<li><p>”diameter” of the bounding circle of our object</p></li>
+<li><p>”area” within the contour of our object</p></li>
+<li><p>”grayscale” mean and standard deviation of grayscale pixel values
+inside the object contours</p></li>
+<li><p>”grayscale_background” background within boundingbox of contour</p></li>
+<li><p>”bgr” mean and standard deviation of blue, green and red pixel
 values inside the object contours</p></li>
-<li><p><strong>blur</strong> (<em>tuple</em>) – blurring of fgbg-mask (kernel size, threshold [1-255])</p></li>
-<li><p><strong>min_length</strong> (<em>int</em><em> (</em><em>default: 1</em><em>)</em>) – minimum length in pixels for objects to be included</p></li>
-<li><p><strong>remove_shadows</strong> (<em>bool</em>) – remove shadows if shadow-detection is actived in MOG-algorithm</p></li>
-<li><p><strong>mask</strong> (<em>list</em>) – phenoype mask-objects (lists of boolean mask, label, and include-
-argument) to include or exclude an area from the procedure</p></li>
-<li><p><strong>overlay_colour</strong> (<em>phenopype colour object</em><em> (</em><em>default: red</em><em> [</em><em>red</em><em>, </em><em>green</em><em>, </em><em>blue</em><em>, </em><em>black</em><em>, </em><em>white</em><em>]</em><em>)</em>) – which colour should tracked objects have</p></li>
+</ul>
+</dd>
+</dl>
+</p></li>
 </ul>
 </dd>
 </dl>
