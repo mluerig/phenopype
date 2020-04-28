@@ -400,7 +400,7 @@ div.rendered_html tbody tr:hover {
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="c1">## just place a few test-landmarks</span>
 
-<span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">point_colour</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="c1">## sets landmarks. the landmarks get stored inside the container. if you have already placed landmarks</span>
 <span class="c1">## to the same container and set &quot;overwrite=False&quot;, you wont be able to place them again until you set</span>
@@ -422,8 +422,7 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">select_canvas</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">canvas</span><span class="o">=</span><span class="s2">&quot;raw&quot;</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">point_colour</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_landmarks</span><span class="p">(</span><span class="n">ct</span><span class="p">,</span> <span class="n">point_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">point_col</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">label_size</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">ct</span><span class="o">.</span><span class="n">canvas</span><span class="p">)</span>
 <span class="n">ct</span><span class="o">.</span><span class="n">df_landmarks</span>
 </pre></div>
@@ -477,8 +476,8 @@ div.rendered_html tbody tr:hover {
       <td>1600</td>
       <td>1</td>
       <td>1</td>
-      <td>739</td>
-      <td>355</td>
+      <td>1034</td>
+      <td>451</td>
     </tr>
     <tr>
       <th>1</th>
@@ -487,8 +486,8 @@ div.rendered_html tbody tr:hover {
       <td>1600</td>
       <td>1</td>
       <td>2</td>
-      <td>1320</td>
-      <td>259</td>
+      <td>1202</td>
+      <td>326</td>
     </tr>
     <tr>
       <th>2</th>
@@ -497,8 +496,8 @@ div.rendered_html tbody tr:hover {
       <td>1600</td>
       <td>1</td>
       <td>3</td>
-      <td>1368</td>
-      <td>353</td>
+      <td>1348</td>
+      <td>473</td>
     </tr>
   </tbody>
 </table>

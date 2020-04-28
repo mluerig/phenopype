@@ -621,7 +621,7 @@ each newly opened window (only works in conjunction with
 
 <dl class="function">
 <dt id="phenopype.utils.save_image">
-<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">save_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">name</em>, <em class="sig-param">save_dir='E:\\git_repos\\phenopype'</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">append=''</em>, <em class="sig-param">extension='jpg'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.save_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">save_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">name</em>, <em class="sig-param">dirpath='E:\\git_repos\\phenopype'</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">append=''</em>, <em class="sig-param">extension='jpg'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.save_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save an image (array) to jpg.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1443,42 +1443,59 @@ ouput if the data is contained in the provided DataFrame.</p>
 <p>[ADD TEXT]</p>
 <dl class="class">
 <dt id="phenopype.tracking.motion_tracker">
-<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">motion_tracker</code><span class="sig-paren">(</span><em class="sig-param">video_path</em>, <em class="sig-param">at_frame=1</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">motion_tracker</code><span class="sig-paren">(</span><em class="sig-param">video_path</em>, <em class="sig-param">at_frame=1</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<dl class="method">
-<dt id="phenopype.tracking.motion_tracker.video_output">
-<code class="sig-name descname">video_output</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker.video_output" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set properties of output video file. Most settings can be left at their default value.</p>
+<p>Initialize motion tracker class; extract information (length, fps, codec,
+etc.) from input video and pass to other tracking methods.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>video_format</strong> (<em>str</em><em> (</em><em>default: &quot;DIVX&quot;</em><em>)</em>) – format of the output video file. needs to be a “fourcc”-string: <a class="reference external" href="https://www.fourcc.org/codecs.php">https://www.fourcc.org/codecs.php</a></p></li>
-<li><p><strong>name</strong> (<em>str</em><em> (</em><em>defaut: input filename + &quot;_out&quot; + input extension</em><em>)</em>) – name for the output video file</p></li>
-<li><p><strong>save_dir</strong> (<em>str</em><em> (</em><em>default: directory of input file</em><em>)</em>) – save directory for the output video file. will be created if not existing</p></li>
-<li><p><strong>fps</strong> (<em>int</em><em> (</em><em>default: input fps</em><em>)</em>) – frames per second of the output video file</p></li>
-<li><p><strong>dimensions</strong> (<em>tuple</em><em> (</em><em>default: input dimensions</em><em>)</em>) – dimensions (width, length) of the output video file</p></li>
-<li><p><strong>resize</strong> (<em>int</em><em> (</em><em>default: 1</em><em> [</em><em>no resize</em><em>]</em><em>)</em>) – factor by which to resize the output video dimensions</p></li>
-<li><p><strong>save_colour</strong> (<em>bool</em><em> (</em><em>default: reads input file</em><em>)</em>) – should the saved video frames be in colour</p></li>
-<li><p><strong>save_video</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – should an output video file be saved</p></li>
+<li><p><strong>video_path</strong> (<em>str</em>) – path to video</p></li>
+<li><p><strong>at_frame</strong> (<em>int</em><em>, </em><em>optional</em>) – frame index to be used to extract the video information</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="phenopype.tracking.motion_tracker.video_output">
+<code class="sig-name descname">video_output</code><span class="sig-paren">(</span><em class="sig-param">video_format=None</em>, <em class="sig-param">save_suffix='out'</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">fps=None</em>, <em class="sig-param">save_colour=None</em>, <em class="sig-param">dimensions=None</em>, <em class="sig-param">resize=1</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker.video_output" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties of output video file. Most settings can be left blank,
+so that settings from the input video will be applied</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>video_format</strong> (<em>str</em><em>, </em><em>optional</em>) – format of the output video file. needs to be a fourcc-string
+<a class="reference external" href="https://www.fourcc.org/codecs.php">https://www.fourcc.org/codecs.php</a></p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – name for the output video file (defaut: “input-filename” + _out.avi)</p></li>
+<li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – save directory for the output video file. will be created if not existing</p></li>
+<li><p><strong>fps</strong> (<em>int</em><em>, </em><em>optional</em>) – frames per second of the output video file</p></li>
+<li><p><strong>dimensions</strong> (<em>tuple</em><em>, </em><em>optional</em>) – dimensions (width, length) of the output video file</p></li>
+<li><p><strong>resize</strong> (<em>int</em><em>, </em><em>optional</em>) – factor by which to resize the output video dimensions</p></li>
+<li><p><strong>save_colour</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the saved video frames be in colour</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="phenopype.tracking.motion_tracker.motion_detection">
-<code class="sig-name descname">motion_detection</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker.motion_detection" title="Permalink to this definition">¶</a></dt>
-<dd><p>Set properties of output video file. Most settings can be left at their default value.</p>
+<dt id="phenopype.tracking.motion_tracker.detection_settings">
+<code class="sig-name descname">detection_settings</code><span class="sig-paren">(</span><em class="sig-param">skip=5</em>, <em class="sig-param">warmup=0</em>, <em class="sig-param">start_after=0</em>, <em class="sig-param">finish_after=0</em>, <em class="sig-param">history=60</em>, <em class="sig-param">threshold=10</em>, <em class="sig-param">detect_shadows=True</em>, <em class="sig-param">mode='MOG'</em>, <em class="sig-param">methods=None</em>, <em class="sig-param">c_mask=False</em>, <em class="sig-param">c_mask_shape='rect'</em>, <em class="sig-param">c_mask_size=50</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker.detection_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set properties of output video file. Most settings can be left at their
+default value.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>skip</strong> (<em>int</em><em> (</em><em>default: 5</em><em>)</em>) – how many frames to skip between each capture</p></li>
-<li><p><strong>start</strong> (<em>int</em><em> (</em><em>default: 0</em><em>)</em>) – start after X seconds</p></li>
-<li><p><strong>finish</strong> (<em>int</em><em> (</em><em>default: &quot;video-length&quot;</em><em>)</em>) – finish after X seconds</p></li>
-<li><p><strong>history</strong> (<em>int</em><em> (</em><em>default: 60</em><em>)</em>) – how many frames to use for fg-bg subtraction algorithm</p></li>
-<li><p><strong>backgr_thresh</strong> (<em>int</em><em> (</em><em>default: 10</em><em>)</em>) – sensitivity-level for fg-bg subtraction algorithm (lower = more sensitive)</p></li>
-<li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;MOG&quot;</em><em>)</em>) – type of fg-bg subtraction algorithm (“MOG” or “KNN”)</p></li>
-<li><p><strong>methods</strong> (<em>list</em>) – list with tracking_method objects</p></li>
+<li><p><strong>skip</strong> (<em>int</em><em>, </em><em>optional</em>) – how many frames to skip between each capture</p></li>
+<li><p><strong>start</strong> (<em>int</em><em>, </em><em>optional</em>) – start after X seconds</p></li>
+<li><p><strong>finish</strong> (<em>int</em><em>, </em><em>optional</em>) – finish after X seconds</p></li>
+<li><p><strong>history</strong> (<em>int</em><em>, </em><em>optional</em>) – how many frames to use for fg-bg subtraction algorithm</p></li>
+<li><p><strong>threshold</strong> (<em>int</em><em>, </em><em>optional</em>) – <dl class="simple">
+<dt>sensitivity-level for fg-bg subtraction algorithm (lower = more</dt><dd><p>sensitive)</p>
+</dd>
+</dl>
+</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em>, </em><em>optional</em>) – type of fg-bg subtraction algorithm (“MOG” or “KNN”)</p></li>
+<li><p><strong>methods</strong> (<em>method</em><em> or </em><em>list of methods</em><em>, </em><em>optional</em>) – list with tracking_method objects</p></li>
+<li><p><strong>c_mask</strong> – </p></li>
 </ul>
 </dd>
 </dl>
@@ -1486,14 +1503,16 @@ ouput if the data is contained in the provided DataFrame.</p>
 
 <dl class="method">
 <dt id="phenopype.tracking.motion_tracker.run_tracking">
-<code class="sig-name descname">run_tracking</code><span class="sig-paren">(</span><em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker.run_tracking" title="Permalink to this definition">¶</a></dt>
-<dd><p>Start motion tracking procedure.</p>
+<code class="sig-name descname">run_tracking</code><span class="sig-paren">(</span><em class="sig-param">feedback=True</em>, <em class="sig-param">canvas='overlay'</em>, <em class="sig-param">overlay_weight=0.5</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.motion_tracker.run_tracking" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start motion tracking procedure. Enable or disable video feedback,
+output and select canvas (overlay of detected objects, foreground mask,
+input video).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>show</strong> (<em>str</em><em> (</em><em>default: overlay</em><em>)</em>) – show output of tracking as “overlay”, binary forground mask “fgmask”, or frame by frame</p></li>
-<li><p><strong>weight</strong> (<em>float</em><em> (</em><em>default: 0.5</em><em>)</em>) – how transparent the overlay should be</p></li>
-<li><p><strong>return_df</strong> (<em>bool</em><em> (</em><em>default: True</em><em>)</em>) – should the output dataframe be returned or inherited to motion_tracker object</p></li>
+<li><p><strong>feedback</strong> (<em>bool</em><em>, </em><em>optional</em>) – show output of tracking</p></li>
+<li><p><strong>canvas</strong> (<em>{&quot;overlay&quot;</em><em>,</em><em>&quot;fgmask&quot;</em><em>,</em><em>&quot;input&quot;} str</em><em>, </em><em>optional</em>) – the background for the ouput video</p></li>
+<li><p><strong>overlay_weight</strong> (<em>float</em><em> (</em><em>default: 0.5</em><em>)</em>) – if canvas=”overlay”, how transparent should the overlay should be</p></li>
 </ul>
 </dd>
 </dl>
@@ -1507,30 +1526,29 @@ ouput if the data is contained in the provided DataFrame.</p>
 <p>[ADD TEXT]</p>
 <dl class="class">
 <dt id="phenopype.tracking.tracking_method">
-<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">tracking_method</code><span class="sig-paren">(</span><em class="sig-param">label='default'</em>, <em class="sig-param">overlay_colour='red'</em>, <em class="sig-param">min_length=1</em>, <em class="sig-param">max_length=1000</em>, <em class="sig-param">mode='multiple'</em>, <em class="sig-param">operations=[]</em>, <em class="sig-param">mask=[]</em>, <em class="sig-param">exclude=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.tracking_method" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">phenopype.tracking.</code><code class="sig-name descname">tracking_method</code><span class="sig-paren">(</span><em class="sig-param">label='default'</em>, <em class="sig-param">blur=5</em>, <em class="sig-param">threshold=127</em>, <em class="sig-param">remove_shadows=True</em>, <em class="sig-param">overlay_colour='red'</em>, <em class="sig-param">min_length=0</em>, <em class="sig-param">max_length=inf</em>, <em class="sig-param">min_area=0</em>, <em class="sig-param">max_area=inf</em>, <em class="sig-param">mode='multiple'</em>, <em class="sig-param">operations=[]</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.tracking.tracking_method" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Constructs a tracking method that can be supplied to the tracker.</p>
+<p>Constructs a tracking method that can be supplied to the motion_tracker
+class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;multiple&quot;</em><em>)</em>) – how many objects to track: “multiple”, or “single” (biggest by diameter) objects</p></li>
-<li><p><strong>operations</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;diameter&quot;</em><em>, </em><em>&quot;area&quot;</em><em>]</em><em>)</em>) – <dl class="simple">
-<dt>determines the type of operations to be performed on the detected objects:</dt><dd><ul>
-<li><p>”diameter” of the bounding circle of our object</p></li>
-<li><p>”area” within the contour of our object</p></li>
-<li><p>”grayscale” mean and standard deviation of grayscale pixel values inside the object contours</p></li>
-<li><p>”grayscale_background” background within boundingbox of contour</p></li>
-<li><p>”bgr” mean and standard deviation of blue, green and red pixel values inside the object contours</p></li>
-</ul>
-</dd>
-</dl>
-</p></li>
+<li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;multiple&quot;</em><em>)</em>) – how many objects to track: “multiple”, or “single” (biggest by diameter)
+objects</p></li>
+<li><p><strong>operations</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;diameter&quot;</em><em>, </em><em>&quot;area&quot;</em><em>]</em><em>)</em>) – determines the type of operations to be performed on the detected objects:
+- “diameter” of the bounding circle of our object
+- “area” within the contour of our object
+- “grayscale” mean and standard deviation of grayscale pixel values
+inside the object contours
+- “grayscale_background” background within boundingbox of contour
+- “bgr” mean and standard deviation of blue, green and red pixel
+values inside the object contours</p></li>
 <li><p><strong>blur</strong> (<em>tuple</em>) – blurring of fgbg-mask (kernel size, threshold [1-255])</p></li>
 <li><p><strong>min_length</strong> (<em>int</em><em> (</em><em>default: 1</em><em>)</em>) – minimum length in pixels for objects to be included</p></li>
 <li><p><strong>remove_shadows</strong> (<em>bool</em>) – remove shadows if shadow-detection is actived in MOG-algorithm</p></li>
-<li><p><strong>mask</strong> (<em>list</em>) – phenoype mask-objects (lists of boolean mask, label, and include-argument) to include or exclude an area from the procedure</p></li>
+<li><p><strong>mask</strong> (<em>list</em>) – phenoype mask-objects (lists of boolean mask, label, and include-
+argument) to include or exclude an area from the procedure</p></li>
 <li><p><strong>overlay_colour</strong> (<em>phenopype colour object</em><em> (</em><em>default: red</em><em> [</em><em>red</em><em>, </em><em>green</em><em>, </em><em>blue</em><em>, </em><em>black</em><em>, </em><em>white</em><em>]</em><em>)</em>) – which colour should tracked objects have</p></li>
-<li><p><strong>exclude</strong> (<em>?</em><em> (</em><em>forgot what this does</em><em>)</em>) – </p></li>
 </ul>
 </dd>
 </dl>
