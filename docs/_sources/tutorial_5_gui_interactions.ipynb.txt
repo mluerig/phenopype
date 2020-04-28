@@ -6,7 +6,7 @@
    "source": [
     "# Tutorial 5: GUI interactions (masks, lines and drawing tools)\n",
     "\n",
-    "[ADD TEXT]\n"
+    "Phenopype "
    ]
   },
   {

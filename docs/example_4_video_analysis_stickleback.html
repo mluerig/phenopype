@@ -81,7 +81,11 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Example 4: Video analysis - predator prey interactions</a></li>
+<li><a class="reference internal" href="#">Example 4: Video analysis - predator prey interactions</a><ul>
+<li><a class="reference internal" href="#Video-tracking-with-phenopype">Video tracking with phenopype</a></li>
+<li><a class="reference internal" href="#Analyzing-tracking-results-with-trackpy">Analyzing tracking results with <code class="docutils literal notranslate"><span class="pre">trackpy</span></code></a></li>
+</ul>
+</li>
 </ul>
 </ul>
 </li>
@@ -129,7 +133,11 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Example 4: Video analysis - predator prey interactions</a></li>
+<li><a class="reference internal" href="#">Example 4: Video analysis - predator prey interactions</a><ul>
+<li><a class="reference internal" href="#Video-tracking-with-phenopype">Video tracking with phenopype</a></li>
+<li><a class="reference internal" href="#Analyzing-tracking-results-with-trackpy">Analyzing tracking results with <code class="docutils literal notranslate"><span class="pre">trackpy</span></code></a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -358,14 +366,24 @@ div.rendered_html tbody tr:hover {
 </style>
 <div class="section" id="Example-4:-Video-analysis---predator-prey-interactions">
 <h1>Example 4: Video analysis - predator prey interactions<a class="headerlink" href="#Example-4:-Video-analysis---predator-prey-interactions" title="Permalink to this headline">¶</a></h1>
-<p>[ADD TEXT]</p>
+<p>This example features analysis of predator-prey interactions of one threespine stickleback (<em>Gasterosteus aculeatus</em>) and 20 benthic isopods (<em>Asellus aquaticus</em>). The goal is to extract movement trajectories of both species in response to each other, to see if isopods are reacting to the fish, and the other way round. At the same time, isopod pigmentation is measured in every frame to measure whether the fish has preferences for a particular phenotype (dark vs. light pigmentation, large bodied
+individuals).</p>
+<p>The full video can be found here: <a class="reference external" href="https://vimeo.com/283075068">https://vimeo.com/283075068</a></p>
+<div class="row; text-align: left"><div class="col-md-6"><p><img alt="Fish movement" src="_images/ex4_after1.png" /></p>
+<p><strong>Fish movement</strong> - Fish movement is extracted by following the movement of the single biggest object.</p>
+</div><div class="col-md-6"><p><img alt="Isopod movement" src="_images/ex4_after2.png" /></p>
+<p><strong>Isopod movement</strong> - Movement of isopods over 15 seconds.</p>
+</div></div><div class="section" id="Video-tracking-with-phenopype">
+<h2>Video tracking with phenopype<a class="headerlink" href="#Video-tracking-with-phenopype" title="Permalink to this headline">¶</a></h2>
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
-<span class="kn">import</span> <span class="nn">trackpy</span> <span class="k">as</span> <span class="nn">tp</span> <span class="c1">#can be installed using pip</span>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+<span class="kn">import</span> <span class="nn">trackpy</span> <span class="k">as</span> <span class="nn">tp</span> <span class="c1"># can be installed using pip</span>
 </pre></div>
 </div>
 </div>
@@ -379,39 +397,19 @@ div.rendered_html tbody tr:hover {
 </pre></div>
 </div>
 </div>
+<p>First we initialize the motion tracker with our example video, and specify the video output.</p>
 <div class="nbinput docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="c1"># draw masks</span>
-<span class="n">mt</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">motion_tracker</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span>
+<span></span><span class="n">mt</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">motion_tracker</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span>
+
 <span class="n">mt</span><span class="o">.</span><span class="n">video_output</span><span class="p">(</span><span class="n">save_suffix</span><span class="o">=</span><span class="s2">&quot;v1&quot;</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="n">out_dir</span><span class="p">)</span>
-
-<span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">mt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;full arena&quot;</span><span class="p">)</span>
-
-<span class="c1"># create fish method</span>
-<span class="n">fish</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">tracking_method</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;fish&quot;</span><span class="p">,</span>  <span class="n">blur</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">remove_shadows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                          <span class="n">min_length</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span> <span class="n">overlay_colour</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span>
-                          <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;single&quot;</span><span class="p">)</span>
-<span class="n">isopods</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">tracking_method</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;isopod&quot;</span><span class="p">,</span> <span class="n">blur</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">remove_shadows</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                            <span class="n">min_length</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">overlay_colour</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span>
-                            <span class="n">operations</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;diameter&quot;</span><span class="p">,</span> <span class="s2">&quot;area&quot;</span><span class="p">,</span><span class="s2">&quot;grayscale&quot;</span><span class="p">,</span><span class="s2">&quot;grayscale_background&quot;</span><span class="p">,</span><span class="s2">&quot;bgr&quot;</span><span class="p">])</span>
-
-<span class="c1"># run motion tracker</span>
-<span class="n">mt</span><span class="o">.</span><span class="n">motion_detection</span><span class="p">(</span><span class="n">threshold</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">skip</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">start_after</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">history</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-                    <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="n">fish</span><span class="p">,</span> <span class="n">isopods</span><span class="p">],</span> <span class="n">detect_shadows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;MOG&quot;</span><span class="p">)</span>
-<span class="n">coordinates</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">run_tracking</span><span class="p">(</span><span class="n">show</span><span class="o">=</span><span class="s2">&quot;overlay&quot;</span><span class="p">,</span> <span class="n">weight</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">return_df</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-
-<span class="c1"># save output</span>
-<span class="n">coordinates</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_coordinates.csv&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
-<span class="n">coordinates</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_coordinates.csv&quot;</span><span class="p">))</span>
-
-
 </pre></div>
 </div>
 </div>
-<div class="nboutput docutils container">
+<div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
@@ -428,38 +426,924 @@ Dimensions: (960, 540)
 Colour video: True
 FourCC code: avc1
 --------------------------------------------------------------
+
+
+--------------------------------------------------------------
+Output video settings - &#34;isopods_fish.mp4&#34;:
+
+Save name: isopods_fish_v1.mp4
+Save dir: E:\git_repos\phenopype\_temp\video
+Frames per second: 29.97000099996667
+Dimensions: (960, 540)
+Colour video: True
+Format (FourCC code): avc1
+--------------------------------------------------------------
 </pre></div></div>
+</div>
+<p>Then we create a mask to only include the gravel area - this will exclude the walls where reflections and floating particles may result in false positives. A second mask in the center of the area can later be used to compare whether isopods tend to stay more on the side (shy behavior) or whether they move freely (bold behavior). In each captured frame there will be an entry for each isopods in which area it was detected.</p>
+<center><div style="width:600px; text-align: left"><p><img alt="Canvas masking" src="_images/tracking4.jpg" /></p>
+<p><strong>Masking</strong> - on one hand we want to exclude unwanted areas, on the other hand, we want to see when isopds stays in the center or not.</p>
+</div></center><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">mt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;full arena&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">mt</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;center&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 <div class="nboutput nblast docutils container">
 <div class="prompt empty docutils container">
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">StdinNotImplementedError</span>                  Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-3-0b45393c61ef&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
-<span class="ansi-green-fg">      1</span> <span class="ansi-red-intense-fg ansi-bold"># draw masks</span>
-<span class="ansi-green-fg">      2</span> mt <span class="ansi-yellow-intense-fg ansi-bold">=</span> pp<span class="ansi-yellow-intense-fg ansi-bold">.</span>motion_tracker<span class="ansi-yellow-intense-fg ansi-bold">(</span>video_path<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 3</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>mt<span class="ansi-yellow-intense-fg ansi-bold">.</span>video_output<span class="ansi-yellow-intense-fg ansi-bold">(</span>save_suffix<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;v1&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> dirpath<span class="ansi-yellow-intense-fg ansi-bold">=</span>out_dir<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      4</span>
-<span class="ansi-green-fg">      5</span> pp<span class="ansi-yellow-intense-fg ansi-bold">.</span>preprocessing<span class="ansi-yellow-intense-fg ansi-bold">.</span>create_mask<span class="ansi-yellow-intense-fg ansi-bold">(</span>mt<span class="ansi-yellow-intense-fg ansi-bold">,</span> label<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;full arena&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">e:\git_repos\phenopype\phenopype\tracking.py</span> in <span class="ansi-cyan-fg">video_output</span><span class="ansi-blue-intense-fg ansi-bold">(self, video_format, save_suffix, dirpath, fps, save_colour, dimensions, resize)</span>
-<span class="ansi-green-fg">    121</span>         <span class="ansi-green-intense-fg ansi-bold">else</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    122</span>             <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> os<span class="ansi-yellow-intense-fg ansi-bold">.</span>path<span class="ansi-yellow-intense-fg ansi-bold">.</span>isdir<span class="ansi-yellow-intense-fg ansi-bold">(</span>dirpath<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 123</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span>q <span class="ansi-yellow-intense-fg ansi-bold">=</span> input<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-blue-intense-fg ansi-bold">&#34;Save folder {} does not exist - create?.&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">.</span>format<span class="ansi-yellow-intense-fg ansi-bold">(</span>dirpath<span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">    124</span>                 <span class="ansi-green-intense-fg ansi-bold">if</span> q <span class="ansi-green-intense-fg ansi-bold">in</span> <span class="ansi-yellow-intense-fg ansi-bold">[</span><span class="ansi-blue-intense-fg ansi-bold">&#34;True&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;true&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;y&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-blue-intense-fg ansi-bold">&#34;yes&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">]</span><span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    125</span>                     os<span class="ansi-yellow-intense-fg ansi-bold">.</span>makedirs<span class="ansi-yellow-intense-fg ansi-bold">(</span>dirpath<span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-green-intense-fg ansi-bold">C:\Anaconda3\envs\pp37\lib\site-packages\ipykernel\kernelbase.py</span> in <span class="ansi-cyan-fg">raw_input</span><span class="ansi-blue-intense-fg ansi-bold">(self, prompt)</span>
-<span class="ansi-green-fg">    852</span>         <span class="ansi-green-intense-fg ansi-bold">if</span> <span class="ansi-green-intense-fg ansi-bold">not</span> self<span class="ansi-yellow-intense-fg ansi-bold">.</span>_allow_stdin<span class="ansi-yellow-intense-fg ansi-bold">:</span>
-<span class="ansi-green-fg">    853</span>             raise StdinNotImplementedError(
-<span class="ansi-green-intense-fg ansi-bold">--&gt; 854</span><span class="ansi-yellow-intense-fg ansi-bold">                 </span><span class="ansi-blue-intense-fg ansi-bold">&#34;raw_input was called, but this frontend does not support input requests.&#34;</span>
-<span class="ansi-green-fg">    855</span>             )
-<span class="ansi-green-fg">    856</span>         return self._input_request(str(prompt),
-
-<span class="ansi-red-intense-fg ansi-bold">StdinNotImplementedError</span>: raw_input was called, but this frontend does not support input requests.
+- create mask
 </pre></div></div>
+</div>
+<p>Now we set up two <code class="docutils literal notranslate"><span class="pre">tracking_methods</span></code>: the “fish” method is set to <code class="docutils literal notranslate"><span class="pre">&quot;single&quot;</span></code> and will only capture the largest object, whereas the isopod method will capture all objects smaller than 30 pixels. You can play around with <code class="docutils literal notranslate"><span class="pre">blur</span></code> and <code class="docutils literal notranslate"><span class="pre">threshold</span></code> settings to see if you can get better results. The <code class="docutils literal notranslate"><span class="pre">operations</span></code> argument is used to return specific information of the detected objects. We specify a few parameters to retrieve phenotypic information of the isopods. Later, we can then analyze which
+phenotypes were foraged on which sediment background.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">fish</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">tracking_method</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;fish&quot;</span><span class="p">,</span> <span class="n">remove_shadows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                          <span class="n">overlay_colour</span><span class="o">=</span><span class="s2">&quot;red&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;single&quot;</span><span class="p">,</span>
+                          <span class="n">blur</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="c1"># bigger blurring kernel</span>
+                          <span class="n">threshold</span><span class="o">=</span><span class="mi">200</span> <span class="c1">#higher sensitivity</span>
+                         <span class="p">)</span>
+<span class="n">isopod</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">tracking_method</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;isopod&quot;</span><span class="p">,</span> <span class="n">remove_shadows</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span>
+                            <span class="n">overlay_colour</span><span class="o">=</span><span class="s2">&quot;green&quot;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;multiple&quot;</span><span class="p">,</span>
+                            <span class="n">blur</span><span class="o">=</span><span class="mi">9</span><span class="p">,</span> <span class="c1"># smaller blurring kernel</span>
+                            <span class="n">threshold</span><span class="o">=</span><span class="mi">180</span><span class="p">,</span> <span class="c1"># lower sensitivity</span>
+                            <span class="n">operations</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;diameter&quot;</span><span class="p">,</span>  <span class="c1"># isopod size</span>
+                                        <span class="s2">&quot;area&quot;</span><span class="p">,</span>      <span class="c1"># isopod area</span>
+                                        <span class="s2">&quot;grayscale&quot;</span><span class="p">,</span> <span class="c1"># isopod pigmentation</span>
+                                        <span class="s2">&quot;grayscale_background&quot;</span><span class="p">]</span> <span class="c1"># background darkness</span>
+                           <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Finally, we pass the methods on the detection settings, and also activate <em>consecutive masking</em> (<code class="docutils literal notranslate"><span class="pre">c_mask=True</span></code>). This option will prohibit repeated detection of objects when several tracking methods are applied. For example, inside the detected fish-area sometimes isopod objects are detected, due to artifacts or incomplete subtraction results. Consecutive masking will “block” an area after the first method has been applied - the order by which methods are applied matters. The following
+settings will create a rectangle shaped mask around the fish with a 200 pixel border.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">mt</span><span class="o">.</span><span class="n">detection_settings</span><span class="p">(</span><span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="n">fish</span><span class="p">,</span> <span class="n">isopod</span><span class="p">],</span>
+                     <span class="n">c_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">c_mask_shape</span><span class="o">=</span><span class="s2">&quot;rect&quot;</span><span class="p">,</span>
+                     <span class="n">c_mask_size</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+{&#39;blur_kernel&#39;: 15,
+ &#39;label&#39;: &#39;fish&#39;,
+ &#39;max_area&#39;: inf,
+ &#39;max_length&#39;: inf,
+ &#39;min_area&#39;: 0,
+ &#39;min_length&#39;: 30,
+ &#39;mode&#39;: &#39;single&#39;,
+ &#39;operations&#39;: [],
+ &#39;overlay_colour&#39;: (0, 0,
+                    255),
+ &#39;remove_shadows&#39;: True,
+ &#39;threshold_value&#39;: 200}
+{&#39;blur_kernel&#39;: 9,
+ &#39;label&#39;: &#39;isopod&#39;,
+ &#39;max_area&#39;: inf,
+ &#39;max_length&#39;: 30,
+ &#39;min_area&#39;: 0,
+ &#39;min_length&#39;: 0,
+ &#39;mode&#39;: &#39;multiple&#39;,
+ &#39;operations&#39;: [&#39;diameter&#39;,
+                &#39;area&#39;,
+                &#39;grayscale&#39;,
+                &#39;grayscale_background&#39;],
+ &#39;overlay_colour&#39;: (0, 255,
+                    0),
+ &#39;remove_shadows&#39;: True,
+ &#39;threshold_value&#39;: 180}
+
+
+--------------------------------------------------------------
+Motion detection settings - &#34;isopods_fish.mp4&#34;:
+
+Background-subtractor: MOG
+History: 60 seconds
+Sensitivity: 10
+Read every nth frame: 5
+Detect shadows: True
+Start after n seconds: 0
+Finish after n seconds:  -
+--------------------------------------------------------------
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">coordinates</span> <span class="o">=</span> <span class="n">mt</span><span class="o">.</span><span class="n">run_tracking</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Time: 00:00/00:15 - Frames: 1/450
+Time: 00:00/00:15 - Frames: 2/450
+Time: 00:00/00:15 - Frames: 3/450
+Time: 00:00/00:15 - Frames: 4/450
+Time: 00:00/00:15 - Frames: 5/450 - captured
+Time: 00:00/00:15 - Frames: 6/450
+Time: 00:00/00:15 - Frames: 7/450
+Time: 00:00/00:15 - Frames: 8/450
+Time: 00:00/00:15 - Frames: 9/450
+Time: 00:00/00:15 - Frames: 10/450 - captured
+Time: 00:00/00:15 - Frames: 11/450
+Time: 00:00/00:15 - Frames: 12/450
+Time: 00:00/00:15 - Frames: 13/450
+Time: 00:00/00:15 - Frames: 14/450
+Time: 00:00/00:15 - Frames: 15/450 - captured
+Time: 00:00/00:15 - Frames: 16/450
+Time: 00:00/00:15 - Frames: 17/450
+Time: 00:00/00:15 - Frames: 18/450
+Time: 00:00/00:15 - Frames: 19/450
+Time: 00:00/00:15 - Frames: 20/450 - captured
+Time: 00:00/00:15 - Frames: 21/450
+Time: 00:00/00:15 - Frames: 22/450
+Time: 00:00/00:15 - Frames: 23/450
+Time: 00:00/00:15 - Frames: 24/450
+Time: 00:00/00:15 - Frames: 25/450 - captured
+Time: 00:00/00:15 - Frames: 26/450
+Time: 00:00/00:15 - Frames: 27/450
+Time: 00:00/00:15 - Frames: 28/450
+Time: 00:00/00:15 - Frames: 29/450
+Time: 00:01/00:15 - Frames: 30/450 - captured
+Time: 00:01/00:15 - Frames: 31/450
+Time: 00:01/00:15 - Frames: 32/450
+Time: 00:01/00:15 - Frames: 33/450
+Time: 00:01/00:15 - Frames: 34/450
+Time: 00:01/00:15 - Frames: 35/450 - captured
+Time: 00:01/00:15 - Frames: 36/450
+Time: 00:01/00:15 - Frames: 37/450
+Time: 00:01/00:15 - Frames: 38/450
+Time: 00:01/00:15 - Frames: 39/450
+Time: 00:01/00:15 - Frames: 40/450 - captured
+Time: 00:01/00:15 - Frames: 41/450
+Time: 00:01/00:15 - Frames: 42/450
+Time: 00:01/00:15 - Frames: 43/450
+Time: 00:01/00:15 - Frames: 44/450
+Time: 00:01/00:15 - Frames: 45/450 - captured
+Time: 00:01/00:15 - Frames: 46/450
+Time: 00:01/00:15 - Frames: 47/450
+Time: 00:01/00:15 - Frames: 48/450
+Time: 00:01/00:15 - Frames: 49/450
+Time: 00:01/00:15 - Frames: 50/450 - captured
+Time: 00:01/00:15 - Frames: 51/450
+Time: 00:01/00:15 - Frames: 52/450
+Time: 00:01/00:15 - Frames: 53/450
+Time: 00:01/00:15 - Frames: 54/450
+Time: 00:01/00:15 - Frames: 55/450 - captured
+Time: 00:01/00:15 - Frames: 56/450
+Time: 00:01/00:15 - Frames: 57/450
+Time: 00:01/00:15 - Frames: 58/450
+Time: 00:01/00:15 - Frames: 59/450
+Time: 00:02/00:15 - Frames: 60/450 - captured
+Time: 00:02/00:15 - Frames: 61/450
+Time: 00:02/00:15 - Frames: 62/450
+Time: 00:02/00:15 - Frames: 63/450
+Time: 00:02/00:15 - Frames: 64/450
+Time: 00:02/00:15 - Frames: 65/450 - captured
+Time: 00:02/00:15 - Frames: 66/450
+Time: 00:02/00:15 - Frames: 67/450
+Time: 00:02/00:15 - Frames: 68/450
+Time: 00:02/00:15 - Frames: 69/450
+Time: 00:02/00:15 - Frames: 70/450 - captured
+Time: 00:02/00:15 - Frames: 71/450
+Time: 00:02/00:15 - Frames: 72/450
+Time: 00:02/00:15 - Frames: 73/450
+Time: 00:02/00:15 - Frames: 74/450
+Time: 00:02/00:15 - Frames: 75/450 - captured
+Time: 00:02/00:15 - Frames: 76/450
+Time: 00:02/00:15 - Frames: 77/450
+Time: 00:02/00:15 - Frames: 78/450
+Time: 00:02/00:15 - Frames: 79/450
+Time: 00:02/00:15 - Frames: 80/450 - captured
+Time: 00:02/00:15 - Frames: 81/450
+Time: 00:02/00:15 - Frames: 82/450
+Time: 00:02/00:15 - Frames: 83/450
+Time: 00:02/00:15 - Frames: 84/450
+Time: 00:02/00:15 - Frames: 85/450 - captured
+Time: 00:02/00:15 - Frames: 86/450
+Time: 00:02/00:15 - Frames: 87/450
+Time: 00:02/00:15 - Frames: 88/450
+Time: 00:02/00:15 - Frames: 89/450
+Time: 00:03/00:15 - Frames: 90/450 - captured
+Time: 00:03/00:15 - Frames: 91/450
+Time: 00:03/00:15 - Frames: 92/450
+Time: 00:03/00:15 - Frames: 93/450
+Time: 00:03/00:15 - Frames: 94/450
+Time: 00:03/00:15 - Frames: 95/450 - captured
+Time: 00:03/00:15 - Frames: 96/450
+Time: 00:03/00:15 - Frames: 97/450
+Time: 00:03/00:15 - Frames: 98/450
+Time: 00:03/00:15 - Frames: 99/450
+Time: 00:03/00:15 - Frames: 100/450 - captured
+Time: 00:03/00:15 - Frames: 101/450
+Time: 00:03/00:15 - Frames: 102/450
+Time: 00:03/00:15 - Frames: 103/450
+Time: 00:03/00:15 - Frames: 104/450
+Time: 00:03/00:15 - Frames: 105/450 - captured
+Time: 00:03/00:15 - Frames: 106/450
+Time: 00:03/00:15 - Frames: 107/450
+Time: 00:03/00:15 - Frames: 108/450
+Time: 00:03/00:15 - Frames: 109/450
+Time: 00:03/00:15 - Frames: 110/450 - captured
+Time: 00:03/00:15 - Frames: 111/450
+Time: 00:03/00:15 - Frames: 112/450
+Time: 00:03/00:15 - Frames: 113/450
+Time: 00:03/00:15 - Frames: 114/450
+Time: 00:03/00:15 - Frames: 115/450 - captured
+Time: 00:03/00:15 - Frames: 116/450
+Time: 00:03/00:15 - Frames: 117/450
+Time: 00:03/00:15 - Frames: 118/450
+Time: 00:03/00:15 - Frames: 119/450
+Time: 00:04/00:15 - Frames: 120/450 - captured
+Time: 00:04/00:15 - Frames: 121/450
+Time: 00:04/00:15 - Frames: 122/450
+Time: 00:04/00:15 - Frames: 123/450
+Time: 00:04/00:15 - Frames: 124/450
+Time: 00:04/00:15 - Frames: 125/450 - captured
+Time: 00:04/00:15 - Frames: 126/450
+Time: 00:04/00:15 - Frames: 127/450
+Time: 00:04/00:15 - Frames: 128/450
+Time: 00:04/00:15 - Frames: 129/450
+Time: 00:04/00:15 - Frames: 130/450 - captured
+Time: 00:04/00:15 - Frames: 131/450
+Time: 00:04/00:15 - Frames: 132/450
+Time: 00:04/00:15 - Frames: 133/450
+Time: 00:04/00:15 - Frames: 134/450
+Time: 00:04/00:15 - Frames: 135/450 - captured
+Time: 00:04/00:15 - Frames: 136/450
+Time: 00:04/00:15 - Frames: 137/450
+Time: 00:04/00:15 - Frames: 138/450
+Time: 00:04/00:15 - Frames: 139/450
+Time: 00:04/00:15 - Frames: 140/450 - captured
+Time: 00:04/00:15 - Frames: 141/450
+Time: 00:04/00:15 - Frames: 142/450
+Time: 00:04/00:15 - Frames: 143/450
+Time: 00:04/00:15 - Frames: 144/450
+Time: 00:04/00:15 - Frames: 145/450 - captured
+Time: 00:04/00:15 - Frames: 146/450
+Time: 00:04/00:15 - Frames: 147/450
+Time: 00:04/00:15 - Frames: 148/450
+Time: 00:04/00:15 - Frames: 149/450
+Time: 00:05/00:15 - Frames: 150/450 - captured
+Time: 00:05/00:15 - Frames: 151/450
+Time: 00:05/00:15 - Frames: 152/450
+Time: 00:05/00:15 - Frames: 153/450
+Time: 00:05/00:15 - Frames: 154/450
+Time: 00:05/00:15 - Frames: 155/450 - captured
+Time: 00:05/00:15 - Frames: 156/450
+Time: 00:05/00:15 - Frames: 157/450
+Time: 00:05/00:15 - Frames: 158/450
+Time: 00:05/00:15 - Frames: 159/450
+Time: 00:05/00:15 - Frames: 160/450 - captured
+Time: 00:05/00:15 - Frames: 161/450
+Time: 00:05/00:15 - Frames: 162/450
+Time: 00:05/00:15 - Frames: 163/450
+Time: 00:05/00:15 - Frames: 164/450
+Time: 00:05/00:15 - Frames: 165/450 - captured
+Time: 00:05/00:15 - Frames: 166/450
+Time: 00:05/00:15 - Frames: 167/450
+Time: 00:05/00:15 - Frames: 168/450
+Time: 00:05/00:15 - Frames: 169/450
+Time: 00:05/00:15 - Frames: 170/450 - captured
+Time: 00:05/00:15 - Frames: 171/450
+Time: 00:05/00:15 - Frames: 172/450
+Time: 00:05/00:15 - Frames: 173/450
+Time: 00:05/00:15 - Frames: 174/450
+Time: 00:05/00:15 - Frames: 175/450 - captured
+Time: 00:05/00:15 - Frames: 176/450
+Time: 00:05/00:15 - Frames: 177/450
+Time: 00:05/00:15 - Frames: 178/450
+Time: 00:05/00:15 - Frames: 179/450
+Time: 00:06/00:15 - Frames: 180/450 - captured
+Time: 00:06/00:15 - Frames: 181/450
+Time: 00:06/00:15 - Frames: 182/450
+Time: 00:06/00:15 - Frames: 183/450
+Time: 00:06/00:15 - Frames: 184/450
+Time: 00:06/00:15 - Frames: 185/450 - captured
+Time: 00:06/00:15 - Frames: 186/450
+Time: 00:06/00:15 - Frames: 187/450
+Time: 00:06/00:15 - Frames: 188/450
+Time: 00:06/00:15 - Frames: 189/450
+Time: 00:06/00:15 - Frames: 190/450 - captured
+Time: 00:06/00:15 - Frames: 191/450
+Time: 00:06/00:15 - Frames: 192/450
+Time: 00:06/00:15 - Frames: 193/450
+Time: 00:06/00:15 - Frames: 194/450
+Time: 00:06/00:15 - Frames: 195/450 - captured
+Time: 00:06/00:15 - Frames: 196/450
+Time: 00:06/00:15 - Frames: 197/450
+Time: 00:06/00:15 - Frames: 198/450
+Time: 00:06/00:15 - Frames: 199/450
+Time: 00:06/00:15 - Frames: 200/450 - captured
+Time: 00:06/00:15 - Frames: 201/450
+Time: 00:06/00:15 - Frames: 202/450
+Time: 00:06/00:15 - Frames: 203/450
+Time: 00:06/00:15 - Frames: 204/450
+Time: 00:06/00:15 - Frames: 205/450 - captured
+Time: 00:06/00:15 - Frames: 206/450
+Time: 00:06/00:15 - Frames: 207/450
+Time: 00:06/00:15 - Frames: 208/450
+Time: 00:06/00:15 - Frames: 209/450
+Time: 00:07/00:15 - Frames: 210/450 - captured
+Time: 00:07/00:15 - Frames: 211/450
+Time: 00:07/00:15 - Frames: 212/450
+Time: 00:07/00:15 - Frames: 213/450
+Time: 00:07/00:15 - Frames: 214/450
+Time: 00:07/00:15 - Frames: 215/450 - captured
+Time: 00:07/00:15 - Frames: 216/450
+Time: 00:07/00:15 - Frames: 217/450
+Time: 00:07/00:15 - Frames: 218/450
+Time: 00:07/00:15 - Frames: 219/450
+Time: 00:07/00:15 - Frames: 220/450 - captured
+Time: 00:07/00:15 - Frames: 221/450
+Time: 00:07/00:15 - Frames: 222/450
+Time: 00:07/00:15 - Frames: 223/450
+Time: 00:07/00:15 - Frames: 224/450
+Time: 00:07/00:15 - Frames: 225/450 - captured
+Time: 00:07/00:15 - Frames: 226/450
+Time: 00:07/00:15 - Frames: 227/450
+Time: 00:07/00:15 - Frames: 228/450
+Time: 00:07/00:15 - Frames: 229/450
+Time: 00:07/00:15 - Frames: 230/450 - captured
+Time: 00:07/00:15 - Frames: 231/450
+Time: 00:07/00:15 - Frames: 232/450
+Time: 00:07/00:15 - Frames: 233/450
+Time: 00:07/00:15 - Frames: 234/450
+Time: 00:07/00:15 - Frames: 235/450 - captured
+Time: 00:07/00:15 - Frames: 236/450
+Time: 00:07/00:15 - Frames: 237/450
+Time: 00:07/00:15 - Frames: 238/450
+Time: 00:07/00:15 - Frames: 239/450
+Time: 00:08/00:15 - Frames: 240/450 - captured
+Time: 00:08/00:15 - Frames: 241/450
+Time: 00:08/00:15 - Frames: 242/450
+Time: 00:08/00:15 - Frames: 243/450
+Time: 00:08/00:15 - Frames: 244/450
+Time: 00:08/00:15 - Frames: 245/450 - captured
+Time: 00:08/00:15 - Frames: 246/450
+Time: 00:08/00:15 - Frames: 247/450
+Time: 00:08/00:15 - Frames: 248/450
+Time: 00:08/00:15 - Frames: 249/450
+Time: 00:08/00:15 - Frames: 250/450 - captured
+Time: 00:08/00:15 - Frames: 251/450
+Time: 00:08/00:15 - Frames: 252/450
+Time: 00:08/00:15 - Frames: 253/450
+Time: 00:08/00:15 - Frames: 254/450
+Time: 00:08/00:15 - Frames: 255/450 - captured
+Time: 00:08/00:15 - Frames: 256/450
+Time: 00:08/00:15 - Frames: 257/450
+Time: 00:08/00:15 - Frames: 258/450
+Time: 00:08/00:15 - Frames: 259/450
+Time: 00:08/00:15 - Frames: 260/450 - captured
+Time: 00:08/00:15 - Frames: 261/450
+Time: 00:08/00:15 - Frames: 262/450
+Time: 00:08/00:15 - Frames: 263/450
+Time: 00:08/00:15 - Frames: 264/450
+Time: 00:08/00:15 - Frames: 265/450 - captured
+Time: 00:08/00:15 - Frames: 266/450
+Time: 00:08/00:15 - Frames: 267/450
+Time: 00:08/00:15 - Frames: 268/450
+Time: 00:08/00:15 - Frames: 269/450
+Time: 00:09/00:15 - Frames: 270/450 - captured
+Time: 00:09/00:15 - Frames: 271/450
+Time: 00:09/00:15 - Frames: 272/450
+Time: 00:09/00:15 - Frames: 273/450
+Time: 00:09/00:15 - Frames: 274/450
+Time: 00:09/00:15 - Frames: 275/450 - captured
+Time: 00:09/00:15 - Frames: 276/450
+Time: 00:09/00:15 - Frames: 277/450
+Time: 00:09/00:15 - Frames: 278/450
+Time: 00:09/00:15 - Frames: 279/450
+Time: 00:09/00:15 - Frames: 280/450 - captured
+Time: 00:09/00:15 - Frames: 281/450
+Time: 00:09/00:15 - Frames: 282/450
+Time: 00:09/00:15 - Frames: 283/450
+Time: 00:09/00:15 - Frames: 284/450
+Time: 00:09/00:15 - Frames: 285/450 - captured
+Time: 00:09/00:15 - Frames: 286/450
+Time: 00:09/00:15 - Frames: 287/450
+Time: 00:09/00:15 - Frames: 288/450
+Time: 00:09/00:15 - Frames: 289/450
+Time: 00:09/00:15 - Frames: 290/450 - captured
+Time: 00:09/00:15 - Frames: 291/450
+Time: 00:09/00:15 - Frames: 292/450
+Time: 00:09/00:15 - Frames: 293/450
+Time: 00:09/00:15 - Frames: 294/450
+Time: 00:09/00:15 - Frames: 295/450 - captured
+Time: 00:09/00:15 - Frames: 296/450
+Time: 00:09/00:15 - Frames: 297/450
+Time: 00:09/00:15 - Frames: 298/450
+Time: 00:09/00:15 - Frames: 299/450
+Time: 00:10/00:15 - Frames: 300/450 - captured
+Time: 00:10/00:15 - Frames: 301/450
+Time: 00:10/00:15 - Frames: 302/450
+Time: 00:10/00:15 - Frames: 303/450
+Time: 00:10/00:15 - Frames: 304/450
+Time: 00:10/00:15 - Frames: 305/450 - captured
+Time: 00:10/00:15 - Frames: 306/450
+Time: 00:10/00:15 - Frames: 307/450
+Time: 00:10/00:15 - Frames: 308/450
+Time: 00:10/00:15 - Frames: 309/450
+Time: 00:10/00:15 - Frames: 310/450 - captured
+Time: 00:10/00:15 - Frames: 311/450
+Time: 00:10/00:15 - Frames: 312/450
+Time: 00:10/00:15 - Frames: 313/450
+Time: 00:10/00:15 - Frames: 314/450
+Time: 00:10/00:15 - Frames: 315/450 - captured
+Time: 00:10/00:15 - Frames: 316/450
+Time: 00:10/00:15 - Frames: 317/450
+Time: 00:10/00:15 - Frames: 318/450
+Time: 00:10/00:15 - Frames: 319/450
+Time: 00:10/00:15 - Frames: 320/450 - captured
+Time: 00:10/00:15 - Frames: 321/450
+Time: 00:10/00:15 - Frames: 322/450
+Time: 00:10/00:15 - Frames: 323/450
+Time: 00:10/00:15 - Frames: 324/450
+Time: 00:10/00:15 - Frames: 325/450 - captured
+Time: 00:10/00:15 - Frames: 326/450
+Time: 00:10/00:15 - Frames: 327/450
+Time: 00:10/00:15 - Frames: 328/450
+Time: 00:10/00:15 - Frames: 329/450
+Time: 00:11/00:15 - Frames: 330/450 - captured
+Time: 00:11/00:15 - Frames: 331/450
+Time: 00:11/00:15 - Frames: 332/450
+Time: 00:11/00:15 - Frames: 333/450
+Time: 00:11/00:15 - Frames: 334/450
+Time: 00:11/00:15 - Frames: 335/450 - captured
+Time: 00:11/00:15 - Frames: 336/450
+Time: 00:11/00:15 - Frames: 337/450
+Time: 00:11/00:15 - Frames: 338/450
+Time: 00:11/00:15 - Frames: 339/450
+Time: 00:11/00:15 - Frames: 340/450 - captured
+Time: 00:11/00:15 - Frames: 341/450
+Time: 00:11/00:15 - Frames: 342/450
+Time: 00:11/00:15 - Frames: 343/450
+Time: 00:11/00:15 - Frames: 344/450
+Time: 00:11/00:15 - Frames: 345/450 - captured
+Time: 00:11/00:15 - Frames: 346/450
+Time: 00:11/00:15 - Frames: 347/450
+Time: 00:11/00:15 - Frames: 348/450
+Time: 00:11/00:15 - Frames: 349/450
+Time: 00:11/00:15 - Frames: 350/450 - captured
+Time: 00:11/00:15 - Frames: 351/450
+Time: 00:11/00:15 - Frames: 352/450
+Time: 00:11/00:15 - Frames: 353/450
+Time: 00:11/00:15 - Frames: 354/450
+Time: 00:11/00:15 - Frames: 355/450 - captured
+Time: 00:11/00:15 - Frames: 356/450
+Time: 00:11/00:15 - Frames: 357/450
+Time: 00:11/00:15 - Frames: 358/450
+Time: 00:11/00:15 - Frames: 359/450
+Time: 00:12/00:15 - Frames: 360/450 - captured
+Time: 00:12/00:15 - Frames: 361/450
+Time: 00:12/00:15 - Frames: 362/450
+Time: 00:12/00:15 - Frames: 363/450
+Time: 00:12/00:15 - Frames: 364/450
+Time: 00:12/00:15 - Frames: 365/450 - captured
+Time: 00:12/00:15 - Frames: 366/450
+Time: 00:12/00:15 - Frames: 367/450
+Time: 00:12/00:15 - Frames: 368/450
+Time: 00:12/00:15 - Frames: 369/450
+Time: 00:12/00:15 - Frames: 370/450 - captured
+Time: 00:12/00:15 - Frames: 371/450
+Time: 00:12/00:15 - Frames: 372/450
+Time: 00:12/00:15 - Frames: 373/450
+Time: 00:12/00:15 - Frames: 374/450
+Time: 00:12/00:15 - Frames: 375/450 - captured
+Time: 00:12/00:15 - Frames: 376/450
+Time: 00:12/00:15 - Frames: 377/450
+Time: 00:12/00:15 - Frames: 378/450
+Time: 00:12/00:15 - Frames: 379/450
+Time: 00:12/00:15 - Frames: 380/450 - captured
+Time: 00:12/00:15 - Frames: 381/450
+Time: 00:12/00:15 - Frames: 382/450
+Time: 00:12/00:15 - Frames: 383/450
+Time: 00:12/00:15 - Frames: 384/450
+Time: 00:12/00:15 - Frames: 385/450 - captured
+Time: 00:12/00:15 - Frames: 386/450
+Time: 00:12/00:15 - Frames: 387/450
+Time: 00:12/00:15 - Frames: 388/450
+Time: 00:12/00:15 - Frames: 389/450
+Time: 00:13/00:15 - Frames: 390/450 - captured
+Time: 00:13/00:15 - Frames: 391/450
+Time: 00:13/00:15 - Frames: 392/450
+Time: 00:13/00:15 - Frames: 393/450
+Time: 00:13/00:15 - Frames: 394/450
+Time: 00:13/00:15 - Frames: 395/450 - captured
+Time: 00:13/00:15 - Frames: 396/450
+Time: 00:13/00:15 - Frames: 397/450
+Time: 00:13/00:15 - Frames: 398/450
+Time: 00:13/00:15 - Frames: 399/450
+Time: 00:13/00:15 - Frames: 400/450 - captured
+Time: 00:13/00:15 - Frames: 401/450
+Time: 00:13/00:15 - Frames: 402/450
+Time: 00:13/00:15 - Frames: 403/450
+Time: 00:13/00:15 - Frames: 404/450
+Time: 00:13/00:15 - Frames: 405/450 - captured
+Time: 00:13/00:15 - Frames: 406/450
+Time: 00:13/00:15 - Frames: 407/450
+Time: 00:13/00:15 - Frames: 408/450
+Time: 00:13/00:15 - Frames: 409/450
+Time: 00:13/00:15 - Frames: 410/450 - captured
+Time: 00:13/00:15 - Frames: 411/450
+Time: 00:13/00:15 - Frames: 412/450
+Time: 00:13/00:15 - Frames: 413/450
+Time: 00:13/00:15 - Frames: 414/450
+Time: 00:13/00:15 - Frames: 415/450 - captured
+Time: 00:13/00:15 - Frames: 416/450
+Time: 00:13/00:15 - Frames: 417/450
+Time: 00:13/00:15 - Frames: 418/450
+Time: 00:13/00:15 - Frames: 419/450
+Time: 00:14/00:15 - Frames: 420/450 - captured
+Time: 00:14/00:15 - Frames: 421/450
+Time: 00:14/00:15 - Frames: 422/450
+Time: 00:14/00:15 - Frames: 423/450
+Time: 00:14/00:15 - Frames: 424/450
+Time: 00:14/00:15 - Frames: 425/450 - captured
+Time: 00:14/00:15 - Frames: 426/450
+Time: 00:14/00:15 - Frames: 427/450
+Time: 00:14/00:15 - Frames: 428/450
+Time: 00:14/00:15 - Frames: 429/450
+Time: 00:14/00:15 - Frames: 430/450 - captured
+Time: 00:14/00:15 - Frames: 431/450
+Time: 00:14/00:15 - Frames: 432/450
+Time: 00:14/00:15 - Frames: 433/450
+Time: 00:14/00:15 - Frames: 434/450
+Time: 00:14/00:15 - Frames: 435/450 - captured
+Time: 00:14/00:15 - Frames: 436/450
+Time: 00:14/00:15 - Frames: 437/450
+Time: 00:14/00:15 - Frames: 438/450
+Time: 00:14/00:15 - Frames: 439/450
+Time: 00:14/00:15 - Frames: 440/450 - captured
+Time: 00:14/00:15 - Frames: 441/450
+Time: 00:14/00:15 - Frames: 442/450
+Time: 00:14/00:15 - Frames: 443/450
+Time: 00:14/00:15 - Frames: 444/450
+Time: 00:14/00:15 - Frames: 445/450 - captured
+Time: 00:14/00:15 - Frames: 446/450
+Time: 00:14/00:15 - Frames: 447/450
+Time: 00:14/00:15 - Frames: 448/450
+</pre></div></div>
+</div>
+<p>After completing the tracking, we end up with a big data frame of all contours</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">coordinates</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;coordinates.csv&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<span class="n">coordinates</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>frame_abs</th>
+      <th>frame</th>
+      <th>mins</th>
+      <th>secs</th>
+      <th>x</th>
+      <th>y</th>
+      <th>diameter</th>
+      <th>area</th>
+      <th>grayscale</th>
+      <th>grayscale_background</th>
+      <th>label</th>
+      <th>full arena</th>
+      <th>center</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>30</td>
+      <td>6</td>
+      <td>00</td>
+      <td>01</td>
+      <td>608.0</td>
+      <td>345.0</td>
+      <td>7.0</td>
+      <td>23.0</td>
+      <td>136.0</td>
+      <td>130.0</td>
+      <td>isopod</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>30</td>
+      <td>6</td>
+      <td>00</td>
+      <td>01</td>
+      <td>546.0</td>
+      <td>249.0</td>
+      <td>11.0</td>
+      <td>54.0</td>
+      <td>116.0</td>
+      <td>106.0</td>
+      <td>isopod</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>35</td>
+      <td>7</td>
+      <td>00</td>
+      <td>01</td>
+      <td>575.0</td>
+      <td>306.0</td>
+      <td>8.0</td>
+      <td>47.0</td>
+      <td>125.0</td>
+      <td>117.0</td>
+      <td>isopod</td>
+      <td>True</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>45</td>
+      <td>9</td>
+      <td>00</td>
+      <td>01</td>
+      <td>193.0</td>
+      <td>305.0</td>
+      <td>5.0</td>
+      <td>11.0</td>
+      <td>188.0</td>
+      <td>192.0</td>
+      <td>isopod</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>50</td>
+      <td>10</td>
+      <td>00</td>
+      <td>01</td>
+      <td>193.0</td>
+      <td>308.0</td>
+      <td>7.0</td>
+      <td>26.0</td>
+      <td>168.0</td>
+      <td>157.0</td>
+      <td>isopod</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>404</th>
+      <td>445</td>
+      <td>89</td>
+      <td>00</td>
+      <td>14</td>
+      <td>556.0</td>
+      <td>203.0</td>
+      <td>14.0</td>
+      <td>81.0</td>
+      <td>138.0</td>
+      <td>121.0</td>
+      <td>isopod</td>
+      <td>True</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>405</th>
+      <td>445</td>
+      <td>89</td>
+      <td>00</td>
+      <td>14</td>
+      <td>544.0</td>
+      <td>191.0</td>
+      <td>18.0</td>
+      <td>101.0</td>
+      <td>148.0</td>
+      <td>115.0</td>
+      <td>isopod</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>406</th>
+      <td>445</td>
+      <td>89</td>
+      <td>00</td>
+      <td>14</td>
+      <td>190.0</td>
+      <td>126.0</td>
+      <td>6.0</td>
+      <td>20.0</td>
+      <td>115.0</td>
+      <td>93.0</td>
+      <td>isopod</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>407</th>
+      <td>445</td>
+      <td>89</td>
+      <td>00</td>
+      <td>14</td>
+      <td>208.0</td>
+      <td>129.0</td>
+      <td>14.0</td>
+      <td>104.0</td>
+      <td>148.0</td>
+      <td>128.0</td>
+      <td>isopod</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>408</th>
+      <td>445</td>
+      <td>89</td>
+      <td>00</td>
+      <td>14</td>
+      <td>748.0</td>
+      <td>111.0</td>
+      <td>14.0</td>
+      <td>44.0</td>
+      <td>124.0</td>
+      <td>127.0</td>
+      <td>isopod</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+<p>409 rows × 13 columns</p>
+</div></div>
+</div>
+</div>
+<div class="section" id="Analyzing-tracking-results-with-trackpy">
+<h2>Analyzing tracking results with <code class="docutils literal notranslate"><span class="pre">trackpy</span></code><a class="headerlink" href="#Analyzing-tracking-results-with-trackpy" title="Permalink to this headline">¶</a></h2>
+<p>Now we can use the frame-wise coordinates to construct trajectories of isopods and fish. For this we will use the excellent <code class="docutils literal notranslate"><span class="pre">trackpy</span></code> library (<a class="reference external" href="http://soft-matter.github.io/trackpy/v0.4.2/">http://soft-matter.github.io/trackpy/v0.4.2/</a>). Trackpy is a Python package for particle tracking in 2D, 3D, and higher dimensions.</p>
+<p>Here you need to find out what works best for your specific case - the larger search_range or memory are, the more challenging it is for the algorithm to find a solution, especially if you have many moving objects in your video. With only one, it should be ok to go to high values. The filtering step is optional, but can be useful to eliminate spurious trajectories.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## fish trajectories</span>
+<span class="n">fish_df</span> <span class="o">=</span> <span class="n">coordinates</span><span class="p">[</span><span class="n">coordinates</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;fish&quot;</span> <span class="p">]</span> <span class="c1"># just use the fish-coordinates</span>
+<span class="n">traj_fish</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">link_df</span><span class="p">(</span><span class="n">fish_df</span><span class="p">,</span>
+                       <span class="n">search_range</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="c1">#how for to look for the fish in the next frame. can be large if fish swims fast</span>
+                       <span class="n">memory</span><span class="o">=</span><span class="mi">60</span><span class="p">,</span> <span class="c1"># how long can the fish sit still</span>
+                       <span class="n">neighbor_strategy</span><span class="o">=</span><span class="s2">&quot;KDTree&quot;</span><span class="p">,</span>
+                       <span class="n">link_strategy</span><span class="o">=</span><span class="s2">&quot;nonrecursive&quot;</span><span class="p">)</span>
+<span class="n">traj_fish_filter</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">filtering</span><span class="o">.</span><span class="n">filter_stubs</span><span class="p">(</span><span class="n">traj_fish</span><span class="p">,</span>
+                                             <span class="n">threshold</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span> <span class="c1"># filter out particles that were only found 20 times</span>
+
+<span class="c1">## plot</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">plot_traj</span><span class="p">(</span><span class="n">traj_fish_filter</span><span class="p">,</span>
+                    <span class="n">superimpose</span><span class="o">=</span><span class="n">mt</span><span class="o">.</span><span class="n">image</span><span class="p">)</span>
+<span class="n">fig1</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
+<span class="n">fig1</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_fish_trajectories.png&quot;</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Frame 89: 1 trajectories present.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/example_4_video_analysis_stickleback_17_1.png" src="_images/example_4_video_analysis_stickleback_17_1.png" />
+</div>
+</div>
+<p>For isopods, we perform one additional step: because we know that we have 20 isopds, we remove frames with more particles.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## isopod trajectories</span>
+<span class="n">df_isopod</span> <span class="o">=</span> <span class="n">coordinates</span><span class="p">[</span><span class="n">coordinates</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;isopod&quot;</span> <span class="p">]</span> <span class="c1"># just use the isopod-coordinates</span>
+<span class="n">df_isopod_filtered</span> <span class="o">=</span> <span class="n">df_isopod</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s2">&quot;frame&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># filter out frames with too many points</span>
+<span class="n">traj_isopod</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">df_isopod_filtered</span><span class="p">,</span>
+                      <span class="n">search_range</span> <span class="o">=</span> <span class="mi">50</span><span class="p">,</span> <span class="c1"># isopods are slow, so this can be small. especially important when using &quot;multiple&quot;</span>
+                      <span class="n">memory</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="c1"># isopods can sit still longer</span>
+                      <span class="n">neighbor_strategy</span><span class="o">=</span><span class="s2">&quot;KDTree&quot;</span><span class="p">,</span>
+                      <span class="n">link_strategy</span><span class="o">=</span><span class="s2">&quot;nonrecursive&quot;</span><span class="p">)</span>
+<span class="n">traj_isopod_filter</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">filtering</span><span class="o">.</span><span class="n">filter_stubs</span><span class="p">(</span><span class="n">traj_isopod</span><span class="p">,</span>
+                                               <span class="n">threshold</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># each particle needs to be found at least 10 times</span>
+
+<span class="c1">##p lot</span>
+<span class="n">plot</span> <span class="o">=</span> <span class="n">tp</span><span class="o">.</span><span class="n">plot_traj</span><span class="p">(</span><span class="n">traj_isopod_filter</span><span class="p">,</span> <span class="n">superimpose</span><span class="o">=</span><span class="n">mt</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="n">colorby</span><span class="o">=</span><span class="s2">&quot;particle&quot;</span><span class="p">)</span>
+<span class="n">fig1</span> <span class="o">=</span> <span class="n">plot</span><span class="o">.</span><span class="n">get_figure</span><span class="p">()</span>
+<span class="n">fig1</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_isopod_trajectories.png&quot;</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Frame 89: 5 trajectories present.
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/example_4_video_analysis_stickleback_19_1.png" src="_images/example_4_video_analysis_stickleback_19_1.png" />
+</div>
+</div>
+<p>Finally we save all trajectories into one DataFrame and export them into to the specified directory, so you can do fine tuning in your favorite data analysis program (e.g. R or in Python with Pandas).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1"># save all</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">traj_isopod_filter</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="n">traj_fish_filter</span><span class="p">),</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="n">mt</span><span class="o">.</span><span class="n">name</span> <span class="o">+</span> <span class="s2">&quot;_trajectories.csv&quot;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span>
+</pre></div>
+</div>
+</div>
 </div>
 </div>
 

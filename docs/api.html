@@ -1536,17 +1536,14 @@ class.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mode</strong> (<em>str</em><em> (</em><em>default: &quot;multiple&quot;</em><em>)</em>) – how many objects to track: “multiple”, or “single” (biggest by diameter)
 objects</p></li>
-<li><p><strong>operations</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;diameter&quot;</em><em>, </em><em>&quot;area&quot;</em><em>]</em><em>)</em>) – <p>determines the type of operations to be performed on the detected objects:</p>
-<ul>
-<li><p>”diameter” of the bounding circle of our object</p></li>
-<li><p>”area” within the contour of our object</p></li>
-<li><p>”grayscale” mean and standard deviation of grayscale pixel values</p></li>
-</ul>
-<p>inside the object contours
+<li><p><strong>operations</strong> (<em>list</em><em> (</em><em>default:</em><em> [</em><em>&quot;diameter&quot;</em><em>, </em><em>&quot;area&quot;</em><em>]</em><em>)</em>) – determines the type of operations to be performed on the detected objects:
+- “diameter” of the bounding circle of our object
+- “area” within the contour of our object
+- “grayscale” mean and standard deviation of grayscale pixel values
+inside the object contours
 - “grayscale_background” background within boundingbox of contour
 - “bgr” mean and standard deviation of blue, green and red pixel
-values inside the object contours</p>
-</p></li>
+values inside the object contours</p></li>
 <li><p><strong>blur</strong> (<em>tuple</em>) – blurring of fgbg-mask (kernel size, threshold [1-255])</p></li>
 <li><p><strong>min_length</strong> (<em>int</em><em> (</em><em>default: 1</em><em>)</em>) – minimum length in pixels for objects to be included</p></li>
 <li><p><strong>remove_shadows</strong> (<em>bool</em>) – remove shadows if shadow-detection is actived in MOG-algorithm</p></li>
