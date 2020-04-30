@@ -69,9 +69,9 @@ Examples
 			<a href="example_1_detect_objects_isopods.html">
 			<img src="_images/thumbs/ex1.jpg" alt="example_1_detect_objects_isopods" style="width:100%">
 			<b><p style="text-decoration: underline;">Detecting aquatic isopods</p></b>
-			<b>Organism:</b> waterlouse or sowbug<br>
-			<b>Species:</b> <i>Asellus aquaticus</i> <br>
-			<b>Traits:</b> size, pigmentation, body-shape <br>
+			<b>Organism: </b>waterlouse (or sowbug)<br>
+			<b>Species: </b><i>Asellus aquaticus</i> <br>
+			<b>Traits: </b>size, pigmentation, body-shape <br>
 			</a>
 			</div>
 		</div>
@@ -81,9 +81,9 @@ Examples
 			<a href="example_2_landmarks_stickleback.html">
 			<img src="_images/thumbs/ex2.jpg" alt="example_2_landmarks_stickleback" style="width:100%">
 			<b><p style="text-decoration: underline;">Placing landmarks</p></b>
-			<b>Organism:</b> threespine stickleback <br>
-			<b>Species:</b> <i>Gasterosteus aculeatus</i> <br>
-			<b>Traits:</b> landmarks, geometric morphometrics <br>
+			<b>Organism: </b>threespine stickleback <br>
+			<b>Species: </b><i>Gasterosteus aculeatus</i> <br>
+			<b>Traits: </b>landmarks, geometric morphometrics <br>
 			</a>
 			</div>
 		</div>
@@ -93,9 +93,9 @@ Examples
 			<a href="example_3_phytoplankton.html">
 			<img src="_images/thumbs/ex3.jpg" alt="example_3_phytoplankton" style="width:100%">
 			<b><p style="text-decoration: underline;">Detecting plankton cells</p></b>
-			<b>Organism:</b> phytoplankton <br>
-			<b>Species:</b> <i>community</i> <br>
-			<b>Traits:</b> pixel level intensity, shape-metrics <br>
+			<b>Organism: </b>phytoplankton <br>
+			<b>Species: </b><i>community</i> <br>
+			<b>Traits: </b>pixel level intensity, shape-metrics <br>
 			</a>
 			</div>
 		</div>
@@ -108,9 +108,9 @@ Examples
 			<a href="example_4_video_analysis_stickleback.html">
 			<img src="_images/thumbs/ex4.jpg" alt="example_4_video_analysis_stickleback" style="width:100%">
 			<b><p style="text-decoration: underline;">Recording predator prey interactions</p></b>
-			<b>Organism:</b> stickleback and isopods <br>
-			<b>Species:</b> <i>G. aculeatus, A. aquaticus</i> <br>
-			<b>Traits:</b> movement, size <br>
+			<b>Organism: </b>stickleback and isopods <br>
+			<b>Species: </b><i>G. aculeatus, A. aquaticus</i> <br>
+			<b>Traits: </b>movement, size <br>
 			</a>
 			</div>
 		</div>
@@ -120,9 +120,9 @@ Examples
 			<a href="example_5_shape_stickleback.html">
 			<img src="_images/thumbs/ex5.jpg" alt="example_5_shape_stickleback" style="width:100%">
 			<b><p style="text-decoration: underline;">Measuring armor plate area</p></b>
-			<b>Organism:</b> threespine stickleback <br>
-			<b>Species:</b> <i>G. aculeatus</i> <br>
-			<b>Traits:</b> counting armor plates; shape and size<br>
+			<b>Organism: </b>threespine stickleback <br>
+			<b>Species: </b><i>G. aculeatus</i> <br>
+			<b>Traits: </b>counting armor plates; shape and size<br>
 			</a>
 			</div>
 		</div>
@@ -132,9 +132,9 @@ Examples
 			<a href="example_6_counting_snails.html">
 			<img src="_images/thumbs/ex6.jpg" alt="example_6_counting_snails" style="width:100%">
 			<b><p style="text-decoration: underline;">Counting snails</p></b>
-			<b>Organism:</b> New Zealand mud snail <br>
-			<b>Species:</b> <i>Potamopyrgus antipodarum</i> <br>
-			<b>Traits:</b> size (area), abundance<br>
+			<b>Organism: </b>New Zealand mud snail <br>
+			<b>Species: </b><i>Potamopyrgus antipodarum</i> <br>
+			<b>Traits: </b>size (area), abundance<br>
 			</a>
 			</div>
 		</div>
@@ -148,9 +148,9 @@ Examples
 			<a href="example_7_worm_length.html">
 			<img src="_images/thumbs/ex7.jpg" alt="example_7_worm_length" style="width:100%">
 			<b><p style="text-decoration: underline;">Measuring length-width ratios in worms</p></b>
-			<b>Organism:</b>California blackworm<br>
-			<b>Species:</b> <i>Lumbriculus variegatus</i> <br>
-			<b>Traits:</b> length, width, area<br>
+			<b>Organism: </b>California blackworm<br>
+			<b>Species: </b><i>Lumbriculus variegatus</i> <br>
+			<b>Traits: </b>length, width, area<br>
 			</a>
 			</div>
 		</div>
