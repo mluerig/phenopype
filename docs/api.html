@@ -65,7 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype (prototyping, low throughput, high throughput)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
-<li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide actions (e.g. size and colour reference)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
 </ul>
@@ -281,7 +281,7 @@ all similar named files after their first occurrence.</p></li>
 
 <dl class="method">
 <dt id="phenopype.main.project.add_config">
-<code class="sig-name descname">add_config</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">config_preset='preset1'</em>, <em class="sig-param">interactive=False</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">idx=0</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.add_config" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_config</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">config_preset=None</em>, <em class="sig-param">interactive=False</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">idx=0</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.add_config" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add pype configuration presets to all image folders in the project, either by using
 the templates included in the presets folder, or by adding your own templates
 by providing a path to a yaml file. Can be tested and modified using the
@@ -316,6 +316,24 @@ attributes files in the project directories</p></li>
 <li><p><strong>template</strong> (<em>bool</em><em>, </em><em>optional</em>) – should a template for scale detection be created. with an existing
 template, phenopype can try to find a reference card in a given image,
 measure its dimensions, and adjust pixel-to-mm-ratio and colour space</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="phenopype.main.project.collect_results">
+<code class="sig-name descname">collect_results</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">files=None</em>, <em class="sig-param">folder='results'</em>, <em class="sig-param">overwrite=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.collect_results" title="Permalink to this definition">¶</a></dt>
+<dd><p>Collect results (images or CSVs) from the entire data folder. Search by
+pype name (e.g. “v1”) and filter by filetypes (e.g. landmarks,
+contours or colours)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – name of the pype or save_suffix</p></li>
+<li><p><strong>files</strong> (<em>str</em><em> or </em><em>list</em><em>, </em><em>optional</em>) – filetypes to look for (e.g. landmarks, contours or colours)</p></li>
+<li><p><strong>folder</strong> (<em>str</em><em>, </em><em>optional</em>) – folder in the root directory where the results are stored</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – should the results be overwritten</p></li>
 </ul>
 </dd>
 </dl>
@@ -599,14 +617,14 @@ modified in settings</p></li>
 
 <dl class="function">
 <dt id="phenopype.utils.show_image">
-<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">show_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">max_dim=1200</em>, <em class="sig-param">position_reset=True</em>, <em class="sig-param">position_offset=25</em>, <em class="sig-param">window_aspect='free'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.show_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">show_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">max_dim=1200</em>, <em class="sig-param">position_reset=True</em>, <em class="sig-param">position_offset=25</em>, <em class="sig-param">window_aspect='free'</em>, <em class="sig-param">check=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.show_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show one or multiple images by providing path string or array or list of
 either.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>image</strong> (<em>str</em><em>, </em><em>array</em><em>, or </em><em>list</em>) – the image or list of images to be displayed. can be path to image
-(string), array-type, or list of strings or arrays</p></li>
+<li><p><strong>image</strong> (<em>array</em><em>, </em><em>list of arrays</em>) – the image or list of images to be displayed. can be array-type,
+or list or arrays</p></li>
 <li><p><strong>max_dim</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum dimension on either acis</p></li>
 <li><p><strong>window_aspect</strong> (<em>{&quot;fixed&quot;</em><em>, </em><em>&quot;free&quot;} str</em><em>, </em><em>optional</em>) – type of opencv window (“free” is resizeable)</p></li>
 <li><p><strong>position_reset</strong> (<em>bool</em><em>, </em><em>optional</em>) – flag whether image positions should be reset when reopening list of
@@ -614,6 +632,8 @@ images</p></li>
 <li><p><strong>position_offset</strong> (<em>int</em><em>, </em><em>optional</em>) – if image is list, the distance in pixels betweeen the positions of
 each newly opened window (only works in conjunction with
 “position_reset”)</p></li>
+<li><p><strong>check</strong> (<em>bool</em><em>, </em><em>optional</em>) – user input required when more than 10 images are opened at the same
+time</p></li>
 </ul>
 </dd>
 </dl>
@@ -880,7 +900,7 @@ exsting drawings be overwritten</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.segmentation.find_contours">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">find_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">approximation='simple'</em>, <em class="sig-param">retrieval='ext'</em>, <em class="sig-param">offset_coords=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">min_nodes=3</em>, <em class="sig-param">max_nodes=inf</em>, <em class="sig-param">min_area=0</em>, <em class="sig-param">max_area=inf</em>, <em class="sig-param">min_diameter=0</em>, <em class="sig-param">max_diameter=inf</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.find_contours" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">find_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">approximation='simple'</em>, <em class="sig-param">retrieval='ext'</em>, <em class="sig-param">offset_coords=(0</em>, <em class="sig-param">0)</em>, <em class="sig-param">min_nodes=3</em>, <em class="sig-param">max_nodes=inf</em>, <em class="sig-param">min_area=0</em>, <em class="sig-param">max_area=inf</em>, <em class="sig-param">min_diameter=0</em>, <em class="sig-param">max_diameter=inf</em>, <em class="sig-param">subset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.find_contours" title="Permalink to this definition">¶</a></dt>
 <dd><p>Find objects in binarized image. The input image needs to be a binarized image
 or a container on which a binarizing segmentation algorithm (e.g. threshold or
 watershed) has been performed. A flavor of different approximation algorithms
@@ -916,6 +936,7 @@ two-level hierarchy (parent and child)</p></li>
 </dl>
 </p></li>
 <li><p><strong>offset_coords</strong> (<em>tuple</em><em>, </em><em>optional</em>) – offset by which every contour point is shifted.</p></li>
+<li><p><strong>subset</strong> (<em>{&quot;parent&quot;</em><em>, </em><em>&quot;child&quot;} str</em><em>, </em><em>optional</em>) – retain only a subset of the parent-child order structure</p></li>
 <li><p><strong>min_nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – minimum number of coordinates</p></li>
 <li><p><strong>max_nodes</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum number of coordinates</p></li>
 <li><p><strong>min_area</strong> (<em>int</em><em>, </em><em>optional</em>) – minimum contour area in pixels</p></li>
@@ -1075,7 +1096,7 @@ should existing landmarks be overwritten</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.measurement.colour_intensity">
-<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">colour_intensity</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">channels='gray'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.colour_intensity" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">colour_intensity</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">channels='gray'</em>, <em class="sig-param">background=False</em>, <em class="sig-param">background_ext=20</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.colour_intensity" title="Permalink to this definition">¶</a></dt>
 <dd><p>Measures pixel values within the provided contours, either across all
 channels (“gray”) or for each channel separately (“rgb”). Measures mean
 and standard deviation</p>
@@ -1087,6 +1108,9 @@ and standard deviation</p>
 output DataFrame</p></li>
 <li><p><strong>df_contours</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – contains the contours</p></li>
 <li><p><strong>channels</strong> (<em>{&quot;gray&quot;</em><em>, </em><em>&quot;rgb&quot;} str</em><em>, </em><em>optional</em>) – for which channels should pixel intensity be measured</p></li>
+<li><p><strong>background</strong> (<em>bool</em><em>, </em><em>optional</em>) – measure the pixels of the background in an extended (background_ext)
+bounding box around the contour</p></li>
+<li><p><strong>background_ext</strong> (<em>in</em><em>, </em><em>optional</em>) – value in pixels by which the bounding box should be extended</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1100,7 +1124,7 @@ output DataFrame</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.measurement.polylines">
-<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">line_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.polylines" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">line_colour='blue'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.polylines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set points, draw a connected line between them, and measure its length.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1177,7 +1201,7 @@ array by default</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.visualization.draw_contours">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">offset_coords=None</em>, <em class="sig-param">label=True</em>, <em class="sig-param">fill=0.3</em>, <em class="sig-param">mark_holes=True</em>, <em class="sig-param">level=3</em>, <em class="sig-param">line_colour='green'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">skeleton=True</em>, <em class="sig-param">watershed=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_contours" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_contours=None</em>, <em class="sig-param">offset_coords=None</em>, <em class="sig-param">label=True</em>, <em class="sig-param">fill=0.3</em>, <em class="sig-param">mark_holes=True</em>, <em class="sig-param">level=3</em>, <em class="sig-param">line_colour='green'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">skeleton=True</em>, <em class="sig-param">watershed=False</em>, <em class="sig-param">bounding_box=False</em>, <em class="sig-param">bounding_box_ext=20</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_contours" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw contours and their labels onto a canvas. Can be filled or empty, offset
 coordinates can be supplied. This will also draw the skeleton, if the argument
 “skeleton=True” and the supplied “df_contour” contains a “skeleton_coords”
@@ -1200,6 +1224,8 @@ highlighted in red</p></li>
 <li><p><strong>label_width</strong> (<em>int</em><em>, </em><em>optional</em>) – contour label font thickness</p></li>
 <li><p><strong>watershed</strong> (<em>bool</em><em>, </em><em>optional</em>) – indicates if a watershed-procedure has been performed. formats the
 coordinate colours accordingly (excludes “mark_holes option”)</p></li>
+<li><p><strong>bounding_box</strong> (<em>bool</em><em>, </em><em>optional</em>) – draw bounding box around the contour</p></li>
+<li><p><strong>bounding_box_ext</strong> (<em>in</em><em>, </em><em>optional</em>) – value in pixels by which the bounding box should be extended</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -1325,7 +1351,7 @@ original size).</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.export.save_contours">
-<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">convert_coords=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_contours" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.export.</code><code class="sig-name descname">save_contours</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=True</em>, <em class="sig-param">dirpath=None</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">save_coords=True</em>, <em class="sig-param">convert_coords=True</em>, <em class="sig-param">subset=None</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.export.save_contours" title="Permalink to this definition">¶</a></dt>
 <dd><p>Save contour coordinates and features to csv. This also saves skeletonization
 ouput if the data is contained in the provided DataFrame.</p>
 <dl class="field-list simple">
@@ -1335,7 +1361,9 @@ ouput if the data is contained in the provided DataFrame.</p>
 <li><p><strong>overwrite</strong> (<em>bool optional</em>) – overwrite csv if it already exists</p></li>
 <li><p><strong>dirpath</strong> (<em>str</em><em>, </em><em>optional</em>) – location to save df</p></li>
 <li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename</p></li>
+<li><p><strong>save_coords</strong> (<em>bool</em><em>, </em><em>optional</em>) – save the contour coordinates</p></li>
 <li><p><strong>convert_coords</strong> (<em>bool</em><em>, </em><em>optional</em>) – convert the coordinates from array to x and y column</p></li>
+<li><p><strong>subset</strong> (<em>{&quot;parent&quot;</em><em>, </em><em>&quot;child&quot;} str</em><em>, </em><em>optional</em>) – save only a subset of the parent-child order structure</p></li>
 </ul>
 </dd>
 </dl>

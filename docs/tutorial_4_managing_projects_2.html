@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Tutorial 4: Project wide variables (e.g. size and colour reference) &#8212; phenopype 1.0.3 documentation</title>
+    <title>Tutorial 4: Project wide actions (e.g. size and colour reference) &#8212; phenopype 1.0.3 documentation</title>
     <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -65,7 +65,7 @@
 <li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype (prototyping, low throughput, high throughput)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 4: Project wide variables (e.g. size and colour reference)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 4: Project wide actions (e.g. size and colour reference)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
 </ul>
@@ -81,10 +81,11 @@
   <ul class="dropdown-menu localtoc"
       role="menu"
       aria-labelledby="dLabelLocalToc"><ul>
-<li><a class="reference internal" href="#">Tutorial 4: Project wide variables (e.g. size and colour reference)</a><ul>
+<li><a class="reference internal" href="#">Tutorial 4: Project wide actions (e.g. size and colour reference)</a><ul>
 <li><a class="reference internal" href="#Load-project">Load project</a></li>
 <li><a class="reference internal" href="#Create-reference-template">Create reference template</a></li>
 <li><a class="reference internal" href="#Find-scale-in-high-throughput-workflow">Find scale in high throughput workflow</a></li>
+<li><a class="reference internal" href="#Collect-results">Collect results</a></li>
 </ul>
 </li>
 </ul>
@@ -134,10 +135,11 @@
   <div class="row">
       <div class="col-md-3">
         <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
-<li><a class="reference internal" href="#">Tutorial 4: Project wide variables (e.g. size and colour reference)</a><ul>
+<li><a class="reference internal" href="#">Tutorial 4: Project wide actions (e.g. size and colour reference)</a><ul>
 <li><a class="reference internal" href="#Load-project">Load project</a></li>
 <li><a class="reference internal" href="#Create-reference-template">Create reference template</a></li>
 <li><a class="reference internal" href="#Find-scale-in-high-throughput-workflow">Find scale in high throughput workflow</a></li>
+<li><a class="reference internal" href="#Collect-results">Collect results</a></li>
 </ul>
 </li>
 </ul>
@@ -366,8 +368,8 @@ div.rendered_html tbody tr:hover {
   background: rgba(66, 165, 245, 0.2);
 }
 </style>
-<div class="section" id="Tutorial-4:-Project-wide-variables-(e.g. size-and-colour-reference)">
-<h1>Tutorial 4: Project wide variables (e.g. size and colour reference)<a class="headerlink" href="#Tutorial-4:-Project-wide-variables-(e.g. size-and-colour-reference)" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="Tutorial-4:-Project-wide-actions-(e.g. size-and-colour-reference)">
+<h1>Tutorial 4: Project wide actions (e.g. size and colour reference)<a class="headerlink" href="#Tutorial-4:-Project-wide-actions-(e.g. size-and-colour-reference)" title="Permalink to this headline">¶</a></h1>
 <p>Unless images are taken in a highly standardized environment, e.g. via a scanner or a microscope, variation will be introduced in terms of exposure or distance between camera and photographed object, zooming, etc. To compensate this variation among images within and across datasets, Phenopype contains some preprocessing tools that can automatically correct images.</p>
 <div class="section" id="Load-project">
 <h2>Load project<a class="headerlink" href="#Load-project" title="Permalink to this headline">¶</a></h2>
@@ -663,7 +665,7 @@ histograms equalized
 <h2>Find scale in high throughput workflow<a class="headerlink" href="#Find-scale-in-high-throughput-workflow" title="Permalink to this headline">¶</a></h2>
 <p>These operations are of course also possible in the fly as part of the high throughput workflow. For this we just add a new configuration file that contains the <code class="docutils literal notranslate"><span class="pre">find_scale</span></code> instruction. However, we need to switch to interactive configuration mode, and add the <code class="docutils literal notranslate"><span class="pre">equalize:</span> <span class="pre">true</span></code> string:</p>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -679,51 +681,19 @@ histograms equalized
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-pype config generated from landmarks_scale.
-E:\git_repos\phenopype\_temp\my_project\phenopype\pype_config_template-lm2.yaml
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-1-fd67495ea407&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> myproj.add_config(name = &#34;lm2&#34;,
+</span><span class="ansi-green-fg">      2</span>                   config_preset<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;landmarks_scale&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">      3</span>                   overwrite<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">      4</span>                   interactive=True)
 
-
-------------+++ new pype iteration 2020:04:20 20:29:47 +++--------------
-
-
-PREPROCESSING
-find_scale
-- scale information missing - abort
-preprocessing.find_scale: UnboundLocalError - local variable &#39;scale_current_px_mm_ratio&#39; referenced before assignment
-MEASUREMENT
-landmarks
-- setting landmarks
-- terminated polyline creation
-RESTART
-
-
-------------+++ new pype iteration 2020:04:20 20:29:54 +++--------------
-
-
-PREPROCESSING
-find_scale
-- scale information missing - abort
-preprocessing.find_scale: UnboundLocalError - local variable &#39;rect_new&#39; referenced before assignment
-MEASUREMENT
-landmarks
-- setting landmarks
-VISUALIZATION
-NoneType
-- modifed image
-- autoselect canvas
-draw_landmarks
-ndarray
-draw_masks
-
-
-TERMINATE
-pype_lm2.yaml created for 0__stickle1 (overwritten)
-pype_lm2.yaml created for 0__stickle2 (overwritten)
-pype_lm2.yaml created for 0__stickle3 (overwritten)
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
 </div>
 <div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -738,137 +708,30 @@ pype_lm2.yaml created for 0__stickle3 (overwritten)
 </div>
 <div class="output_area docutils container">
 <div class="highlight"><pre>
-E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle1\pype_config_lm2.yaml
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-2-21834d2215b4&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">for</span> directory <span class="ansi-green-intense-fg ansi-bold">in</span> myproj<span class="ansi-yellow-intense-fg ansi-bold">.</span>dirpaths<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">      2</span>     p1 = pp.pype(directory,
+<span class="ansi-green-fg">      3</span>            name=&#34;lm2&#34;)
 
-
-------------+++ new pype iteration 2020:04:20 20:29:59 +++--------------
-
-
-AUTOLOAD
-- template scale information loaded from attributes.yaml
-- template loaded from root directory
-- landmarks_lm2.csv
-- masks_lm2.csv
-PREPROCESSING
-find_scale
----------------------------------------------------
-Reference card found with 243 keypoint matches:
-template image has 35 pixel per mm.
-current image has 33.8 pixel per mm.
-= 96.71 % of template image.
----------------------------------------------------
-histograms equalized
-MEASUREMENT
-landmarks
-- landmarks already set (overwrite=False)
-VISUALIZATION
-NoneType
-- modifed image
-- autoselect canvas
-draw_landmarks
-ndarray
-draw_masks
- - show mask: scale.
-EXPORT
-save_landmarks
-- landmarks saved under E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle1\landmarks_lm2.csv (overwritten).
-save_masks
-- masks saved under E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle1\masks_lm2.csv (overwritten).
-AUTOSAVE
-save_canvas
-- canvas saved under E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle1\canvas_lm2.jpg (overwritten).
-save_scale
-- save scale to attributes
-
-
-TERMINATE
-E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle2\pype_config_lm2.yaml
-
-
-------------+++ new pype iteration 2020:04:20 20:30:02 +++--------------
-
-
-AUTOLOAD
-- template scale information loaded from attributes.yaml
-- template loaded from root directory
-- landmarks_lm2.csv
-- masks_lm2.csv
-PREPROCESSING
-find_scale
----------------------------------------------------
-Reference card found with 217 keypoint matches:
-template image has 35 pixel per mm.
-current image has 33.8 pixel per mm.
-= 96.703 % of template image.
----------------------------------------------------
-histograms equalized
-MEASUREMENT
-landmarks
-- landmarks already set (overwrite=False)
-VISUALIZATION
-NoneType
-- modifed image
-- autoselect canvas
-draw_landmarks
-ndarray
-draw_masks
- - show mask: scale.
-EXPORT
-save_landmarks
-- landmarks saved under E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle2\landmarks_lm2.csv (overwritten).
-save_masks
-- masks saved under E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle2\masks_lm2.csv (overwritten).
-AUTOSAVE
-save_canvas
-- canvas saved under E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle2\canvas_lm2.jpg (overwritten).
-save_scale
-- save scale to attributes
-
-
-TERMINATE
-E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle3\pype_config_lm2.yaml
-
-
-------------+++ new pype iteration 2020:04:20 20:30:04 +++--------------
-
-
-AUTOLOAD
-- template scale information loaded from attributes.yaml
-- template loaded from root directory
-PREPROCESSING
-find_scale
----------------------------------------------------
-Reference card found with 244 keypoint matches:
-template image has 35 pixel per mm.
-current image has 33.9 pixel per mm.
-= 96.781 % of template image.
----------------------------------------------------
-histograms equalized
-MEASUREMENT
-landmarks
-- setting landmarks
-VISUALIZATION
-NoneType
-- modifed image
-- autoselect canvas
-draw_landmarks
-ndarray
-draw_masks
- - show mask: scale.
-EXPORT
-save_landmarks
-- landmarks saved under E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle3\landmarks_lm2.csv.
-save_masks
-- masks saved under E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle3\masks_lm2.csv.
-AUTOSAVE
-save_canvas
-- canvas saved under E:\git_repos\phenopype\_temp\my_project\phenopype\data/0__stickle3\canvas_lm2.jpg.
-save_scale
-- save scale to attributes
-
-
-TERMINATE
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
 </pre></div></div>
+</div>
+</div>
+<div class="section" id="Collect-results">
+<h2>Collect results<a class="headerlink" href="#Collect-results" title="Permalink to this headline">¶</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">collect_results</span></code> one can search the project folder for results, and copy them to a folder in the root directory (“results” is the default, but can be changed).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">collect_results</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;lm2&quot;</span><span class="p">,</span>          <span class="c1"># these two arguments create the search string for &quot;landmarks_lm2.csv&quot;</span>
+                       <span class="n">files</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;landmarks&quot;</span><span class="p">],</span> <span class="c1">#</span>
+                       <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
