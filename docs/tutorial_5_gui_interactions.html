@@ -84,11 +84,7 @@
 <li><a class="reference internal" href="#">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a><ul>
 <li><a class="reference internal" href="#Show-images">Show images</a></li>
 <li><a class="reference internal" href="#Create-masks">Create masks</a></li>
-<<<<<<< HEAD
-<li><a class="reference internal" href="#Draw-lines">Draw lines</a></li>
-=======
 <li><a class="reference internal" href="#Landmarks,-lines,-and-drawings">Landmarks, lines, and drawings</a></li>
->>>>>>> master
 <li><a class="reference internal" href="#Data-entry">Data entry</a></li>
 </ul>
 </li>
@@ -142,11 +138,7 @@
 <li><a class="reference internal" href="#">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a><ul>
 <li><a class="reference internal" href="#Show-images">Show images</a></li>
 <li><a class="reference internal" href="#Create-masks">Create masks</a></li>
-<<<<<<< HEAD
-<li><a class="reference internal" href="#Draw-lines">Draw lines</a></li>
-=======
 <li><a class="reference internal" href="#Landmarks,-lines,-and-drawings">Landmarks, lines, and drawings</a></li>
->>>>>>> master
 <li><a class="reference internal" href="#Data-entry">Data entry</a></li>
 </ul>
 </li>
@@ -393,8 +385,6 @@ div.rendered_html tbody tr:hover {
 </div>
 <p>Currently Phenopype uses the standard GUI libraries that ship with the most recent precompiled <code class="docutils literal notranslate"><span class="pre">opencv-contrib-python</span></code> that are listed on the <a class="reference external" href="https://pypi.org/project/opencv-python/">Python package index</a>, which is <code class="docutils literal notranslate"><span class="pre">Qt</span></code> for Linux and macOS, and <code class="docutils literal notranslate"><span class="pre">Win32</span> <span class="pre">UI</span></code> on Windows. The <code class="docutils literal notranslate"><span class="pre">Qt</span></code> GUI is a bit more userfriendly with builtin buttons, scrollbars, RGB info and zoom (<a class="reference external" href="https://docs.opencv.org/master/dc/d46/group__highgui__qt.html">see the OpenCV docs</a>), but you don’t actually need those
 things for Phenopype GUI interactions.</p>
-<<<<<<< HEAD
-=======
 <p><strong>Notes regarding High GUI windows in Phenopype</strong></p>
 <ul class="simple">
 <li><p>If you want to close a High GUI window, use <code class="docutils literal notranslate"><span class="pre">Enter</span></code></p></li>
@@ -405,16 +395,13 @@ things for Phenopype GUI interactions.</p>
 <div class="section" id="Show-images">
 <h2>Show images<a class="headerlink" href="#Show-images" title="Permalink to this headline">¶</a></h2>
 <p>To show an image, it first has to be loaded as an array using <code class="docutils literal notranslate"><span class="pre">load_image</span></code>. The array can then be passed on to <code class="docutils literal notranslate"><span class="pre">show_image</span></code>, which simply displays an image (no interactions, except zooming in using the mousewheel). The window is closed by keystroke (<code class="docutils literal notranslate"><span class="pre">Enter</span></code>, or <code class="docutils literal notranslate"><span class="pre">Esc</span></code> which closes the window and ends ongoing processes).</p>
->>>>>>> master
 <div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
 <span class="kn">import</span> <span class="nn">os</span>
-<<<<<<< HEAD
-=======
 </pre></div>
 </div>
 </div>
@@ -745,7 +732,6 @@ things for Phenopype GUI interactions.</p>
 </div>
 <div class="nbinput nblast docutils container">
 <div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
->>>>>>> master
 </pre></div>
 </div>
 <div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
@@ -753,78 +739,6 @@ things for Phenopype GUI interactions.</p>
 </pre></div>
 </div>
 </div>
-</div>
-<div class="section" id="Show-images">
-<h2>Show images<a class="headerlink" href="#Show-images" title="Permalink to this headline">¶</a></h2>
-<p>To show an image, it first has to be loaded as an array using <code class="docutils literal notranslate"><span class="pre">load_image</span></code>. The array can then be passed on to <code class="docutils literal notranslate"><span class="pre">show_image</span></code>, which simply displays an image (no interactions, except zooming in using the mousewheel).</p>
-<div class="nbinput nblast docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">img</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;images/stickle1.jpg&quot;</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">img</span><span class="p">,</span>
-              <span class="n">window_aspect</span><span class="o">=</span><span class="s2">&quot;free&quot;</span> <span class="c1"># resize the window</span>
-             <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<p>However, <code class="docutils literal notranslate"><span class="pre">show_image</span></code> can also handle multiple arrays. Here we loop through the <em>images</em> folder, attach all images to a list, and pass that list of arrays to the functions - it will give a warning if more than 10 images are being opened at the same time.</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">img_list</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">):</span>
-    <span class="n">img</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">,</span><span class="n">i</span><span class="p">))</span>
-    <span class="n">img_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
-<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">img_list</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-could not load file of type .mp4: isopods_fish.mp4
-WARNING: trying to open 11 images - proceed (y/n)?y
-Proceed - Opening images ...
-skipped showing list item of type NoneType
-</pre></div></div>
-</div>
-<p>The function has a few more options:</p>
-<div class="nbinput docutils container">
-<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
-</pre></div>
-</div>
-<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
-<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">img_list</span><span class="p">,</span>
-              <span class="n">max_dim</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>           <span class="c1"># maximu dimension (in either direction) for the windows</span>
-              <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>           <span class="c1"># don&#39;t issue warning if more than 10 images are opened</span>
-              <span class="n">position_offset</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>    <span class="c1"># window offset if multiple windows are displayed</span>
-              <span class="n">position_reset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># don&#39;t reset position of windows (i.e. window position will be remembered)</span>
-</pre></div>
-</div>
-</div>
-<div class="nboutput nblast docutils container">
-<div class="prompt empty docutils container">
-</div>
-<div class="output_area docutils container">
-<div class="highlight"><pre>
-skipped showing list item of type NoneType
-</pre></div></div>
-</div>
-</div>
-<div class="section" id="Create-masks">
-<h2>Create masks<a class="headerlink" href="#Create-masks" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="Draw-lines">
-<h2>Draw lines<a class="headerlink" href="#Draw-lines" title="Permalink to this headline">¶</a></h2>
-</div>
-<div class="section" id="Data-entry">
-<h2>Data entry<a class="headerlink" href="#Data-entry" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
