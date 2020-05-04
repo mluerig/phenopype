@@ -214,7 +214,7 @@ by side. The project root folder should be separate from the raw data, e.g. as a
 <p class="admonition-title">Important</p>
 <p>Currently the only useful information contained in the project object (<code class="code docutils literal notranslate"><span class="pre">myproj</span></code>) is a list of all directories inside the
 project’s directory tree. It is important to save <cite>both</cite> the project AND all results in the data directories using the appropriate
-functions in (<a class="reference internal" href="#module-phenopype.core.export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
+functions in (<a class="reference internal" href="example_1_detect_objects_isopods.html#Export"><span class="std std-ref">Export</span></a>). Future release will expand the functionality of the project class and its associated methods.</p>
 </div>
 <dl class="class">
 <dt id="phenopype.main.project">
@@ -618,7 +618,11 @@ modified in settings</p></li>
 
 <dl class="function">
 <dt id="phenopype.utils.show_image">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">show_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">max_dim=1200</em>, <em class="sig-param">position_reset=True</em>, <em class="sig-param">position_offset=25</em>, <em class="sig-param">window_aspect='free'</em>, <em class="sig-param">check=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.show_image" title="Permalink to this definition">¶</a></dt>
+=======
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">show_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">max_dim=1000</em>, <em class="sig-param">position_reset=True</em>, <em class="sig-param">position_offset=25</em>, <em class="sig-param">window_aspect='free'</em>, <em class="sig-param">check=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.show_image" title="Permalink to this definition">¶</a></dt>
+>>>>>>> master
 <dd><p>Show one or multiple images by providing path string or array or list of
 either.</p>
 <dl class="field-list simple">
@@ -675,7 +679,11 @@ contours must be supplied, whereas a container already includes both).</p>
 <span id="preprocessing"></span><h3>Preprocessing<a class="headerlink" href="#module-phenopype.core.preprocessing" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="phenopype.core.preprocessing.create_mask">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">include=True</em>, <em class="sig-param">label='mask1'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='rectangle'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
+=======
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">include=True</em>, <em class="sig-param">label='mask1'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='rectangle'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
+>>>>>>> master
 <dd><p>Draw rectangle or polygon mask onto image by clicking and dragging the
 cursor over the image. One mask can contain multiple sets of coordinates,
 i.e. multiple and not overallping masks. For rectangle mask, finish with
@@ -686,6 +694,8 @@ ENTER. For polygons, finish current polygon with CTRL, and then with ENTER.</p>
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
 <li><p><strong>df_image_data</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing image metadata, will be added to mask
 output DataFrame</p></li>
+<li><p><strong>df_masks</strong> (<em>DataFrame</em><em>, </em><em>optional</em>) – an existing DataFrame containing mask data. new masks will be added,
+existing mask with the same label can be overwritten</p></li>
 <li><p><strong>include</strong> (<em>bool</em><em>, </em><em>optional</em>) – determine whether resulting mask is to include or exclude objects within</p></li>
 <li><p><strong>label</strong> (<em>str</em><em>, </em><em>optinal</em>) – assigns a label to the mask</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>optional</em>) – if working using a container, or from a phenopype project directory,
@@ -1126,7 +1136,11 @@ bounding box around the contour</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.measurement.polylines">
+<<<<<<< HEAD
 <code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">line_colour='blue'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.polylines" title="Permalink to this definition">¶</a></dt>
+=======
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">line_colour='blue'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.polylines" title="Permalink to this definition">¶</a></dt>
+>>>>>>> master
 <dd><p>Set points, draw a connected line between them, and measure its length.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1266,7 +1280,7 @@ coordinate colours accordingly (excludes “mark_holes option”)</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.visualization.draw_masks">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_masks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">select=None</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">line_colour='blue'</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">label=False</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_masks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_masks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">select=None</em>, <em class="sig-param">df_masks=None</em>, <em class="sig-param">line_colour='blue'</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">label=False</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">fill=0</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_masks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw masks into an image. This function is also used to draw the perimeter
 of a created or detected reference scale card.</p>
 <dl class="field-list simple">
@@ -1293,7 +1307,7 @@ of a created or detected reference scale card.</p>
 
 <dl class="function">
 <dt id="phenopype.core.visualization.draw_polylines">
-<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">line_colour='blue'</em>, <em class="sig-param">line_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_polylines" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.visualization.</code><code class="sig-name descname">draw_polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_polylines=None</em>, <em class="sig-param">line_colour='blue'</em>, <em class="sig-param">line_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.visualization.draw_polylines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw polylines onto an image.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
