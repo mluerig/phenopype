@@ -304,7 +304,7 @@ compatible yaml file</p></li>
 
 <dl class="method">
 <dt id="phenopype.main.project.add_scale">
-<code class="sig-name descname">add_scale</code><span class="sig-paren">(</span><em class="sig-param">reference_image</em>, <em class="sig-param">overwrite=False</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.add_scale" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">add_scale</code><span class="sig-paren">(</span><em class="sig-param">reference_image</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.main.project.add_scale" title="Permalink to this definition">¶</a></dt>
 <dd><p>Add pype configuration presets to all project directories.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -506,7 +506,7 @@ has been saved so far, and will try</p></li>
 
 <dl class="function">
 <dt id="phenopype.utils.load_directory">
-<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_directory</code><span class="sig-paren">(</span><em class="sig-param">directory_path</em>, <em class="sig-param">cont=True</em>, <em class="sig-param">df=True</em>, <em class="sig-param">meta=True</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_directory" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">load_directory</code><span class="sig-paren">(</span><em class="sig-param">directory_path</em>, <em class="sig-param">cont=True</em>, <em class="sig-param">df=True</em>, <em class="sig-param">meta=True</em>, <em class="sig-param">resize=1</em>, <em class="sig-param">save_suffix=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.load_directory" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -520,6 +520,7 @@ be returned.</p></li>
 This works only when obj_input is a path string to the original file.</p></li>
 <li><p><strong>resize</strong> (<em>float</em><em>, </em><em>optional</em>) – resize factor for the image (1 = 100%, 0.5 = 50%, 0.1 = 10% of
 original size).</p></li>
+<li><p><strong>save_suffix</strong> (<em>str</em><em>, </em><em>optional</em>) – suffix to append to filename of results files</p></li>
 <li><p><strong>kwargs</strong> – developer options</p></li>
 </ul>
 </dd>
@@ -617,7 +618,7 @@ modified in settings</p></li>
 
 <dl class="function">
 <dt id="phenopype.utils.show_image">
-<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">show_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">max_dim=1200</em>, <em class="sig-param">position_reset=True</em>, <em class="sig-param">position_offset=25</em>, <em class="sig-param">window_aspect='free'</em>, <em class="sig-param">check=True</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.show_image" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.utils.</code><code class="sig-name descname">show_image</code><span class="sig-paren">(</span><em class="sig-param">image</em>, <em class="sig-param">max_dim=1200</em>, <em class="sig-param">position_reset=True</em>, <em class="sig-param">position_offset=25</em>, <em class="sig-param">window_aspect='free'</em>, <em class="sig-param">check=True</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.utils.show_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Show one or multiple images by providing path string or array or list of
 either.</p>
 <dl class="field-list simple">
@@ -674,7 +675,7 @@ contours must be supplied, whereas a container already includes both).</p>
 <span id="preprocessing"></span><h3>Preprocessing<a class="headerlink" href="#module-phenopype.core.preprocessing" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="phenopype.core.preprocessing.create_mask">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">include=True</em>, <em class="sig-param">label='mask1'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='rectangle'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">create_mask</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">include=True</em>, <em class="sig-param">label='mask1'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='rectangle'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.create_mask" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw rectangle or polygon mask onto image by clicking and dragging the
 cursor over the image. One mask can contain multiple sets of coordinates,
 i.e. multiple and not overallping masks. For rectangle mask, finish with
@@ -745,7 +746,7 @@ one</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.preprocessing.enter_data">
-<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">enter_data</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">columns='ID'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">label_colour='red'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.enter_data" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.preprocessing.</code><code class="sig-name descname">enter_data</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">columns='ID'</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">label_colour='red'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.preprocessing.enter_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Generic data entry that can be added as columns to an existing DataFrame.
 Useful for images containing labels, or other comments.</p>
 <dl class="field-list simple">
@@ -875,7 +876,7 @@ original size).</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.segmentation.draw">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='line'</em>, <em class="sig-param">line_colour='black'</em>, <em class="sig-param">line_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.draw" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">draw</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">tool='line'</em>, <em class="sig-param">line_colour='black'</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.draw" title="Permalink to this definition">¶</a></dt>
 <dd><p>Draw lines, rectangles or polygons onto a colour or binary image. Can be
 used to connect. disconnect or erase contours.</p>
 <dl class="field-list simple">
@@ -1037,7 +1038,7 @@ value for the pixel (has to be odd - even numbers will be ceiled; for
 
 <dl class="function">
 <dt id="phenopype.core.segmentation.watershed">
-<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">watershed</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">iterations=3</em>, <em class="sig-param">kernel_size=3</em>, <em class="sig-param">distance_cutoff=0.5</em>, <em class="sig-param">distance_mask=0</em>, <em class="sig-param">distance_type='l1'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.watershed" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.segmentation.</code><code class="sig-name descname">watershed</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">image_thresh=None</em>, <em class="sig-param">iterations=3</em>, <em class="sig-param">kernel_size=3</em>, <em class="sig-param">distance_cutoff=0.5</em>, <em class="sig-param">distance_mask=0</em>, <em class="sig-param">distance_type='l1'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.segmentation.watershed" title="Permalink to this definition">¶</a></dt>
 <dd><p>Performs non-parametric marker-based segmentation - useful if many detected
 contours are touching or overlapping with each other. Input image should be
 a binary image that serves as the true background. Iteratively, edges are
@@ -1046,6 +1047,7 @@ eroded, the difference serves as markers.</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>obj_input</strong> (<em>array</em><em> or </em><a class="reference internal" href="#phenopype.utils.container" title="phenopype.utils.container"><em>container</em></a>) – input object</p></li>
+<li><p><strong>image_thresh</strong> (<em>array</em><em>, </em><em>optional</em>) – thresholded image n</p></li>
 <li><p><strong>kernel_size</strong> (<em>int</em><em>, </em><em>optional</em>) – size of the diff-kernel (has to be odd - even numbers will be ceiled)</p></li>
 <li><p><strong>iterations</strong> (<em>int</em><em>, </em><em>optional</em>) – number of times to apply diff-operation</p></li>
 <li><p><strong>distance_cutoff</strong> (<em>{between 0 and 1} float</em><em>, </em><em>optional</em>) – watershed distance transform cutoff (larger values discard more pixels)</p></li>
@@ -1068,7 +1070,7 @@ be coerced to 0)</p></li>
 <span id="measurement"></span><h3>Measurement<a class="headerlink" href="#module-phenopype.core.measurement" title="Permalink to this headline">¶</a></h3>
 <dl class="function">
 <dt id="phenopype.core.measurement.landmarks">
-<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">point_colour='green'</em>, <em class="sig-param">point_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_width='auto'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.landmarks" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">landmarks</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">point_colour='green'</em>, <em class="sig-param">point_size='auto'</em>, <em class="sig-param">label_colour='black'</em>, <em class="sig-param">label_size='auto'</em>, <em class="sig-param">label_width='auto'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.landmarks" title="Permalink to this definition">¶</a></dt>
 <dd><p>Place landmarks.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -1124,7 +1126,7 @@ bounding box around the contour</p></li>
 
 <dl class="function">
 <dt id="phenopype.core.measurement.polylines">
-<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">line_colour='blue'</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.polylines" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">phenopype.core.measurement.</code><code class="sig-name descname">polylines</code><span class="sig-paren">(</span><em class="sig-param">obj_input</em>, <em class="sig-param">df_image_data=None</em>, <em class="sig-param">overwrite=False</em>, <em class="sig-param">line_width='auto'</em>, <em class="sig-param">line_colour='blue'</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#phenopype.core.measurement.polylines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Set points, draw a connected line between them, and measure its length.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
