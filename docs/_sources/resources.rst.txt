@@ -1,0 +1,73 @@
+Additional resources
+====================
+
+Python
+------
+
+Philisophy and style
+
+- https://www.python.org/dev/peps/pep-0020/
+- https://www.python.org/dev/peps/pep-0008/
+
+Python intro 
+
+- https://docs.python-guide.org/
+
+Tutorials
+
+- https://docs.python.org/3/tutorial/ 
+- https://py-tutorial-de.readthedocs.io/de/python-3.3/ (German)
+
+Helpful questions on StackOverflow
+
+- https://stackoverflow.com/questions/155609/whats-the-difference-between-a-method-and-a-function
+- https://stackoverflow.com/questions/509211/understanding-slice-notation
+- https://stackoverflow.com/questions/1977362/how-to-create-module-wide-variables-in-python
+- https://stackoverflow.com/questions/448271/what-is-init-py-for
+- https://stackoverflow.com/questions/16476924/how-to-iterate-over-rows-in-a-dataframe-in-pandas
+
+YAML specifications
+
+- https://en.wikipedia.org/wiki/YAML
+- https://yaml.readthedocs.io/en/latest/overview.html
+- https://www.tutorialspoint.com/yaml/yaml_introduction.htm
+
+
+
+OpenCV
+------
+
+API doc and tutorials
+
+- https://docs.opencv.org/3.4.9/
+- https://docs.opencv.org/3.4.9/d6/d00/tutorial_py_root.html
+- https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_setup/py_intro/py_intro.html
+
+Examples
+
+- https://docs.opencv.org/3.4.9/pages.html
+- https://github.com/opencv/opencv/wiki
+
+Morphological operations
+
+- https://docs.opencv.org/3.4.9/d9/d61/tutorial_py_morphological_ops.html
+
+Computer vision
+---------------
+
+CV overview
+
+- https://medium.com/@vad710/computer-vision-for-busy-developers-6a7320222da
+- https://towardsdatascience.com/an-overview-of-computer-vision-1f75c2ab1b66
+
+Images as arrays
+
+- https://towardsdatascience.com/computer-vision-how-computer-handle-images-70a069174f99
+- https://towardsdatascience.com/understanding-images-with-skimage-python-b94d210afd23
+- http://scikit-image.org/docs/dev/user_guide/numpy_images.html
+- https://datacarpentry.org/image-processing/03-skimage-images/
+
+Image segmentation
+
+- https://www.analyticsvidhya.com/blog/2019/04/introduction-image-segmentation-techniques-python/
+- https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46?gi=f1ce21f63352

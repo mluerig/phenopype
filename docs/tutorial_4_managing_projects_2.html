@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Tutorial 4: Project wide actions (e.g. size and colour reference) &#8212; phenopype 1.0.4 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial 5: GUI interactions (masks, lines and drawing tools)" href="tutorial_5_gui_interactions.html" />
+    <link rel="prev" title="Tutorial 3: Setting up and managing phenopype projects" href="tutorial_3_managing_projects_1.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          phenopype</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.4</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/mluerig/phenopype">Phenopype on Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial_0.html">How to run the tutorials and examples using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype (prototyping, low throughput, high throughput)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 4: Project wide actions (e.g. size and colour reference)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Tutorial 4: Project wide actions (e.g. size and colour reference)</a><ul>
+<li><a class="reference internal" href="#Load-project">Load project</a></li>
+<li><a class="reference internal" href="#Create-reference-template">Create reference template</a></li>
+<li><a class="reference internal" href="#Find-scale-in-high-throughput-workflow">Find scale in high throughput workflow</a></li>
+<li><a class="reference internal" href="#Collect-results">Collect results</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="tutorial_3_managing_projects_1.html" title="Previous Chapter: Tutorial 3: Setting up and managing phenopype projects"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tutorial 3: S...</span>
+    </a>
+  </li>
+  <li>
+    <a href="tutorial_5_gui_interactions.html" title="Next Chapter: Tutorial 5: GUI interactions (masks, lines and drawing tools)"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tutorial 5: G... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/tutorial_4_managing_projects_2.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Tutorial 4: Project wide actions (e.g. size and colour reference)</a><ul>
+<li><a class="reference internal" href="#Load-project">Load project</a></li>
+<li><a class="reference internal" href="#Create-reference-template">Create reference template</a></li>
+<li><a class="reference internal" href="#Find-scale-in-high-throughput-workflow">Find scale in high throughput workflow</a></li>
+<li><a class="reference internal" href="#Collect-results">Collect results</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container,
+div.nbinput.container div.prompt,
+div.nbinput.container div.input_area,
+div.nbinput.container div[class*=highlight],
+div.nbinput.container div[class*=highlight] pre,
+div.nboutput.container,
+div.nboutput.container div.prompt,
+div.nboutput.container div.output_area,
+div.nboutput.container div[class*=highlight],
+div.nboutput.container div[class*=highlight] pre {
+    background: none;
+    border: none;
+    padding: 0 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    min-width: 5.5ex;
+    padding-top: 0.3rem;
+    padding-right: 0.3rem;
+    text-align: right;
+    flex: 0;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    background: #f5f5f5;
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 0.3rem;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Tutorial-4:-Project-wide-actions-(e.g. size-and-colour-reference)">
+<h1>Tutorial 4: Project wide actions (e.g. size and colour reference)<a class="headerlink" href="#Tutorial-4:-Project-wide-actions-(e.g. size-and-colour-reference)" title="Permalink to this headline">¶</a></h1>
+<p>Unless images are taken in a highly standardized environment, e.g. via a scanner or a microscope, variation will be introduced in terms of exposure or distance between camera and photographed object, zooming, etc. To compensate this variation among images within and across datasets, Phenopype contains some preprocessing tools that can automatically correct images.</p>
+<div class="section" id="Load-project">
+<h2>Load project<a class="headerlink" href="#Load-project" title="Permalink to this headline">¶</a></h2>
+<p>First we load the project we created in the last tutorial. If we haven’t done so, we should create a project:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># os.chdir(r&quot;/phenopype-master/tutorials&quot;)</span>
+
+<span class="n">proj_dir</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;../_temp/my_project/phenopype&quot;</span>
+
+
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">proj_dir</span><span class="p">):</span>
+    <span class="n">myproj</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">proj_dir</span><span class="p">)</span>     <span class="c1">## from /phenopype-master/tutorials</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="s2">&quot;../../../tutorials/images&quot;</span>
+    <span class="n">myproj</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">root_dir</span><span class="o">=</span><span class="n">proj_dir</span><span class="p">)</span>
+    <span class="n">myproj</span><span class="o">.</span><span class="n">add_files</span><span class="p">(</span><span class="n">image_dir</span><span class="o">=</span><span class="n">images</span><span class="p">,</span>
+                 <span class="n">include</span><span class="o">=</span><span class="s2">&quot;stickle&quot;</span><span class="p">,</span>
+                 <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;side&quot;</span><span class="p">,</span><span class="s2">&quot;top&quot;</span><span class="p">])</span>
+    <span class="n">myproj</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;lm&quot;</span><span class="p">,</span>
+                      <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;landmarks_plain&quot;</span><span class="p">)</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">myproj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--------------------------------------------
+Project loaded and current working directory changed to
+
+E:\git_repos\phenopype\_temp\my_project\phenopype
+--------------------------------------------
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Create-reference-template">
+<h2>Create reference template<a class="headerlink" href="#Create-reference-template" title="Permalink to this headline">¶</a></h2>
+<p>The reference image can be any image, but choose it carefully: if you plan on doing brightness and colour corrections, it should be in the middle of the distribution of all exposures and colours so corrections will not over-expose or over-saturate the images.</p>
+<p>We will use the image <code class="docutils literal notranslate"><span class="pre">stickleback_side.jpg</span></code> from the <code class="docutils literal notranslate"><span class="pre">image</span></code> folder in <code class="docutils literal notranslate"><span class="pre">tutorials</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">images</span> <span class="o">=</span> <span class="s2">&quot;../../../tutorials/images&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;isopods.jpg&#39;,
+ &#39;isopods_fish.mp4&#39;,
+ &#39;phytoplankton.jpg&#39;,
+ &#39;snail.jpg&#39;,
+ &#39;stickle1.JPG&#39;,
+ &#39;stickle2.JPG&#39;,
+ &#39;stickle3.JPG&#39;,
+ &#39;stickleback_side.jpg&#39;,
+ &#39;stickleback_top.jpg&#39;,
+ &#39;worms.jpg&#39;]
+</pre></div></div>
+</div>
+<p>Within a project, the reference image is set with the <code class="docutils literal notranslate"><span class="pre">add_scale</span></code> method of the project object: 1. click on two points inside the provided image 2. enter the distance (returns the pixel-to-mm-ratio) 3. drag a rectangle mask over the reference card</p>
+<p>The pixel-to-mm-ratio for reference image gets saved to every image included in the project, the mask is stored as a template for automatic scale detection with the <code class="docutils literal notranslate"><span class="pre">find_scale</span></code> function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">add_scale</span><span class="p">(</span><span class="n">reference_image</span><span class="o">=</span><span class="s2">&quot;../../../tutorials/images/stickleback_side.jpg&quot;</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- scale template saved under scale_template.jpg (overwritten).
+- measure pixel-to-mm-ratio
+Scale set
+- add column length
+Template selected
+- scale pixel-to-mm-ratio already measured (overwrite=False)
+added scale information to 0__stickle1 (overwritten)
+added scale information to 0__stickle2 (overwritten)
+added scale information to 0__stickle3 (overwritten)
+</pre></div></div>
+</div>
+<p>If we now load the first image in the phenopype directory folders (<code class="docutils literal notranslate"><span class="pre">(myproj.dirpaths[0]</span></code>), we retrieve the scale information we just collected:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">image</span><span class="p">,</span> <span class="n">df_img_data</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_directory</span><span class="p">(</span><span class="n">myproj</span><span class="o">.</span><span class="n">dirpaths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>  <span class="c1"># first directory in project folder</span>
+                                       <span class="n">df</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>             <span class="c1"># return DataFrame</span>
+                                       <span class="n">cont</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>          <span class="c1"># return as image, not as container (default)</span>
+<span class="n">df_img_data</span>
+
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename</th>
+      <th>width</th>
+      <th>height</th>
+      <th>size_ratio_original</th>
+      <th>template_px_mm_ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>stickle1.JPG</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>35</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>We then supply the image, the DataFrame containing <code class="docutils literal notranslate"><span class="pre">template_px_mm_ratio</span></code>, and the scale template to the <code class="docutils literal notranslate"><span class="pre">find_scale</span></code> function. The template mask is always stored in the root directory, which made the current Python working directory when a project is created or loaded. The function will return the updated image meta DataFrame, a mask dataframe containing the coordinates of the detected reference card, and the original image.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">templ</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;scale_template.jpg&quot;</span><span class="p">)</span>
+<span class="n">df_image_data</span><span class="p">,</span> <span class="n">masks</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">find_scale</span><span class="p">(</span><span class="n">image</span><span class="p">,</span>
+                                                          <span class="n">template</span><span class="o">=</span><span class="n">templ</span><span class="p">,</span>
+                                                          <span class="n">df_image_data</span> <span class="o">=</span> <span class="n">df_img_data</span><span class="p">)</span>
+<span class="n">df_image_data</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+---------------------------------------------------
+Reference card found with 243 keypoint matches:
+template image has 0    35
+Name: template_px_mm_ratio, dtype: int64 pixel per mm.
+current image has 0    33.8
+Name: template_px_mm_ratio, dtype: float64 pixel per mm.
+= 96.71 % of template image.
+---------------------------------------------------
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename</th>
+      <th>width</th>
+      <th>height</th>
+      <th>size_ratio_original</th>
+      <th>template_px_mm_ratio</th>
+      <th>current_px_mm_ratio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>stickle1.JPG</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>35</td>
+      <td>33.8</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">image</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+ - show mask: scale.
+</pre></div></div>
+</div>
+<p>If the scale contains colour information, you can also set the <code class="docutils literal notranslate"><span class="pre">equalize=True</span></code> flag. This will adjust the target image’s pixel-value-histogram (<a class="reference external" href="https://en.wikipedia.org/wiki/Image_histogram">https://en.wikipedia.org/wiki/Image_histogram</a>) to the histogram of the scale in the reference image, <strong>based on the values only inside the detected scale</strong>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_image_data</span><span class="p">,</span> <span class="n">masks</span><span class="p">,</span> <span class="n">image</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">find_scale</span><span class="p">(</span><span class="n">image</span><span class="p">,</span>
+                                                          <span class="n">template</span><span class="o">=</span><span class="n">templ</span><span class="p">,</span>
+                                                          <span class="n">df_image_data</span> <span class="o">=</span> <span class="n">df_img_data</span><span class="p">,</span>
+                                                          <span class="n">equalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+---------------------------------------------------
+Reference card found with 239 keypoint matches:
+template image has 0    35
+Name: template_px_mm_ratio, dtype: int64 pixel per mm.
+current image has 0    33.9
+Name: template_px_mm_ratio, dtype: float64 pixel per mm.
+= 96.764 % of template image.
+---------------------------------------------------
+histograms equalized
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Find-scale-in-high-throughput-workflow">
+<h2>Find scale in high throughput workflow<a class="headerlink" href="#Find-scale-in-high-throughput-workflow" title="Permalink to this headline">¶</a></h2>
+<p>These operations are of course also possible in the fly as part of the high throughput workflow. For this we just add a new configuration file that contains the <code class="docutils literal notranslate"><span class="pre">find_scale</span></code> instruction. However, we need to switch to interactive configuration mode, and add the <code class="docutils literal notranslate"><span class="pre">equalize:</span> <span class="pre">true</span></code> string:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;lm2&quot;</span><span class="p">,</span>
+                  <span class="n">config_preset</span><span class="o">=</span><span class="s2">&quot;landmarks_scale&quot;</span><span class="p">,</span>
+                  <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">interactive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-1-fd67495ea407&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> myproj.add_config(name = &#34;lm2&#34;,
+</span><span class="ansi-green-fg">      2</span>                   config_preset<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-blue-intense-fg ansi-bold">&#34;landmarks_scale&#34;</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">      3</span>                   overwrite<span class="ansi-yellow-intense-fg ansi-bold">=</span><span class="ansi-green-intense-fg ansi-bold">True</span><span class="ansi-yellow-intense-fg ansi-bold">,</span>
+<span class="ansi-green-fg">      4</span>                   interactive=True)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">myproj</span><span class="o">.</span><span class="n">dirpaths</span><span class="p">:</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span>
+           <span class="n">name</span><span class="o">=</span><span class="s2">&quot;lm2&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>                                 Traceback (most recent call last)
+<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-2-21834d2215b4&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span>
+<span class="ansi-green-intense-fg ansi-bold">----&gt; 1</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">for</span> directory <span class="ansi-green-intense-fg ansi-bold">in</span> myproj<span class="ansi-yellow-intense-fg ansi-bold">.</span>dirpaths<span class="ansi-yellow-intense-fg ansi-bold">:</span>
+<span class="ansi-green-fg">      2</span>     p1 = pp.pype(directory,
+<span class="ansi-green-fg">      3</span>            name=&#34;lm2&#34;)
+
+<span class="ansi-red-intense-fg ansi-bold">NameError</span>: name &#39;myproj&#39; is not defined
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Collect-results">
+<h2>Collect results<a class="headerlink" href="#Collect-results" title="Permalink to this headline">¶</a></h2>
+<p>Using <code class="docutils literal notranslate"><span class="pre">collect_results</span></code> one can search the project folder for results, and copy them to a folder in the root directory (“results” is the default, but can be changed).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">collect_results</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;lm2&quot;</span><span class="p">,</span>          <span class="c1"># these two arguments create the search string for &quot;landmarks_lm2.csv&quot;</span>
+                       <span class="n">files</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;landmarks&quot;</span><span class="p">],</span> <span class="c1">#</span>
+                       <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, Moritz Lürig.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

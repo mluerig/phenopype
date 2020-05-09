@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Phenopype: a phenotyping pipeline for Python &#8212; phenopype 1.0.4 documentation</title>
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">
+          phenopype</a>
+        <span class="navbar-text navbar-version pull-left"><b>1.0.4</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/mluerig/phenopype">Phenopype on Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials and examples using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype (prototyping, low throughput, high throughput)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide actions (e.g. size and colour reference)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Phenopype: a phenotyping pipeline for Python</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="installation.html" title="Next Chapter: Installation"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Installation &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/index.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+    <div class="body col-md-12 content" role="main">
+      
+  <div class="section" id="phenopype-a-phenotyping-pipeline-for-python">
+<h1>Phenopype: a phenotyping pipeline for Python<a class="headerlink" href="#phenopype-a-phenotyping-pipeline-for-python" title="Permalink to this headline">¶</a></h1>
+<hr><img alt="_images/logo.png" src="_images/logo.png" />
+<div align="justify">
+<br>
+<strong>Phenopype is a high throughput phenotyping pipeline for Python to support biologists in extracting high dimensional phenotypic data from digital images</strong>. The program provides intuitive, high level computer vision functions for image preprocessing, segmentation, and feature extraction. Users can assemble their own function-stacks that can be stored in the  human-readable `yaml`-format along with raw data and results, facilitating high throughput and full data reproducibility. Phenopype can be run from Python or from a Python Integrated Development Environment (IDE), like <i>Spyder</i>. Phenopype is designed to provide robust image analysis workflows that can be implemented with little or no Python experience.<br>
+<br>
+<strong>Getting started:</strong>
+        <ol>
+                <li><a href="installation.html">Install Phenopype </a> - via the <i>Python Package Index</i> (PYPI): <code>pip install phenopype</code></li>
+                <li><a href="tutorial_0.html">Run the Tutorials </a> - Tutorial 1 is for Python beginners, otherwise Tutorial 2 is a good starting point </li>
+                <li><a href="#examples">Check the Examples</a> - Example 1 delineates a typical computer vision workflow </li>
+        </ol>
+</div>
+<hr>
+
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-6">
+<h2>Documentation</h2><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-python">1. Install Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#install-phenopype">2. Install phenopype</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html#choose-a-text-editor">3. Choose a text editor</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api.html#projects">Projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#pype-high-throughput-function">pype (high throughput function)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#utility-functions">Utility functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#image-analysis-core-modules">Image analysis (core modules)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html#video-analysis">Video analysis</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#opencv">OpenCV</a></li>
+<li class="toctree-l2"><a class="reference internal" href="resources.html#computer-vision">Computer vision</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="col-md-6">
+<h2>Tutorials</h2><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run the tutorials and examples using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_workflow.html">Tutorial 2: Working with phenopype (prototyping, low throughput, high throughput)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_managing_projects_1.html">Tutorial 3: Setting up and managing phenopype projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects_2.html">Tutorial 4: Project wide actions (e.g. size and colour reference)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_gui_interactions.html">Tutorial 5: GUI interactions (masks, lines and drawing tools)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
+</ul>
+</div>
+</div>
+</div>
+<hr><div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="row">
+
+        <div class="col-md-4">
+                <div class="thumbnail">
+                <a href="example_1_detect_objects_isopods.html">
+                <img src="_images/thumbs/ex1.jpg" alt="example_1_detect_objects_isopods" style="width:100%">
+                <b><p style="text-decoration: underline;">Detecting aquatic isopods</p></b>
+                <b>Organism: </b>waterlouse (or sowbug)<br>
+                <b>Species: </b><i>Asellus aquaticus</i> <br>
+                <b>Traits: </b>size, pigmentation, body-shape <br>
+                </a>
+                </div>
+        </div>
+
+        <div class="col-md-4">
+                <div class="thumbnail">
+                <a href="example_2_landmarks_stickleback.html">
+                <img src="_images/thumbs/ex2.jpg" alt="example_2_landmarks_stickleback" style="width:100%">
+                <b><p style="text-decoration: underline;">Placing landmarks</p></b>
+                <b>Organism: </b>threespine stickleback <br>
+                <b>Species: </b><i>Gasterosteus aculeatus</i> <br>
+                <b>Traits: </b>landmarks, geometric morphometrics <br>
+                </a>
+                </div>
+        </div>
+
+        <div class="col-md-4">
+                <div class="thumbnail">
+                <a href="example_3_phytoplankton.html">
+                <img src="_images/thumbs/ex3.jpg" alt="example_3_phytoplankton" style="width:100%">
+                <b><p style="text-decoration: underline;">Detecting plankton cells</p></b>
+                <b>Organism: </b>phytoplankton <br>
+                <b>Species: </b><i>community</i> <br>
+                <b>Traits: </b>pixel level intensity, shape-metrics <br>
+                </a>
+                </div>
+        </div>
+
+</div>
+<div class="row">
+
+        <div class="col-md-4">
+                <div class="thumbnail">
+                <a href="example_4_video_analysis_stickleback.html">
+                <img src="_images/thumbs/ex4.jpg" alt="example_4_video_analysis_stickleback" style="width:100%">
+                <b><p style="text-decoration: underline;">Recording predator prey interactions</p></b>
+                <b>Organism: </b>stickleback and isopods <br>
+                <b>Species: </b><i>G. aculeatus, A. aquaticus</i> <br>
+                <b>Traits: </b>movement, size <br>
+                </a>
+                </div>
+        </div>
+
+        <div class="col-md-4">
+                <div class="thumbnail">
+                <a href="example_5_shape_stickleback.html">
+                <img src="_images/thumbs/ex5.jpg" alt="example_5_shape_stickleback" style="width:100%">
+                <b><p style="text-decoration: underline;">Measuring armor plate area</p></b>
+                <b>Organism: </b>threespine stickleback <br>
+                <b>Species: </b><i>G. aculeatus</i> <br>
+                <b>Traits: </b>counting armor plates; shape and size<br>
+                </a>
+                </div>
+        </div>
+
+        <div class="col-md-4">
+                <div class="thumbnail">
+                <a href="example_6_counting_snails.html">
+                <img src="_images/thumbs/ex6.jpg" alt="example_6_counting_snails" style="width:100%">
+                <b><p style="text-decoration: underline;">Counting snails</p></b>
+                <b>Organism: </b>New Zealand mud snail <br>
+                <b>Species: </b><i>Potamopyrgus antipodarum</i> <br>
+                <b>Traits: </b>size (area), abundance<br>
+                </a>
+                </div>
+        </div>
+
+
+</div>
+<div class="row">
+
+        <div class="col-md-4">
+                <div class="thumbnail">
+                <a href="example_7_worm_length.html">
+                <img src="_images/thumbs/ex7.jpg" alt="example_7_worm_length" style="width:100%">
+                <b><p style="text-decoration: underline;">Measuring length-width ratios in worms</p></b>
+                <b>Organism: </b>California blackworm<br>
+                <b>Species: </b><i>Lumbriculus variegatus</i> <br>
+                <b>Traits: </b>length, width, area<br>
+                </a>
+                </div>
+        </div>
+
+</div>
+
+
+</div></div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2020, Moritz Lürig.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.4.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
