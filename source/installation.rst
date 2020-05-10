@@ -71,20 +71,20 @@ For regular major and minor releases:
 2.2 Install hotfixes
 """"""""""""""""""""
 
-To install bugfixes for a current installation, pull the `fix` branch using :code:`pip` with :code:`git`:
+To install bug fixes for a current installation:
 
 .. code-block:: bash
 
-	pip install git+https://github.com/mluerig/phenopype@fix -U
+	pip install https://github.com/mluerig/phenopype/archive/fix.zip -U
 
 2.3 Install developmental version
 """""""""""""""""""""""""""""""""
 
-To update to the latest unreleased version of Phenopype, which can be found on `github <https://github.com/mluerig/phenopype/tree/development>`_, pull the `development` branch using :code:`pip` with :code:`git`:
+To update to the latest unreleased version of Phenopype:
 
 .. code-block:: bash
 
-	pip install git+https://github.com/mluerig/phenopype@dev
+	pip install https://github.com/mluerig/phenopype/archive/latest.zip -U
 
 .. important::
 
