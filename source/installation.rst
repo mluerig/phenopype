@@ -62,7 +62,7 @@ You can now use Phenopype by typing :code:`spyder` or :code:`python` into the co
 2.1 Update Phenopype
 """"""""""""""""""""
 
-For regular major and minor releases do:
+For regular major and minor releases:
 
 .. code-block:: bash
 
@@ -84,7 +84,7 @@ To update to the latest unreleased version of Phenopype, which can be found on `
 
 .. code-block:: bash
 
-	pip install git+https://github.com/mluerig/phenopype@development
+	pip install git+https://github.com/mluerig/phenopype@dev
 
 .. important::
 
