@@ -41,12 +41,11 @@ However, to have fuller control over your python packages and to not mess up exi
 
 .. code-block:: bash
 
-	conda create -n "pp" python=3.7
-	conda install spyder
+	conda create -n "pp" python=3.7 spyder
 
 .. important::
 
-	Make sure to install Spyder to the new environment you have just created, otherwise `Spyder` will be loaded from conda base environment where Phenopype may not be installed. 
+	Adding :code:`spyder` behind the installation command will install Spyder to the new environment you have just created, otherwise it will be loaded from conda base environment where Phenopype may not be installed. 
 
 
 Now activate the virtual environment and install Phenopype using `pip`:
