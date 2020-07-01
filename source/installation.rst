@@ -97,10 +97,14 @@ To update to the latest unreleased version of Phenopype:
 
 The high throughout method in Phenopype currently requires a text editor to be installed that **does not lock the file** - `read about file locking here <https://superuser.com/a/855057/970488>`_. 
 
-For Windows, notepad works. However, I recommend `Notepad++`, which supports syntax highlighting and has many other useful features: https://notepad-plus-plus.org/downloads/
+.. important::
+
+	Your OS needs to know how to handle `.yaml` files. Make sure that the default app to open these files is set as one of the edtiors that you selected.
+
+For Windows, notepad works. However, I recommend `Notepad++`, which supports syntax highlighting and has many other useful features: https://notepad-plus-plus.org/downloads/ Make sure that Windows "knows" how to open ".yaml" files: you double click a file, and nothing happens, you need to right click, go to "open with", and select a text editor as the default application for this file ending.
 
 For Linux `Vim` or `Nano` (are already installed on most Linux distributions), and for MacOS, `Nano` or `brackets` could work http://brackets.io/.
 
-Moreover, it is important that your OS knows how to handle `.yaml` files. Make sure that the default app to open these files is set as one of the edtiors that you selected.
+
 
 [More information about this will follow soon]
