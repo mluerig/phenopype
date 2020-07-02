@@ -45,3 +45,4 @@ Examples
 	example_5_shape_stickleback
 	example_6_counting_snails
 	example_7_worm_length
+	example_8_cichlid_teeth

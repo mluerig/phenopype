@@ -165,11 +165,9 @@ Examples
 			</a>
 			</div>
 		</div>
-		
-
 	</div>
+	
 	<div class="row">
-
 		<div class="col-md-4">
 			<div class="thumbnail">
 			<a href="example_7_worm_length.html">
@@ -185,10 +183,23 @@ Examples
 			</a>
 			</div>
 		</div>
+		<div class="col-md-4">
+			<div class="thumbnail">
+			<a href="example_8_cichlid_teeth.html">
+			
+.. image:: thumbs/ex8.jpg
+			
+.. raw:: html
 
+			<b><p style="text-decoration: underline;">Extracting shape features from cichlid teeth</p></b>
+			<b>Organism: </b>Cichlids<br>
+			<b>Family: </b>Cichlidae<br>
+			<b>Traits: </b>circularity, moments<br>
+			</a>
+			</div>
+		</div>
 	</div>
-
-
+	</div>
 	</div>
 
 
