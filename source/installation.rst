@@ -37,7 +37,7 @@ You can install phenopype using :code:`pip`, and run it with :code:`spyder`:
 
 	pip install phenopype
 
-However, to have fuller control over your python packages and to not mess up existing Python installation, I recommend to create a virtual environment using :code:`conda`:
+However, to have fuller control over your python packages and to not mess up existing Python installation, I highly recommend to create a virtual environment using :code:`conda`:
 
 .. code-block:: bash
 
@@ -76,8 +76,8 @@ To install bug fixes for a current installation:
 
 	pip install https://github.com/mluerig/phenopype/archive/fix.zip -U
 
-2.3 Install developmental version
-"""""""""""""""""""""""""""""""""
+2.3 Install latest developmental version
+""""""""""""""""""""""""""""""""""""""""
 
 To update to the latest unreleased version of Phenopype:
 
