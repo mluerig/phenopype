@@ -14,7 +14,8 @@ Phenopype: a phenotyping pipeline for Python
 
 	<div align="justify">
 	<br>
-	<strong>Phenopype is a high throughput phenotyping pipeline for Python to support biologists in extracting high dimensional phenotypic data from digital images</strong>. The program provides intuitive, high level computer vision functions for image preprocessing, segmentation, and feature extraction. Users can assemble their own function-stacks that can be stored in the  human-readable `yaml`-format along with raw data and results, facilitating high throughput and full data reproducibility. Phenopype can be run from Python or from a Python Integrated Development Environment (IDE), like <i>Spyder</i>. Phenopype is designed to provide robust image analysis workflows that can be implemented with little or no Python experience.<br>
+	<strong>Phenopype is a high throughput phenotyping pipeline for Python to support ecologists and evolutionary biologists in extracting high dimensional phenotypic data from digital images</strong>. The core feature of this package are high level computer vision functions for image preprocessing, segmentation, and trait measurement that use <a href="https://github.com/opencv/opencv-python">OpenCV</a> (specifically: the pre-built opencv-python wheels) as a backbone. In addition, Phenopype provides basic project management routines that can automatically organize image data and create customizable analysis-templates (stored in human-readable YAML-format). After finishing a project, users can share or archive the project structure so that anyone can reproduce all collected data with only a few lines of code (suitable for repositories like DRYAD or OSF). Phenopype works most efficiently when used from an Integrated Development Environment (IDE), like Spyder, and requires only minimal Python coding skills.
+	<br>
 	<br>
 	<strong>Getting started:</strong>
 		<ol>
