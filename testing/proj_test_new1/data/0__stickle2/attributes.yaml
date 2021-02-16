@@ -1,0 +1,14 @@
+image_original:
+  filename: stickle2.JPG
+  width: 2400
+  height: 1600
+  filepath: E:\Python\phenopype_dev\images\stickle2.JPG
+  filetype: .JPG
+image_phenopype:
+  date_added: '20210216132540'
+  mode: replica
+  resize: false
+  resize_factor: 1
+  filename: replica_stickle2.tif
+  width: 2400
+  height: 1600
