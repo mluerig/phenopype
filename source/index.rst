@@ -49,11 +49,9 @@ Phenopype: a phenotyping pipeline for Python
 
 	tutorial_0
 	tutorial_1_python_intro
-	tutorial_2_phenopype_workflow
-	tutorial_3_managing_projects_1
-	tutorial_4_managing_projects_2
-	tutorial_5_gui_interactions
-	tutorial_6_video_analysis
+	tutorial_2_phenopype_images
+	tutorial_3_phenopype_workflow
+
 
 .. raw:: html
 
