@@ -1,35 +1,7 @@
-Phenopype: a phenotyping pipeline for Python
-============================================
-
-.. raw:: html
-
-	<hr>
-
-.. image:: phenopype_logo.png
+.. include:: README.rst
 
 
-
-
-.. raw:: html
-
-	<div align="justify">
-	<br>
-	<strong>Phenopype is a high throughput phenotyping pipeline for Python to support ecologists and evolutionary biologists in extracting high dimensional phenotypic data from digital images</strong>. The core feature of this package are high level computer vision functions for image preprocessing, segmentation, and trait measurement that use <a href="https://github.com/opencv/opencv-python">OpenCV</a> (specifically: the pre-built opencv-python wheels) as a backbone. In addition, Phenopype provides basic project management routines that can automatically organize image data and create customizable analysis-templates (stored in human-readable YAML-format). After finishing a project, users can share or archive the project structure so that anyone can reproduce all collected data with only a few lines of code (suitable for repositories like DRYAD or OSF). Phenopype works most efficiently when used from an Integrated Development Environment (IDE), like Spyder, and requires only minimal Python coding skills.
-	<br>
-	<br>
-	<strong>Getting started:</strong>
-		<ol>
-			<li><a href="installation.html">Install Phenopype </a> - via the <i>Python Package Index</i> (PYPI): <code>pip install phenopype</code></li> 
-			<li><a href="tutorial_0.html">Run the Tutorials </a> - Tutorial 1 is for Python beginners, otherwise Tutorial 2 is a good starting point </li>
-			<li><a href="#examples">Check the Examples</a> - Example 1 delineates a typical computer vision workflow </li>
-		</ol>
-	</div>
-	<hr>
-
-	<div class="container-fluid">
-	<div class="row">
-	<div class="col-md-6">
-	<h2>Documentation</h2>
+<h2>Documentation</h2>
 
 .. toctree::
 	:maxdepth: 2
@@ -60,6 +32,7 @@ Phenopype: a phenotyping pipeline for Python
 	</div>
 	</div>
 	<hr>
+
 
 Examples
 --------

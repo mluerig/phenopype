@@ -1,8 +1,19 @@
 Additional resources
 ====================
 
+Computer vision
+---------------
+
+Computer vision (CV) is an interdisciplinary field concerned with the automatic and semiautomatic extraction of information from digital images. We have recently written a review about CV in the context of ecology and evolution. In the paper we give an overview of the field and describe the primary types of image-based data. This might be a good starting point if you are new to digital image analysis altogether. 
+
+A preprint version of the paper is available under https://ecoevorxiv.org/98cuw/
+
+
 Python
 ------
+
+Python is a high-level programming language with a specific design philosophy that emphasizes code readability, e.g. through the use of indentation. It's aim is to help programmers write clear, logical code for small and large-scale projects, and is described as a "batteries included" language due to its comprehensive standard library. (source: https://www.python.org/about/)
+
 
 Philisophy and style
 
@@ -23,8 +34,13 @@ Helpful questions on StackOverflow
 - https://stackoverflow.com/questions/155609/whats-the-difference-between-a-method-and-a-function
 - https://stackoverflow.com/questions/509211/understanding-slice-notation
 - https://stackoverflow.com/questions/1977362/how-to-create-module-wide-variables-in-python
-- https://stackoverflow.com/questions/448271/what-is-init-py-for
 - https://stackoverflow.com/questions/16476924/how-to-iterate-over-rows-in-a-dataframe-in-pandas
+
+
+YAML
+----
+
+"YAML" is a recursive acronym for "YAML Ain't Markup Language". YAML is a human-readable data-serialization language, commonly used for configuration files and in applications where data is being stored or transmitted. It uses both Python-style indentation to indicate nesting (source: https://yaml.org/spec/1.2/spec.html)
 
 YAML specifications
 
@@ -33,9 +49,10 @@ YAML specifications
 - https://www.tutorialspoint.com/yaml/yaml_introduction.htm
 
 
-
 OpenCV
 ------
+
+OpenCV (Open Source Computer Vision Library) is a library of programming functions for real-time computer vision. OpenCV is powering most of phenopype's image analysis functions so that phenopype is - in large parts, but not exclusively - a wrapper for OpenCV. If you would like to see more OpenCV function being integrated into phenpype, please get in touch with me. 
 
 API doc and tutorials
 
@@ -52,22 +69,5 @@ Morphological operations
 
 - https://docs.opencv.org/3.4.9/d9/d61/tutorial_py_morphological_ops.html
 
-Computer vision
----------------
 
-CV overview
 
-- https://medium.com/@vad710/computer-vision-for-busy-developers-6a7320222da
-- https://towardsdatascience.com/an-overview-of-computer-vision-1f75c2ab1b66
-
-Images as arrays
-
-- https://towardsdatascience.com/computer-vision-how-computer-handle-images-70a069174f99
-- https://towardsdatascience.com/understanding-images-with-skimage-python-b94d210afd23
-- http://scikit-image.org/docs/dev/user_guide/numpy_images.html
-- https://datacarpentry.org/image-processing/03-skimage-images/
-
-Image segmentation
-
-- https://www.analyticsvidhya.com/blog/2019/04/introduction-image-segmentation-techniques-python/
-- https://engineering.matterport.com/splash-of-color-instance-segmentation-with-mask-r-cnn-and-tensorflow-7c761e238b46?gi=f1ce21f63352

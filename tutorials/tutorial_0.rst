@@ -1,28 +1,19 @@
 How to run tutorials and examples using Jupyter Notebook
 ========================================================
 
-The tutorials are written as a `jupyter notebook`, which is a browser based Python kernel to run, document, and visualize code: `https://jupyter.org/ <https://jupyter.org/>`_. If you installed Python using Anaconda, it is possible that :code:`jupyter` is already installed - check py typing :code:`jupyter --version` into the console. Otherwise you can install it with pip
+The tutorials are written in `jupyter notebooks` - browser based Python kernels to run, document, and visualize code (`https://jupyter.org/ <https://jupyter.org/>`_). Below is a step by step guide to get started with the tutorials and examples. If you installed Python using Anaconda, it is possible that `jupyter` is already installed (:code:`jupyter --version` in the terminal should return a version number) - in this case you can skip step 3.
 
-.. code-block:: bash
-
-	pip install jupyter notebook
-	
-
-.. important::
-
-	Make sure `jupyter notebook` is installed in your specific environment (check with `pip freeze`). Otherwise, running `jupyter notebook` it will be loaded from conda base environment where Phenopype may not be installed (this is a common source of error). 
+#. Install phenopype: follow the `installation instructions <installation.html>`_.
+#. Download and unpack the `phenopype repository from github <https://github.com/mluerig/phenopype/archive/master.zip>`_
+#. Install jupyter notebook to your environment*: :code:`pip install jupyter notebook`
+#. Open a terminal and go to the tutorial folder in the unpacked phenopype repository (e.g. `../downloads/phenopype-master/tutorials`)
+#. Start the notebooks with :code:`jupyter notebook` and click on one of the tutorial files.
+#. Run the code cell by cell
 
 
-After installing phenopype, `clone the phenopype repository from github <https://github.com/mluerig/phenopype/archive/master.zip>`_. After downloading, unpack the zip file, cd to the tutorial folder, open a terminal and run the notebooks:
+.. warning::
 
-.. code-block:: bash
-
-	jupyter notebook
-
-Alternatively, you can copy the code from the jupyter code cells over to Spyder and execute them there. In this case you need to adjust the file paths given in the code cells accordingly. 
-
-.. tip:: 
-	If you want to use the tutorials or examples as a blueprint for your own project, simply save them as a Python script by clicking File > Download as > Python (.py).
+	\* Make sure you install `jupyter` to your specific environment (i.e. activate first using :code:`conda activate "my-env"`. If `jupyter` is not installed, running :code:`jupyter notebook` will fall back on the conda base environment where phenopype may not be installed (this is a common error source). 
 
 
 Tutorials
@@ -38,8 +29,13 @@ Tutorials
 	tutorial_5_references
 	tutorial_6_video_analysis
 
+
+.. tip:: 
+	If you want to use the tutorials or examples as a blueprint for your own project, simply save them as a Python script by clicking File > Download as > Python (.py).
+
+
 Examples
--------- 
+--------
 
 .. toctree::
 	:maxdepth: 1
