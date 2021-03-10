@@ -1,7 +1,7 @@
 How to run tutorials and examples using Jupyter Notebook
 ========================================================
 
-The tutorials are written in `jupyter notebooks` - browser based Python kernels to run, document, and visualize code (`https://jupyter.org/ <https://jupyter.org/>`_). Below is a step by step guide to get started with the tutorials and examples. If you installed Python using Anaconda, it is possible that `jupyter` is already installed (:code:`jupyter --version` in the terminal should return a version number) - in this case you can skip step 3.
+The tutorials are written as `jupyter notebooks` - browser based Python kernels to run, document, and visualize code (`https://jupyter.org/ <https://jupyter.org/>`_). Below is a step by step guide to get started with the tutorials and examples. If you installed Python using Anaconda, it is possible that `jupyter` is already installed (:code:`jupyter --version` in the terminal should return a version number) - in this case you can skip step 3.
 
 #. Install phenopype: follow the `installation instructions <installation.html>`_.
 #. Download and unpack the `phenopype repository from github <https://github.com/mluerig/phenopype/archive/master.zip>`_
@@ -13,7 +13,7 @@ The tutorials are written in `jupyter notebooks` - browser based Python kernels 
 
 .. warning::
 
-	\* Make sure you install `jupyter` to your specific environment (i.e. activate first using :code:`conda activate "my-env"`. If `jupyter` is not installed, running :code:`jupyter notebook` will fall back on the conda base environment where phenopype may not be installed (this is a common error source). 
+	\* Make sure you install `jupyter` to your specific environment (i.e. activate first using :code:`conda activate "my-env"`. If `jupyter` is not installed, running :code:`jupyter notebook` will fall back on the conda base environment where phenopype may not be installed (this is a common error source).
 
 
 Tutorials
@@ -30,7 +30,7 @@ Tutorials
 	tutorial_6_video_analysis
 
 
-.. tip:: 
+.. tip::
 	If you want to use the tutorials or examples as a blueprint for your own project, simply save them as a Python script by clicking File > Download as > Python (.py).
 
 

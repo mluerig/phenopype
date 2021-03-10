@@ -4,10 +4,13 @@ Additional resources
 Computer vision
 ---------------
 
-Computer vision (CV) is an interdisciplinary field concerned with the automatic and semiautomatic extraction of information from digital images. We have recently written a review about CV in the context of ecology and evolution. In the paper we give an overview of the field and describe the primary types of image-based data. This might be a good starting point if you are new to digital image analysis altogether. 
+Computer vision (CV) is an interdisciplinary field concerned with the automatic and semiautomatic extraction of information from digital images. We recently wrote a review about CV in the context of ecology and evolution. In the paper we give an overview of the field and describe the primary types of image-based data. This might be a good starting point if you are new to digital image analysis and CV altogether.
 
 A preprint version of the paper is available under https://ecoevorxiv.org/98cuw/
 
+.. image:: computer_vision_luerig_et_al_2021.png
+   :scale: 50 %
+   :target: https://ecoevorxiv.org/98cuw/
 
 Python
 ------
@@ -20,13 +23,13 @@ Philisophy and style
 - https://www.python.org/dev/peps/pep-0020/
 - https://www.python.org/dev/peps/pep-0008/
 
-Python intro 
+Python intro
 
 - https://docs.python-guide.org/
 
 Tutorials
 
-- https://docs.python.org/3/tutorial/ 
+- https://docs.python.org/3/tutorial/
 - https://py-tutorial-de.readthedocs.io/de/python-3.3/ (German)
 
 Helpful questions on StackOverflow
@@ -52,7 +55,7 @@ YAML specifications
 OpenCV
 ------
 
-OpenCV (Open Source Computer Vision Library) is a library of programming functions for real-time computer vision. OpenCV is powering most of phenopype's image analysis functions so that phenopype is - in large parts, but not exclusively - a wrapper for OpenCV. If you would like to see more OpenCV function being integrated into phenpype, please get in touch with me. 
+OpenCV (Open Source Computer Vision Library) is a library of programming functions for real-time computer vision. OpenCV is powering most of phenopype's image analysis functions so that phenopype is - in large parts, but not exclusively - a wrapper for OpenCV. If you would like to see more OpenCV function being integrated into phenpype, please get in touch with me.
 
 API doc and tutorials
 
@@ -68,6 +71,3 @@ Examples
 Morphological operations
 
 - https://docs.opencv.org/3.4.9/d9/d61/tutorial_py_morphological_ops.html
-
-
-

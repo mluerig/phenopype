@@ -1,10 +1,5 @@
 |image1|
 
---------------
-
-phenopype: a phenotyping pipeline for Python
-============================================
-
 +-----------+-----------+-----------+-----------+-----------+-----------+
 | Project   | Windows   | Linux     | OSX build | Coverage  | Style     |
 | status    | build     | build     |           |           |           |
@@ -17,78 +12,84 @@ phenopype: a phenotyping pipeline for Python
 | **Author:** `Moritz Lürig <https://luerig.net>`__
 | **License:** `LGPL <https://opensource.org/licenses/LGPL-3.0>`__
 
+--------------
+
 What is phenopype?
-------------------
+^^^^^^^^^^^^^^^^^^
 
 phenopype is a high throughput phenotyping pipeline for Python to
 support ecologists and evolutionary biologists in extracting high
-dimensional phenotypic data from digital images. phenopype’s workflow
-combines computer vision functions (using
-`opencv-python <https://github.com/opencv/opencv-python>`__ as a
+dimensional phenotypic data from digital images. phenopype integrates
+computer vision functions (using
+`opencv-python <https://github.com/opencv/opencv-python>`__ as the main
 backbone) and project management tools to facilitate rapid data
-collection.
-
-|image2|
-
-Features
-^^^^^^^^
-
--  preprocessing functions () , segmentation and data extraction
--  basic project management routines that can automatically organize
-   image data and create customizable analysis-templates.
--  After finishing a project, users can share or archive the project
-   structure so that anyone can reproduce all collected data with only a
-   few lines of code (suitable for repositories like DRYAD or OSF).
+collection and reproducibility.
 
 Why phenopype
 ^^^^^^^^^^^^^
 
-phenopype is aiming to augment, rather than replace, the utility of
+phenopype is aiming to augment, rather than replace the utility of
 existing CV libraries for scientists measuring phenotypes. Put
-differently, phenopype is not a library of granular image processing
-functions, like OpenCV or scikit-image, but instead, it is a set of
-wrappers for these libraries, combined with project management and a
-focus on *collecting data fast*.
+differently, phenopype does not intend to be an exhaustive library of
+granular image processing functions, like OpenCV or scikit-image, but
+instead, it is a set of wrappers for these libraries, combined with
+project management to allow biologists to *collect data fast*.
+
+Main features
+^^^^^^^^^^^^^
+
+| (For a complete list `check the API
+  reference <https://mluerig.github.io/phenopype/api.html>`__) - image
+  analysis workflow: - preprocessing (automatic reference detection,
+  colour and size correction, morphology operations) - segmentation
+  (thresholding, watershed, contour-filtering, foreground-background
+  subtraction) - measurement (pixel intensities, landmarks, shape
+  features, texture features) - visualization and export
+| - video analysis module for object tracking - project management tools
+  to organize images and data (automatic creation of project directory
+  tree) - customizable analysis-templates that allow anyone to reproduce
+  all collected data with only a few lines of code (suitable for
+  repositories like DRYAD or OSF).
+
+|image2|
 
 --------------
 
 Getting started
----------------
+^^^^^^^^^^^^^^^
 
-1. `Install
-   Phenopype <https://mluerig.github.io/phenopype/installation.html>`__
-   - via the *Python Package Index* (PYPI): ``pip install phenopype``
-2. `Run the
-   Tutorials <https://mluerig.github.io/phenopype/tutorial_0.html>`__ -
-   Tutorial 1 is for Python beginners, otherwise Tutorial 2 is a good
-   starting point
-3. `Check the
-   Examples <https://mluerig.github.io/phenopype/index.html#examples>`__
-   - Example 1 delineates a typical computer vision workflow
+1. Read the `Installation
+   Instructions <https://mluerig.github.io/phenopype/installation.html>`__
+2. Download and run the
+   `Tutorials <https://mluerig.github.io/phenopype/tutorial_0.html>`__
+3. Have a look at the
+   `Examples <https://mluerig.github.io/phenopype/index.html#examples>`__
 
-Documentation, code-reference and tutorials
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Detailed installation instructions, along with further resources
-regarding Python and the OpenCV backbone, as well as the full code
-reference and a (growing) number of tutorials and feature demonstrations
-can be found under https://mluerig.github.io/phenopype/.
+**The full Documentation can be found under:
+https://mluerig.github.io/phenopype/**
 
 --------------
 
-Contributions and feedback welcome!
------------------------------------
+Contributing and feedback
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Phenopype development is an ongoing process and contribution towards
-making it a more broadly applicable tool is most welcome. This can be in
-the form of feature requests (e.g. more functions from the `OpenCV
+Phenopype development is an ongoing process and contributions towards
+making it a more broadly applicable and userfriendly tool are most
+welcome. This can be in the form of feature requests (e.g. more
+functions from the `OpenCV
 library <https://docs.opencv.org/master/modules.html>`__) or by
 reporting bugs via the `issue
 tracker <https://github.com/mluerig/phenopype/issues>`__. You can also
 `get in touch with me <https://luerig.net>`__ directly if you have any
-suggestions for improvement or want to help me making Phenopype better!
+suggestions for improvement.
 
-.. |image1| image:: https://raw.githubusercontent.com/mluerig/phenopype/master/source/phenopype_logo.png
+How to cite phenopype
+^^^^^^^^^^^^^^^^^^^^^
+
+phenopype: a phenotyping pipeline for python (v2.0.0) 2021 Lürig, M.
+https://github.com/mluerig/phenopype
+
+.. |image1| image:: source/images/phenopype_logo.png
 .. |Project Status: Active.| image:: http://www.repostatus.org/badges/latest/active.svg
    :target: http://www.repostatus.org/#active
 .. |Build status| image:: https://ci.appveyor.com/api/projects/status/4o27rpjbe8ij2kj3?svg=true
