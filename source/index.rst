@@ -1,7 +1,14 @@
 .. include:: README.rst
 
 
-<h2>Documentation</h2>
+.. raw:: html
+
+	<hr>
+	
+	<div class="container-fluid">
+	<div class="row">
+	<div class="col-md-6">
+	<h2>Documentation</h2>
 
 .. toctree::
 	:maxdepth: 2
