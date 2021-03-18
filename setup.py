@@ -28,7 +28,7 @@ setup(
         "numpy==1.18.5",
         "opencv-contrib-python==3.4.9.33",
         "pandas==1.1.2",
-        "pillow==8.1.0",
+        "pillow==8.1.1",
         "pyradiomics==3.0.1",
         "ruamel.yaml==0.16.12",
         "tqdm",
