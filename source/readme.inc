@@ -125,7 +125,7 @@ https://github.com/mluerig/phenopype
      url={https://github.com/mluerig/phenopype},
    }
 
-.. |image1| image:: https://github.com/mluerig/phenopype/raw/r2v2/source/phenopype_logo.png
+.. |image1| image:: https://github.com/mluerig/phenopype/raw/master/source/phenopype_logo.png
 .. |Project Status: Active| image:: http://www.repostatus.org/badges/latest/active.svg
    :target: http://www.repostatus.org/#active
 .. |Build status| image:: https://ci.appveyor.com/api/projects/status/4o27rpjbe8ij2kj3?svg=true
@@ -136,4 +136,4 @@ https://github.com/mluerig/phenopype
    :target: https://coveralls.io/github/mluerig/phenopype?branch=master
 .. |Code style| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
-.. |image2| image:: https://github.com/mluerig/phenopype/raw/r2v2/source/phenopype_demo.gif
+.. |image2| image:: https://github.com/mluerig/phenopype/raw/master/source/phenopype_demo.gif
