@@ -149,7 +149,9 @@ def draw(
     test_params = kwargs.get("test_params", None)
 
     while True:
-        
+        if mode == "silent":
+            print("Silent mode - using existing coordinates")
+            break
         if not df_drawings.__class__.__name__ == "NoneType":
             ## select df_drawing that matches label
             df_drawings_sub = df_drawings.loc[df_drawings['label'] == label]
@@ -191,9 +193,6 @@ def draw(
             prev_drawings = {}
             print("- drawing")
             pass
-        elif mode == "silent":
-            print("Silent mode - using existing coordinates")
-            break
 
         ## add other labels for reference
         if len(df_drawings) > 0:
