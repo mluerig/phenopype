@@ -69,14 +69,11 @@ def blur(obj_input, kernel_size=5, method="averaging", sigma_color=75, sigma_spa
 def draw(
     obj_input,
     df_image_data=None,
+    canvas="image",
+    line_width="auto",
     mode="silent",
     overwrite=False,
     edit=False,
-    label="drawing1",
-    tool="line",
-    canvas="image",
-    line_width="auto",
-    line_colour="black",
     max_dim=None,
     **kwargs
 ):
@@ -113,6 +110,8 @@ def draw(
     flag_edit = edit
     flag_canvas = canvas
     test_params = kwargs.get("test_params", None)
+    
+    label = "temp"
     
     prev_drawings = {}
     
@@ -213,16 +212,13 @@ def draw(
 
         ## method
         if not test_params.__class__.__name__ == "NoneType":
-            out = _image_viewer(image,tool=tool, draw=True, 
-                    line_width=line_width,line_colour=line_colour,
+            out = _image_viewer(image, tool="draw",line_width=line_width, 
                     previous=test_params,max_dim = max_dim)
         elif not df_drawings.__class__.__name__ == "NoneType" and flag_edit == True:
-            out = _image_viewer(image,tool=tool, draw=True, 
-                                line_width=line_width,line_colour=line_colour,
+            out = _image_viewer(image,tool="draw", line_width=line_width,
                                 previous=prev_drawings,max_dim = max_dim)
         else:
-            out = _image_viewer(image,tool=tool, draw=True, 
-                                line_width=line_width,line_colour=line_colour,
+            out = _image_viewer(image,tool="draw", line_width=line_width,
                                 max_dim = max_dim)
         coords = out.point_list
         
@@ -241,9 +237,7 @@ def draw(
             for points in coords:
                 df_drawings_sub_new = df_drawings_sub_new.append(
                     {"label": label, 
-                     "tool": tool, 
-                     "line_colour": line_colour, 
-                     "line_width": line_width,
+                     "tool": "draw", 
                      "coords": str(points)},
                     ignore_index=True,
                     sort=True,

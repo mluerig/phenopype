@@ -14,9 +14,8 @@ import pprint
 
 from math import inf
 
-from phenopype.utils import load_image_data
 from phenopype.utils_lowlevel import _decode_fourcc, _create_mask_bool
-from phenopype.core.segmentation import blur, threshold, find_contours
+from phenopype.core.segmentation import blur, threshold
 from phenopype.settings import colours
 
 #%% classes
