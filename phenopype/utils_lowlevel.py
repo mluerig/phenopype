@@ -139,11 +139,14 @@ class _image_viewer:
                 self.label_colour = colours[kwargs.get("label_colour", "black")]
             elif self.flag_tool == "draw":
                 self.drawing = False
-                self.point_size_orig = kwargs.get("point_size", _auto_point_size(image))
-                self.point_size = copy.deepcopy(self.point_size_orig)
-                self.point_colour = colours[kwargs.get("point_colour", "red")]
+                self.line_width_orig = kwargs.get("line_width", _auto_line_width(image))
+                self.line_width = int(self.line_width_orig / ((self.zoom_x2 - self.zoom_x1) / self.image_width))
+                self.line_colour = colours[kwargs.get("line_colour", "red")]
+                self.colour_current = copy.deepcopy(self.line_colour)
                 self.orig_contours = kwargs.get("contours")
                 self.zoom_flag = True
+                self.colour_left = kwargs.get("colour_left", "white")
+                self.colour_right = kwargs.get("colour_right", "black")
 
         ## this needs to be decluttered. there should only be one type of list 
         ## (points, not rectangle separately). relevant parameters for the 
@@ -183,6 +186,16 @@ class _image_viewer:
                             self.line_colour,
                             self.line_width,
                         ) 
+                elif self.flag_tool == "draw":
+                    ## draw all previous segments
+                    for segment in self.point_list:
+                        cv2.polylines(
+                            self.image_copy,
+                            np.array([segment[0]]),
+                            False,
+                            segment[1],
+                            segment[2],
+                            )
             self.canvas = self.image_copy[
                 self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2,
             ]
@@ -197,7 +210,7 @@ class _image_viewer:
         self.done = False
         self.finished = False
         cv2.namedWindow(self.window_name, window_aspect)
-        cv2.startWindowThread()  ## needed for Mac OS ??
+        cv2.startWindowThread()
         cv2.setMouseCallback(self.window_name, self._on_mouse_plain)
         cv2.resizeWindow(self.window_name, self.canvas_width, self.canvas_height)
         
@@ -616,9 +629,9 @@ class _image_viewer:
         ## set colour - left/right mouse button use different colours
         if event in [cv2.EVENT_LBUTTONDOWN, cv2.EVENT_RBUTTONDOWN]:
             if event == cv2.EVENT_LBUTTONDOWN:
-                self.colour_current = colours["red"]
+                self.colour_current = colours[self.colour_left]
             elif event == cv2.EVENT_RBUTTONDOWN:
-                self.colour_current = colours["green"]
+                self.colour_current = colours[self.colour_right]
             
             ## start drawing and use current coords as start point
             self.canvas = copy.deepcopy(self.canvas_copy)
@@ -634,11 +647,10 @@ class _image_viewer:
         if event==cv2.EVENT_LBUTTONUP or event==cv2.EVENT_RBUTTONUP:
             self.drawing=False
             self.canvas = copy.deepcopy(self.canvas_copy)
-            print(self.points)
             self.point_list.append([
                 self.points,
                 self.colour_current, 
-                int(self.point_size*self.global_fx),
+                int(self.line_width*self.global_fx),
                 ])
             self.points = []
             
@@ -676,21 +688,20 @@ class _image_viewer:
             self.points.append(self.coords_original)
             
             cv2.line(self.canvas,(self.ix,self.iy),(x,y), 
-                     self.colour_current, self.point_size) 
+                     self.colour_current, self.line_width) 
             self.ix,self.iy = x,y
             cv2.imshow(self.window_name, self.canvas)  
                         
         if self.keypress == 9 and event == cv2.EVENT_MOUSEWHEEL:
             if flags > 1:
-                self.point_size_orig += 1
-            if flags < 1 and self.point_size > 1:
-                self.point_size_orig -= 1
+                self.line_width_orig += 1
+            if flags < 1 and self.line_width > 1:
+                self.line_width_orig -= 1
             self.canvas = copy.deepcopy(self.canvas_copy)
-            self.point_size = int(self.point_size_orig / ((self.zoom_x2 - self.zoom_x1) / self.image_width))
-            cv2.line(self.canvas,(x,y),(x,y),colours["black"],self.point_size) 
-            cv2.line(self.canvas,(x,y),(x,y),colours["white"],max(self.point_size-5,1)) 
+            self.line_width = int(self.line_width_orig / ((self.zoom_x2 - self.zoom_x1) / self.image_width))
+            cv2.line(self.canvas,(x,y),(x,y),colours["black"],self.line_width) 
+            cv2.line(self.canvas,(x,y),(x,y),colours["white"],max(self.line_width-5,1)) 
             cv2.imshow(self.window_name, self.canvas)
-
 
     def _zoom_fun(self, x, y):
         """Helper function for image_viewer. Takes current xy coordinates and 
@@ -758,7 +769,8 @@ class _image_viewer:
         )
         self.canvas_copy = copy.deepcopy(self.canvas)
         
-        self.point_size = int(self.point_size_orig / ((self.zoom_x2 - self.zoom_x1) / self.image_width))
+        if self.flag_tool == "draw":
+            self.line_width = int(self.line_width_orig / ((self.zoom_x2 - self.zoom_x1) / self.image_width))
 
 
 class _yaml_file_monitor:

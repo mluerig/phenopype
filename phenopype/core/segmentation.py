@@ -68,10 +68,12 @@ def blur(obj_input, kernel_size=5, method="averaging", sigma_color=75, sigma_spa
 
 def draw(
     obj_input,
+    df_drawings=None,
     df_image_data=None,
+    label="drawing1",
     canvas="image",
     line_width="auto",
-    mode="silent",
+    mode="normal",
     overwrite=False,
     edit=False,
     max_dim=None,
@@ -110,13 +112,10 @@ def draw(
     flag_edit = edit
     flag_canvas = canvas
     test_params = kwargs.get("test_params", None)
-    
-    label = "temp"
-    
+        
     prev_drawings = {}
     
     ## load image
-    df_drawings = None
     if obj_input.__class__.__name__ == "ndarray":
         image = obj_input
         if df_image_data.__class__.__name__ == "NoneType":
@@ -146,7 +145,7 @@ def draw(
     if line_width == "auto":
         line_width = _auto_line_width(image)
     test_params = kwargs.get("test_params", None)
-
+    
     while True:
         if mode == "silent":
             print("Silent mode - using existing coordinates")
@@ -154,11 +153,12 @@ def draw(
         if not df_drawings.__class__.__name__ == "NoneType":
             ## select df_drawing that matches label
             df_drawings_sub = df_drawings.loc[df_drawings['label'] == label]
+            
             ## remove meta-columns
             df_drawings_sub = df_drawings_sub[
                 df_drawings_sub.columns.intersection(["label", "tool", "line_colour","line_width","coords"])
             ]
-        
+
         ## check if exists
         if not df_drawings.__class__.__name__ == "NoneType" and flag_overwrite == False and flag_edit == False:
             if label in df_drawings_sub["label"].values:
@@ -166,15 +166,22 @@ def draw(
                 break
         elif not df_drawings.__class__.__name__ == "NoneType" and flag_edit == True:
             ## extract previous drawing and convert to dict
+
             if label in df_drawings_sub["label"].values:
                 prev_point_list = []
                 for index, row in df_drawings_sub.iterrows():
-                    coords = eval(row["coords"])
-                    prev_point_list.append(coords) 
-                prev_drawings = {"tool": df_drawings_sub["tool"].unique()[0],
-                                 "line_colour": colours[df_drawings_sub["line_colour"].unique()[0]],
-                                 "line_width": df_drawings_sub["line_width"].unique()[0],
-                                 "point_list": prev_point_list}
+                    prev_point_list.append([
+                        eval(row["coords"]),
+                        colours[row["line_colour"]],
+                        row["line_width"],
+                        ]) 
+                    
+                prev_drawings = {
+                    # "tool": df_drawings_sub["tool"].unique()[0],
+                    # "line_colour": colours[df_drawings_sub["line_colour"].unique()[0]],
+                    # "line_width": df_drawings_sub["line_width"].unique()[0],
+                    "point_list": prev_point_list,
+                                  }
                 
                 ## remove rows from original drawing df
                 df_drawings = df_drawings.drop(df_drawings[df_drawings["label"] == label].index)
@@ -193,20 +200,20 @@ def draw(
             print("- drawing")
             pass
 
-        ## add other labels for reference
-        if len(df_drawings) > 0:
-            for idx, row in df_drawings.iterrows():
-                coords = eval(row["coords"])
-                if row["tool"] in ["line", "lines","polyline","polylines"]:
-                    cv2.polylines(
-                        image,
-                        np.array([coords]),
-                        False,
-                        colours[row["line_colour"]],
-                        row["line_width"],
-                    )
-                elif row["tool"] in ["rect", "rectangle", "poly", "polygon"]:
-                    cv2.fillPoly(image, np.array([coords]), colours[row["colour"]])
+        # ## add other labels for reference
+        # if len(df_drawings) > 0:
+        #     for idx, row in df_drawings.iterrows():
+        #         coords = eval(row["coords"])
+        #         if row["tool"] in ["line", "lines","polyline","polylines"]:
+        #             cv2.polylines(
+        #                 image,
+        #                 np.array([coords]),
+        #                 False,
+        #                 colours[row["line_colour"]],
+        #                 row["line_width"],
+        #             )
+        #         elif row["tool"] in ["rect", "rectangle", "poly", "polygon"]:
+        #             cv2.fillPoly(image, np.array([coords]), colours[row["colour"]])
 
         
 
@@ -215,12 +222,12 @@ def draw(
             out = _image_viewer(image, tool="draw",line_width=line_width, 
                     previous=test_params,max_dim = max_dim)
         elif not df_drawings.__class__.__name__ == "NoneType" and flag_edit == True:
-            out = _image_viewer(image,tool="draw", line_width=line_width,
+            out = _image_viewer(image,tool="draw", 
                                 previous=prev_drawings,max_dim = max_dim)
         else:
             out = _image_viewer(image,tool="draw", line_width=line_width,
                                 max_dim = max_dim)
-        coords = out.point_list
+        point_list = out.point_list
         
         ## abort
         if not out.done:
@@ -233,12 +240,16 @@ def draw(
 
         ## create df
         df_drawings_sub_new = pd.DataFrame()
-        if len(coords) > 0:
-            for points in coords:
+        if len(point_list) > 0:
+            for segment in point_list:
+                col_string = list(colours.keys())[list(colours.values()).index(segment[1])]
                 df_drawings_sub_new = df_drawings_sub_new.append(
                     {"label": label, 
                      "tool": "draw", 
-                     "coords": str(points)},
+                     "line_colour": col_string,
+                     "line_width": segment[2],
+                     "coords": str(segment[0]),
+                     },
                     ignore_index=True,
                     sort=True,
                 )
@@ -260,7 +271,7 @@ def draw(
     ## draw
     for idx, row in df_drawings.loc[df_drawings['label'] == label].iterrows():
         coords = eval(row["coords"])
-        if row["tool"] in ["line", "lines","polyline","polylines"]:
+        if row["tool"] in ["line", "lines","polyline","polylines","draw"]:
             cv2.polylines(
                 image_bin,
                 np.array([coords]),
@@ -270,7 +281,6 @@ def draw(
             )
         elif row["tool"] in ["rect", "rectangle", "poly", "polygon"]:
             cv2.fillPoly(image_bin, np.array([coords]), colours[row["colour"]])
-
 
     ## drop index before saving
     df_drawings.reset_index(drop=True, inplace=True)
