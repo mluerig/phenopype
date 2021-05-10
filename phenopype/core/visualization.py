@@ -446,8 +446,8 @@ def draw_landmarks(
 
 def draw_masks(
     obj_input,
-    select=None,
     df_masks=None,
+    select=None,
     line_colour="blue",
     line_width="auto",
     label=False,

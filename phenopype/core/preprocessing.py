@@ -368,12 +368,12 @@ def create_reference(
 def detect_reference(
     obj_input,
     df_image_data=None,
-    template=None,
+    template_image=None,
+    template_px_mm_ratio=None,
     overwrite=False,
     equalize=False,
     min_matches=10,
     resize=1,
-    px_mm_ratio_ref=None,
     df_masks=None,
 ):
     """
@@ -398,6 +398,8 @@ def detect_reference(
         an existing DataFrame containing masks to add the detected mask to
     template : array or container, optional
         reference image of reference
+    template_px_mm_ratio: float, optional
+        pixel-to-mm-ratio of the template image
     equalize : bool, optional
         should the provided image be colour corrected to match the template 
         images' histogram
@@ -409,8 +411,6 @@ def detect_reference(
         result in poor detection performance or even crashes)
     overwrite : bool, optional
         overwrite existing reference_detected_px_mm_ratio in container
-    px_mm_ratio_ref : int, optional
-        pixel-to-mm-ratio of the template image
 
     Returns
     -------
@@ -428,8 +428,6 @@ def detect_reference(
     flag_equalize = equalize
 
     ## load image
-    template_px_mm_ratio = None
-    template_image = None
     if obj_input.__class__.__name__ == "ndarray":
         image = obj_input
         if df_image_data.__class__.__name__ == "NoneType":
