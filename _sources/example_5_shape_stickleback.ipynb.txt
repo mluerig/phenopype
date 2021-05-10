@@ -1,0 +1,999 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Example 5: Stickleback morphometrics - body and armor-plate shape\n",
+    "\n",
+    "Variation in continuous phenotypic traits like shape or area of certain structures are difficult to quantify with landmarks, because they are too complex or have no underlying assumption of homology. In this example, the number and area of armor plating was measured as a continuous trait in a two-step process: first, a mask was set around the posterior region that contains the plates, second, the red channel (highest signal-to-noise-ratio) of the image was thresholded. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In this example we use the `watershed` algorithm, which helps to separate detected objects into \"peaks of wanted information\" and \"valleys of unwanted information\". The principle is explained here: https://docs.opencv.org/master/d3/db4/tutorial_py_watershed.html "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<div class=\"row; text-align: left\">\n",
+    "    \n",
+    "<div class=\"col-md-6\">\n",
+    "    \n",
+    "![Before](_assets/ex5_before.jpg)\n",
+    "    \n",
+    "**Input** - Stained threespine stickleback. The size of plates at a given plate index varies within at between ecotypes (e.g. lake and stream morphs)  \n",
+    "</div>\n",
+    "<div class=\"col-md-6\">\n",
+    "\n",
+    "![After](_assets/ex5_after.jpg)\n",
+    "    \n",
+    "**Results** - After applying adaptive thresholding and watershed algorithms, the plates separate. Where this is not the case they can be separated manually.\n",
+    "</div>\n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## High throughput workflow 1 (Thresholding based)\n",
+    "\n",
+    "First we need to create a project, as described in [Tutorial 3](tutorial_3_managing_projects_1.ipynb) and [Tutorial 4](tutorial_4_managing_projects_2.ipynb). \n",
+    "\n",
+    "**Note:** If you have already created a project you can skip the following steps and load the project with `pp.project.load(\"path/to/project\")`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import phenopype as pp\n",
+    "\n",
+    "## relative from phenopype-master/tutorials\n",
+    "project_root = r\"_temp/output/ex5_project\"\n",
+    "image_dir = \"images\"\n",
+    "reference_image = \"images/stickleback_side.jpg\""
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Create project"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--------------------------------------------\n",
+      "Phenopype will create a new project at\n",
+      "D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\n",
+      "\n",
+      "Proceed? (y/n)\n",
+      "y\n",
+      "Warning - project root_dir already exists - overwrite? (y/n)y\n",
+      "\n",
+      "\"D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\" created (overwritten)\n",
+      "\n",
+      "project attributes written to D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\\attributes.yaml\n",
+      "--------------------------------------------\n"
+     ]
+    }
+   ],
+   "source": [
+    "ex5_1 = pp.project(root_dir=project_root)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "This will create a folder structure and allows for easy creation of the `pype`-configuration files needed for high throughput. First we add the image files in the directory, but only \"stickle1\", \"stickle2\", and \"stickle3\". "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--------------------------------------------\n",
+      "phenopype will search for image files at\n",
+      "\n",
+      "D:\\workspace\\git\\phenopype\\tutorials\\images\n",
+      "\n",
+      "using the following settings:\n",
+      "\n",
+      "filetypes: ['jpg', 'JPG', 'jpeg', 'JPEG', 'tif', 'png', 'bmp'], include: stickle, exclude: ['side', 'top'], mode: copy, recursive: False, resize: False, unique: path\n",
+      "\n",
+      "Found image stickle1.JPG - phenopype-project folder 0__stickle1 created\n",
+      "Found image stickle2.JPG - phenopype-project folder 0__stickle2 created\n",
+      "Found image stickle3.JPG - phenopype-project folder 0__stickle3 created\n",
+      "\n",
+      "Found 3 files\n",
+      "--------------------------------------------\n"
+     ]
+    }
+   ],
+   "source": [
+    "ex5_1.add_files(image_dir=image_dir, \n",
+    "                include=\"stickle\", \n",
+    "                exclude=[\"side\",\"top\"])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we add the appropriate configuration file. As for the other examples I have created a template (\"ex5\") with appropriate settings, which is passed to the pype using `template=\"ex5_1\"`."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'demo.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\demo.yaml',\n",
+       " 'ex1.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\ex1.yaml',\n",
+       " 'ex2.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\ex2.yaml',\n",
+       " 'ex3.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\ex3.yaml',\n",
+       " 'ex5_1.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\ex5_1.yaml',\n",
+       " 'ex5_2.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\ex5_2.yaml',\n",
+       " 'ex6.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\ex6.yaml',\n",
+       " 'ex7.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\ex7.yaml',\n",
+       " 'ex8_1.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\ex8_1.yaml',\n",
+       " 'ex8_2.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\ex8_2.yaml',\n",
+       " 'landmarks1.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\landmarks1.yaml',\n",
+       " 'landmarks2.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\landmarks2.yaml',\n",
+       " 'tut3.yaml': 'd:\\\\workspace\\\\git\\\\phenopype\\\\phenopype\\\\templates\\\\tut3.yaml'}"
+      ]
+     },
+     "execution_count": 4,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pp.pype_config_templates"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "New pype configuration created (ex5_1.yaml) from phenopype template:\n",
+      "d:\\workspace\\git\\phenopype\\phenopype\\templates\\ex5_1.yaml\n",
+      "pype_v1.yaml created for 0__stickle1\n",
+      "pype_v1.yaml created for 0__stickle2\n",
+      "pype_v1.yaml created for 0__stickle3\n"
+     ]
+    }
+   ],
+   "source": [
+    "ex5_1.add_config(name = \"v1\", template=\"ex5_1\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we add reference image to create a scale-template so we can adjust our landmark coordinate space. This is important if for example the distance between the camera and your sample changes.  \n",
+    "\n",
+    "<center>\n",
+    "<div style=\"width:500px; text-align: left\">\n",
+    "    \n",
+    "![Adding a scale](_assets/ex2_scale.gif)\n",
+    "    \n",
+    "</div>\n",
+    "</center>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Reference image loaded from images/stickleback_side.jpg\n",
+      "- measure pixel-to-mm-ratio\n",
+      "Reference set\n",
+      "- add column length\n",
+      "Template selected\n",
+      "Reference image saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\\reference_v1.tif\n",
+      "Reference image saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\\reference_template_v1.tif\n",
+      "Saved reference info to project attributes.\n",
+      "setting active reference to \"v1\" for 0__stickle1 (active=True)\n",
+      "setting active reference to \"v1\" for 0__stickle2 (active=True)\n",
+      "setting active reference to \"v1\" for 0__stickle3 (active=True)\n"
+     ]
+    }
+   ],
+   "source": [
+    "ex5_1.add_reference(name=\"v1\", \n",
+    "                    reference_image = reference_image, \n",
+    "                    template=True, \n",
+    "                    overwrite=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Afterwards, we save the project (to the root folder). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Project data saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\\project.data.\n"
+     ]
+    }
+   ],
+   "source": [
+    "pp.project.save(ex5_1)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Load project"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--------------------------------------------\n",
+      "Project loaded from \n",
+      "D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\n",
+      "\n",
+      "Project has 3 image folders\n",
+      "--------------------------------------------\n"
+     ]
+    }
+   ],
+   "source": [
+    "ex5_1 = pp.project.load(project_root)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### The procedure\n",
+    "\n",
+    "The basic points of the procedure are:\n",
+    "\n",
+    "1. Draw a mask around the area of interest (i.e. the plates)\n",
+    "2. Let the algorithm find the scale\n",
+    "3. Enter the ID from the reference card into the mask\n",
+    "\n",
+    "<center>\n",
+    "<div style=\"width:500px; text-align: left\" >\n",
+    "    \n",
+    "![Create masks](_assets/masks2.gif)\n",
+    "    \n",
+    "</div>\n",
+    "</center>\n",
+    "\n",
+    "The rest is automatic: a watershed algorithm helps to separate the plates. Sensitivity of the algorithm can be mostly controlled with the `distance_cutoff` argument, but also playing around with the thresholding arguments (`blocksize` and `constant`) can help to improve results. \n",
+    "\n",
+    "Sometimes the overall results are goog except for one or two cases of plates that touch each other. In this case, the `draw` function can be used to separate those plates without changing the whole procedure. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we can run the `pype` routine with a simple loop on `ex5_1.dirpaths`, which is a list of all project directories that contain the copied raw images and the config files we generated before. \n",
+    "\n",
+    "Move on to the next image with `Ctrl+Enter`, interrupt the loop with `Esc`. To resume to the point where you left, add the `skip` argument so directory with processed files are not run again."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Succesfully loaded existing pype config (pype_config_v1.yaml) from:\n",
+      "D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\\data\\0__stickle1\\pype_config_v1.yaml \n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:05:10 16:03:27 +++--------------\n",
+      "\n",
+      "\n",
+      "=== AUTOLOAD ===\n",
+      "- project level reference information loaded for v1\n",
+      "- reference template image loaded from root directory\n",
+      "PREPROCESSING\n",
+      "create_mask\n",
+      "- creating mask\n",
+      "detect_reference\n",
+      "---------------------------------------------------\n",
+      "Reference card found with 259 keypoint matches:\n",
+      "template image has 36.330978516962624 pixel per mm.\n",
+      "current image has 35.2 pixel per mm.\n",
+      "= 96.806 % of template image.\n",
+      "---------------------------------------------------\n",
+      "enter_data\n",
+      "- add column ID\n",
+      "SEGMENTATION\n",
+      "blur\n",
+      "threshold\n",
+      "- excluding pixels from 1 drawn masks \n",
+      "- including pixels from 1 drawn masks \n",
+      "morphology\n",
+      "watershed\n",
+      "- found 27 contours that match criteria\n",
+      "draw\n",
+      "- drawing\n",
+      "zero coordinates - redo drawing!\n",
+      "segmentation.draw: ValueError - No objects to concatenate\n",
+      "find_contours\n",
+      "- found 13 contours that match criteria\n",
+      "VISUALIZATION\n",
+      "select_canvas\n",
+      "- red channel\n",
+      "draw_contours\n",
+      "draw_masks\n",
+      "drawing mask: mask1\n",
+      "drawing mask: reference\n",
+      "EXPORT\n",
+      "save_contours\n",
+      "- contours saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\\data\\0__stickle1\\contours_v1.csv.\n",
+      "=== AUTOSAVE ===\n",
+      "save_canvas\n",
+      "- canvas saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\\data\\0__stickle1\\canvas_v1.jpg.\n",
+      "save_data_entry\n",
+      "- add column ID\n",
+      "save_masks\n",
+      "- masks saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\\data\\0__stickle1\\masks_v1.csv.\n",
+      "save_reference\n",
+      "v1\n",
+      "- save reference to attributes\n",
+      "\n",
+      "\n",
+      "------------+++ finished pype iteration +++--------------\n",
+      "-------(End with Ctrl+Enter or re-run with Enter)--------\n",
+      "\n",
+      "\n",
+      "\n",
+      "\n",
+      "TERMINATE\n",
+      "Succesfully loaded existing pype config (pype_config_v1.yaml) from:\n",
+      "D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project\\data\\0__stickle2\\pype_config_v1.yaml \n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:05:10 16:03:45 +++--------------\n",
+      "\n",
+      "\n",
+      "=== AUTOLOAD ===\n",
+      "- project level reference information loaded for v1\n",
+      "- reference template image loaded from root directory\n",
+      "PREPROCESSING\n",
+      "create_mask\n",
+      "- creating mask\n"
+     ]
+    },
+    {
+     "ename": "SystemExit",
+     "evalue": "\n\nTERMINATE (by user)",
+     "output_type": "error",
+     "traceback": [
+      "An exception has occurred, use %tb to see the full traceback.\n",
+      "\u001b[1;31mSystemExit\u001b[0m\u001b[1;31m:\u001b[0m \n\nTERMINATE (by user)\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "WARNING: To exit: use 'exit', 'quit', or Ctrl-D.\n"
+     ]
+    }
+   ],
+   "source": [
+    "for dirpath in ex5_1.dirpaths:\n",
+    "    out = pp.pype(dirpath, name=\"v1\", skip=True) "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/html": [
+       "<div>\n",
+       "<style scoped>\n",
+       "    .dataframe tbody tr th:only-of-type {\n",
+       "        vertical-align: middle;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe tbody tr th {\n",
+       "        vertical-align: top;\n",
+       "    }\n",
+       "\n",
+       "    .dataframe thead th {\n",
+       "        text-align: right;\n",
+       "    }\n",
+       "</style>\n",
+       "<table border=\"1\" class=\"dataframe\">\n",
+       "  <thead>\n",
+       "    <tr style=\"text-align: right;\">\n",
+       "      <th></th>\n",
+       "      <th>filename_original</th>\n",
+       "      <th>filename_phenopype</th>\n",
+       "      <th>width</th>\n",
+       "      <th>height</th>\n",
+       "      <th>current_px_mm_ratio</th>\n",
+       "      <th>ID</th>\n",
+       "      <th>contour</th>\n",
+       "      <th>center</th>\n",
+       "      <th>diameter</th>\n",
+       "      <th>area</th>\n",
+       "    </tr>\n",
+       "  </thead>\n",
+       "  <tbody>\n",
+       "    <tr>\n",
+       "      <th>0</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>1</td>\n",
+       "      <td>(1635, 444)</td>\n",
+       "      <td>22</td>\n",
+       "      <td>174</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>1</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>2</td>\n",
+       "      <td>(1589, 440)</td>\n",
+       "      <td>32</td>\n",
+       "      <td>248</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>2</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>3</td>\n",
+       "      <td>(1364, 410)</td>\n",
+       "      <td>34</td>\n",
+       "      <td>194</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>3</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>4</td>\n",
+       "      <td>(1662, 385)</td>\n",
+       "      <td>36</td>\n",
+       "      <td>320</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>4</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>5</td>\n",
+       "      <td>(1636, 380)</td>\n",
+       "      <td>41</td>\n",
+       "      <td>365</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>...</th>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "      <td>...</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>8</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>9</td>\n",
+       "      <td>(1521, 365)</td>\n",
+       "      <td>101</td>\n",
+       "      <td>1235</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>9</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>10</td>\n",
+       "      <td>(1485, 360)</td>\n",
+       "      <td>114</td>\n",
+       "      <td>1559</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>10</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>11</td>\n",
+       "      <td>(1453, 355)</td>\n",
+       "      <td>119</td>\n",
+       "      <td>1638</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>11</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>12</td>\n",
+       "      <td>(1423, 355)</td>\n",
+       "      <td>128</td>\n",
+       "      <td>1755</td>\n",
+       "    </tr>\n",
+       "    <tr>\n",
+       "      <th>12</th>\n",
+       "      <td>stickle1.JPG</td>\n",
+       "      <td>copy_stickle1.JPG</td>\n",
+       "      <td>2400</td>\n",
+       "      <td>1600</td>\n",
+       "      <td>35.2</td>\n",
+       "      <td>142501</td>\n",
+       "      <td>13</td>\n",
+       "      <td>(1391, 344)</td>\n",
+       "      <td>115</td>\n",
+       "      <td>1542</td>\n",
+       "    </tr>\n",
+       "  </tbody>\n",
+       "</table>\n",
+       "<p>13 rows × 10 columns</p>\n",
+       "</div>"
+      ],
+      "text/plain": [
+       "   filename_original filename_phenopype  width  height  current_px_mm_ratio  \\\n",
+       "0       stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "1       stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "2       stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "3       stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "4       stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "..               ...                ...    ...     ...                  ...   \n",
+       "8       stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "9       stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "10      stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "11      stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "12      stickle1.JPG  copy_stickle1.JPG   2400    1600                 35.2   \n",
+       "\n",
+       "        ID contour       center diameter  area  \n",
+       "0   142501       1  (1635, 444)       22   174  \n",
+       "1   142501       2  (1589, 440)       32   248  \n",
+       "2   142501       3  (1364, 410)       34   194  \n",
+       "3   142501       4  (1662, 385)       36   320  \n",
+       "4   142501       5  (1636, 380)       41   365  \n",
+       "..     ...     ...          ...      ...   ...  \n",
+       "8   142501       9  (1521, 365)      101  1235  \n",
+       "9   142501      10  (1485, 360)      114  1559  \n",
+       "10  142501      11  (1453, 355)      119  1638  \n",
+       "11  142501      12  (1423, 355)      128  1755  \n",
+       "12  142501      13  (1391, 344)      115  1542  \n",
+       "\n",
+       "[13 rows x 10 columns]"
+      ]
+     },
+     "execution_count": 10,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "## inspect results\n",
+    "## DataFrame\n",
+    "out.container.df_contours.drop(columns=[\"order\", \"idx_child\", \"idx_parent\", \"coords\"])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "## image\n",
+    "pp.show_image(out.container.canvas)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## High throughput workflow 2 (Manual approach)\n",
+    "\n",
+    "Sometimes thresholding algorithms don't separate plates that are too close to each other or overap. For this case, the `create_mask` function introduced above can be used to separate out specific plates."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<center>\n",
+    "<div style=\"width:500px; text-align: left\" >\n",
+    "    \n",
+    "![Find contours manually](_assets/ex5_poly_masks.gif)\n",
+    "    \n",
+    "Manual polygon drawing using the mask tool. Although this is more manual work, it may sometimes be the only way to separate overlapping or connected body-structures.\n",
+    "    \n",
+    "</div>\n",
+    "</center>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Just as before we need to create a phenpype project, add the image files, and the appropriate template (`\"ex5_2\"`). As above, we also have set the reference image for scale detection."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import phenopype as pp\n",
+    "\n",
+    "## relative from phenopype-master/tutorials\n",
+    "project_root = r\"_temp/output/ex5_project2\"\n",
+    "image_dir = \"images\"\n",
+    "reference_image = \"images/stickleback_side.jpg\""
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--------------------------------------------\n",
+      "Phenopype will create a new project at\n",
+      "D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\n",
+      "\n",
+      "Proceed? (y/n)\n",
+      "y\n",
+      "Warning - project root_dir already exists - overwrite? (y/n)y\n",
+      "\n",
+      "\"D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\" created (overwritten)\n",
+      "\n",
+      "project attributes written to D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\attributes.yaml\n",
+      "--------------------------------------------\n",
+      "--------------------------------------------\n",
+      "phenopype will search for image files at\n",
+      "\n",
+      "D:\\workspace\\git\\phenopype\\tutorials\\images\n",
+      "\n",
+      "using the following settings:\n",
+      "\n",
+      "filetypes: ['jpg', 'JPG', 'jpeg', 'JPEG', 'tif', 'png', 'bmp'], include: stickle, exclude: ['side', 'top'], mode: copy, recursive: False, resize: False, unique: path\n",
+      "\n",
+      "Found image stickle1.JPG - phenopype-project folder 0__stickle1 created\n",
+      "Found image stickle2.JPG - phenopype-project folder 0__stickle2 created\n",
+      "Found image stickle3.JPG - phenopype-project folder 0__stickle3 created\n",
+      "\n",
+      "Found 3 files\n",
+      "--------------------------------------------\n",
+      "New pype configuration created (ex5_2.yaml) from phenopype template:\n",
+      "d:\\workspace\\git\\phenopype\\phenopype\\templates\\ex5_2.yaml\n",
+      "pype_v1.yaml created for 0__stickle1\n",
+      "pype_v1.yaml created for 0__stickle2\n",
+      "pype_v1.yaml created for 0__stickle3\n",
+      "Reference image loaded from images/stickleback_side.jpg\n",
+      "- measure pixel-to-mm-ratio\n",
+      "Reference set\n",
+      "- add column length\n",
+      "Template selected\n",
+      "Reference image saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\reference_v1.tif\n",
+      "Reference image saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\reference_template_v1.tif\n",
+      "Saved reference info to project attributes.\n",
+      "setting active reference to \"v1\" for 0__stickle1 (active=True)\n",
+      "setting active reference to \"v1\" for 0__stickle2 (active=True)\n",
+      "setting active reference to \"v1\" for 0__stickle3 (active=True)\n",
+      "Project data saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\project.data.\n"
+     ]
+    }
+   ],
+   "source": [
+    "ex5_2 = pp.project(root_dir=project_root)\n",
+    "ex5_2.add_files(image_dir=image_dir, \n",
+    "                include=\"stickle\", \n",
+    "                exclude=[\"side\",\"top\"])\n",
+    "ex5_2.add_config(name = \"v1\", \n",
+    "                 template=\"ex5_2\")\n",
+    "ex5_2.add_reference(name=\"v1\", \n",
+    "                    reference_image = reference_image, \n",
+    "                    template=True, \n",
+    "                    overwrite=True)\n",
+    "pp.project.save(ex5_2)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Succesfully loaded existing pype config (pype_config_v1.yaml) from:\n",
+      "D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\data\\0__stickle1\\pype_config_v1.yaml \n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:05:10 16:06:15 +++--------------\n",
+      "\n",
+      "\n",
+      "=== AUTOLOAD ===\n",
+      "- project level reference information loaded for v1\n",
+      "- reference template image loaded from root directory\n",
+      "PREPROCESSING\n",
+      "create_mask\n",
+      "- creating mask\n",
+      "detect_reference\n",
+      "---------------------------------------------------\n",
+      "Reference card found with 248 keypoint matches:\n",
+      "template image has 38.41874542459709 pixel per mm.\n",
+      "current image has 37.2 pixel per mm.\n",
+      "= 96.763 % of template image.\n",
+      "---------------------------------------------------\n",
+      "enter_data\n",
+      "- add column ID\n",
+      "SEGMENTATION\n",
+      "blur\n",
+      "threshold\n",
+      "- excluding pixels from 1 drawn masks \n",
+      "- including pixels from 1 drawn masks \n",
+      "draw\n",
+      "- drawing\n",
+      "zero coordinates - redo drawing!\n",
+      "segmentation.draw: ValueError - No objects to concatenate\n",
+      "find_contours\n",
+      "- found 1 contours that match criteria\n",
+      "VISUALIZATION\n",
+      "select_canvas\n",
+      "- red channel\n",
+      "draw_contours\n",
+      "draw_masks\n",
+      "drawing mask: mask1\n",
+      "drawing mask: reference\n",
+      "EXPORT\n",
+      "save_contours\n",
+      "- contours saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\data\\0__stickle1\\contours_v1.csv.\n",
+      "=== AUTOSAVE ===\n",
+      "save_canvas\n",
+      "- canvas saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\data\\0__stickle1\\canvas_v1.jpg.\n",
+      "save_data_entry\n",
+      "- add column ID\n",
+      "save_masks\n",
+      "- masks saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\data\\0__stickle1\\masks_v1.csv.\n",
+      "save_reference\n",
+      "v1\n",
+      "- save reference to attributes\n",
+      "\n",
+      "\n",
+      "------------+++ finished pype iteration +++--------------\n",
+      "-------(End with Ctrl+Enter or re-run with Enter)--------\n",
+      "\n",
+      "\n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:05:10 16:06:29 +++--------------\n",
+      "\n",
+      "\n",
+      "=== AUTOLOAD ===\n",
+      "- project level reference information loaded for v1\n",
+      "- reference template image loaded from root directory\n",
+      "PREPROCESSING\n",
+      "create_mask\n",
+      "- mask with label mask1 already created (edit/overwrite=False)\n",
+      "detect_reference\n",
+      "- reference already detected (overwrite=False)\n",
+      "enter_data\n",
+      "- column ID already created (overwrite=False)\n",
+      "SEGMENTATION\n",
+      "blur\n",
+      "threshold\n",
+      "- excluding pixels from 1 drawn masks \n",
+      "- including pixels from 1 drawn masks \n",
+      "draw\n",
+      "- drawing\n",
+      "zero coordinates - redo drawing!\n",
+      "segmentation.draw: ValueError - No objects to concatenate\n",
+      "find_contours\n",
+      "- found 1 contours that match criteria\n",
+      "VISUALIZATION\n",
+      "select_canvas\n",
+      "- red channel\n",
+      "draw_contours\n",
+      "draw_masks\n",
+      "drawing mask: mask1\n",
+      "drawing mask: reference\n",
+      "EXPORT\n",
+      "save_contours\n",
+      "- contours saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\data\\0__stickle1\\contours_v1.csv (overwritten).\n",
+      "=== AUTOSAVE ===\n",
+      "save_canvas\n",
+      "- canvas saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\data\\0__stickle1\\canvas_v1.jpg (overwritten).\n",
+      "save_data_entry\n",
+      "- add column ID (overwriting)\n",
+      "save_masks\n",
+      "- masks saved under D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\data\\0__stickle1\\masks_v1.csv (overwritten).\n",
+      "save_reference\n",
+      "v1\n",
+      "- save reference to attributes (overwriting)\n",
+      "\n",
+      "\n",
+      "------------+++ finished pype iteration +++--------------\n",
+      "-------(End with Ctrl+Enter or re-run with Enter)--------\n",
+      "\n",
+      "\n",
+      "\n",
+      "\n",
+      "TERMINATE\n",
+      "Succesfully loaded existing pype config (pype_config_v1.yaml) from:\n",
+      "D:\\workspace\\git\\phenopype\\tutorials\\_temp\\output\\ex5_project2\\data\\0__stickle2\\pype_config_v1.yaml \n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:05:10 16:06:32 +++--------------\n",
+      "\n",
+      "\n",
+      "=== AUTOLOAD ===\n",
+      "- project level reference information loaded for v1\n",
+      "- reference template image loaded from root directory\n",
+      "PREPROCESSING\n",
+      "create_mask\n",
+      "- creating mask\n"
+     ]
+    },
+    {
+     "ename": "SystemExit",
+     "evalue": "\n\nTERMINATE (by user)",
+     "output_type": "error",
+     "traceback": [
+      "An exception has occurred, use %tb to see the full traceback.\n",
+      "\u001b[1;31mSystemExit\u001b[0m\u001b[1;31m:\u001b[0m \n\nTERMINATE (by user)\n"
+     ]
+    },
+    {
+     "name": "stderr",
+     "output_type": "stream",
+     "text": [
+      "WARNING: To exit: use 'exit', 'quit', or Ctrl-D.\n"
+     ]
+    }
+   ],
+   "source": [
+    "for dirpath in ex5_2.dirpaths:\n",
+    "    out = pp.pype(dirpath, name=\"v1\", skip=False) "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The data containing the size of each contour are now in \"contours_v1.csv\", just as above. Using the \"current_px_mm_ratio\" colum you can calculate size and area in mm, with the first (x-coordinate) value in the \"center\" colum you can order the plates from left to right.  "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

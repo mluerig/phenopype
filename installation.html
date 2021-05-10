@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Installation instructions &#8212; phenopype 2.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API reference" href="api.html" />
+    <link rel="prev" title="What is phenopype?" href="index.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          phenopype</a>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/mluerig/phenopype">Phenopype on Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_0.html">How to run tutorials and examples using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_images.html">Tutorial 2: Interacting with images in phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_phenopype_workflows.html">Tutorial 3: Image analysis workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects.html">Tutorial 4: Setting up and managing projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_references.html">Tutorial 5: Creating and detecting a reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Installation instructions</a><ul>
+<li><a class="reference internal" href="#installing-python">1. Installing Python</a><ul>
+<li><a class="reference internal" href="#for-windows">1.1 For Windows</a></li>
+<li><a class="reference internal" href="#for-linux">1.2 For Linux</a></li>
+<li><a class="reference internal" href="#troubleshooting-references">1.3. Troubleshooting references</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installing-phenopype">2. Installing phenopype</a><ul>
+<li><a class="reference internal" href="#initial-installation">2.2 Initial installation</a></li>
+<li><a class="reference internal" href="#installing-updates">2.2 Installing updates</a></li>
+<li><a class="reference internal" href="#installing-past-versions">2.3 Installing past versions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#choosing-a-text-editor">3. Choosing a text editor</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="index.html" title="Previous Chapter: What is phenopype?"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; What is phenopype?</span>
+    </a>
+  </li>
+  <li>
+    <a href="api.html" title="Next Chapter: API reference"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">API reference &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/installation.rst.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Installation instructions</a><ul>
+<li><a class="reference internal" href="#installing-python">1. Installing Python</a><ul>
+<li><a class="reference internal" href="#for-windows">1.1 For Windows</a></li>
+<li><a class="reference internal" href="#for-linux">1.2 For Linux</a></li>
+<li><a class="reference internal" href="#troubleshooting-references">1.3. Troubleshooting references</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installing-phenopype">2. Installing phenopype</a><ul>
+<li><a class="reference internal" href="#initial-installation">2.2 Initial installation</a></li>
+<li><a class="reference internal" href="#installing-updates">2.2 Installing updates</a></li>
+<li><a class="reference internal" href="#installing-past-versions">2.3 Installing past versions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#choosing-a-text-editor">3. Choosing a text editor</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  <div class="section" id="installation-instructions">
+<h1>Installation instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this headline">¶</a></h1>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>These instructions are intended for Python beginners and assume that <code class="code docutils literal notranslate"><span class="pre">Anaconda</span></code> is being used to manage Python and <code class="code docutils literal notranslate"><span class="pre">pip</span></code> for the phenopype installation. There are, of course, other ways to install Python, and phenopype can be directly installed via <code class="code docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">phenopype</span></code>. However, if you don’t know what this means or are in doubt about what to do, you should just stick to the following instructions.</p>
+</div>
+<div class="section" id="installing-python">
+<h2>1. Installing Python<a class="headerlink" href="#installing-python" title="Permalink to this headline">¶</a></h2>
+<p>Download and install <a class="reference external" href="https://www.anaconda.com/distribution/">Anaconda3</a> (Python 3). Anaconda is a scientific python distribution which comes with the most common scientific Python packages already built in. Follow the OS-specific instructions below:</p>
+<div class="section" id="for-windows">
+<h3>1.1 For Windows<a class="headerlink" href="#for-windows" title="Permalink to this headline">¶</a></h3>
+<p>Open the Anaconda installer file you downloaded. Depending on the installation location of your choice you may need admin rights (right click on the file and select <cite>Run as Administrator</cite>), but DON’T install Anaconda to <cite>Program files</cite>, as this may cause problems later. A good idea is typically the root directory of your hard drive (e.g. <cite>C:\Anaconda3</cite>). Then test if the installation was successful by opening a terminal and typing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda --version
+</pre></div>
+</div>
+<p>If <code class="code docutils literal notranslate"><span class="pre">conda</span></code> is not recognized you need add the path to your Anaconda installation directory to your environmental variables (if you have not done so during the installation). To do so, go to <cite>Control Panel\System</cite> and <cite>Security\System\Advanced System Settings</cite> and look for <cite>Environment Variables</cite>. Then click <cite>new</cite> and add the path to the Anaconda folder (i.e., the path you selected during installation - e.g. <cite>C:\Anaconda3</cite>) and the subfolder <cite>scripts</cite> (e.g. <cite>C:\Anaconda3\Scripts</cite>.</p>
+<p>An alternative to manipulating the environment variables is to use the anaconda prompt that can be launched from a shortcut in the <cite>Start</cite> menu (should get added during the installation), or through the <a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/getting-started/">Anaconda Navigator</a>).</p>
+</div>
+<div class="section" id="for-linux">
+<h3>1.2 For Linux<a class="headerlink" href="#for-linux" title="Permalink to this headline">¶</a></h3>
+<p>Run the Anaconda installer script you downloaded, e.g. <code class="code docutils literal notranslate"><span class="pre">bash</span> <span class="pre">~/Downloads/Anaconda3-2020.02-Linux-x86_64.sh</span></code>, and follow the instructions. When the installer prompts “Do you wish the installer to initialize Anaconda3 by running conda init?”, type <cite>yes</cite>. Then test if the installation was successful by opening a terminal and typing:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda --version
+</pre></div>
+</div>
+<p>If <code class="code docutils literal notranslate"><span class="pre">conda</span></code> is not recognized you need to add the path to your Anaconda installation directory to your <cite>.bashrc</cite> file. To do so, type <code class="code docutils literal notranslate"><span class="pre">echo</span> <span class="pre">'export</span> <span class="pre">PATH=/path/to/anaconda3/bin:$PATH'</span> <span class="pre">&gt;&gt;</span> <span class="pre">~/.bashrc</span></code>.</p>
+</div>
+<div class="section" id="troubleshooting-references">
+<h3>1.3. Troubleshooting references<a class="headerlink" href="#troubleshooting-references" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://docs.anaconda.com/anaconda/install/">https://docs.anaconda.com/anaconda/install/</a></p></li>
+<li><p><a class="reference external" href="https://docs.anaconda.com/anaconda/user-guide/troubleshooting/">https://docs.anaconda.com/anaconda/user-guide/troubleshooting/</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/28612500/why-anaconda-does-not-recognize-conda-command">https://stackoverflow.com/questions/28612500/why-anaconda-does-not-recognize-conda-command</a></p></li>
+<li><p><a class="reference external" href="https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10">https://stackoverflow.com/questions/44597662/conda-command-is-not-recognized-on-windows-10</a></p></li>
+<li><p><a class="reference external" href="https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found">https://askubuntu.com/questions/908827/variable-path-issue-conda-command-not-found</a></p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="installing-phenopype">
+<h2>2. Installing phenopype<a class="headerlink" href="#installing-phenopype" title="Permalink to this headline">¶</a></h2>
+<p>(These instructions are valid across operating systems).</p>
+<div class="section" id="initial-installation">
+<h3>2.2 Initial installation<a class="headerlink" href="#initial-installation" title="Permalink to this headline">¶</a></h3>
+<p>Open a terminal. Then create a virtual environment with <cite>conda</cite>. Using such environments will give you full control over which Python packages are installed, and reduces the change of package related issues. Note that phenopype requires Python v3.7, which needs to be explicitly specified. For example, for an environment named “pp”, type:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda create -n <span class="s2">&quot;pp&quot;</span> <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.7
+</pre></div>
+</div>
+<p>You can now activate your environment. <strong>This needs to be done every time you are using phenopype</strong>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate pp
+</pre></div>
+</div>
+<p>Now install phenopype to the environment using <code class="code docutils literal notranslate"><span class="pre">pip</span></code> (<cite>pip</cite> is the package installer for Python):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install phenopype
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If you prefer an “Rstudio-like” environment, you can use Phenopype from a Python Integrated Development Environment (IDE), such as <a class="reference external" href="https://www.spyder-ide.org/">Spyder</a>. <cite>Spyder</cite> needs to be installed with <cite>conda</cite> directly to the environment you created before. Using the example from above:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>conda activate pp
+conda install spyder
+</pre></div>
+</div>
+<p>Once installed, you can run <cite>Spyder</cite> by typing <code class="code docutils literal notranslate"><span class="pre">spyder</span></code></p>
+</div>
+<p>That’s it - happy <cite>phenopyping</cite>! You can now use phenopype by after loading <code class="code docutils literal notranslate"><span class="pre">python</span></code> or <code class="code docutils literal notranslate"><span class="pre">spyder</span></code> from the terminal. You can also use phenopype from a <cite>jupyter notebook</cite> - for more details, give the <a class="reference external" href="tutorial_0.html">tutorials</a> a try. <strong>Always remember to activate your environment.</strong></p>
+</div>
+<div class="section" id="installing-updates">
+<h3>2.2 Installing updates<a class="headerlink" href="#installing-updates" title="Permalink to this headline">¶</a></h3>
+<p>For regular major and minor releases, use the <code class="code docutils literal notranslate"><span class="pre">-U</span></code> flag with <code class="code docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install phenopype -U
+</pre></div>
+</div>
+</div>
+<div class="section" id="installing-past-versions">
+<h3>2.3 Installing past versions<a class="headerlink" href="#installing-past-versions" title="Permalink to this headline">¶</a></h3>
+<p>Major releases are not backwards compatible, so if you have existing phenopype projects that were created with a previous version you need to download that specific version. You can tell <cite>pip</cite> to do so, for example, for version <cite>1.0.0</cite>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install <span class="s2">&quot;phenopype==1.0.0&quot;</span>
+</pre></div>
+</div>
+<p>Or, for the latest phenopype version that is still 1.x.x:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install <span class="s2">&quot;phenopype &lt; 2&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="choosing-a-text-editor">
+<h2>3. Choosing a text editor<a class="headerlink" href="#choosing-a-text-editor" title="Permalink to this headline">¶</a></h2>
+<p>Phenopype’s high throughout workflow currently requires a text editor to be installed that <strong>does not lock the file</strong> (<a class="reference external" href="https://superuser.com/a/855057/970488">read about file locking here</a>).</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Your OS needs to know how to handle <cite>.yaml</cite> files. Make sure that the default app to open these files is set. Otherwise, phenopype will be unable to open YAML configuration files (this is a common error source).</p>
+</div>
+<p>For Windows, <cite>Notepad</cite> works. However, I highly recommend <cite>Notepad++</cite>, which supports syntax highlighting and has many other useful features: <a class="reference external" href="https://notepad-plus-plus.org/downloads/">https://notepad-plus-plus.org/downloads/</a>.</p>
+<p>Another popular editor is <a class="reference external" href="https://atom.io/">Atom</a>. <cite>Atom</cite> works across all platforms: <a class="reference external" href="https://flight-manual.atom.io/getting-started/sections/installing-atom/">https://flight-manual.atom.io/getting-started/sections/installing-atom/</a></p>
+<p>Regardless which editor you chose, you need to make sure that your OS “knows” how to open “.yaml” files. Check the following: create a file named <cite>test.yaml</cite>. When you try to open it but nothing happens, you need to select a text editor as the default application for the <cite>.yaml</cite> file ending.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Moritz Lürig.<br/>
+      Last updated on May 10, 2021, 5:17:54 PM.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

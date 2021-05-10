@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial 5: Creating and detecting a reference &#8212; phenopype 2.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial 6: Video analysis" href="tutorial_6_video_analysis.html" />
+    <link rel="prev" title="Tutorial 4: Setting up and managing projects" href="tutorial_4_managing_projects.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          phenopype</a>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/mluerig/phenopype">Phenopype on Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial_0.html">How to run tutorials and examples using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_images.html">Tutorial 2: Interacting with images in phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_phenopype_workflows.html">Tutorial 3: Image analysis workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects.html">Tutorial 4: Setting up and managing projects</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 5: Creating and detecting a reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Tutorial 5: Creating and detecting a reference</a><ul>
+<li><a class="reference internal" href="#Load-project">Load project</a></li>
+<li><a class="reference internal" href="#Create-a-reference-and-a-template-for-detection">Create a reference and a template for detection</a></li>
+<li><a class="reference internal" href="#Detecting-a-reference">Detecting a reference</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="tutorial_4_managing_projects.html" title="Previous Chapter: Tutorial 4: Setting up and managing projects"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tutorial 4: S...</span>
+    </a>
+  </li>
+  <li>
+    <a href="tutorial_6_video_analysis.html" title="Next Chapter: Tutorial 6: Video analysis"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tutorial 6: V... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/tutorial_5_references.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Tutorial 5: Creating and detecting a reference</a><ul>
+<li><a class="reference internal" href="#Load-project">Load project</a></li>
+<li><a class="reference internal" href="#Create-a-reference-and-a-template-for-detection">Create a reference and a template for detection</a></li>
+<li><a class="reference internal" href="#Detecting-a-reference">Detecting a reference</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Tutorial-5:-Creating-and-detecting-a-reference">
+<h1>Tutorial 5: Creating and detecting a reference<a class="headerlink" href="#Tutorial-5:-Creating-and-detecting-a-reference" title="Permalink to this headline">¶</a></h1>
+<p>Unless images are taken in a highly standardized environment, e.g. via a scanner or a microscope, variation will be introduced in terms of exposure or distance between camera and photographed object, zooming, etc. To compensate this variation among images within and across datasets, Phenopype contains some preprocessing tools that can automatically correct images.</p>
+<div class="section" id="Load-project">
+<h2>Load project<a class="headerlink" href="#Load-project" title="Permalink to this headline">¶</a></h2>
+<p>First we load the project we created in the last tutorial. If we haven’t done so, we should create a project:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">proj_dir</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;_temp/my_project&quot;</span>
+
+
+<span class="n">images</span> <span class="o">=</span> <span class="s2">&quot;images&quot;</span>
+<span class="n">myproj</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="p">(</span><span class="n">root_dir</span><span class="o">=</span><span class="n">proj_dir</span><span class="p">)</span>
+<span class="n">myproj</span><span class="o">.</span><span class="n">add_files</span><span class="p">(</span><span class="n">image_dir</span><span class="o">=</span><span class="n">images</span><span class="p">,</span>
+             <span class="n">include</span><span class="o">=</span><span class="s2">&quot;stickle&quot;</span><span class="p">,</span>
+             <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;side&quot;</span><span class="p">,</span><span class="s2">&quot;top&quot;</span><span class="p">])</span>
+<span class="n">myproj</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;lm&quot;</span><span class="p">,</span> <span class="n">template</span><span class="o">=</span><span class="s2">&quot;landmarks1&quot;</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">project</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">myproj</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+--------------------------------------------
+Phenopype will create a new project at
+E:\git_repos\phenopype\tutorials\_temp\my_project
+
+Proceed? (y/n)
+y
+Warning - project root_dir already exists - overwrite? (y/n)y
+
+&#34;E:\git_repos\phenopype\tutorials\_temp\my_project&#34; created (overwritten)
+
+project attributes written to E:\git_repos\phenopype\tutorials\_temp\my_project\attributes.yaml
+--------------------------------------------
+--------------------------------------------
+phenopype will search for image files at
+
+E:\git_repos\phenopype\tutorials\images
+
+using the following settings:
+
+filetypes: [&#39;jpg&#39;, &#39;JPG&#39;, &#39;jpeg&#39;, &#39;JPEG&#39;, &#39;tif&#39;, &#39;png&#39;, &#39;bmp&#39;], include: stickle, exclude: [&#39;side&#39;, &#39;top&#39;], mode: copy, recursive: False, resize: False, unique: path
+
+Found image stickle1.JPG - phenopype-project folder 0__stickle1 created
+Found image stickle2.JPG - phenopype-project folder 0__stickle2 created
+Found image stickle3.JPG - phenopype-project folder 0__stickle3 created
+
+Found 3 files
+--------------------------------------------
+New pype configuration created (landmarks1.yaml) from phenopype template:
+e:\git_repos\phenopype\phenopype\templates\landmarks1.yaml
+pype_lm.yaml created for 0__stickle1
+pype_lm.yaml created for 0__stickle2
+pype_lm.yaml created for 0__stickle3
+Project data saved under E:\git_repos\phenopype\tutorials\_temp\my_project\project.data.
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Create-a-reference-and-a-template-for-detection">
+<h2>Create a reference and a template for detection<a class="headerlink" href="#Create-a-reference-and-a-template-for-detection" title="Permalink to this headline">¶</a></h2>
+<p>With this method you can set a project specific scale by measuring the pixel-to-mm ratio in a reference image. The steps for this are:</p>
+<ol class="arabic simple">
+<li><p>Click on two points with a known distance (in mm) in between, e.g. on a piece of mm-paper that you put in the image, and hit Enter.</p></li>
+<li><p>Enter the length in mm. This either returns the pixel-to-mm ratio as a float (under low throughput mode), or adds it to all attribute files within a project (under high throughput mode).</p></li>
+<li><p>Optional: You can mask the reference card with the option <code class="docutils literal notranslate"><span class="pre">mask=True</span></code>, to exclude it from all thresholding algorithms, or use <code class="docutils literal notranslate"><span class="pre">template=True</span></code> to create a template for automatic scale detection that is saved on the project’s root directory.</p></li>
+</ol>
+<p>If you used automatic scale detection, the corresponding column in all resulting data frames is “template_px_mm_ratio” for the distance measured in the template, and “current_px_mm_ratio” for the ratio in the current picture detected by “detect_scale”.</p>
+<center><div style="width:500px; text-align: left"><p><img alt="Adding a scale" src="_images/ex2_scale.gif" /></p>
+</div></center><p>The reference image can be any image, but choose it carefully: if you plan on doing brightness and colour corrections, it should be in the middle of the distribution of all exposures and colours so corrections will not over-expose or over-saturate the images.</p>
+<p>We will use the image <code class="docutils literal notranslate"><span class="pre">stickleback_side.jpg</span></code> from the <code class="docutils literal notranslate"><span class="pre">image</span></code> folder in <code class="docutils literal notranslate"><span class="pre">tutorials</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">images</span> <span class="o">=</span> <span class="s2">&quot;images&quot;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;cichlid1.jpg&#39;,
+ &#39;cichlid2.jpg&#39;,
+ &#39;cichlid3.jpg&#39;,
+ &#39;cichlid_multi1.jpg&#39;,
+ &#39;cichlid_multi2.jpg&#39;,
+ &#39;cichlid_multi3.jpg&#39;,
+ &#39;isopods.jpg&#39;,
+ &#39;isopods_fish.mp4&#39;,
+ &#39;phyto_445.jpg&#39;,
+ &#39;phyto_469.jpg&#39;,
+ &#39;phyto_586.jpg&#39;,
+ &#39;phyto_bright.jpg&#39;,
+ &#39;snails1.jpg&#39;,
+ &#39;snails2.jpg&#39;,
+ &#39;stickle1.JPG&#39;,
+ &#39;stickle2.JPG&#39;,
+ &#39;stickle3.JPG&#39;,
+ &#39;stickleback_side.jpg&#39;,
+ &#39;stickleback_top.jpg&#39;,
+ &#39;worms.jpg&#39;]
+</pre></div></div>
+</div>
+<p>Within a project, the reference image is set with the <code class="docutils literal notranslate"><span class="pre">add_reference</span></code> method of the project object: 1. click on two points inside the provided image 2. enter the distance (returns the pixel-to-mm-ratio) 3. drag a rectangle mask over the reference card</p>
+<p>The pixel-to-mm-ratio for reference image gets saved to every image included in the project, the mask is stored as a template for automatic scale detection with the <code class="docutils literal notranslate"><span class="pre">find_scale</span></code> function.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">add_reference</span><span class="p">(</span><span class="n">reference_image</span><span class="o">=</span><span class="s2">&quot;images/stickleback_side.jpg&quot;</span><span class="p">,</span>
+                     <span class="n">name</span><span class="o">=</span><span class="s2">&quot;scale1&quot;</span><span class="p">,</span>
+                     <span class="n">template</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                     <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Reference image loaded from images/stickleback_side.jpg
+- measure pixel-to-mm-ratio
+Reference set
+- add column length
+Template selected
+Reference image saved under E:\git_repos\phenopype\tutorials\_temp\my_project\reference_scale1.tif
+Reference image saved under E:\git_repos\phenopype\tutorials\_temp\my_project\reference_template_scale1.tif
+Saved reference info to project attributes.
+setting active reference to &#34;scale1&#34; for 0__stickle1 (active=True)
+setting active reference to &#34;scale1&#34; for 0__stickle2 (active=True)
+setting active reference to &#34;scale1&#34; for 0__stickle3 (active=True)
+</pre></div></div>
+</div>
+<p>We have now done a few things:</p>
+<p><strong>First</strong>, we measured pixel-to-mm ratio of our reference information and saved this information to the projects attribute file in the root directory:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">attributes</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">utils_lowlevel</span><span class="o">.</span><span class="n">_load_yaml</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">myproj</span><span class="o">.</span><span class="n">root_dir</span><span class="p">,</span> <span class="s2">&quot;attributes.yaml&quot;</span><span class="p">))</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">utils_lowlevel</span><span class="o">.</span><span class="n">_show_yaml</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+project_info:
+  date_created: &#39;20210312164805&#39;
+  date_changed: &#39;20210312164805&#39;
+  phenopype_version: 2.0.dev0
+reference:
+  scale1:
+    date_added: &#39;20210312164819&#39;
+    reference_image: reference_scale1.tif
+    original_filepath: images/stickleback_side.jpg
+    template_px_mm_ratio: 34.306413394582655
+    template_image: reference_template_scale1.tif
+project_data:
+- 0__stickle1
+- 0__stickle2
+- 0__stickle3
+</pre></div></div>
+</div>
+<div class="alert alert-block alert-info"><p><strong>NOTE</strong></p>
+<p>Don’t mind the functions <code class="docutils literal notranslate"><span class="pre">_load_yaml</span></code> and <code class="docutils literal notranslate"><span class="pre">_show_yaml</span></code> loaded from <code class="docutils literal notranslate"><span class="pre">pp.utils_lowlevel</span></code>, as they are only utility functions that work in the background. I use them here to visualize the content of the attributes files.</p>
+</div><p><strong>Second</strong>, we have created a template of the reference card to be found in all our project’s images:</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">template</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">myproj</span><span class="o">.</span><span class="n">root_dir</span><span class="p">,</span> <span class="s2">&quot;reference_template_scale1.tif&quot;</span><span class="p">))</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><strong>Third</strong>, in all our project’s image folders, we point towards the reference we created inside the respective <code class="docutils literal notranslate"><span class="pre">attributes.yaml</span></code> files - e.g., for the first image:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">attributes</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">utils_lowlevel</span><span class="o">.</span><span class="n">_load_yaml</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">myproj</span><span class="o">.</span><span class="n">dirpaths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;attributes.yaml&quot;</span><span class="p">))</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">utils_lowlevel</span><span class="o">.</span><span class="n">_show_yaml</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+image_original:
+  filename: stickle1.JPG
+  width: 2400
+  height: 1600
+  filepath: E:\git_repos\phenopype\tutorials\images\stickle1.JPG
+  filetype: .JPG
+image_phenopype:
+  date_added: &#39;20210312164805&#39;
+  mode: copy
+  filename: copy_stickle1.JPG
+  width: 2400
+  height: 1600
+reference:
+  project_level:
+    scale1:
+      active: true
+</pre></div></div>
+</div>
+<p>We are now all set to automatically detect the reference card in our images.</p>
+</div>
+<div class="section" id="Detecting-a-reference">
+<h2>Detecting a reference<a class="headerlink" href="#Detecting-a-reference" title="Permalink to this headline">¶</a></h2>
+<p>To detect the reference template in our images, we need the function <code class="docutils literal notranslate"><span class="pre">detect_reference</span></code> from the <code class="docutils literal notranslate"><span class="pre">preprocessing</span> <span class="pre">module</span></code> (for more information, also on the keypoint detection algorithm that powers this function, <a class="reference external" href="api.html#phenopype.core.preprocessing.detect_reference">refer to the API</a>). For this we just add a new configuration file that contains the <code class="docutils literal notranslate"><span class="pre">detect_reference</span></code> instruction (the “landmarks2” configuration template).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">myproj</span><span class="o">.</span><span class="n">add_config</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;lm-scale&quot;</span><span class="p">,</span>
+                  <span class="n">template</span><span class="o">=</span><span class="s2">&quot;landmarks2&quot;</span><span class="p">,</span>
+                  <span class="n">overwrite</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+New pype configuration created (landmarks2.yaml) from phenopype template:
+e:\git_repos\phenopype\phenopype\templates\landmarks2.yaml
+pype_lm-scale.yaml created for 0__stickle1
+pype_lm-scale.yaml created for 0__stickle2
+pype_lm-scale.yaml created for 0__stickle3
+</pre></div></div>
+</div>
+<p>Now we run our loop with the new <code class="docutils literal notranslate"><span class="pre">pype</span></code> configuration:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="k">for</span> <span class="n">directory</span> <span class="ow">in</span> <span class="n">myproj</span><span class="o">.</span><span class="n">dirpaths</span><span class="p">:</span>
+    <span class="n">p1</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">pype</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span>
+           <span class="n">name</span><span class="o">=</span><span class="s2">&quot;lm-scale&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Succesfully loaded existing pype config (pype_config_lm-scale.yaml) from:
+E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle1\pype_config_lm-scale.yaml
+
+
+------------+++ new pype iteration 2021:03:12 16:48:34 +++--------------
+
+
+=== AUTOLOAD ===
+- project level reference information loaded for scale1
+- reference template image loaded from root directory
+PREPROCESSING
+detect_reference
+---------------------------------------------------
+Reference card found with 253 keypoint matches:
+template image has 34.306413394582655 pixel per mm.
+current image has 33.2 pixel per mm.
+= 96.834 % of template image.
+---------------------------------------------------
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+- modifed image
+- autoselect canvas
+draw_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle1\landmarks_lm-scale.csv.
+=== AUTOSAVE ===
+save_canvas
+- canvas saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle1\canvas_lm-scale.jpg.
+save_masks
+- masks saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle1\masks_lm-scale.csv.
+save_reference
+scale1
+- save reference to attributes
+
+
+------------+++ finished pype iteration +++--------------
+-------(End with Ctrl+Enter or re-run with Enter)--------
+
+
+
+
+------------+++ new pype iteration 2021:03:12 16:48:42 +++--------------
+
+
+=== AUTOLOAD ===
+- project level reference information loaded for scale1
+- reference template image loaded from root directory
+PREPROCESSING
+detect_reference
+- reference already detected (overwrite=False)
+MEASUREMENT
+landmarks
+- landmarks already set (overwrite=False)
+VISUALIZATION
+- modifed image
+- autoselect canvas
+draw_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle1\landmarks_lm-scale.csv (overwritten).
+=== AUTOSAVE ===
+save_canvas
+- canvas saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle1\canvas_lm-scale.jpg (overwritten).
+save_masks
+- masks saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle1\masks_lm-scale.csv (overwritten).
+save_reference
+scale1
+- save reference to attributes (overwriting)
+
+
+------------+++ finished pype iteration +++--------------
+-------(End with Ctrl+Enter or re-run with Enter)--------
+
+
+
+
+TERMINATE
+Succesfully loaded existing pype config (pype_config_lm-scale.yaml) from:
+E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle2\pype_config_lm-scale.yaml
+
+
+------------+++ new pype iteration 2021:03:12 16:48:44 +++--------------
+
+
+=== AUTOLOAD ===
+- project level reference information loaded for scale1
+- reference template image loaded from root directory
+PREPROCESSING
+detect_reference
+---------------------------------------------------
+Reference card found with 223 keypoint matches:
+template image has 34.306413394582655 pixel per mm.
+current image has 33.1 pixel per mm.
+= 96.617 % of template image.
+---------------------------------------------------
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+- modifed image
+- autoselect canvas
+draw_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle2\landmarks_lm-scale.csv.
+=== AUTOSAVE ===
+save_canvas
+- canvas saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle2\canvas_lm-scale.jpg.
+save_masks
+- masks saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle2\masks_lm-scale.csv.
+save_reference
+scale1
+- save reference to attributes
+
+
+------------+++ finished pype iteration +++--------------
+-------(End with Ctrl+Enter or re-run with Enter)--------
+
+
+
+
+TERMINATE
+Succesfully loaded existing pype config (pype_config_lm-scale.yaml) from:
+E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle3\pype_config_lm-scale.yaml
+
+
+------------+++ new pype iteration 2021:03:12 16:48:49 +++--------------
+
+
+=== AUTOLOAD ===
+- project level reference information loaded for scale1
+- reference template image loaded from root directory
+PREPROCESSING
+detect_reference
+---------------------------------------------------
+Reference card found with 255 keypoint matches:
+template image has 34.306413394582655 pixel per mm.
+current image has 33.2 pixel per mm.
+= 96.766 % of template image.
+---------------------------------------------------
+MEASUREMENT
+landmarks
+- setting landmarks
+VISUALIZATION
+- modifed image
+- autoselect canvas
+draw_landmarks
+EXPORT
+save_landmarks
+- landmarks saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle3\landmarks_lm-scale.csv.
+=== AUTOSAVE ===
+save_canvas
+- canvas saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle3\canvas_lm-scale.jpg.
+save_masks
+- masks saved under E:\git_repos\phenopype\tutorials\_temp\my_project\data\0__stickle3\masks_lm-scale.csv.
+save_reference
+scale1
+- save reference to attributes
+
+
+------------+++ finished pype iteration +++--------------
+-------(End with Ctrl+Enter or re-run with Enter)--------
+
+
+
+
+TERMINATE
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">lm_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">myproj</span><span class="o">.</span><span class="n">dirpaths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;landmarks_lm-scale.csv&quot;</span><span class="p">))</span>
+<span class="n">lm_df</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename_original</th>
+      <th>filename_phenopype</th>
+      <th>width</th>
+      <th>height</th>
+      <th>landmark</th>
+      <th>x</th>
+      <th>y</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>stickle1.JPG</td>
+      <td>copy_stickle1.JPG</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>1</td>
+      <td>1250</td>
+      <td>422</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>stickle1.JPG</td>
+      <td>copy_stickle1.JPG</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>2</td>
+      <td>1389</td>
+      <td>406</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>stickle1.JPG</td>
+      <td>copy_stickle1.JPG</td>
+      <td>2400</td>
+      <td>1600</td>
+      <td>3</td>
+      <td>1720</td>
+      <td>480</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Note the new column <code class="docutils literal notranslate"><span class="pre">current_px_mm_ratio</span></code>, which denotes the pixel-to-mm ratio as per the detected reference template. This information is now also stored in the respective image specific attribute file:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">attributes</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">utils_lowlevel</span><span class="o">.</span><span class="n">_load_yaml</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">myproj</span><span class="o">.</span><span class="n">dirpaths</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;attributes.yaml&quot;</span><span class="p">))</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">utils_lowlevel</span><span class="o">.</span><span class="n">_show_yaml</span><span class="p">(</span><span class="n">attributes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+image_original:
+  filename: stickle1.JPG
+  width: 2400
+  height: 1600
+  filepath: E:\git_repos\phenopype\tutorials\images\stickle1.JPG
+  filetype: .JPG
+image_phenopype:
+  date_added: &#39;20210312164805&#39;
+  mode: copy
+  filename: copy_stickle1.JPG
+  width: 2400
+  height: 1600
+reference:
+  project_level:
+    scale1:
+      active: true
+      detected_px_mm_ratio: 33.2
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">Move</span> <span class="n">on</span> <span class="n">to</span> <span class="p">[</span><span class="n">Tutorial</span> <span class="mi">6</span><span class="p">](</span><span class="n">tutorial_5_references</span><span class="o">.</span><span class="n">ipynb</span><span class="p">)</span> <span class="n">to</span> <span class="n">learn</span> <span class="n">how</span> <span class="n">to</span> <span class="n">size</span> <span class="ow">and</span> <span class="n">colour</span> <span class="n">adjust</span> <span class="nb">all</span> <span class="n">images</span> <span class="n">within</span> <span class="n">a</span> <span class="n">project</span><span class="o">.</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Moritz Lürig.<br/>
+      Last updated on May 10, 2021, 5:17:54 PM.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

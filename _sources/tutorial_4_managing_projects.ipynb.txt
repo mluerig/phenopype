@@ -1,0 +1,977 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Tutorial 4: Setting up and managing projects\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A central aspect of phenopype is the use of a `project` to efficiently process larger amounts of images. Creating a `project` object will set up a directory tree in which each folder contains the copy or a link to the original raw image files. Alongside the images to be processed, users can store configuration file for the `pype` routine that were covered in [Tutorial 3](tutorial_3_phenopype_workflows.ipynb). Configurations files can be created using preconfigured templates, which can be easily modified. Once raw images have been added and configuration files are in place, the `pype` function can be used within a simple `for` loop. After all images are processed, the results are stored alongside the raw images and the `pype`-configuration files. \n",
+    "\n",
+    "Anyone with access to the raw images and the configuration files is able to reproduce the results with a few lines of code, making phenopype project directories the perfect format for code sharing and data sharing after publication through online repositories (such as Dryad, Zenodo or OSF)."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Creating a project directory structure and adding images"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A Phenopype project directory can be initialized with the `project` function. The phenoype project root folder should be separate from the raw data, e.g. as a folder inside of your main project folder ([see API reference](api.html#projects))."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<center>\n",
+    "<div style=\"width:600px; text-align: left\" >\n",
+    "    \n",
+    "![Step 1](_assets/workflow_high_step1.png)\n",
+    "    \n",
+    "**Step. 1**: Create a phenopype project and organize raw images into separate folders where all relevant data, attributes and results are stored. \n",
+    "    \n",
+    "</div>\n",
+    "</center>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--------------------------------------------\n",
+      "Phenopype will create a new project at\n",
+      "E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\n",
+      "\n",
+      "Proceed? (y/n)\n",
+      "y\n",
+      "\n",
+      "project attributes written to E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\attributes.yaml\n",
+      "--------------------------------------------\n"
+     ]
+    }
+   ],
+   "source": [
+    "import phenopype as pp\n",
+    "import os\n",
+    "\n",
+    "myproj = pp.project(root_dir=r\"_temp/my_project\") ## doesn't have to be \"myproj\", can be named anything"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Next step is to add images to the project. You can do so with the `add_files` method of the created project (a *method* is an executable function that belongs to an existing *object*, in this case \"myproj). The function offers some flexibility in terms of which files to import. Most important arguments here are `include`, `exclude` and `filetypes`. For example, given the following list of images:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['cichlid1.jpg',\n",
+       " 'cichlid2.jpg',\n",
+       " 'cichlid3.jpg',\n",
+       " 'cichlid_multi1.jpg',\n",
+       " 'cichlid_multi2.jpg',\n",
+       " 'cichlid_multi3.jpg',\n",
+       " 'isopods.jpg',\n",
+       " 'isopods_fish.mp4',\n",
+       " 'phyto_445.jpg',\n",
+       " 'phyto_469.jpg',\n",
+       " 'phyto_586.jpg',\n",
+       " 'phyto_bright.jpg',\n",
+       " 'snails1.jpg',\n",
+       " 'snails2.jpg',\n",
+       " 'stickle1.JPG',\n",
+       " 'stickle2.JPG',\n",
+       " 'stickle3.JPG',\n",
+       " 'stickleback_side.jpg',\n",
+       " 'stickleback_top.jpg',\n",
+       " 'worms.jpg']"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "images = \"images\"\n",
+    "os.listdir(\"images\") ##"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "If we want to import \"stickle1\", \"stickle2\", and \"stickle3\", we can do a combination `include` and `exclude` (also prints all other default settings):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--------------------------------------------\n",
+      "phenopype will search for image files at\n",
+      "\n",
+      "E:\\git_repos\\phenopype\\tutorials\\images\n",
+      "\n",
+      "using the following settings:\n",
+      "\n",
+      "filetypes: ['jpg', 'JPG', 'jpeg', 'JPEG', 'tif', 'png', 'bmp'], include: stickle, exclude: ['side', 'top'], mode: copy, recursive: False, resize: False, unique: path\n",
+      "\n",
+      "Found image stickle1.JPG - phenopype-project folder 0__stickle1 created\n",
+      "Found image stickle2.JPG - phenopype-project folder 0__stickle2 created\n",
+      "Found image stickle3.JPG - phenopype-project folder 0__stickle3 created\n",
+      "\n",
+      "Found 3 files\n",
+      "--------------------------------------------\n"
+     ]
+    }
+   ],
+   "source": [
+    "myproj.add_files(image_dir=images,\n",
+    "                 include=\"stickle\",       ## can be type \"str\" or type \"list\"\n",
+    "                 exclude=[\"side\",\"top\"]   ## can be type \"str\" or type \"list\"\n",
+    "                ) "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "The three images have the same (nonstandard) file ending, so we can also use the filetype argument (and the overwrite argument, because have already added them above):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--------------------------------------------\n",
+      "phenopype will search for image files at\n",
+      "\n",
+      "E:\\git_repos\\phenopype\\tutorials\\images\n",
+      "\n",
+      "using the following settings:\n",
+      "\n",
+      "filetypes: JPG, include: [], exclude: ['side', 'top'], mode: copy, recursive: False, resize: False, unique: path\n",
+      "\n",
+      "Found image stickle1.JPG - phenopype-project folder 0__stickle1 created (overwritten)\n",
+      "Found image stickle2.JPG - phenopype-project folder 0__stickle2 created (overwritten)\n",
+      "Found image stickle3.JPG - phenopype-project folder 0__stickle3 created (overwritten)\n",
+      "\n",
+      "Found 3 files\n",
+      "--------------------------------------------\n"
+     ]
+    }
+   ],
+   "source": [
+    " myproj.add_files(image_dir=images,\n",
+    "                 filetypes=\"JPG\" ,       ## can be type \"str\" or type \"list\"\n",
+    "                 exclude=[\"side\",\"top\"],      ## can be type \"str\" or type \"list\"\n",
+    "                 overwrite=True\n",
+    "                ) "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Thre are more settings to `add_files`: \n",
+    "- `mode` determines whether raw files should be copied to each folder in the Phenopype directory tree (using `copy` [default]), or just their filepath (using `link`), which can be useful if data sets contain many or very large images. A third option is `mod`, which will open the iages and save them again in TIF format. This mode also allows to resize images.\n",
+    "- `recursive` indicates whether only the top directory (`False`; default), or also all subdirectories (`True`) should be included in the search. \n",
+    "- `unique` indicates whether files should be unique by their path (`filepath` [default]) or only by their name (`filename`) - duplicate files will be skipped. \n",
+    "\n",
+    "For more information on `add_files`, [refer to the API](api.html#phenopype.main.project.add_files), or use `help`:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Help on function add_files in module phenopype.main:\n",
+      "\n",
+      "add_files(self, image_dir, filetypes=['jpg', 'JPG', 'jpeg', 'JPEG', 'tif', 'png', 'bmp'], include=[], include_all=True, exclude=[], mode='copy', extension='tif', recursive=False, overwrite=False, resize_factor=1, unique='path', **kwargs)\n",
+      "    Add files to your project from a directory, can look recursively. \n",
+      "    Specify in- or exclude arguments, filetypes, duplicate-action and copy \n",
+      "    or link raw files to save memory on the harddrive. For each found image,\n",
+      "    a folder will be created in the \"data\" folder within the projects root\n",
+      "    directory. If found images are in subfolders and \"recursive==True\", \n",
+      "    the respective phenopype directories will be created with \n",
+      "    flattened path as prefix. \n",
+      "    \n",
+      "    E.g., with \"raw_files\" as folder with the original image files \n",
+      "    and \"phenopype_proj\" as rootfolder:\n",
+      "    \n",
+      "    - raw_files/file.jpg ==> phenopype_proj/data/file.jpg\n",
+      "    - raw_files/subdir1/file.jpg ==> phenopype_proj/data/1__subdir1__file.jpg\n",
+      "    - raw_files/subdir1/subdir2/file.jpg ==> phenopype_proj/data/2__subdir1__subdir2__file.jpg\n",
+      "    \n",
+      "    Parameters\n",
+      "    ----------\n",
+      "    image_dir: str \n",
+      "        path to directory with images\n",
+      "    filetypes: list or str, optional\n",
+      "        single or multiple string patterns to target files with certain endings.\n",
+      "        \"default_filetypes\" are configured in settings.py\n",
+      "    include: list or str, optional\n",
+      "        single or multiple string patterns to target certain files to include\n",
+      "    include_all (optional): bool,\n",
+      "        either all (True) or any (False) of the provided keywords have to match\n",
+      "    exclude: list or str, optional\n",
+      "        single or multiple string patterns to target certain files to exclude - \n",
+      "        can overrule \"include\"\n",
+      "    recursive: (optional): bool,\n",
+      "        \"False\" searches only current directory for valid files; \"True\" walks \n",
+      "        through all subdirectories\n",
+      "    unique: {\"filepath\", \"filename\"}, str, optional:\n",
+      "        how to deal with image duplicates - \"filepath\" is useful if identically \n",
+      "        named files exist in different subfolders (folder structure will be \n",
+      "        collapsed and goes into the filename), whereas filename will ignore \n",
+      "        all similar named files after their first occurrence.\n",
+      "    mode: {\"copy\", \"mod\", \"link\"} str, optional\n",
+      "        how should the raw files be passed on to the phenopype directory tree: \n",
+      "        \"copy\" will make a copy of the original file, \"mod\" will store a \n",
+      "        .tif version of the orginal image that can be resized, and \"link\" \n",
+      "        will only store the link to the original file location to attributes, \n",
+      "        but not copy the actual file (useful for big files, but the orginal \n",
+      "        location needs always to be available)\n",
+      "    extension: {\".tif\", \".bmp\", \".jpg\", \".png\"}, str, optional\n",
+      "        file extension for \"mod\" mode\n",
+      "    resize_factor: float, optional\n",
+      "        \n",
+      "    kwargs: \n",
+      "        developer options\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "help(pp.project.add_files)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Adding `pype`-configuration files "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "In the next step we prepare the files we added for use with the `pype` routine by addding a configuration file with the `add_config` method. Instead of adding the functions one by one we can load presets that are appropriate for the given computer vision analysis.\n",
+    "\n",
+    "Currently, the different templates are stored inside a Python file, and can be inspected using `pp.pype_config_templates` to show all existing templates, and `pp.show_config_template(\"landmarks1\")` to show the contents."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<center>\n",
+    "<div style=\"width:500px; text-align: left\" >\n",
+    "    \n",
+    "![Step 2](_assets/workflow_high_step2.png)\n",
+    "    \n",
+    "**Step. 2**: Create configuration files and store them alongside the raw images.\n",
+    "    \n",
+    "</div>\n",
+    "</center>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "{'demo.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\demo.yaml',\n",
+       " 'ex1.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\ex1.yaml',\n",
+       " 'ex2.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\ex2.yaml',\n",
+       " 'ex3.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\ex3.yaml',\n",
+       " 'ex5_1.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\ex5_1.yaml',\n",
+       " 'ex5_2.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\ex5_2.yaml',\n",
+       " 'ex6.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\ex6.yaml',\n",
+       " 'ex7.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\ex7.yaml',\n",
+       " 'ex8_1.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\ex8_1.yaml',\n",
+       " 'ex8_2.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\ex8_2.yaml',\n",
+       " 'landmarks1.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\landmarks1.yaml',\n",
+       " 'landmarks2.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\landmarks2.yaml',\n",
+       " 'tut3.yaml': 'e:\\\\git_repos\\\\phenopype\\\\phenopype\\\\templates\\\\tut3.yaml'}"
+      ]
+     },
+     "execution_count": 6,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pp.pype_config_templates"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "SHOWING BUILTIN PHENOPYPE TEMPLATE landmarks1.yaml\n",
+      "\n",
+      "\n",
+      "- measurement:\n",
+      "  - landmarks:\n",
+      "      point_size: 25\n",
+      "      point_colour: green\n",
+      "      label_size: 3\n",
+      "      label_width: 5\n",
+      "- visualization:\n",
+      "  - draw_landmarks:\n",
+      "      point_size: 25\n",
+      "      point_colour: green\n",
+      "      label_size: 3\n",
+      "      label_width: 5\n",
+      "- export:\n",
+      "  - save_landmarks\n"
+     ]
+    }
+   ],
+   "source": [
+    "pp.show_config_template(\"landmarks1\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "For example, if we want to place landmarks, we can use one of the corresponding presets.  \n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "New pype configuration created (landmarks1.yaml) from phenopype template:\n",
+      "e:\\git_repos\\phenopype\\phenopype\\templates\\landmarks1.yaml\n",
+      "pype_lm.yaml created for 0__stickle1\n",
+      "pype_lm.yaml created for 0__stickle2\n",
+      "pype_lm.yaml created for 0__stickle3\n"
+     ]
+    }
+   ],
+   "source": [
+    "myproj.add_config(name = \"lm\", template=\"landmarks1\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now all images folders contain a configuration file in *yaml*  format (see [Tutorial 2](tutorial_2_phenopype_workflow.ipynb#yaml-syntax) and the [resources section](resources.html) of the Documentation for details). "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "An imporant feature of `add_config` is the opportunity to evulate and edit the template before it gets saved in the folders. This is done by setting the flag `interactive=True` in the arguments. For example, if we globally want to change point and label size of the landmark preset, we can do: \n",
+    "\n",
+    "<center>\n",
+    "<div style=\"width:650px; text-align: left\" >\n",
+    "    \n",
+    "![Edit template](_assets/change_template.png)\n",
+    "    \n",
+    "Edit the templates before saving them to the image folders.\n",
+    "    \n",
+    "</div>\n",
+    "</center>\n",
+    "\n",
+    "<div class=\"alert alert-block alert-info\">\n",
+    "    \n",
+    "**NOTES**\n",
+    "\n",
+    "- The `pype` function opens a text editor and a python window. To modify the `pype` configuration templates, by default, the first image in your project directory tree will copied over to the phenopype project root directory. After the windows have opened they can be controlled as described as in [Tutorial 2](tutorial_2_phenopype_workflow.ipynb#pype-behavior).\n",
+    "\n",
+    "- If you have issues with this step, e.g. no text editor window is popping up, make sure you have set the default app for opening *yaml* files. Furthermore, consult the [Installation Instructions](installation.html#choose-a-text-editor) and check if your text editor is configured correctly. \n",
+    "\n",
+    "</div>\n"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "New pype configuration created (landmarks1.yaml) from phenopype template:\n",
+      "e:\\git_repos\\phenopype\\phenopype\\templates\\landmarks1.yaml\n",
+      "Succesfully loaded existing pype config (pype_config_MOD_lm.yaml) from:\n",
+      "E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\pype_config_MOD_lm.yaml \n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:03:12 16:46:01 +++--------------\n",
+      "\n",
+      "\n",
+      "MEASUREMENT\n",
+      "landmarks\n",
+      "- setting landmarks\n",
+      "VISUALIZATION\n",
+      "- modifed image\n",
+      "- autoselect canvas\n",
+      "draw_landmarks\n",
+      "\n",
+      "\n",
+      "------------+++ finished pype iteration +++--------------\n",
+      "-------(End with Ctrl+Enter or re-run with Enter)--------\n",
+      "\n",
+      "\n",
+      "\n",
+      "\n",
+      "TERMINATE\n",
+      "Entered interactive config mode using first image (first).\n",
+      "pype_lm.yaml created for 0__stickle1 (overwritten)\n",
+      "pype_lm.yaml created for 0__stickle2 (overwritten)\n",
+      "pype_lm.yaml created for 0__stickle3 (overwritten)\n"
+     ]
+    }
+   ],
+   "source": [
+    "myproj.add_config(name = \"lm\", \n",
+    "                  template=\"landmarks1\",\n",
+    "                  interactive=True,\n",
+    "                  overwrite=True                 ## needed because config with the name \"lm\" already exists in the folders\n",
+    "                 )"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Saving and loading a project"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Project objects can be saved using a the static method `save` (static = unbound to any object). This will save the project data to the project's root directory. Currently, the only useful information stored in the project object is the list of all contained directories. Future releases will make more use of the project object. "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<div class=\"alert alert-block alert-danger\">\n",
+    "\n",
+    "**IMPORTANT - read before continuing**\n",
+    "\n",
+    "`pp.project.save` saves ONLY the directory paths - all data collected with the pype method or any of the other workflows need to be saved inside the folders using the appropriate [export](api.html#export) functions.\n",
+    "    \n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Project data saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\project.data.\n"
+     ]
+    }
+   ],
+   "source": [
+    "pp.project.save(myproj, overwrite=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "To load the project again, add provide the path of the `project.data` file in the root folder to the `load` method:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "--------------------------------------------\n",
+      "Project loaded from \n",
+      "E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\n",
+      "\n",
+      "Project has 3 image folders\n",
+      "--------------------------------------------\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "['E:\\\\git_repos\\\\phenopype\\\\tutorials\\\\_temp\\\\my_project\\\\data\\\\0__stickle1',\n",
+       " 'E:\\\\git_repos\\\\phenopype\\\\tutorials\\\\_temp\\\\my_project\\\\data\\\\0__stickle2',\n",
+       " 'E:\\\\git_repos\\\\phenopype\\\\tutorials\\\\_temp\\\\my_project\\\\data\\\\0__stickle3']"
+      ]
+     },
+     "execution_count": 11,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import phenopype as pp\n",
+    "\n",
+    "myproj = pp.project.load(\"_temp/my_project\")\n",
+    "myproj.dirpaths"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Using `pype` with project folders"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<center>\n",
+    "<div style=\"width:800px; text-align: left\" >\n",
+    "    \n",
+    "![Step 3](_assets/workflow_high_step3.png)\n",
+    "    \n",
+    "**Step. 3**: Apply `pype` function image by image.\n",
+    "    \n",
+    "</div>\n",
+    "</center>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "After adding images and configuration, all is set to process your dataset with high throughput. Using a simple `for` loop, we then go through all directories one by one. You can modify the configuration file and control the window as described as in [Tutorial 2 (YAML-syntax)](tutorial_2_phenopype_workflows.ipynb#yaml-syntax). The `skip` argument will allow to skip files with a given config name you have already analyzed. This allows you to return to the point where you left off.\n",
+    "\n",
+    "<div class=\"alert alert-block alert-info\">\n",
+    "    \n",
+    "**NOTES**\n",
+    "\n",
+    "- Make sure to specifiy the name of the config file you added before, in this case, \"lm\". The config file name serves multiple purposes: on the one hand it tells the `pype` function which configuration to load, if you have multiple in one directory. On the other hand, the name gets appended to all results files that are produced by this constellation.  \n",
+    "\n",
+    "- Consult [Tutorial 2 (pype-behavior)](tutorial_2_phenopype_workflow.ipynb#pype-behavior) to understand `pype` the most important aspects of the `pype` function. For example, while working from a `pype`, all collected data will be automatically saved, but only if it doesn't exist yet - control this behavior with `overwrite: True/False`.\n",
+    "\n",
+    "- Immediately close the window and break the `for` loop with `Esc`.\n",
+    "    \n",
+    "</div>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Succesfully loaded existing pype config (pype_config_lm.yaml) from:\n",
+      "E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle1\\pype_config_lm.yaml \n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:03:12 16:46:36 +++--------------\n",
+      "\n",
+      "\n",
+      "Nothing loaded.\n",
+      "MEASUREMENT\n",
+      "landmarks\n",
+      "- setting landmarks\n",
+      "VISUALIZATION\n",
+      "- modifed image\n",
+      "- autoselect canvas\n",
+      "draw_landmarks\n",
+      "EXPORT\n",
+      "save_landmarks\n",
+      "- landmarks saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle1\\landmarks_lm.csv.\n",
+      "=== AUTOSAVE ===\n",
+      "save_canvas\n",
+      "- canvas saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle1\\canvas_lm.jpg.\n",
+      "\n",
+      "\n",
+      "------------+++ finished pype iteration +++--------------\n",
+      "-------(End with Ctrl+Enter or re-run with Enter)--------\n",
+      "\n",
+      "\n",
+      "\n",
+      "\n",
+      "TERMINATE\n",
+      "Succesfully loaded existing pype config (pype_config_lm.yaml) from:\n",
+      "E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle2\\pype_config_lm.yaml \n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:03:12 16:46:40 +++--------------\n",
+      "\n",
+      "\n",
+      "Nothing loaded.\n",
+      "MEASUREMENT\n",
+      "landmarks\n",
+      "- setting landmarks\n",
+      "VISUALIZATION\n",
+      "- modifed image\n",
+      "- autoselect canvas\n",
+      "draw_landmarks\n",
+      "EXPORT\n",
+      "save_landmarks\n",
+      "- landmarks saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle2\\landmarks_lm.csv.\n",
+      "=== AUTOSAVE ===\n",
+      "save_canvas\n",
+      "- canvas saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle2\\canvas_lm.jpg.\n",
+      "\n",
+      "\n",
+      "------------+++ finished pype iteration +++--------------\n",
+      "-------(End with Ctrl+Enter or re-run with Enter)--------\n",
+      "\n",
+      "\n",
+      "\n",
+      "\n",
+      "TERMINATE\n",
+      "Succesfully loaded existing pype config (pype_config_lm.yaml) from:\n",
+      "E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle3\\pype_config_lm.yaml \n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:03:12 16:46:47 +++--------------\n",
+      "\n",
+      "\n",
+      "Nothing loaded.\n",
+      "MEASUREMENT\n",
+      "landmarks\n",
+      "- setting landmarks\n",
+      "VISUALIZATION\n",
+      "- modifed image\n",
+      "- autoselect canvas\n",
+      "draw_landmarks\n",
+      "EXPORT\n",
+      "save_landmarks\n",
+      "- landmarks saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle3\\landmarks_lm.csv.\n",
+      "=== AUTOSAVE ===\n",
+      "save_canvas\n",
+      "- canvas saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle3\\canvas_lm.jpg.\n",
+      "\n",
+      "\n",
+      "------------+++ finished pype iteration +++--------------\n",
+      "-------(End with Ctrl+Enter or re-run with Enter)--------\n",
+      "\n",
+      "\n",
+      "\n",
+      "\n",
+      "TERMINATE\n"
+     ]
+    }
+   ],
+   "source": [
+    "for folder in myproj.dirpaths:\n",
+    "    directory = os.path.join(myproj.root_dir, folder)\n",
+    "    pp.pype(directory, \n",
+    "            name=\"lm\",         ## loads the config file \"pype_config_lm.yaml\". \"lm\" gets appended to all results files\n",
+    "            skip=False          ## skip=True will skip over any directories that already contain results files with \"lm\"\n",
+    "           )"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "As mentioned above, it's possible to have multiple configuration files side by side in phenopype folders. For example, if we want to implement an alternative set of landmarks, we can simply do:"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<center>\n",
+    "<div style=\"width:500px; text-align: left\" >\n",
+    "    \n",
+    "![Step 4](_assets/workflow_high_step4.png)\n",
+    "    \n",
+    "**Step. 4**: Each folder contains all information necessary to reproduce the collected phenopytic data. Ouput from different `pype` runs can be stored side by side in the same folders. \n",
+    "    \n",
+    "</div>\n",
+    "</center>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "New pype configuration created (landmarks1.yaml) from phenopype template:\n",
+      "e:\\git_repos\\phenopype\\phenopype\\templates\\landmarks1.yaml\n",
+      "pype_lm2.yaml created for 0__stickle1\n",
+      "pype_lm2.yaml created for 0__stickle2\n",
+      "pype_lm2.yaml created for 0__stickle3\n"
+     ]
+    }
+   ],
+   "source": [
+    "myproj.add_config(name = \"lm2\",                  ## add different name (my not contain underscores or other special characters)\n",
+    "                  template=\"landmarks1\"    ## same preset\n",
+    "                 )"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now set some new landmarks on the first image..."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Succesfully loaded existing pype config (pype_config_lm2.yaml) from:\n",
+      "E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle1\\pype_config_lm2.yaml \n",
+      "\n",
+      "\n",
+      "------------+++ new pype iteration 2021:03:12 16:47:26 +++--------------\n",
+      "\n",
+      "\n",
+      "Nothing loaded.\n",
+      "MEASUREMENT\n",
+      "landmarks\n",
+      "- setting landmarks\n",
+      "VISUALIZATION\n",
+      "- modifed image\n",
+      "- autoselect canvas\n",
+      "draw_landmarks\n",
+      "EXPORT\n",
+      "save_landmarks\n",
+      "- landmarks saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle1\\landmarks_lm2.csv.\n",
+      "=== AUTOSAVE ===\n",
+      "save_canvas\n",
+      "- canvas saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\data\\0__stickle1\\canvas_lm2.jpg.\n",
+      "\n",
+      "\n",
+      "------------+++ finished pype iteration +++--------------\n",
+      "-------(End with Ctrl+Enter or re-run with Enter)--------\n",
+      "\n",
+      "\n",
+      "\n",
+      "\n",
+      "TERMINATE\n"
+     ]
+    },
+    {
+     "data": {
+      "text/plain": [
+       "<phenopype.main.pype at 0x2dee5020148>"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "pp.pype(myproj.dirpaths[0], \n",
+    "        name=\"lm2\",         ## loads the config file \"pype_config_lm2.yaml\". \"lm2\" gets appended to all results files\n",
+    "        skip=True          ## skip=True will skip over any directories that already contain results files with \"lm2\"\n",
+    "       )"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "... and find that there are multiple files in the same folder that correspond to your different configuration files. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 15,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['attributes.yaml',\n",
+       " 'canvas_lm.jpg',\n",
+       " 'canvas_lm2.jpg',\n",
+       " 'copy_stickle1.JPG',\n",
+       " 'landmarks_lm.csv',\n",
+       " 'landmarks_lm2.csv',\n",
+       " 'pype_config_lm.yaml',\n",
+       " 'pype_config_lm2.yaml']"
+      ]
+     },
+     "execution_count": 15,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "os.listdir(myproj.dirpaths[0])"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Collecting results\n",
+    "\n",
+    "After finishing all analyses, you can use the `project`-method `collect_results` to copy all results (e.g. csv files or canvases) to a folder in the root directory (\"results\" is the default name, but can be changed). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 16,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Created E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\lm1_results\n",
+      "['landmarks_lm']\n",
+      "Collected landmarks_lm.csv from 0__stickle1\n",
+      "0__stickle1_landmarks_lm.csv saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\lm1_results\\0__stickle1_landmarks_lm.csv.\n",
+      "Collected landmarks_lm2.csv from 0__stickle1\n",
+      "0__stickle1_landmarks_lm2.csv saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\lm1_results\\0__stickle1_landmarks_lm2.csv.\n",
+      "Collected landmarks_lm.csv from 0__stickle2\n",
+      "0__stickle2_landmarks_lm.csv saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\lm1_results\\0__stickle2_landmarks_lm.csv.\n",
+      "Collected landmarks_lm.csv from 0__stickle3\n",
+      "0__stickle3_landmarks_lm.csv saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\lm1_results\\0__stickle3_landmarks_lm.csv.\n"
+     ]
+    }
+   ],
+   "source": [
+    "myproj.collect_results(name=\"lm\",          # these two arguments create the search string for \"landmarks_lm2.csv\"\n",
+    "                       files=[\"landmarks\"], # \n",
+    "                       folder=\"lm1_results\",\n",
+    "                       overwrite=True)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 17,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Created E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\lm2_results\n",
+      "['landmarks_lm2']\n",
+      "Collected landmarks_lm2.csv from 0__stickle1\n",
+      "0__stickle1_landmarks_lm2.csv saved under E:\\git_repos\\phenopype\\tutorials\\_temp\\my_project\\lm2_results\\0__stickle1_landmarks_lm2.csv.\n"
+     ]
+    }
+   ],
+   "source": [
+    "myproj.collect_results(name=\"lm2\",          # these two arguments create the search string for \"landmarks_lm2.csv\"\n",
+    "                       files=[\"landmarks\"], # \n",
+    "                       folder=\"lm2_results\",\n",
+    "                       overwrite=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Move on to [Tutorial 6](tutorial_6_video_analysis.ipynb) to learn how to do motion tracking in videos using phenopype."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}

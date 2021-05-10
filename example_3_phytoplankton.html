@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Example 3: Fluorescence intensity and shape of phytoplankton cells &#8212; phenopype 2.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Example 4: Video analysis - predator prey interactions" href="example_4_video_analysis_stickleback.html" />
+    <link rel="prev" title="Example 2: Stickleback morphometrics - landmarks" href="example_2_landmarks_stickleback.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          phenopype</a>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/mluerig/phenopype">Phenopype on Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial_0.html">How to run tutorials and examples using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_2_phenopype_images.html">Tutorial 2: Interacting with images in phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_phenopype_workflows.html">Tutorial 3: Image analysis workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects.html">Tutorial 4: Setting up and managing projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_references.html">Tutorial 5: Creating and detecting a reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Example 3: Fluorescence intensity and shape of phytoplankton cells</a><ul>
+<li><a class="reference internal" href="#Approach">Approach</a></li>
+<li><a class="reference internal" href="#Low-throughput-workflow">Low throughput workflow</a><ul>
+<li><a class="reference internal" href="#Shape-descriptors">Shape descriptors</a></li>
+<li><a class="reference internal" href="#Colour-intensities-(fluorescence)">Colour intensities (fluorescence)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Implementation">Implementation</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="example_2_landmarks_stickleback.html" title="Previous Chapter: Example 2: Stickleback morphometrics - landmarks"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Example 2: St...</span>
+    </a>
+  </li>
+  <li>
+    <a href="example_4_video_analysis_stickleback.html" title="Next Chapter: Example 4: Video analysis - predator prey interactions"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Example 4: Vi... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/example_3_phytoplankton.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Example 3: Fluorescence intensity and shape of phytoplankton cells</a><ul>
+<li><a class="reference internal" href="#Approach">Approach</a></li>
+<li><a class="reference internal" href="#Low-throughput-workflow">Low throughput workflow</a><ul>
+<li><a class="reference internal" href="#Shape-descriptors">Shape descriptors</a></li>
+<li><a class="reference internal" href="#Colour-intensities-(fluorescence)">Colour intensities (fluorescence)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Implementation">Implementation</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Example-3:-Fluorescence-intensity-and-shape-of-phytoplankton-cells">
+<h1>Example 3: Fluorescence intensity and shape of phytoplankton cells<a class="headerlink" href="#Example-3:-Fluorescence-intensity-and-shape-of-phytoplankton-cells" title="Permalink to this headline">¶</a></h1>
+<p>In this example we are trying to i) detect phytoplankton cells in 1-channel images (black and white images), ii) measure their pixel-intensities (=fluorescence intensities) and their their shape, and iii) work towards building a classifier for taxonomic groups of phytoplankton.</p>
+<p>The first two objectives are a rather low hanging fruit, as they involve classic computer vision approaches that phenopype can readily supply. The latter goal is more longterm and involves experimenting with classic shape feature detection as provided by phenopype’s <code class="docutils literal notranslate"><span class="pre">shape_features</span></code> function (e.g. <a class="reference external" href="https://docs.opencv.org/3.4/d8/d23/classcv_1_1Moments.html">image moments</a>), and potentially also building up towards a deep learning pipeline usign the contours detected with phenopype. I will
+update this example as work progresses.</p>
+<p>Images kindly provided by Irene Gallego and Anita Narwani.</p>
+<div class="row; text-align: left"><div class="col-md-6"><p><img alt="b65d47d2716749028be413785a78dd7a" src="_images/ex3_before.jpg" /></p>
+<p><strong>Input</strong> - Phytoplankton fluorescence. Each sample includes 1 brightfield gray scale image and 3 fluorescence images at different wavelengths.</p>
+</div><div class="col-md-6"><p><img alt="12b7a77ccea04d9a917040dba13b59d1" src="_images/ex3_after.jpg" /></p>
+<p><strong>Results</strong> - Phenopype <code class="docutils literal notranslate"><span class="pre">thresholding</span></code> function detects the contours of phytoplankton cells (green) and holes within (red).</p>
+</div></div><div class="section" id="Approach">
+<h2>Approach<a class="headerlink" href="#Approach" title="Permalink to this headline">¶</a></h2>
+<p>All four images show the same objects, but with different pixel intensities. It may be useful to combine information from all images into the segmentation process. This is requires customization of existing workflows in Phenopype, for which the low throughput workflow is best suited: here we have access to intermediate output, and can also integrate low level functions from the <code class="docutils literal notranslate"><span class="pre">OpenCV</span></code> library. Refer to <a class="reference external" href="tutorial_2_phenopype_workflow.ipynb">Tutorial 2</a> for mor information about the
+different workflows.</p>
+<p>The appraoch is to load all images separately, do segmentation separately, find contours create four binary masks from all contour coordinates, combine the binary masks into a single image, find contours on the binary image.</p>
+<p>[1] <a class="reference external" href="https://docs.opencv.org/master/d0/d86/tutorial_py_image_arithmetics.html">https://docs.opencv.org/master/d0/d86/tutorial_py_image_arithmetics.html</a></p>
+<center><div style="width:800px; text-align: left"><p><img alt="fe935b8ff11d48beb1bb5f63e092f19b" src="_images/ex3_phyto_layers.png" /></p>
+<p><strong>Fig. 1:</strong> Each sample includes four images: 1 brightfield (top) and 3 fluorescence measurements (black, bottom). Due to different pigments, not all spcecies are visible in each image, because of different emission spectra. For example, the two long string shaped cells only occur in two of the fluorescence channels, but not the third one or the brightfield. Therefore, including information from all images for segmentation may be useful to get close to the “true” cell count and community
+composition within a sample.</p>
+</div></center></div>
+<div class="section" id="Low-throughput-workflow">
+<h2>Low throughput workflow<a class="headerlink" href="#Low-throughput-workflow" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="Shape-descriptors">
+<h3>Shape descriptors<a class="headerlink" href="#Shape-descriptors" title="Permalink to this headline">¶</a></h3>
+<p>With the recently (phenopype 1.0.5) introducted <code class="docutils literal notranslate"><span class="pre">shape_features</span></code> function you can measure a set of 43 rotation invariant features from collected contours. However, depending on your case, you may not be able to make use of all feature descriptors since some of them are not scale, rotation or translation invariant. Refer to the documentation <code class="docutils literal notranslate"><span class="pre">help(pp.measurement.shape_features)</span></code> to see which features are useful.</p>
+<p>In our case, phytoplankton are scattered over the image, so we need descriptors that are at least translational and rotational invariants, whereas scale includes relevant descriptive power over phytoplankton of different sizes. Therefore we will use (some) of the basic shape descriptors and the seven Hu moments.</p>
+<p><strong>NOTE:</strong> This function, like most phenopype functions, is easily expandable. So if you are missing sets of shape descriptors, don’t hesitate to contact me with or do a pull request.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+
+<span class="n">help</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">shape_features</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Help on function shape_features in module phenopype.core.measurement:
+
+shape_features(obj_input, df_contours=None, resize=True, resize_to=100, return_basic=True, return_moments=False, return_hu_moments=True)
+    Collects a set of 41 shape descriptors from every contour. There are three sets of
+    descriptors: basic shape descriptors, moments, and hu moments. Two additional features,
+    contour area and diameter are already provided by the find_contours function.
+    https://docs.opencv.org/3.4.9/d3/dc0/group__imgproc__shape.html
+
+    Of the basic shape descriptors, all 10 are translational invariants, 8 are rotation
+    invariant (rect_height and rect_width are not) and  4 are also scale invariant
+    (circularity, compactness, roundness, solidity).
+    https://en.wikipedia.org/wiki/Shape_factor_(image_analysis_and_microscopy)
+
+    The moments set encompasses 10 raw spatial moments (some are translation and rotation
+    invariants, but not all), 7 central moments (all translational invariant) and 7 central
+    normalized moments (all translational and scale invariant).
+    https://en.wikipedia.org/wiki/Image_moment
+
+    The 7 hu moments are derived of the central moments, and are all translation, scale
+    and rotation invariant.
+    http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/Hu.pdf
+
+    Basic shape descriptors:
+        circularity = 4 * np.pi * contour_area / contour_perimeter_length^2
+        compactness = √(4 * contour_area / pi) / contour_diameter
+        min_rect_max = minimum bounding rectangle major axis
+        min_rect_min = minimum bounding rectangle minor axis
+        perimeter_length = total length of contour perimenter
+        rect_height = height of the bounding rectangle (&#34;caliper dim 1&#34;)
+        rect_width = width of the bounding rectangle (&#34;caliper dim 2&#34;)
+        roundness = (4 * contour_area) / pi * contour_perimeter_length^2
+        solidity = contour_area / convex_hull_area
+        tri_area = area of minimum bounding triangle
+
+    Moments:
+        raw moments = m00, m10, m01, m20, m11, m02, m30, m21,  m12, m03
+        central moments = mu20, mu11, mu02, mu30, mu21, mu12, mu03,
+        normalized central moments = nu20, nu11, nu02, nu30, nu21, nu12, nu03
+
+    Hu moments:
+        hu moments = hu1, hu2, hu3, hu4, hu5, hu6, hu7
+
+    Parameters
+    ----------
+    obj_input : array or container
+        input object
+    df_contours : DataFrame, optional
+        contains the contours
+    return_basic: True, opational
+        append the basic shape descriptors to a provided contour DataFrame
+    return_moments: False, optional
+        append the basic shape descriptors to a provided contour DataFrame
+    return_hu_moments: False, optional
+        append the basic shape descriptors to a provided contour DataFrame
+
+    Returns
+    -------
+    df_contours : DataFrame or container
+        contains contours, and added features
+
+</pre></div></div>
+</div>
+<p>First, we load the images.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[&#39;cichlid1.jpg&#39;,
+ &#39;cichlid2.jpg&#39;,
+ &#39;cichlid3.jpg&#39;,
+ &#39;cichlid_multi1.jpg&#39;,
+ &#39;cichlid_multi2.jpg&#39;,
+ &#39;cichlid_multi3.jpg&#39;,
+ &#39;isopods.jpg&#39;,
+ &#39;isopods_fish.mp4&#39;,
+ &#39;phyto_445.jpg&#39;,
+ &#39;phyto_469.jpg&#39;,
+ &#39;phyto_586.jpg&#39;,
+ &#39;phyto_bright.jpg&#39;,
+ &#39;snails1.jpg&#39;,
+ &#39;snails2.jpg&#39;,
+ &#39;stickle1.JPG&#39;,
+ &#39;stickle2.JPG&#39;,
+ &#39;stickle3.JPG&#39;,
+ &#39;stickleback_side.jpg&#39;,
+ &#39;stickleback_top.jpg&#39;,
+ &#39;worms.jpg&#39;]
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bright</span><span class="p">,</span> <span class="n">df_bright</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;images/phyto_bright.jpg&quot;</span><span class="p">,</span>
+                                  <span class="n">df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="c1">## df=True creates a &quot;dataframe-backbone&quot; with meta-data</span>
+<span class="n">fl445</span><span class="p">,</span> <span class="n">df_fl445</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;images/phyto_445.jpg&quot;</span><span class="p">,</span>
+                                <span class="n">df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fl469</span><span class="p">,</span> <span class="n">df_fl469</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;images/phyto_469.jpg&quot;</span><span class="p">,</span>
+                                <span class="n">df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fl586</span><span class="p">,</span> <span class="n">df_fl586</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="s2">&quot;images/phyto_586.jpg&quot;</span><span class="p">,</span>
+                                <span class="n">df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">([</span><span class="n">bright</span><span class="p">,</span> <span class="n">fl445</span><span class="p">,</span> <span class="n">fl469</span><span class="p">,</span> <span class="n">fl586</span><span class="p">],</span> <span class="n">max_dim</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">position_offset</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now the segmentation - note that the brightfield image requires a different method than the fluorescence images, which can be run on the default settings (<code class="docutils literal notranslate"><span class="pre">method=&quot;binary,</span> <span class="pre">value=127</span></code>). However, they need to be inverted for the algorithm to work (set <code class="docutils literal notranslate"><span class="pre">invert=True</span></code>).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">bright_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">bright</span><span class="p">,</span>
+                                       <span class="n">method</span><span class="o">=</span><span class="s2">&quot;adaptive&quot;</span><span class="p">,</span>
+                                       <span class="n">blocksize</span><span class="o">=</span><span class="mi">299</span><span class="p">,</span>
+                                       <span class="n">constant</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">fl445_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">fl445</span><span class="p">,</span>
+                                      <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                      <span class="n">value</span><span class="o">=</span><span class="mi">127</span><span class="p">)</span> <span class="c1">## change &quot;value&quot; to increase or decrease sensitivity</span>
+<span class="n">fl469_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">fl469</span><span class="p">,</span>
+                                      <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">fl586_bin</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="n">fl586</span><span class="p">,</span>
+                                      <span class="n">invert</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">([</span><span class="n">bright_bin</span><span class="p">,</span> <span class="n">fl445_bin</span><span class="p">,</span> <span class="n">fl469_bin</span><span class="p">,</span> <span class="n">fl586_bin</span><span class="p">],</span> <span class="n">max_dim</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">position_offset</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Now we combine all four images into a single array using <code class="docutils literal notranslate"><span class="pre">OpenCV</span></code>’s <code class="docutils literal notranslate"><span class="pre">add</span></code>: <a class="reference external" href="https://docs.opencv.org/master/d2/de8/group__core__array.html">https://docs.opencv.org/master/d2/de8/group__core__array.html</a>.</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">cv2</span>
+<span class="n">comb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">bright_bin</span><span class="p">,</span><span class="n">fl445_bin</span><span class="p">)</span>
+<span class="n">comb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">comb</span><span class="p">,</span><span class="n">fl469_bin</span><span class="p">)</span>
+<span class="n">comb</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">comb</span><span class="p">,</span><span class="n">fl586_bin</span><span class="p">)</span>
+
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">([</span><span class="n">bright_bin</span><span class="p">,</span> <span class="n">fl445_bin</span><span class="p">,</span> <span class="n">fl469_bin</span><span class="p">,</span> <span class="n">fl586_bin</span><span class="p">,</span> <span class="n">comb</span><span class="p">],</span>
+              <span class="n">max_dim</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+              <span class="n">position_offset</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Back in phenopype, we can detect contours, and calculate the shape features:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">comb</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- found 1030 contours that match criteria
+</pre></div></div>
+</div>
+<p>A quick visualization of the found contours reveals that we probably have to detected some contours that are not phytoplankton, but image artefacts. It might be usefull at this point to set a minimum and maximum size in find contours - probably necessary to play around with this to get good results, I don’t know enough about these images and phytoplankton.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df_contours</span><span class="p">[</span><span class="s2">&quot;area&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+&lt;AxesSubplot:&gt;
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<img alt="_images/example_3_phytoplankton_15_1.png" src="_images/example_3_phytoplankton_15_1.png" />
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">df_contours</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">segmentation</span><span class="o">.</span><span class="n">find_contours</span><span class="p">(</span><span class="n">comb</span><span class="p">,</span> <span class="n">min_area</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">max_area</span><span class="o">=</span><span class="mi">5000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- found 575 contours that match criteria
+</pre></div></div>
+</div>
+<p>Now the shape features (basic and Hu):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[9]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">shape_features</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">shape_features</span><span class="p">(</span><span class="n">df_contours</span><span class="p">,</span>
+                                               <span class="n">return_hu_moments</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p>Time to visualize and save the results:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[10]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">viz_check</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">img</span><span class="p">,</span> <span class="n">img_df</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">bright</span><span class="p">,</span> <span class="n">fl445</span><span class="p">,</span> <span class="n">fl469</span><span class="p">,</span> <span class="n">fl586</span><span class="p">],[</span><span class="n">df_bright</span><span class="p">,</span> <span class="n">df_fl445</span><span class="p">,</span> <span class="n">df_fl469</span><span class="p">,</span> <span class="n">df_fl586</span><span class="p">]):</span>
+    <span class="n">viz</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_contours</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">df_contours</span><span class="p">,</span> <span class="n">fill</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">line_width</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">viz_check</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">viz</span><span class="p">)</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_canvas</span><span class="p">(</span><span class="n">viz</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="s2">&quot;_temp/output/ex3&quot;</span><span class="p">,</span> <span class="n">save_suffix</span><span class="o">=</span><span class="n">img_df</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- canvas saved under _temp/output/ex3\canvas_phyto_bright.jpg.jpg (overwritten).
+- canvas saved under _temp/output/ex3\canvas_phyto_445.jpg.jpg (overwritten).
+- canvas saved under _temp/output/ex3\canvas_phyto_469.jpg.jpg (overwritten).
+- canvas saved under _temp/output/ex3\canvas_phyto_586.jpg.jpg (overwritten).
+</pre></div></div>
+</div>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[11]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">viz_check</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[12]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_contours</span><span class="p">(</span><span class="n">df_contours</span><span class="p">,</span> <span class="n">save_coords</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="s2">&quot;_temp/output/ex3&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- contours saved under _temp/output/ex3\contours.csv (overwritten).
+</pre></div></div>
+</div>
+<p>A quick PCA done in R shows that the shapes do separate out (features were centered + scaled). Not sure though why we get this funnel shape…</p>
+<center><div style="width:600px; text-align: left"><p><img alt="0b52ef5009d8479695ef0d3ef4fa1541" src="_images/ex3_coords_pca1.png" /></p>
+</div></center></div>
+<div class="section" id="Colour-intensities-(fluorescence)">
+<h3>Colour intensities (fluorescence)<a class="headerlink" href="#Colour-intensities-(fluorescence)" title="Permalink to this headline">¶</a></h3>
+<p>We can now use the extracted contours to extract pixel level information from the images. We have used the information from all images to determin the “true” shape, i.e. the space that each cell is occupying in the images. If we now use that information, and apply it back to the original images, we can measure the different intensities with which they fluores.</p>
+<center><div style="text-align: left"><p><img alt="1416c5eba3eb4442b11201aa56b911c3" src="_images/ex3_colour_intensities.png" /></p>
+<p><strong>Fig. 2:</strong> The boundaries of all phytoplankton cells were determined using information from all images. Within those contours we can now measure how cells fluores at different wavelengths (not the different intensities within the cells).</p>
+</div></center><div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[13]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">intensities</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">img</span><span class="p">,</span> <span class="n">img_df</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="n">fl445</span><span class="p">,</span> <span class="n">fl469</span><span class="p">,</span> <span class="n">fl586</span><span class="p">],[</span><span class="n">df_fl445</span><span class="p">,</span> <span class="n">df_fl469</span><span class="p">,</span> <span class="n">df_fl586</span><span class="p">]):</span>
+    <span class="n">intensity</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">measurement</span><span class="o">.</span><span class="n">colour_intensity</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">img_df</span><span class="p">,</span> <span class="n">df_contours</span><span class="p">)</span>
+    <span class="n">pp</span><span class="o">.</span><span class="n">export</span><span class="o">.</span><span class="n">save_colours</span><span class="p">(</span><span class="n">intensity</span><span class="p">,</span> <span class="n">dirpath</span><span class="o">=</span><span class="s2">&quot;_temp/output/ex3&quot;</span><span class="p">,</span> <span class="n">save_suffix</span><span class="o">=</span><span class="n">img_df</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">intensities</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">intensity</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- colours saved under _temp/output/ex3\colours_phyto_445.jpg.csv (overwritten).
+- colours saved under _temp/output/ex3\colours_phyto_469.jpg.csv (overwritten).
+- colours saved under _temp/output/ex3\colours_phyto_586.jpg.csv (overwritten).
+</pre></div></div>
+</div>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">intensities</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[14]:
+</pre></div>
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+[          filename  width  height contour gray_mean   gray_sd
+ 0    phyto_445.jpg   3135    2132       1         4   1.49241
+ 1    phyto_445.jpg   3135    2132       2   1.31579   1.45286
+ 2    phyto_445.jpg   3135    2132       3   8.01163   3.47581
+ 3    phyto_445.jpg   3135    2132       4   4.53571   2.51872
+ 4    phyto_445.jpg   3135    2132       5   13.1957   5.85929
+ ..             ...    ...     ...     ...       ...       ...
+ 570  phyto_445.jpg   3135    2132     571      6.12  0.587878
+ 571  phyto_445.jpg   3135    2132     572   11.0467   6.58572
+ 572  phyto_445.jpg   3135    2132     573   2.78626  0.873771
+ 573  phyto_445.jpg   3135    2132     574   12.6949   3.24174
+ 574  phyto_445.jpg   3135    2132     575  0.330658   0.47045
+
+ [575 rows x 6 columns],
+           filename  width  height contour gray_mean   gray_sd
+ 0    phyto_469.jpg   3135    2132       1   29.1136   7.69361
+ 1    phyto_469.jpg   3135    2132       2   15.3158    3.7424
+ 2    phyto_469.jpg   3135    2132       3   35.5349   12.1327
+ 3    phyto_469.jpg   3135    2132       4   114.917   67.5601
+ 4    phyto_469.jpg   3135    2132       5   51.7935   16.6906
+ ..             ...    ...     ...     ...       ...       ...
+ 570  phyto_469.jpg   3135    2132     571     17.12  0.930376
+ 571  phyto_469.jpg   3135    2132     572   50.9346   22.2338
+ 572  phyto_469.jpg   3135    2132     573    34.084   8.78065
+ 573  phyto_469.jpg   3135    2132     574   33.7635   5.70262
+ 574  phyto_469.jpg   3135    2132     575    34.313  0.807235
+
+ [575 rows x 6 columns],
+           filename  width  height contour gray_mean   gray_sd
+ 0    phyto_586.jpg   3135    2132       1   7.13636   3.25849
+ 1    phyto_586.jpg   3135    2132       2   4.21053   2.04113
+ 2    phyto_586.jpg   3135    2132       3   7.95349   5.80679
+ 3    phyto_586.jpg   3135    2132       4   170.238   85.1425
+ 4    phyto_586.jpg   3135    2132       5   18.4565   7.60922
+ ..             ...    ...     ...     ...       ...       ...
+ 570  phyto_586.jpg   3135    2132     571      4.24  0.618385
+ 571  phyto_586.jpg   3135    2132     572   13.9626   8.34303
+ 572  phyto_586.jpg   3135    2132     573   49.0687    22.671
+ 573  phyto_586.jpg   3135    2132     574   9.65579   3.37256
+ 574  phyto_586.jpg   3135    2132     575   5.52006  0.539751
+
+ [575 rows x 6 columns]]
+</pre></div></div>
+</div>
+</div>
+</div>
+<div class="section" id="Implementation">
+<h2>Implementation<a class="headerlink" href="#Implementation" title="Permalink to this headline">¶</a></h2>
+<p>This analysis can probably easiest be conducted within the low throughput workflow, as currently there is no good way to implement it in the low or high throughput workflow. Something like this (in pseudo-code):</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[ ]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="c1">## =&gt; create a directory tree where each directory has the 4 images (naming convention)</span>
+<span class="c1">## =&gt; loop over these directories</span>
+
+<span class="c1">## for d in dirlist:</span>
+<span class="c1">##    img = load_image()</span>
+<span class="c1">##    ...</span>
+<span class="c1">##    preprocessing (morphology operation + blur) - shown in example 1 and 5</span>
+<span class="c1">##    segmentation</span>
+<span class="c1">##    contours</span>
+<span class="c1">##    shape features</span>
+<span class="c1">##    colour intensity</span>
+<span class="c1">##    visualization + export to the same subdir</span>
+
+
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Moritz Lürig.<br/>
+      Last updated on May 10, 2021, 5:17:54 PM.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>

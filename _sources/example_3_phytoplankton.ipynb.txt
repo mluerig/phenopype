@@ -1,0 +1,599 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# Example 3: Fluorescence intensity and shape of phytoplankton cells\n",
+    "\n",
+    "In this example we are trying to i) detect phytoplankton cells in 1-channel images (black and white images), ii) measure their pixel-intensities (=fluorescence intensities) and their their shape, and iii) work towards building a classifier for taxonomic groups of phytoplankton. \n",
+    "\n",
+    "The first two objectives are a rather low hanging fruit, as they involve classic computer vision approaches that phenopype can readily supply. The latter goal is more longterm and involves experimenting with classic shape feature detection as provided by phenopype's `shape_features` function (e.g. [image moments](https://docs.opencv.org/3.4/d8/d23/classcv_1_1Moments.html)), and potentially also building up towards a deep learning pipeline usign the contours detected with phenopype. I will update this example as work progresses.  \n",
+    "\n",
+    "Images kindly provided by Irene Gallego and Anita Narwani.\n",
+    "\n",
+    "\n",
+    "<div class=\"row; text-align: left\">\n",
+    "<div class=\"col-md-6\">\n",
+    "<img src=\"_assets/ex3_before.jpg\">\n",
+    "\n",
+    "**Input** - Phytoplankton fluorescence. Each sample includes 1 brightfield gray scale image and 3 fluorescence images at different wavelengths.\n",
+    "</div>\n",
+    "<div class=\"col-md-6\">\n",
+    "<img src=\"_assets/ex3_after.jpg\">\n",
+    "\n",
+    "**Results** - Phenopype `thresholding` function detects the contours of phytoplankton cells (green) and holes within (red).</div>\n",
+    "</div>\n"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Approach"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "All four images show the same objects, but with different pixel intensities. It may be useful to combine information from all images into the segmentation process. This is requires customization of existing workflows in Phenopype, for which the low throughput workflow is best suited: here we have access to intermediate output, and can also integrate low level functions from the `OpenCV` library. Refer to [Tutorial 2](tutorial_2_phenopype_workflow.ipynb) for mor information about the different workflows.\n",
+    "\n",
+    "The appraoch is to load all images separately, do segmentation separately, find contours create four binary masks from all contour coordinates, combine the binary masks into a single image, find contours on the binary image.\n",
+    "\n",
+    "\n",
+    "[1] https://docs.opencv.org/master/d0/d86/tutorial_py_image_arithmetics.html\n",
+    "\n",
+    "<center>\n",
+    "<div style=\"width:800px; text-align: left\" >\n",
+    "<img src=\"_assets/ex3_phyto_layers.png\">\n",
+    "    \n",
+    "**Fig. 1:** Each sample includes four images: 1 brightfield (top) and 3 fluorescence measurements (black, bottom). Due to different pigments, not all spcecies are visible in each image, because of different emission spectra. For example, the two long string shaped cells only occur in two of the fluorescence channels, but not the third one or the brightfield. Therefore, including information from all images for segmentation may be useful to get close to the \"true\" cell count and community composition within a sample. \n",
+    "    \n",
+    "</div>\n",
+    "</center>"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Low throughput workflow\n",
+    "\n",
+    "\n",
+    "### Shape descriptors\n",
+    "\n",
+    "With the recently (phenopype 1.0.5) introducted `shape_features` function you can measure a set of 43 rotation invariant features from collected contours. However, depending on your case, you may not be able to make use of all feature descriptors since some of them are not scale, rotation or translation invariant. Refer to the documentation `help(pp.measurement.shape_features)` to see which features are useful. \n",
+    "\n",
+    "In our case, phytoplankton are scattered over the image, so we need descriptors that are at least translational and rotational invariants, whereas scale includes relevant descriptive power over phytoplankton of different sizes. Therefore we will use (some) of the basic shape descriptors and the seven Hu moments. \n",
+    "\n",
+    "**NOTE:** This function, like most phenopype functions, is easily expandable. So if you are missing sets of shape descriptors, don't hesitate to contact me with or do a pull request. "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 1,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Help on function shape_features in module phenopype.core.measurement:\n",
+      "\n",
+      "shape_features(obj_input, df_contours=None, resize=True, resize_to=100, return_basic=True, return_moments=False, return_hu_moments=True)\n",
+      "    Collects a set of 41 shape descriptors from every contour. There are three sets of \n",
+      "    descriptors: basic shape descriptors, moments, and hu moments. Two additional features,\n",
+      "    contour area and diameter are already provided by the find_contours function.\n",
+      "    https://docs.opencv.org/3.4.9/d3/dc0/group__imgproc__shape.html\n",
+      "    \n",
+      "    Of the basic shape descriptors, all 10 are translational invariants, 8 are rotation \n",
+      "    invariant (rect_height and rect_width are not) and  4 are also scale invariant \n",
+      "    (circularity, compactness, roundness, solidity).\n",
+      "    https://en.wikipedia.org/wiki/Shape_factor_(image_analysis_and_microscopy)  \n",
+      "                                \n",
+      "    The moments set encompasses 10 raw spatial moments (some are translation and rotation\n",
+      "    invariants, but not all), 7 central moments (all translational invariant) and 7 central \n",
+      "    normalized moments (all translational and scale invariant).\n",
+      "    https://en.wikipedia.org/wiki/Image_moment\n",
+      "    \n",
+      "    The 7 hu moments are derived of the central moments, and are all translation, scale \n",
+      "    and rotation invariant.\n",
+      "    http://www.sci.utah.edu/~gerig/CS7960-S2010/handouts/Hu.pdf\n",
+      "        \n",
+      "    Basic shape descriptors:\n",
+      "        circularity = 4 * np.pi * contour_area / contour_perimeter_length^2\n",
+      "        compactness = √(4 * contour_area / pi) / contour_diameter\n",
+      "        min_rect_max = minimum bounding rectangle major axis\n",
+      "        min_rect_min = minimum bounding rectangle minor axis\n",
+      "        perimeter_length = total length of contour perimenter\n",
+      "        rect_height = height of the bounding rectangle (\"caliper dim 1\")\n",
+      "        rect_width = width of the bounding rectangle (\"caliper dim 2\")\n",
+      "        roundness = (4 * contour_area) / pi * contour_perimeter_length^2\n",
+      "        solidity = contour_area / convex_hull_area\n",
+      "        tri_area = area of minimum bounding triangle\n",
+      "    \n",
+      "    Moments:\n",
+      "        raw moments = m00, m10, m01, m20, m11, m02, m30, m21,  m12, m03\n",
+      "        central moments = mu20, mu11, mu02, mu30, mu21, mu12, mu03,  \n",
+      "        normalized central moments = nu20, nu11, nu02, nu30, nu21, nu12, nu03\n",
+      "    \n",
+      "    Hu moments:\n",
+      "        hu moments = hu1, hu2, hu3, hu4, hu5, hu6, hu7\n",
+      "    \n",
+      "    Parameters\n",
+      "    ----------\n",
+      "    obj_input : array or container\n",
+      "        input object\n",
+      "    df_contours : DataFrame, optional\n",
+      "        contains the contours\n",
+      "    return_basic: True, opational\n",
+      "        append the basic shape descriptors to a provided contour DataFrame\n",
+      "    return_moments: False, optional\n",
+      "        append the basic shape descriptors to a provided contour DataFrame\n",
+      "    return_hu_moments: False, optional\n",
+      "        append the basic shape descriptors to a provided contour DataFrame\n",
+      "        \n",
+      "    Returns\n",
+      "    -------\n",
+      "    df_contours : DataFrame or container\n",
+      "        contains contours, and added features\n",
+      "\n"
+     ]
+    }
+   ],
+   "source": [
+    "import phenopype as pp\n",
+    "\n",
+    "help(pp.measurement.shape_features)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "First, we load the images."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 2,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "['cichlid1.jpg',\n",
+       " 'cichlid2.jpg',\n",
+       " 'cichlid3.jpg',\n",
+       " 'cichlid_multi1.jpg',\n",
+       " 'cichlid_multi2.jpg',\n",
+       " 'cichlid_multi3.jpg',\n",
+       " 'isopods.jpg',\n",
+       " 'isopods_fish.mp4',\n",
+       " 'phyto_445.jpg',\n",
+       " 'phyto_469.jpg',\n",
+       " 'phyto_586.jpg',\n",
+       " 'phyto_bright.jpg',\n",
+       " 'snails1.jpg',\n",
+       " 'snails2.jpg',\n",
+       " 'stickle1.JPG',\n",
+       " 'stickle2.JPG',\n",
+       " 'stickle3.JPG',\n",
+       " 'stickleback_side.jpg',\n",
+       " 'stickleback_top.jpg',\n",
+       " 'worms.jpg']"
+      ]
+     },
+     "execution_count": 2,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "import os\n",
+    "os.listdir(\"images\")"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 3,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "bright, df_bright = pp.load_image(\"images/phyto_bright.jpg\", \n",
+    "                                  df=True) ## df=True creates a \"dataframe-backbone\" with meta-data\n",
+    "fl445, df_fl445 = pp.load_image(\"images/phyto_445.jpg\", \n",
+    "                                df=True)\n",
+    "fl469, df_fl469 = pp.load_image(\"images/phyto_469.jpg\", \n",
+    "                                df=True)\n",
+    "fl586, df_fl586 = pp.load_image(\"images/phyto_586.jpg\", \n",
+    "                                df=True)\n",
+    "\n",
+    "pp.show_image([bright, fl445, fl469, fl586], max_dim=1000, position_offset=200)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now the segmentation - note that the brightfield image requires a different method than the fluorescence images, which can be run on the default settings (`method=\"binary, value=127`). However, they need to be inverted for the algorithm to work (set `invert=True`). "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 4,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "bright_bin = pp.segmentation.threshold(bright, \n",
+    "                                       method=\"adaptive\", \n",
+    "                                       blocksize=299, \n",
+    "                                       constant=10) \n",
+    "fl445_bin = pp.segmentation.threshold(fl445, \n",
+    "                                      invert=True, \n",
+    "                                      value=127) ## change \"value\" to increase or decrease sensitivity\n",
+    "fl469_bin = pp.segmentation.threshold(fl469, \n",
+    "                                      invert=True)\n",
+    "fl586_bin = pp.segmentation.threshold(fl586, \n",
+    "                                      invert=True)\n",
+    "\n",
+    "pp.show_image([bright_bin, fl445_bin, fl469_bin, fl586_bin], max_dim=1000, position_offset=200)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now we combine all four images into a single array using `OpenCV`'s `add`: https://docs.opencv.org/master/d2/de8/group__core__array.html."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 5,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import cv2\n",
+    "comb = cv2.add(bright_bin,fl445_bin)\n",
+    "comb = cv2.add(comb,fl469_bin)\n",
+    "comb = cv2.add(comb,fl586_bin)\n",
+    "\n",
+    "pp.show_image([bright_bin, fl445_bin, fl469_bin, fl586_bin, comb], \n",
+    "              max_dim=1000, \n",
+    "              position_offset=200)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Back in phenopype, we can detect contours, and calculate the shape features: "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 6,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "- found 1030 contours that match criteria\n"
+     ]
+    }
+   ],
+   "source": [
+    "df_contours = pp.segmentation.find_contours(comb)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A quick visualization of the found contours reveals that we probably have to detected some contours that are not phytoplankton, but image artefacts. It might be usefull at this point to set a minimum and maximum size in find contours - probably necessary to play around with this to get good results, I don't know enough about these images and phytoplankton."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 7,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "<AxesSubplot:>"
+      ]
+     },
+     "execution_count": 7,
+     "metadata": {},
+     "output_type": "execute_result"
+    },
+    {
+     "data": {
+      "image/png": "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\n",
+      "text/plain": [
+       "<Figure size 432x288 with 1 Axes>"
+      ]
+     },
+     "metadata": {
+      "needs_background": "light"
+     },
+     "output_type": "display_data"
+    }
+   ],
+   "source": [
+    "import pandas as pd \n",
+    "\n",
+    "pd.to_numeric(df_contours[\"area\"]).hist(bins=100)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 8,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "- found 575 contours that match criteria\n"
+     ]
+    }
+   ],
+   "source": [
+    "df_contours = pp.segmentation.find_contours(comb, min_area=10, max_area=5000)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Now the shape features (basic and Hu):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 9,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "shape_features = pp.measurement.shape_features(df_contours, \n",
+    "                                               return_hu_moments=True)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "Time to visualize and save the results:"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 10,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "- canvas saved under _temp/output/ex3\\canvas_phyto_bright.jpg.jpg (overwritten).\n",
+      "- canvas saved under _temp/output/ex3\\canvas_phyto_445.jpg.jpg (overwritten).\n",
+      "- canvas saved under _temp/output/ex3\\canvas_phyto_469.jpg.jpg (overwritten).\n",
+      "- canvas saved under _temp/output/ex3\\canvas_phyto_586.jpg.jpg (overwritten).\n"
+     ]
+    }
+   ],
+   "source": [
+    "viz_check = []\n",
+    "\n",
+    "for img, img_df in zip([bright, fl445, fl469, fl586],[df_bright, df_fl445, df_fl469, df_fl586]):\n",
+    "    viz = pp.visualization.draw_contours(img, df_contours, fill=0, line_width=1)\n",
+    "    viz_check.append(viz)\n",
+    "    pp.export.save_canvas(viz, dirpath=\"_temp/output/ex3\", save_suffix=img_df[\"filename\"][0])"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 11,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "pp.show_image(viz_check)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 12,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "- contours saved under _temp/output/ex3\\contours.csv (overwritten).\n"
+     ]
+    }
+   ],
+   "source": [
+    "pp.export.save_contours(df_contours, save_coords=False, dirpath=\"_temp/output/ex3\")"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "A quick PCA done in R shows that the shapes do separate out (features were centered + scaled). Not sure though why we get this funnel shape..."
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "<center>\n",
+    "<div style=\"width:600px; text-align: left\" >\n",
+    "<img src=\"_assets/ex3_coords_pca1.png\">\n",
+    "\n",
+    "</div>\n",
+    "</center> "
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "### Colour intensities (fluorescence)\n",
+    "\n",
+    "We can now use the extracted contours to extract pixel level information from the images. We have used the information from all images to determin the \"true\" shape, i.e. the space that each cell is occupying in the images. If we now use that information, and apply it back to the original images, we can measure the different intensities with which they fluores.\n",
+    "\n",
+    "\n",
+    "<center>\n",
+    "<div style=\"text-align: left\" >\n",
+    "<img src=\"_assets/ex3_colour_intensities.png\">\n",
+    "    \n",
+    "**Fig. 2:** The boundaries of all phytoplankton cells were determined using information from all images. Within those contours we can now measure how cells fluores at different wavelengths (not the different intensities within the cells).\n",
+    "    \n",
+    "</div>\n",
+    "</center>"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 13,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "- colours saved under _temp/output/ex3\\colours_phyto_445.jpg.csv (overwritten).\n",
+      "- colours saved under _temp/output/ex3\\colours_phyto_469.jpg.csv (overwritten).\n",
+      "- colours saved under _temp/output/ex3\\colours_phyto_586.jpg.csv (overwritten).\n"
+     ]
+    }
+   ],
+   "source": [
+    "intensities = []\n",
+    "\n",
+    "for img, img_df in zip([fl445, fl469, fl586],[df_fl445, df_fl469, df_fl586]):\n",
+    "    intensity = pp.measurement.colour_intensity(img, img_df, df_contours)\n",
+    "    pp.export.save_colours(intensity, dirpath=\"_temp/output/ex3\", save_suffix=img_df[\"filename\"][0])\n",
+    "    intensities.append(intensity)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 14,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "[          filename  width  height contour gray_mean   gray_sd\n",
+       " 0    phyto_445.jpg   3135    2132       1         4   1.49241\n",
+       " 1    phyto_445.jpg   3135    2132       2   1.31579   1.45286\n",
+       " 2    phyto_445.jpg   3135    2132       3   8.01163   3.47581\n",
+       " 3    phyto_445.jpg   3135    2132       4   4.53571   2.51872\n",
+       " 4    phyto_445.jpg   3135    2132       5   13.1957   5.85929\n",
+       " ..             ...    ...     ...     ...       ...       ...\n",
+       " 570  phyto_445.jpg   3135    2132     571      6.12  0.587878\n",
+       " 571  phyto_445.jpg   3135    2132     572   11.0467   6.58572\n",
+       " 572  phyto_445.jpg   3135    2132     573   2.78626  0.873771\n",
+       " 573  phyto_445.jpg   3135    2132     574   12.6949   3.24174\n",
+       " 574  phyto_445.jpg   3135    2132     575  0.330658   0.47045\n",
+       " \n",
+       " [575 rows x 6 columns],\n",
+       "           filename  width  height contour gray_mean   gray_sd\n",
+       " 0    phyto_469.jpg   3135    2132       1   29.1136   7.69361\n",
+       " 1    phyto_469.jpg   3135    2132       2   15.3158    3.7424\n",
+       " 2    phyto_469.jpg   3135    2132       3   35.5349   12.1327\n",
+       " 3    phyto_469.jpg   3135    2132       4   114.917   67.5601\n",
+       " 4    phyto_469.jpg   3135    2132       5   51.7935   16.6906\n",
+       " ..             ...    ...     ...     ...       ...       ...\n",
+       " 570  phyto_469.jpg   3135    2132     571     17.12  0.930376\n",
+       " 571  phyto_469.jpg   3135    2132     572   50.9346   22.2338\n",
+       " 572  phyto_469.jpg   3135    2132     573    34.084   8.78065\n",
+       " 573  phyto_469.jpg   3135    2132     574   33.7635   5.70262\n",
+       " 574  phyto_469.jpg   3135    2132     575    34.313  0.807235\n",
+       " \n",
+       " [575 rows x 6 columns],\n",
+       "           filename  width  height contour gray_mean   gray_sd\n",
+       " 0    phyto_586.jpg   3135    2132       1   7.13636   3.25849\n",
+       " 1    phyto_586.jpg   3135    2132       2   4.21053   2.04113\n",
+       " 2    phyto_586.jpg   3135    2132       3   7.95349   5.80679\n",
+       " 3    phyto_586.jpg   3135    2132       4   170.238   85.1425\n",
+       " 4    phyto_586.jpg   3135    2132       5   18.4565   7.60922\n",
+       " ..             ...    ...     ...     ...       ...       ...\n",
+       " 570  phyto_586.jpg   3135    2132     571      4.24  0.618385\n",
+       " 571  phyto_586.jpg   3135    2132     572   13.9626   8.34303\n",
+       " 572  phyto_586.jpg   3135    2132     573   49.0687    22.671\n",
+       " 573  phyto_586.jpg   3135    2132     574   9.65579   3.37256\n",
+       " 574  phyto_586.jpg   3135    2132     575   5.52006  0.539751\n",
+       " \n",
+       " [575 rows x 6 columns]]"
+      ]
+     },
+     "execution_count": 14,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "intensities"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Implementation\n",
+    "\n",
+    "This analysis can probably easiest be conducted within the low throughput workflow, as currently there is no good way to implement it in the low or high throughput workflow. Something like this (in pseudo-code):"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "## => create a directory tree where each directory has the 4 images (naming convention)\n",
+    "## => loop over these directories\n",
+    "\n",
+    "## for d in dirlist:\n",
+    "##    img = load_image()\n",
+    "##    ...  \n",
+    "##    preprocessing (morphology operation + blur) - shown in example 1 and 5 \n",
+    "##    segmentation \n",
+    "##    contours\n",
+    "##    shape features\n",
+    "##    colour intensity\n",
+    "##    visualization + export to the same subdir\n",
+    "\n"
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.7.9"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}

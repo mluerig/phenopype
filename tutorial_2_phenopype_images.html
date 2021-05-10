@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial 2: Interacting with images in phenopype &#8212; phenopype 2.0.1 documentation</title>
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/bootstrap-sphinx.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tutorial 3: Image analysis workflow" href="tutorial_3_phenopype_workflows.html" />
+    <link rel="prev" title="Tutorial 1: A (very) brief python introduction" href="tutorial_1_python_intro.html" />
+<meta charset='utf-8'>
+<meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
+<meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1'>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<script type="text/javascript" src="_static/js/jquery-1.11.0.min.js "></script>
+<script type="text/javascript" src="_static/js/jquery-fix.js "></script>
+<script type="text/javascript" src="_static/bootstrap-3.3.7/js/bootstrap.min.js "></script>
+<script type="text/javascript" src="_static/bootstrap-sphinx.js "></script>
+
+  </head><body>
+
+  <div id="navbar" class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <!-- .btn-navbar is used as the toggle for collapsed navbar content -->
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">
+          phenopype</a>
+        <span class="navbar-text navbar-version pull-left"><b>2.0.1</b></span>
+      </div>
+
+        <div class="collapse navbar-collapse nav-collapse">
+          <ul class="nav navbar-nav">
+            
+                <li><a href="https://github.com/mluerig/phenopype">Phenopype on Github</a></li>
+            
+            
+              <li class="dropdown globaltoc-container">
+  <a role="button"
+     id="dLabelGlobalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="index.html">Site <b class="caret"></b></a>
+  <ul class="dropdown-menu globaltoc"
+      role="menu"
+      aria-labelledby="dLabelGlobalToc"><ul>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">Additional resources</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="tutorial_0.html">How to run tutorials and examples using Jupyter Notebook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_1_python_intro.html">Tutorial 1: A (very) brief python introduction</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Tutorial 2: Interacting with images in phenopype</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_3_phenopype_workflows.html">Tutorial 3: Image analysis workflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_4_managing_projects.html">Tutorial 4: Setting up and managing projects</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_5_references.html">Tutorial 5: Creating and detecting a reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial_6_video_analysis.html">Tutorial 6: Video analysis</a></li>
+</ul>
+</ul>
+</li>
+              
+                <li class="dropdown">
+  <a role="button"
+     id="dLabelLocalToc"
+     data-toggle="dropdown"
+     data-target="#"
+     href="#">Page <b class="caret"></b></a>
+  <ul class="dropdown-menu localtoc"
+      role="menu"
+      aria-labelledby="dLabelLocalToc"><ul>
+<li><a class="reference internal" href="#">Tutorial 2: Interacting with images in phenopype</a><ul>
+<li><a class="reference internal" href="#Window-control">Window control</a><ul>
+<li><a class="reference internal" href="#Open">Open</a></li>
+<li><a class="reference internal" href="#Close">Close</a></li>
+<li><a class="reference internal" href="#Issues">Issues</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Opening-images-in-phenopype">Opening images in phenopype</a></li>
+<li><a class="reference internal" href="#Creating-masks">Creating masks</a></li>
+</ul>
+</li>
+</ul>
+</ul>
+</li>
+              
+            
+            
+              
+                
+  <li>
+    <a href="tutorial_1_python_intro.html" title="Previous Chapter: Tutorial 1: A (very) brief python introduction"><span class="glyphicon glyphicon-chevron-left visible-sm"></span><span class="hidden-sm hidden-tablet">&laquo; Tutorial 1: A...</span>
+    </a>
+  </li>
+  <li>
+    <a href="tutorial_3_phenopype_workflows.html" title="Next Chapter: Tutorial 3: Image analysis workflow"><span class="glyphicon glyphicon-chevron-right visible-sm"></span><span class="hidden-sm hidden-tablet">Tutorial 3: I... &raquo;</span>
+    </a>
+  </li>
+              
+            
+            
+            
+            
+              <li class="hidden-sm">
+<div id="sourcelink">
+  <a href="_sources/tutorial_2_phenopype_images.ipynb.txt"
+     rel="nofollow">Source</a>
+</div></li>
+            
+          </ul>
+
+          
+            
+<form class="navbar-form navbar-right" action="search.html" method="get">
+ <div class="form-group">
+  <input type="text" name="q" class="form-control" placeholder="Search" />
+ </div>
+  <input type="hidden" name="check_keywords" value="yes" />
+  <input type="hidden" name="area" value="default" />
+</form>
+          
+        </div>
+    </div>
+  </div>
+
+<div class="container">
+  <div class="row">
+      <div class="col-md-3">
+        <div id="sidebar" class="bs-sidenav" role="complementary"><ul>
+<li><a class="reference internal" href="#">Tutorial 2: Interacting with images in phenopype</a><ul>
+<li><a class="reference internal" href="#Window-control">Window control</a><ul>
+<li><a class="reference internal" href="#Open">Open</a></li>
+<li><a class="reference internal" href="#Close">Close</a></li>
+<li><a class="reference internal" href="#Issues">Issues</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#Opening-images-in-phenopype">Opening images in phenopype</a></li>
+<li><a class="reference internal" href="#Creating-masks">Creating masks</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    <div class="body col-md-9 content" role="main">
+      
+  
+<style>
+/* CSS for nbsphinx extension */
+
+/* remove conflicting styling from Sphinx themes */
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt *,
+div.nbinput.container div.input_area pre,
+div.nboutput.container div.output_area pre,
+div.nbinput.container div.input_area .highlight,
+div.nboutput.container div.output_area .highlight {
+    border: none;
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+}
+
+div.nbinput.container > div[class*=highlight],
+div.nboutput.container > div[class*=highlight] {
+    margin: 0;
+}
+
+div.nbinput.container div.prompt *,
+div.nboutput.container div.prompt * {
+    background: none;
+}
+
+div.nboutput.container div.output_area .highlight,
+div.nboutput.container div.output_area pre {
+    background: unset;
+}
+
+div.nboutput.container div.output_area div.highlight {
+    color: unset;  /* override Pygments text color */
+}
+
+/* avoid gaps between output lines */
+div.nboutput.container div[class*=highlight] pre {
+    line-height: normal;
+}
+
+/* input/output containers */
+div.nbinput.container,
+div.nboutput.container {
+    display: -webkit-flex;
+    display: flex;
+    align-items: flex-start;
+    margin: 0;
+    width: 100%;
+}
+@media (max-width: 540px) {
+    div.nbinput.container,
+    div.nboutput.container {
+        flex-direction: column;
+    }
+}
+
+/* input container */
+div.nbinput.container {
+    padding-top: 5px;
+}
+
+/* last container */
+div.nblast.container {
+    padding-bottom: 5px;
+}
+
+/* input prompt */
+div.nbinput.container div.prompt pre {
+    color: #307FC1;
+}
+
+/* output prompt */
+div.nboutput.container div.prompt pre {
+    color: #BF5B3D;
+}
+
+/* all prompts */
+div.nbinput.container div.prompt,
+div.nboutput.container div.prompt {
+    width: 4.5ex;
+    padding-top: 5px;
+    position: relative;
+    user-select: none;
+}
+
+div.nbinput.container div.prompt > div,
+div.nboutput.container div.prompt > div {
+    position: absolute;
+    right: 0;
+    margin-right: 0.3ex;
+}
+
+@media (max-width: 540px) {
+    div.nbinput.container div.prompt,
+    div.nboutput.container div.prompt {
+        width: unset;
+        text-align: left;
+        padding: 0.4em;
+    }
+    div.nboutput.container div.prompt.empty {
+        padding: 0;
+    }
+
+    div.nbinput.container div.prompt > div,
+    div.nboutput.container div.prompt > div {
+        position: unset;
+    }
+}
+
+/* disable scrollbars on prompts */
+div.nbinput.container div.prompt pre,
+div.nboutput.container div.prompt pre {
+    overflow: hidden;
+}
+
+/* input/output area */
+div.nbinput.container div.input_area,
+div.nboutput.container div.output_area {
+    -webkit-flex: 1;
+    flex: 1;
+    overflow: auto;
+}
+@media (max-width: 540px) {
+    div.nbinput.container div.input_area,
+    div.nboutput.container div.output_area {
+        width: 100%;
+    }
+}
+
+/* input area */
+div.nbinput.container div.input_area {
+    border: 1px solid #e0e0e0;
+    border-radius: 2px;
+    /*background: #f5f5f5;*/
+}
+
+/* override MathJax center alignment in output cells */
+div.nboutput.container div[class*=MathJax] {
+    text-align: left !important;
+}
+
+/* override sphinx.ext.imgmath center alignment in output cells */
+div.nboutput.container div.math p {
+    text-align: left;
+}
+
+/* standard error */
+div.nboutput.container div.output_area.stderr {
+    background: #fdd;
+}
+
+/* ANSI colors */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-default-inverse-fg { color: #FFFFFF; }
+.ansi-default-inverse-bg { background-color: #000000; }
+
+.ansi-bold { font-weight: bold; }
+.ansi-underline { text-decoration: underline; }
+
+
+div.nbinput.container div.input_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight] > pre,
+div.nboutput.container div.output_area div[class*=highlight].math,
+div.nboutput.container div.output_area.rendered_html,
+div.nboutput.container div.output_area > div.output_javascript,
+div.nboutput.container div.output_area:not(.rendered_html) > img{
+    padding: 5px;
+    margin: 0;
+}
+
+/* fix copybtn overflow problem in chromium (needed for 'sphinx_copybutton') */
+div.nbinput.container div.input_area > div[class^='highlight'],
+div.nboutput.container div.output_area > div[class^='highlight']{
+    overflow-y: hidden;
+}
+
+/* hide copybtn icon on prompts (needed for 'sphinx_copybutton') */
+.prompt a.copybtn {
+    display: none;
+}
+
+/* Some additional styling taken form the Jupyter notebook CSS */
+div.rendered_html table {
+  border: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  color: black;
+  font-size: 12px;
+  table-layout: fixed;
+}
+div.rendered_html thead {
+  border-bottom: 1px solid black;
+  vertical-align: bottom;
+}
+div.rendered_html tr,
+div.rendered_html th,
+div.rendered_html td {
+  text-align: right;
+  vertical-align: middle;
+  padding: 0.5em 0.5em;
+  line-height: normal;
+  white-space: normal;
+  max-width: none;
+  border: none;
+}
+div.rendered_html th {
+  font-weight: bold;
+}
+div.rendered_html tbody tr:nth-child(odd) {
+  background: #f5f5f5;
+}
+div.rendered_html tbody tr:hover {
+  background: rgba(66, 165, 245, 0.2);
+}
+</style>
+<div class="section" id="Tutorial-2:-Interacting-with-images-in-phenopype">
+<h1>Tutorial 2: Interacting with images in phenopype<a class="headerlink" href="#Tutorial-2:-Interacting-with-images-in-phenopype" title="Permalink to this headline">¶</a></h1>
+<p>In this tutorial we learn how to open and close images in phenopype, and how to use the interactive featues of the program. Phenopype uses OpenCV’s HighGUI module to display images and to allow users to interact with images. HighGUI has a few pros and cons:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">+</span> <span class="n">native</span> <span class="n">OpenCV</span> <span class="n">GUI</span> <span class="p">(</span><span class="n">no</span> <span class="n">extra</span> <span class="n">GUI</span> <span class="n">libraries</span> <span class="n">required</span><span class="p">)</span>
+<span class="o">+</span> <span class="n">the</span> <span class="n">module</span> <span class="ow">is</span> <span class="n">extremely</span> <span class="n">fast</span> <span class="ow">in</span> <span class="n">displaying</span> <span class="n">images</span>
+<span class="o">+</span> <span class="n">it</span> <span class="n">can</span> <span class="n">display</span> <span class="n">very</span> <span class="n">large</span> <span class="n">image</span><span class="o">-</span><span class="n">arrays</span> <span class="p">(</span><span class="o">&gt;</span> <span class="mi">10000</span><span class="n">x10000</span> <span class="n">pixels</span><span class="p">)</span>
+<span class="o">+</span> <span class="n">it</span> <span class="n">can</span> <span class="n">display</span> <span class="n">multiple</span> <span class="n">images</span> <span class="n">side</span> <span class="n">by</span> <span class="n">side</span>
+<span class="o">+</span> <span class="n">interactions</span> <span class="p">(</span><span class="n">drawing</span> <span class="ow">and</span> <span class="n">measuring</span><span class="p">)</span> <span class="n">are</span> <span class="n">possible</span>
+
+<span class="o">-</span> <span class="n">sometimes</span> <span class="n">unstable</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">windows</span> <span class="n">are</span> <span class="ow">not</span> <span class="n">closed</span> <span class="n">but</span> <span class="n">freeze</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">issues</span> <span class="k">with</span> <span class="n">cross</span> <span class="n">plattform</span> <span class="n">stability</span> <span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">g</span><span class="o">.</span> <span class="n">on</span> <span class="n">macOS</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">displaying</span> <span class="n">instructions</span> <span class="ow">is</span> <span class="n">hacky</span> <span class="p">(</span><span class="n">text</span> <span class="ow">is</span> <span class="s2">&quot;painted&quot;</span> <span class="n">onto</span> <span class="n">a</span> <span class="n">displayed</span> <span class="n">image</span><span class="p">)</span>
+<span class="o">-</span> <span class="n">user</span> <span class="nb">input</span> <span class="p">(</span><span class="n">key</span> <span class="n">strokes</span> <span class="ow">and</span> <span class="n">mouse</span> <span class="n">clicks</span><span class="p">)</span> <span class="n">sometimes</span> <span class="n">isn</span><span class="s1">&#39;t captured properly</span>
+</pre></div>
+</div>
+<p>Currently Phenopype uses the standard HighGUI libraries that ship with the most recent precompiled <code class="docutils literal notranslate"><span class="pre">opencv-contrib-python</span></code> package, which is <code class="docutils literal notranslate"><span class="pre">Qt</span></code> for Linux and macOS, and <code class="docutils literal notranslate"><span class="pre">Win32</span> <span class="pre">UI</span></code> on Windows. The <code class="docutils literal notranslate"><span class="pre">Qt</span></code> GUI is a bit more userfriendly with builtin buttons, scrollbars, RGB info and zoom, but you don’t actually need those things for basic Phenopype GUI interactions.</p>
+<div class="alert alert-block alert-success"><p><strong>Further resources related to this tutorial</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://pypi.org/project/opencv-python/">opencv-python on pypi</a></p></li>
+<li><p><a class="reference external" href="https://docs.opencv.org/master/dc/d46/group__highgui__qt.html">OpenCV HighGUI</a></p></li>
+</ul>
+</div><div class="section" id="Window-control">
+<h2>Window control<a class="headerlink" href="#Window-control" title="Permalink to this headline">¶</a></h2>
+<div class="alert alert-block alert-danger"><p><strong>IMPORTANT - read before continuing</strong></p>
+<div class="section" id="Open">
+<h3>Open<a class="headerlink" href="#Open" title="Permalink to this headline">¶</a></h3>
+<p>In a very simple case, where you want to just inspect an image file from within phenopype, you use the <code class="docutils literal notranslate"><span class="pre">load_image</span></code> function to load an image file into Python as an array, and then display it with <code class="docutils literal notranslate"><span class="pre">show_image</span></code>. A HighGUI window will pop up and display the array. While the window is open, the Python kernel is “busy”, and you cannot interact with the console, i.e. run any code - you first have to close the image again.</p>
+</div>
+<div class="section" id="Close">
+<h3>Close<a class="headerlink" href="#Close" title="Permalink to this headline">¶</a></h3>
+<p>Although the HighGUI window has the “red crossed” close button in the upper right corner, DO NOT USE IT! For practical reasons, phenopype relies on key strokes to control the windows. Make sure that the window is selected / highlighted, and use the following key combinations to close it:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Enter</span></code> - close window or finish an interactive function in <code class="docutils literal notranslate"><span class="pre">pype</span></code>-mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Ctrl+Enter</span></code> - close and finish a window in <code class="docutils literal notranslate"><span class="pre">pype</span></code>-mode</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Esc</span></code> - close a window and quit the Phenoype process that invoked it (e.g. a <code class="docutils literal notranslate"><span class="pre">for</span></code> loop - <a class="reference internal" href="tutorial_4_managing_projects.html#Using-pype-with-project-folders"><span class="std std-ref">see Tutorial 4</span></a>). This may also work when the process is frozen.</p></li>
+</ul>
+</div>
+<div class="section" id="Issues">
+<h3>Issues<a class="headerlink" href="#Issues" title="Permalink to this headline">¶</a></h3>
+<p>Unfortunately the HighGUI isn’t extremely stable, and may sometimes behave unexpectedly. Here are solutions to the most comment issues:</p>
+<ul>
+<li><p>If a keystroke doen’t do anything the first time, try a few times more (Phenopype “listens” to your keystroke while refreshing the presented image, and sometimes a refreshing operation overlaps with user input and it is not recognized).</p></li>
+<li><p>If your keystore still isn’t recognized, make sure the window is highlighted (i.e. click on it) and try again.</p></li>
+<li><p>If you killed a process but the window still open (i.e. the kernel is not busy anymore), type <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">cv2</span></code> and <code class="docutils literal notranslate"><span class="pre">cv2.destroyAllWindows()</span></code> into the console to close the window.</p></li>
+<li><p>If a window and the Python kernel is frozen permanently, you need to restart it - sorry!</p>
+</div></li>
+</ul>
+</div>
+</div>
+<div class="section" id="Opening-images-in-phenopype">
+<h2>Opening images in phenopype<a class="headerlink" href="#Opening-images-in-phenopype" title="Permalink to this headline">¶</a></h2>
+<p>To open an image, it first has to be loaded as an array using <code class="docutils literal notranslate"><span class="pre">load_image</span></code>. The array can then be passed on to <code class="docutils literal notranslate"><span class="pre">show_image</span></code>, which simply displays an image (no interactions, except zooming in using the mousewheel). The window is closed by keystroke (<code class="docutils literal notranslate"><span class="pre">Enter</span></code>, or <code class="docutils literal notranslate"><span class="pre">Esc</span></code> which both closes the window and ends ongoing processes).</p>
+<div class="nbinput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[1]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">phenopype</span> <span class="k">as</span> <span class="nn">pp</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">img</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">,</span><span class="s1">&#39;isopods.jpg&#39;</span><span class="p">))</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">show_image</span></code> can also handle multiple images. Here we loop through the <em>images</em> folder, attach all images to a list, and pass that list of arrays to the functions - it will give a warning if more than 10 images are being opened at the same time.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[2]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">images</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># square-brakets make an empty list</span>
+<span class="n">names</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">)</span> <span class="c1"># making a list of all the files names inside a directory</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span> <span class="c1"># looping along our list of names</span>
+    <span class="n">filepath</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="c1"># joining name and path strings</span>
+    <span class="n">images</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">filepath</span><span class="p">))</span> <span class="c1"># load images and store them in list</span>
+
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">position_offset</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span> <span class="c1">## show all images in the image folder in the tutorial directory</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+Invalid file extension &#34;.mp4&#34; - could not load image:
+isopods_fish.mp4
+WARNING: trying to open 20 images - proceed (y/n)?y
+Proceed - Opening images ...
+skipped showing list item of type NoneType
+</pre></div></div>
+</div>
+<p>The function has a few more options to arrange and separte images across the screen. Future version of phenopype will do this in more meaningful manner (e.g., arrange small images side by side until the screen is filled).</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[3]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">images</span><span class="p">,</span>
+              <span class="n">max_dim</span><span class="o">=</span><span class="mi">250</span><span class="p">,</span>           <span class="c1"># maximum dimension (in either direction) for the windows</span>
+              <span class="n">check</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>           <span class="c1"># don&#39;t issue warning if more than 10 images are opened</span>
+              <span class="n">position_offset</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>    <span class="c1"># window offset if multiple windows are displayed</span>
+              <span class="n">position_reset</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># don&#39;t reset position of windows (i.e. window position will be remembered)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+skipped showing list item of type NoneType
+</pre></div></div>
+</div>
+</div>
+<div class="section" id="Creating-masks">
+<h2>Creating masks<a class="headerlink" href="#Creating-masks" title="Permalink to this headline">¶</a></h2>
+<p>Masking, i.e. removing unwanted parts of an image that contain noise by including or excluding certain parts of the image, is an important preprocessing step in any computer vision workflow. Phenopype’s <code class="docutils literal notranslate"><span class="pre">create_mask</span></code> tool provides flexibility when drawing masks.</p>
+<center><div style="width:500px; text-align: left"><p><img alt="Create masks" src="_images/masks1.gif" /></p>
+<p><strong>Fig. 1:</strong> Phenopype’s mask tool in action. You can include or exclude certain parts of the image; the resulting coordinates are recognized in subsequent computer vision steps (e.g. thresholding)</p>
+</div></center><p>Using <code class="docutils literal notranslate"><span class="pre">create_mask</span></code> results in a DataFrame object that contains coordinates of the created mask. You can add multiple “submasks” that belong to the same mask layer that don’t have to be connected. Finish with <code class="docutils literal notranslate"><span class="pre">Enter</span></code>.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">img</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">,</span><span class="s1">&#39;isopods.jpg&#39;</span><span class="p">))</span>
+<span class="n">masks</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tray&quot;</span><span class="p">)</span>
+<span class="n">masks</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- creating mask
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[4]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename</th>
+      <th>coords</th>
+      <th>include</th>
+      <th>mask</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>unknown</td>
+      <td>[(256, 178), (1898, 178), (1898, 1336), (256, ...</td>
+      <td>1.0</td>
+      <td>tray</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>The masks DataFrame can also be attached to an existing DataFrame, when provided via <code class="docutils literal notranslate"><span class="pre">df_image_data</span></code>, to concatenate information, e.g. to pass on the image file name.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">img</span><span class="p">,</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">load_image</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;images&quot;</span><span class="p">,</span><span class="s1">&#39;isopods.jpg&#39;</span><span class="p">),</span> <span class="n">df</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">masks</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;tray&quot;</span><span class="p">,</span><span class="n">df_image_data</span><span class="o">=</span><span class="n">df</span><span class="p">)</span>
+<span class="n">masks</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+- creating mask
+</pre></div></div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[5]:
+</pre></div>
+</div>
+<div class="output_area rendered_html docutils container">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>filename</th>
+      <th>width</th>
+      <th>height</th>
+      <th>coords</th>
+      <th>include</th>
+      <th>mask</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>isopods.jpg</td>
+      <td>2100.0</td>
+      <td>1400.0</td>
+      <td>[(254, 170), (1904, 170), (1904, 1330), (254, ...</td>
+      <td>1.0</td>
+      <td>tray</td>
+    </tr>
+  </tbody>
+</table>
+</div></div>
+</div>
+<p>Creating masks like this corresponds to the <a class="reference internal" href="tutorial_3_phenopype_workflows.html#Low-throughput-workflow"><span class="std std-ref">low throughput workflow</span></a>, in which we first use <code class="docutils literal notranslate"><span class="pre">create_mask</span></code> to retrieve the mask coordinates, and then <code class="docutils literal notranslate"><span class="pre">draw_masks</span></code> to visualize the mask that was just created. A “canvas” is created with the original image and the mask coordinates, which can then be shown using <code class="docutils literal notranslate"><span class="pre">show_image</span></code>:</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[6]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">img</span><span class="p">,</span>
+                                     <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span>
+                                     <span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">label_colour</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+                                     <span class="n">label_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                     <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                     <span class="n">label_width</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+drawing mask: tray
+</pre></div></div>
+</div>
+<p>Existing mask DataFrames can be updated if they are provided via <code class="docutils literal notranslate"><span class="pre">df_mask</span></code>. In this step, select the reference card to and set <code class="docutils literal notranslate"><span class="pre">include=False</span></code> to exclude it. We use the previously created canvas to know which areas have been masked already. Then we create and visualize a new canvas, which will draw both masks onto the original image. Note that the masks with <code class="docutils literal notranslate"><span class="pre">include=False</span></code> are drawn in red.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[7]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">masks</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">canvas</span><span class="p">,</span>
+                                     <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span>
+                                     <span class="n">label</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
+                                     <span class="n">include</span><span class="o">=</span><span class="kc">False</span> <span class="c1"># will be automatically drawn in red</span>
+                                    <span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">img</span><span class="p">,</span>
+                                     <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span>
+                                     <span class="n">label</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                                     <span class="n">label_colour</span><span class="o">=</span><span class="s2">&quot;black&quot;</span><span class="p">,</span>
+                                     <span class="n">label_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                                     <span class="n">line_width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                     <span class="n">label_width</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+drawing mask: tray
+drawing mask: scale
+</pre></div></div>
+</div>
+<p>If you need more flexibility while drawin a mask, try the <code class="docutils literal notranslate"><span class="pre">polygon</span></code> tool - single polygons are finished with <code class="docutils literal notranslate"><span class="pre">Ctrl</span></code>, finish with <code class="docutils literal notranslate"><span class="pre">Enter</span></code> - the last open polyon will automatically be completed.</p>
+<div class="nbinput docutils container">
+<div class="prompt highlight-none notranslate"><div class="highlight"><pre><span></span>[8]:
+</pre></div>
+</div>
+<div class="input_area highlight-ipython3 notranslate"><div class="highlight"><pre>
+<span></span><span class="n">masks</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">preprocessing</span><span class="o">.</span><span class="n">create_mask</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">,</span> <span class="n">tool</span><span class="o">=</span><span class="s2">&quot;polygon&quot;</span><span class="p">)</span>
+<span class="n">canvas</span> <span class="o">=</span> <span class="n">pp</span><span class="o">.</span><span class="n">visualization</span><span class="o">.</span><span class="n">draw_masks</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">df_masks</span><span class="o">=</span><span class="n">masks</span><span class="p">)</span>
+<span class="n">pp</span><span class="o">.</span><span class="n">show_image</span><span class="p">(</span><span class="n">canvas</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="nboutput nblast docutils container">
+<div class="prompt empty docutils container">
+</div>
+<div class="output_area docutils container">
+<div class="highlight"><pre>
+drawing mask: tray
+drawing mask: scale
+drawing mask: mask1
+</pre></div></div>
+</div>
+<p>With this tutorial we have learned how to handle images and some basic interactions - proceed with <a class="reference internal" href="tutorial_3_phenopype_workflows.html"><span class="doc">Tutorial 3</span></a> to get started with image anaysis and learn about the different workflows that phenopype offers.</p>
+</div>
+</div>
+
+
+    </div>
+      
+  </div>
+</div>
+<footer class="footer">
+  <div class="container">
+    <p class="pull-right">
+      <a href="#">Back to top</a>
+      
+    </p>
+    <p>
+        &copy; Copyright 2021, Moritz Lürig.<br/>
+      Last updated on May 10, 2021, 5:17:54 PM.<br/>
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 3.4.3.<br/>
+    </p>
+  </div>
+</footer>
+  </body>
+</html>
