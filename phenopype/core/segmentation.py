@@ -133,6 +133,8 @@ def draw(
             df_drawings.reset_index(drop=True, inplace=True)
         if hasattr(obj_input, "image_bin"):
             image_bin = obj_input.image_bin
+        if hasattr(obj_input, "df_contours"):
+            df_contours = obj_input.df_contours
         else:
             print("no binary image provided")
             return
@@ -215,14 +217,14 @@ def draw(
         #         elif row["tool"] in ["rect", "rectangle", "poly", "polygon"]:
         #             cv2.fillPoly(image, np.array([coords]), colours[row["colour"]])
 
-        
+        ## create overlay
 
         ## method
         if not test_params.__class__.__name__ == "NoneType":
             out = _image_viewer(image, tool="draw",line_width=line_width, 
                     previous=test_params,max_dim = max_dim)
         elif not df_drawings.__class__.__name__ == "NoneType" and flag_edit == True:
-            out = _image_viewer(image,tool="draw", 
+            out = _image_viewer(image, tool="draw", df_contours=df_contours,
                                 previous=prev_drawings,max_dim = max_dim)
         else:
             out = _image_viewer(image,tool="draw", line_width=line_width,

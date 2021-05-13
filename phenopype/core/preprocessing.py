@@ -127,11 +127,18 @@ def create_mask(
 
         ## method
         if not test_params.__class__.__name__ == "NoneType":
-            out = _image_viewer(image, mode="interactive", tool=tool, previous=test_params, max_dim=max_dim)
+            out = _image_viewer(image, 
+                                mode="interactive", 
+                                tool=tool, 
+                                previous=test_params, 
+                                max_dim=max_dim)
         elif not df_masks.__class__.__name__ == "NoneType" and flag_edit == True:
-            out = _image_viewer(image, mode="interactive", tool=tool, previous=prev_masks, max_dim=max_dim)
+            out = _image_viewer(image, mode="interactive", 
+                                tool=tool, previous=prev_masks, 
+                                max_dim=max_dim)
         else:
-            out = _image_viewer(image, mode="interactive", tool=tool, max_dim=max_dim)
+            out = _image_viewer(image, mode="interactive", tool=tool, 
+                                max_dim=max_dim)
             
         ## abort
         if not out.done:

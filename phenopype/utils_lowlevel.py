@@ -63,7 +63,26 @@ class _image_viewer:
 
         ## new kwargs
         self.flag_test_mode = kwargs.get("test_mode", False)
-
+        
+        ## create original binary image 
+        self.df_contours = kwargs.get("df_contours", None)
+        if self.df_contours.__class__.__name__ == "DataFrame":
+            self.image_bin = np.zeros_like(image)
+            for index, row in self.df_contours.iterrows():
+                cv2.drawContours(
+                    image=self.image_bin,
+                    contours=[row["coords"]],
+                    contourIdx=0,
+                    thickness=-1,
+                    color=colours["white"],
+                    maxLevel=3,
+                    offset=None,
+                )
+            self.image_bin_copy = copy.deepcopy(self.image_bin)
+            
+            ## convert binary image to colour mask
+            self._bin2colmask(image, self.image_bin)
+            
         ## resize image canvas
         image_width, image_height = image.shape[1], image.shape[0]
         if image_height > window_max_dimension or image_width > window_max_dimension:
@@ -76,6 +95,15 @@ class _image_viewer:
                     ),
                     cv2.INTER_AREA,
                 )
+                if self.df_contours.__class__.__name__ == "DataFrame":
+                    self.colour_mask = cv2.resize(
+                        self.colour_mask_copy,
+                        (
+                            window_max_dimension,
+                            int((window_max_dimension / image_width) * image_height),
+                        ),
+                        cv2.INTER_AREA,
+                    )
             else:
                 canvas = cv2.resize(
                     image,
@@ -85,6 +113,15 @@ class _image_viewer:
                     ),
                     cv2.INTER_AREA,
                 )
+                if self.df_contours.__class__.__name__ == "DataFrame":
+                    self.colour_mask = cv2.resize(
+                        self.colour_mask_copy,
+                        (
+                            window_max_dimension,
+                            int((window_max_dimension / image_width) * image_height),
+                        ),
+                        cv2.INTER_AREA,
+                    )
         else:
             canvas = copy.deepcopy(image)
 
@@ -145,8 +182,12 @@ class _image_viewer:
                 self.colour_current = copy.deepcopy(self.line_colour)
                 self.orig_contours = kwargs.get("contours")
                 self.zoom_flag = True
+                
                 self.colour_left = kwargs.get("colour_left", "white")
-                self.colour_right = kwargs.get("colour_right", "black")
+                self.colour_right = kwargs.get("colour_right", "black")    
+
+            if not kwargs.get("previous"):
+                self._canvasAndColmask()
 
         ## this needs to be decluttered. there should only be one type of list 
         ## (points, not rectangle separately). relevant parameters for the 
@@ -177,6 +218,15 @@ class _image_viewer:
                             self.line_width,
                         )
                     self.point_list = []
+                    self.canvas = self.image_copy[
+                        self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2,
+                    ]
+                    self.canvas = cv2.resize(
+                        self.canvas,
+                        (self.canvas_width, self.canvas_height),
+                        interpolation=cv2.INTER_LINEAR,
+                    )
+                    self.canvas_copy = copy.deepcopy(self.canvas)
                 elif self.flag_tool == "line" or self.flag_tool == "polyline" or self.flag_tool == "polygon" or self.flag_test_mode == True:
                     for point in self.point_list:
                         cv2.polylines(
@@ -186,25 +236,29 @@ class _image_viewer:
                             self.line_colour,
                             self.line_width,
                         ) 
+                        
+                    self.canvas = self.image_copy[
+                        self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2,
+                    ]
+                    self.canvas = cv2.resize(
+                        self.canvas,
+                        (self.canvas_width, self.canvas_height),
+                        interpolation=cv2.INTER_LINEAR,
+                    )
+                    self.canvas_copy = copy.deepcopy(self.canvas)
                 elif self.flag_tool == "draw":
-                    ## draw all previous segments
+                    # draw all previous segments
                     for segment in self.point_list:
                         cv2.polylines(
-                            self.image_copy,
+                            self.image_bin,
                             np.array([segment[0]]),
                             False,
                             segment[1],
                             segment[2],
                             )
-            self.canvas = self.image_copy[
-                self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2,
-            ]
-            self.canvas = cv2.resize(
-                self.canvas,
-                (self.canvas_width, self.canvas_height),
-                interpolation=cv2.INTER_LINEAR,
-            )
-            self.canvas_copy = copy.deepcopy(self.canvas)
+                        
+                    self._canvasAndColmask()
+                    
 
         ## show canvas
         self.done = False
@@ -241,15 +295,21 @@ class _image_viewer:
                     ## remove last points
                     elif self.keypress == 26:
                         self.point_list = self.point_list[:-1]
-                        self.image_copy = copy.deepcopy(self.image)
+                        ## draw all segments
+                        self.image_bin = copy.deepcopy(self.image_bin_copy)
                         for segment in self.point_list:
                             cv2.polylines(
-                                self.image_copy,
+                                self.image_bin,
                                 np.array([segment[0]]),
                                 False,
                                 segment[1],
                                 segment[2],
                                 )
+                            
+                        ## convert binary image to colour mask
+                        self._bin2colmask(self.image_copy, self.image_bin)
+            
+                        ## resize image and mask
                         self.canvas = self.image_copy[
                             self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2
                         ]
@@ -258,7 +318,18 @@ class _image_viewer:
                             (self.canvas_width, self.canvas_height),
                             interpolation=cv2.INTER_LINEAR,
                         )
-                        self.canvas_copy = copy.deepcopy(self.canvas)
+                        self.colour_mask = self.colour_mask[
+                            self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2
+                        ]
+                        self.colour_mask = cv2.resize(
+                            self.colour_mask,
+                            (self.canvas_width, self.canvas_height),
+                            interpolation=cv2.INTER_LINEAR,
+                        )          
+                        
+                        ## merge mask and canvas
+                        self._canvasAndColmask()
+                        
                         cv2.imshow(self.window_name, self.canvas)
                         
             ## finish up
@@ -655,15 +726,20 @@ class _image_viewer:
             self.points = []
             
             ## draw all segments
+            self.image_bin = copy.deepcopy(self.image_bin_copy)
             for segment in self.point_list:
                 cv2.polylines(
-                    self.image_copy,
+                    self.image_bin,
                     np.array([segment[0]]),
                     False,
                     segment[1],
                     segment[2],
                     )
                 
+            ## convert binary image to colour mask
+            self._bin2colmask(self.image_copy, self.image_bin)
+
+            ## resize image and mask
             self.canvas = self.image_copy[
                 self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2
             ]
@@ -672,7 +748,18 @@ class _image_viewer:
                 (self.canvas_width, self.canvas_height),
                 interpolation=cv2.INTER_LINEAR,
             )
-            self.canvas_copy = copy.deepcopy(self.canvas)
+            self.colour_mask = self.colour_mask[
+                self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2
+            ]
+            self.colour_mask = cv2.resize(
+                self.colour_mask,
+                (self.canvas_width, self.canvas_height),
+                interpolation=cv2.INTER_LINEAR,
+            )          
+            
+            ## merge mask and canvas
+            self._canvasAndColmask()
+            
             cv2.imshow(self.window_name, self.canvas)
                 
         ## drawing mode
@@ -761,16 +848,63 @@ class _image_viewer:
         )
 
         ## create convas from image
-        self.canvas = self.image_copy[y1:y2, x1:x2]
+        if not self.flag_tool == "draw":
+            self.canvas = self.image_copy[y1:y2, x1:x2]
+            self.canvas = cv2.resize(
+                self.canvas,
+                (self.canvas_width, self.canvas_height),
+                interpolation=cv2.INTER_LINEAR,
+            )
+            self.canvas_copy = copy.deepcopy(self.canvas)
+        elif self.flag_tool == "draw":
+            
+            self.canvas = self.image_copy[y1:y2, x1:x2]
+            self.colour_mask = self.colour_mask_copy[y1:y2, x1:x2]
+                        
+            self._canvasAndColmask()
+            
+            self.line_width = int(self.line_width_orig / ((self.zoom_x2 - self.zoom_x1) / self.image_width))
+
+    def _bin2colmask(self, orig_image, binary_image):
+        
+        if len(binary_image.shape) > 2:
+            binary_image = cv2.cvtColor(binary_image, cv2.COLOR_BGR2GRAY)
+
+        _ , self.contours, _ = cv2.findContours(
+            image=binary_image,
+            mode=cv2.RETR_EXTERNAL,
+            method=cv2.CHAIN_APPROX_SIMPLE,
+        )
+
+        self.colour_mask = np.zeros_like(orig_image)
+        self.colour_mask[:] = colours["red"]
+        for contour in self.contours:
+            cv2.drawContours(
+                image=self.colour_mask,
+                contours=[contour],
+                contourIdx=0,
+                thickness=-1,
+                color=colours["green"],
+                maxLevel=3,
+                offset=None,
+            )
+        
+        self.colour_mask_copy = copy.deepcopy(self.colour_mask)
+        
+    def _canvasAndColmask(self):
+
+        flag_fill = 0.3
+        self.canvas = cv2.addWeighted(self.canvas, 
+                                      1 - flag_fill, 
+                                      self.colour_mask, 
+                                      flag_fill, 
+                                      0)
         self.canvas = cv2.resize(
             self.canvas,
             (self.canvas_width, self.canvas_height),
             interpolation=cv2.INTER_LINEAR,
         )
         self.canvas_copy = copy.deepcopy(self.canvas)
-        
-        if self.flag_tool == "draw":
-            self.line_width = int(self.line_width_orig / ((self.zoom_x2 - self.zoom_x1) / self.image_width))
 
 
 class _yaml_file_monitor:
