@@ -6,6 +6,7 @@
 
 **Author:** [Moritz Lürig](https://luerig.net)  
 **License:** [LGPL](https://opensource.org/licenses/LGPL-3.0)  
+**Citation:** [Lürig, M. D. (2021). phenopype: a phenotyping pipeline for Python. bioRxiv, 2021.03.17.435781. doi:10.1101/2021.03.17.435781.](#how-to-cite-phenopype) 
 
 ---
 
@@ -55,11 +56,15 @@ The full Documentation can be found here: **https://mluerig.github.io/phenopype/
 Phenopype development is an ongoing process and contributions towards making it a more broadly applicable and user-friendly tool are most welcome. This can be in the form of feature requests (e.g. more functions from the [OpenCV library](https://docs.opencv.org/master/modules.html)) or by reporting bugs via the [issue tracker](https://github.com/mluerig/phenopype/issues). You can also [get in touch with me](https://luerig.net) directly if you have any suggestions for improvement.
 
 #### How to cite phenopype
-phenopype: a phenotyping pipeline for python (v2.0.0). 2021 Lürig, M. https://github.com/mluerig/phenopype
-
-    @misc{phenopype,
-      title={{phenopype: a phenotyping pipeline for Python}},
-      author={L{\"u}rig, Moritz},
-      year={2021},
-      url={https://github.com/mluerig/phenopype},
+    
+    @UNPUBLISHED{Lurig2021-ff,
+      title    = "phenopype: a phenotyping pipeline for Python",
+      author   = "L{\"u}rig, Moritz D",
+      journal  = "bioRxiv",
+      pages    = "2021.03.17.435781",
+      month    =  mar,
+      year     =  2021,
+      language = "en",
+      doi      = "10.1101/2021.03.17.435781"
     }
+
