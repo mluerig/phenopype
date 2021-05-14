@@ -562,7 +562,7 @@ def detect_reference(
             print('Setting "current reference" to None')
             print("---------------------------------------------------")
             detected_px_mm_ratio = None
-            break
+            return
 
         ## merge with existing image_data frame
         df_image_data["current_px_mm_ratio"] = detected_px_mm_ratio

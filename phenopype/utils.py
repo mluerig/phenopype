@@ -179,7 +179,7 @@ class container(object):
                         
                     ## load tempate image from project level attributes
                     if "template_image" in attr_proj["reference"][active_ref]:
-                        self.reference_template_image = cv2.imread(os.path.join(attr_local_path ,r"../../..", attr_proj["reference"][active_ref]["template_image"]))
+                        self.reference_template_image = cv2.imread(str(Path(attr_local_path).parents[2] / attr_proj["reference"][active_ref]["template_image"]))
                         loaded.append("reference template image loaded from root directory")
 
         ## canvas

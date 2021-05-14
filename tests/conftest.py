@@ -34,6 +34,7 @@ def project_container():
     proj.add_reference(name="ref1", reference_image=0, template=True, test_params=ref_params)
     obj_input = pp.load_directory(proj.dirpaths[0], save_suffix=pype_name)
     obj_input.load()
+    project_container=obj_input
     return obj_input 
 
 @pytest.fixture(scope="session")
