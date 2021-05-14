@@ -45,7 +45,7 @@ def test_detect_reference(project_container):
     pp.preprocessing.detect_reference(project_container, 
                                       overwrite=flag_overwrite,
                                       equalize=True)
-    assert project_container.reference_detected_px_mm_ratio == 35.4
+    assert round(project_container.reference_detected_px_mm_ratio) == 35
 
 def test_create_reference(project_container):
     test_params = {"flag_test_mode": True,
