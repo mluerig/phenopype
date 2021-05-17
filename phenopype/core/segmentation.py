@@ -123,6 +123,8 @@ def draw(
     elif obj_input.__class__.__name__ == "container":
         if flag_canvas == "image":
             image = copy.deepcopy(obj_input.image)
+            if len(image.shape) == 2:
+                image = cv2.cvtColor(image, cv2.COLOR_GRAY2BGR)
         elif flag_canvas == "canvas":
             image = copy.deepcopy(obj_input.canvas)
         df_image_data = obj_input.df_image_data
@@ -131,12 +133,11 @@ def draw(
             if "index" in df_drawings:
                 df_drawings.drop(columns = ["index"], inplace=True)
             df_drawings.reset_index(drop=True, inplace=True)
-        if hasattr(obj_input, "image_bin"):
+        if hasattr(obj_input, "image_bin") and hasattr(obj_input, "df_contours"):
             image_bin = obj_input.image_bin
-        if hasattr(obj_input, "df_contours"):
             df_contours = obj_input.df_contours
         else:
-            print("no binary image provided")
+            print("no binary image and contours provided")
             return
     
     else:
@@ -239,10 +240,10 @@ def draw(
             elif obj_input.__class__.__name__ == "container":
                 print("- terminated drawing")
                 return True
-
-        ## create df
-        df_drawings_sub_new = pd.DataFrame()
+            
         if len(point_list) > 0:
+            ## create df
+            df_drawings_sub_new = pd.DataFrame()
             for segment in point_list:
                 col_string = list(colours.keys())[list(colours.values()).index(segment[1])]
                 df_drawings_sub_new = df_drawings_sub_new.append(
@@ -255,21 +256,23 @@ def draw(
                     ignore_index=True,
                     sort=True,
                 )
-            df_drawings_sub_new.line_width = df_drawings_sub_new.line_width.astype(int)
+                df_drawings_sub_new.line_width = df_drawings_sub_new.line_width.astype(int)
+
+            ## merge with existing image_data frame
+            df_drawings_sub_new = pd.concat(
+                [
+                    pd.concat([df_image_data] * len(df_drawings_sub_new)).reset_index(drop=True),
+                    df_drawings_sub_new.reset_index(drop=True),
+                ],
+                axis=1,
+            )
+            df_drawings = df_drawings.append(df_drawings_sub_new)
+            break
         else:
             print("zero coordinates - redo drawing!")
+            return
             
-        ## merge with existing image_data frame
-        df_drawings_sub_new = pd.concat(
-            [
-                pd.concat([df_image_data] * len(df_drawings_sub_new)).reset_index(drop=True),
-                df_drawings_sub_new.reset_index(drop=True),
-            ],
-            axis=1,
-        )
-        df_drawings = df_drawings.append(df_drawings_sub_new)
-        break
-    
+        
     ## draw
     for idx, row in df_drawings.loc[df_drawings['label'] == label].iterrows():
         coords = eval(row["coords"])

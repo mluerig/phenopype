@@ -638,6 +638,9 @@ class project:
             include=search_strings,
             exclude=["pype_config"],
         )
+        
+        if found.__class__.__name__ == "NoneType":
+            return
 
         ## collect
         for filepath in found:

@@ -180,7 +180,6 @@ class _image_viewer:
                 self.line_width = int(self.line_width_orig / ((self.zoom_x2 - self.zoom_x1) / self.image_width))
                 self.line_colour = colours[kwargs.get("line_colour", "red")]
                 self.colour_current = copy.deepcopy(self.line_colour)
-                self.orig_contours = kwargs.get("contours")
                 self.zoom_flag = True
                 
                 self.colour_left = kwargs.get("colour_left", "white")
@@ -627,6 +626,7 @@ class _image_viewer:
                 return
             self.rect_start = x, y
             self.canvas_copy = copy.deepcopy(self.canvas)
+            
         if event == cv2.EVENT_LBUTTONUP:  
             if template == True and len(self.rect_list) == 1:
                 return
@@ -659,6 +659,7 @@ class _image_viewer:
             cv2.imshow(self.window_name, self.canvas)
             if template == True and len(self.rect_list) == 1:
                 print("Template selected")
+                
         if event == cv2.EVENT_RBUTTONDOWN:
             if len(self.rect_list) > 0:
                 self.rect_list = self.rect_list[:-1]
@@ -860,9 +861,7 @@ class _image_viewer:
             
             self.canvas = self.image_copy[y1:y2, x1:x2]
             self.colour_mask = self.colour_mask_copy[y1:y2, x1:x2]
-                        
             self._canvasAndColmask()
-            
             self.line_width = int(self.line_width_orig / ((self.zoom_x2 - self.zoom_x1) / self.image_width))
 
     def _bin2colmask(self, orig_image, binary_image):
@@ -1134,8 +1133,9 @@ def _file_walker(
     ## check if files found
     filepaths = filepaths4
     if len(filepaths) == 0 and not pype_mode:
-        sys.exit("No files found under the given location that match given criteria.")
-
+        print("No files found under the given location that match given criteria.")
+        return None, None
+    
     ## allow unique filenames filepath or by filename only
     filenames, unique_filename, unique, duplicate = [], [], [], []
     for filepath in filepaths:
