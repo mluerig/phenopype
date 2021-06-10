@@ -71,7 +71,7 @@ def draw(
     df_drawings=None,
     df_image_data=None,
     label="drawing1",
-    canvas="image",
+    canvas="canvas",
     line_width="auto",
     mode="normal",
     overwrite=False,
@@ -203,33 +203,18 @@ def draw(
             print("- drawing")
             pass
 
-        # ## add other labels for reference
-        # if len(df_drawings) > 0:
-        #     for idx, row in df_drawings.iterrows():
-        #         coords = eval(row["coords"])
-        #         if row["tool"] in ["line", "lines","polyline","polylines"]:
-        #             cv2.polylines(
-        #                 image,
-        #                 np.array([coords]),
-        #                 False,
-        #                 colours[row["line_colour"]],
-        #                 row["line_width"],
-        #             )
-        #         elif row["tool"] in ["rect", "rectangle", "poly", "polygon"]:
-        #             cv2.fillPoly(image, np.array([coords]), colours[row["colour"]])
-
-        ## create overlay
-
         ## method
         if not test_params.__class__.__name__ == "NoneType":
             out = _image_viewer(image, tool="draw",line_width=line_width, 
-                    previous=test_params,max_dim = max_dim)
+                                df_contours=df_contours, previous=test_params,
+                                max_dim = max_dim)
         elif not df_drawings.__class__.__name__ == "NoneType" and flag_edit == True:
             out = _image_viewer(image, tool="draw", df_contours=df_contours,
                                 previous=prev_drawings,max_dim = max_dim)
         else:
             out = _image_viewer(image,tool="draw", line_width=line_width,
-                                max_dim = max_dim)
+                                df_contours=df_contours, max_dim = max_dim,
+                                previous=prev_drawings)
         point_list = out.point_list
         
         ## abort

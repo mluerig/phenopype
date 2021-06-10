@@ -78,6 +78,7 @@ class _image_viewer:
                     maxLevel=3,
                     offset=None,
                 )
+                
             self.image_bin_copy = copy.deepcopy(self.image_bin)
             
             ## convert binary image to colour mask
@@ -185,8 +186,8 @@ class _image_viewer:
                 self.colour_left = kwargs.get("colour_left", "white")
                 self.colour_right = kwargs.get("colour_right", "black")    
 
-            if not kwargs.get("previous"):
-                self._canvasAndColmask()
+                if not kwargs.get("previous"):
+                    self._canvasAndColmask()
 
         ## this needs to be decluttered. there should only be one type of list 
         ## (points, not rectangle separately). relevant parameters for the 
@@ -247,6 +248,7 @@ class _image_viewer:
                     self.canvas_copy = copy.deepcopy(self.canvas)
                 elif self.flag_tool == "draw":
                     # draw all previous segments
+                    self.image_bin = copy.deepcopy(self.image_bin_copy)
                     for segment in self.point_list:
                         cv2.polylines(
                             self.image_bin,
@@ -256,8 +258,29 @@ class _image_viewer:
                             segment[2],
                             )
                         
-                    self._canvasAndColmask()
+                    ## convert binary image to colour mask
+                    self._bin2colmask(self.image_copy, self.image_bin)
+
+                    ## resize image and mask
+                    self.canvas = self.image_copy[
+                        self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2
+                    ]
+                    self.canvas = cv2.resize(
+                        self.canvas,
+                        (self.canvas_width, self.canvas_height),
+                        interpolation=cv2.INTER_LINEAR,
+                    )
+                    self.colour_mask = self.colour_mask[
+                        self.zoom_y1 : self.zoom_y2, self.zoom_x1 : self.zoom_x2
+                    ]
+                    self.colour_mask = cv2.resize(
+                        self.colour_mask,
+                        (self.canvas_width, self.canvas_height),
+                        interpolation=cv2.INTER_LINEAR,
+                    )    
                     
+                    ## merge mask and canvas
+                    self._canvasAndColmask()
 
         ## show canvas
         self.done = False
@@ -266,6 +289,9 @@ class _image_viewer:
         cv2.startWindowThread()
         cv2.setMouseCallback(self.window_name, self._on_mouse_plain)
         cv2.resizeWindow(self.window_name, self.canvas_width, self.canvas_height)
+        
+        global global_end_while
+        global_end_while = False
         
         ## window control
         self.keypress = None
@@ -330,7 +356,9 @@ class _image_viewer:
                         self._canvasAndColmask()
                         
                         cv2.imshow(self.window_name, self.canvas)
-                        
+                    if global_end_while:
+                        break
+                        cv2.destroyAllWindows()
             ## finish up
             if (
                 self.flag_tool == "polygon"
@@ -868,15 +896,17 @@ class _image_viewer:
         
         if len(binary_image.shape) > 2:
             binary_image = cv2.cvtColor(binary_image, cv2.COLOR_BGR2GRAY)
-
+            
         _ , self.contours, _ = cv2.findContours(
             image=binary_image,
             mode=cv2.RETR_EXTERNAL,
             method=cv2.CHAIN_APPROX_SIMPLE,
         )
-
+        
         self.colour_mask = np.zeros_like(orig_image)
+        
         self.colour_mask[:] = colours["red"]
+        
         for contour in self.contours:
             cv2.drawContours(
                 image=self.colour_mask,
@@ -891,7 +921,7 @@ class _image_viewer:
         self.colour_mask_copy = copy.deepcopy(self.colour_mask)
         
     def _canvasAndColmask(self):
-
+                
         flag_fill = 0.3
         self.canvas = cv2.addWeighted(self.canvas, 
                                       1 - flag_fill, 
@@ -926,9 +956,10 @@ class _yaml_file_monitor:
 
     def on_update(self, event):
         self.content = _load_yaml(self.filepath, typ="safe")
+        global global_end_while
+        global_end_while = True
         cv2.destroyWindow("phenopype")
-        for i in range(self.delay):
-            cv2.waitKey(1)
+        cv2.waitKey(self.delay)
 
     def stop(self):
         self.observer.stop()
