@@ -71,6 +71,7 @@ def draw(
     df_drawings=None,
     df_image_data=None,
     label="drawing1",
+    subset_label=False,
     canvas="canvas",
     line_width="auto",
     mode="normal",
@@ -154,23 +155,41 @@ def draw(
             print("Silent mode - using existing coordinates")
             break
         if not df_drawings.__class__.__name__ == "NoneType":
-            ## select df_drawing that matches label
-            df_drawings_sub = df_drawings.loc[df_drawings['label'] == label]
             
-            ## remove meta-columns
-            df_drawings_sub = df_drawings_sub[
-                df_drawings_sub.columns.intersection(["label", "tool", "line_colour","line_width","coords"])
-            ]
+            if subset_label:
+                ## select df_drawing that matches label
+                df_drawings_sub = df_drawings.loc[df_drawings['label'] == label]
+                
+                ## remove meta-columns
+                df_drawings_sub = df_drawings_sub[
+                    df_drawings_sub.columns.intersection(["label", "tool", "line_colour","line_width","coords"])
+                ]
+            else:
+                df_drawings_columns = df_drawings.columns.tolist()
+                df_drawings_sub = df_drawings[
+                    df_drawings.columns.intersection(["label", "tool", "line_colour","line_width","coords"])
+                ]
 
         ## check if exists
         if not df_drawings.__class__.__name__ == "NoneType" and flag_overwrite == False and flag_edit == False:
-            if label in df_drawings_sub["label"].values:
-                print("- drawing with label " + label + " already created (overwrite=False)")
-                break
+            if subset_label:
+                if label in df_drawings_sub["label"].values:
+                    print("- drawing with label " + label + " already created (overwrite=False)")
+                    break
         elif not df_drawings.__class__.__name__ == "NoneType" and flag_edit == True:
             ## extract previous drawing and convert to dict
-
-            if label in df_drawings_sub["label"].values:
+            if subset_label:
+                if label in df_drawings_sub["label"].values:
+                    prev_point_list = []
+                    for index, row in df_drawings_sub.iterrows():
+                        prev_point_list.append([
+                            eval(row["coords"]),
+                            colours[row["line_colour"]],
+                            row["line_width"],
+                            ]) 
+                ## remove rows from original drawing df
+                df_drawings = df_drawings.drop(df_drawings[df_drawings["label"] == label].index)
+            else:
                 prev_point_list = []
                 for index, row in df_drawings_sub.iterrows():
                     prev_point_list.append([
@@ -178,7 +197,6 @@ def draw(
                         colours[row["line_colour"]],
                         row["line_width"],
                         ]) 
-                    
                 prev_drawings = {
                     # "tool": df_drawings_sub["tool"].unique()[0],
                     # "line_colour": colours[df_drawings_sub["line_colour"].unique()[0]],
@@ -186,15 +204,15 @@ def draw(
                     "point_list": prev_point_list,
                                   }
                 
-                ## remove rows from original drawing df
-                df_drawings = df_drawings.drop(df_drawings[df_drawings["label"] == label].index)
+
                 print("- drawing (editing)")
             pass
         elif not df_drawings.__class__.__name__ == "NoneType" and flag_overwrite == True:
-            if label in df_drawings["label"].values:            
-                ## remove rows from original drawing df
-                df_drawings = df_drawings.drop(df_drawings[df_drawings["label"] == label].index)
-                print("- drawing (overwriting)")
+            if subset_label:
+                if label in df_drawings["label"].values:            
+                    ## remove rows from original drawing df
+                    df_drawings = df_drawings.drop(df_drawings[df_drawings["label"] == label].index)
+                    print("- drawing (overwriting)")
             pass
         
         elif df_drawings.__class__.__name__ == "NoneType" or len(df_drawings) == 0:
@@ -251,7 +269,11 @@ def draw(
                 ],
                 axis=1,
             )
-            df_drawings = df_drawings.append(df_drawings_sub_new)
+            
+            if subset_label:
+                df_drawings = df_drawings.append(df_drawings_sub_new)
+            else:
+                df_drawings = df_drawings_sub_new[df_drawings_columns]
             break
         else:
             print("zero coordinates - redo drawing!")

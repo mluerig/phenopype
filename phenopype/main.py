@@ -975,7 +975,11 @@ class pype:
                     '\n found existing result files containing "' + name + '" - skipped\n'
                 )
                 return
-
+            
+        ignore = kwargs.get("ignore", [])
+        if not ignore.__class__.__name__ == "list":
+            ignore = [ignore]
+        
         ## load config
         if config_location:
             self.config, self.config_location = _load_pype_config(config_location)
@@ -1079,14 +1083,17 @@ class pype:
                         
                     try:
                         ## run method
-                        print(method_name)
-                        method_loaded = eval(step_name + "." + method_name)
-                        restart = method_loaded(self.container, **method_arguments)
-    
-                        ## control
-                        if restart:
-                            print("RESTART")
-                            break
+                        if not method_name in ignore:
+                            print(method_name)
+                            method_loaded = eval(step_name + "." + method_name)
+                            restart = method_loaded(self.container, **method_arguments)
+        
+                            ## control
+                            if restart:
+                                print("RESTART")
+                                break
+                        else:
+                            print(method_name + " ignored!")
 
                     except Exception as ex:
                         location = (
