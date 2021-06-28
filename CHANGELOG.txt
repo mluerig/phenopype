@@ -3,6 +3,17 @@ Known bugs
 - any OS: high GUI window sometimes crashes. workaround: use "cv2.destroyAllWindows()", or restart kernel
 - on macOS, the high throughput workflow crashes when watchdog and opencv interact ("segmentation fault")
 
+1.0.11
+------
+bugfix:
+	- drawing function: edit=True possible without previous drawings
+	- various minor issues
+
+1.0.10
+------
+bugfix:
+	- drawing function: image check
+
 1.0.9 
 -----
 bugfix:

@@ -693,6 +693,7 @@ def load_image_data(obj_input, resize=1):
         elif os.path.isdir(obj_input):
             attr = _load_yaml(os.path.join(obj_input, "attributes.yaml"))
             path = attr["project"]["raw_path"]
+        print(path)
         image = Image.open(path)
         width, height = image.size
         image.close()
