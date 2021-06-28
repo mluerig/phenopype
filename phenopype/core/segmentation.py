@@ -5,6 +5,8 @@ import pandas as pd
 
 from math import inf
 
+
+from phenopype.utils import show_image
 from phenopype.settings import colours
 from phenopype.core.preprocessing import invert_image
 from phenopype.utils_lowlevel import _create_mask_bool, _image_viewer, _auto_line_width
@@ -154,6 +156,7 @@ def draw(
         if mode == "silent":
             print("Silent mode - using existing coordinates")
             break
+                
         if not df_drawings.__class__.__name__ == "NoneType":
             
             if subset_label:
@@ -217,10 +220,11 @@ def draw(
         
         elif df_drawings.__class__.__name__ == "NoneType" or len(df_drawings) == 0:
             df_drawings = pd.DataFrame(columns=["label", "tool", "line_colour","line_width","coords"])
+            df_drawings_columns = df_drawings.columns.tolist()
             prev_drawings = {}
             print("- drawing")
             pass
-
+        
         ## method
         if not test_params.__class__.__name__ == "NoneType":
             out = _image_viewer(image, tool="draw",line_width=line_width, 
@@ -281,6 +285,20 @@ def draw(
             
         
     ## draw
+    
+    image_bin = np.zeros_like(image_bin)
+    for index, row in df_contours.iterrows():
+        cv2.drawContours(
+            image=image_bin,
+            contours=[row["coords"]],
+            contourIdx=0,
+            thickness=-1,
+            color=colours["white"],
+            maxLevel=3,
+            offset=None,
+        )
+            
+    
     for idx, row in df_drawings.loc[df_drawings['label'] == label].iterrows():
         coords = eval(row["coords"])
         if row["tool"] in ["line", "lines","polyline","polylines","draw"]:
@@ -303,6 +321,7 @@ def draw(
     elif obj_input.__class__.__name__ == "container":
         obj_input.df_drawings = df_drawings
         obj_input.image = image_bin
+        obj_input.image_bin = image_bin
 
 # pp.show_image(image)
 
@@ -372,7 +391,7 @@ def find_contours(
         contains contours
 
     """
-
+    
     ## kwargs
     retr_alg = {
         "ext": cv2.RETR_EXTERNAL,  ## only external
@@ -400,7 +419,7 @@ def find_contours(
     else:
         print("wrong input format.")
         return
-
+    
     ## check
     if len(image.shape) > 2:
         print("Multi-channel array supplied - need binary array.")

@@ -1032,7 +1032,7 @@ class pype:
                 step_method_list = step[1]
                       
                 ## skip cases: meta-steps, none, or presetting mode
-                if step_name in ["image", "meta", "pype", "project"]:
+                if step_name in ["image", "meta", "pype", "project", "other"]:
                     continue
                 if step_method_list.__class__.__name__=="NoneType":
                     continue
